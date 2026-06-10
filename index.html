@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tom Pearl Archival Network & Arena</title>
+    <style>
+        :root {
+            --bg-color: #050508;
+            --container-bg: #0b0b10;
+            --panel-bg: #11111a;
+            --accent-color: #ff9800;
+            --accent-hover: #e08600;
+            --text-color: #f5f5fa;
+            --text-muted: #76768a;
+            --border-color: #1f1f2e;
+            --success-color: #00e676;
+            --danger-color: #ff1744;
+            --powerup-blue: #00e5ff;
+            --powerup-purple: #d500f9;
+            --virus-green: #39ff14;
+            --fecal-brown: #7a5230;
+            --urine-yellow: #e2b13c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            user-select: none;
+        }
+
+        nav {
+            background-color: #020204;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            border-bottom: 3px solid var(--accent-color);
+            position: sticky;
+            top: 0;
+            z-index: 99999;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            padding: 16px 24px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav button:hover { color: var(--accent-color); background-color: rgba(255, 152, 0, 0.04); }
+        nav button.active { background-color: var(--accent-color); color: #000; }
+
+        .container {
+            max-width: 1250px;
+            margin: 25px auto;
+            background-color: var(--container-bg);
+            padding: 30px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        h2, h3, h4 { color: var(--accent-color); margin-top: 0; font-weight: 800; letter-spacing: -0.5px; }
+        hr { border: 0; height: 1px; background: var(--border-color); margin: 25px 0; }
+
+        .utility-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0d0d16;
+            padding: 16px 24px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+
+        #coin-bar {
+            font-size: 19px;
+            font-weight: 900;
+            color: #ffcc00;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 10px rgba(255,204,0,0.2);
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: black;
+            padding: 11px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover { background-color: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,152,0,0.2); }
+        .btn:disabled { background-color: #444 !important; color: #888 !important; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+        #game-setup { background: var(--panel-bg); padding: 25px; border-radius: 10px; margin-bottom: 25px; border: 1px solid var(--border-color); }
+        .skin-selector { display: flex; gap: 16px; margin: 18px 0; flex-wrap: wrap; }
+        .skin-container { text-align: center; cursor: pointer; position: relative; padding: 5px; background: #07070a; border-radius: 8px; border: 1px solid var(--border-color); }
+        .skin-option { border: 3px solid #252535; border-radius: 50%; width: 75px; height: 75px; object-fit: cover; background: #000; transition: all 0.2s; }
+        .skin-container.selected .skin-option { border-color: var(--accent-color); box-shadow: 0 0 16px var(--accent-color); }
+        .skin-price-tag { font-size: 11px; font-weight: 900; color: #ffcc00; margin-top: 4px; font-family: monospace; }
+
+        .game-ui { position: relative; width: 100%; max-width: 950px; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.9); border: 2px solid var(--border-color); }
+        #leaderboard { position: absolute; top: 15px; right: 15px; background: rgba(5,5,8,0.94); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13px; min-width: 200px; font-family: monospace; pointer-events: none; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        #powerup-status-bar { position: absolute; bottom: 15px; left: 15px; background: rgba(5,5,8,0.92); padding: 12px 18px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 12px; font-family: monospace; color: #fff; pointer-events: none; }
+        #death-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,8,0.75); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; z-index: 999; backdrop-filter: blur(2px); }
+        .death-box { background: #0b0b12; padding: 35px 50px; border-radius: 12px; border: 2px solid var(--danger-color); box-shadow: 0 0 50px rgba(255,23,68,0.4); }
+        canvas { background-color: #030305; display: block; cursor: crosshair; }
+
+        .scat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px; margin-top: 15px; }
+        .thumbnail-card { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; cursor: pointer; transition: all 0.25s ease; position: relative; }
+        .thumbnail-card:hover { transform: translateY(-4px); border-color: var(--accent-color); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+        .thumb-preview { height: 160px; background: linear-gradient(145deg, #0f0f15, #1d1d29); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 46px; border-bottom: 1px solid var(--border-color); color: var(--accent-color); position: relative; }
+        .thumb-tag { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.85); padding: 2px 6px; border-radius: 3px; font-size: 11px; font-family: monospace; color: #fff; }
+        .thumb-info { padding: 14px; }
+        .video-meta-metrics { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 5px; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3,3,5,0.96); z-index: 999999; justify-content: center; align-items: center; }
+        .modal-content { background: var(--container-bg); border: 2px solid var(--border-color); max-width: 750px; width: 92%; padding: 25px; border-radius: 12px; position: relative; }
+        .close-modal { position: absolute; top: 12px; right: 20px; font-size: 32px; color: var(--text-muted); cursor: pointer; }
+        .close-modal:hover { color: white; }
+
+        .casino-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 25px; }
+        .game-card { background-color: var(--panel-bg); border: 1px solid var(--border-color); padding: 25px; border-radius: 10px; display: flex; flex-direction: column; justify-content: space-between; }
+        .game-panel { background: #06060a; padding: 20px; border-radius: 8px; margin-top: 15px; text-align: center; border: 1px solid var(--border-color); }
+        
+        .roulette-wrapper { display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 15px 0; background: #04100a; border: 2px solid #0d2d1d; padding: 20px; border-radius: 8px; }
+        #rouletteWheelCanvas { background: transparent; filter: drop-shadow(0 0 12px rgba(0,0,0,0.6)); }
+
+        .chip-selector { display: flex; justify-content: center; gap: 12px; margin-bottom: 5px; }
+        .chip { background: #1c1c2b; border: 2px dashed #555; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+        .chip.active-chip { transform: scale(1.18); border-color: var(--accent-color); color: var(--accent-color); box-shadow: 0 0 14px var(--accent-color); background: #000; }
+        
+        /* VISUAL SLOTS AND CASINO STYLING */
+        .slot-reel-container { display: flex; justify-content: center; gap: 15px; margin: 20px 0; background: #000; padding: 20px; border-radius: 10px; border: 2px solid #222; overflow: hidden; }
+        .slot-window { width: 70px; height: 80px; background: #111; border-radius: 6px; border: 2px solid #333; display: flex; align-items: center; justify-content: center; font-size: 42px; font-family: sans-serif; position: relative; }
+        
+        .card-table { display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 160px; margin: 15px 0; }
+        .playing-card { width: 100px; height: 145px; background: #fff; border-radius: 8px; color: #000; display: flex; flex-direction: column; justify-content: space-between; padding: 12px; box-sizing: border-box; box-shadow: 0 6px 18px rgba(0,0,0,0.4); position: relative; font-family: Georgia, serif; transition: transform 0.2s; }
+        .playing-card.red-card { color: #d32f2f; }
+        .playing-card .card-suit { font-size: 36px; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .playing-card .card-corner { font-size: 18px; font-weight: bold; line-height: 1; }
+        .playing-card .card-corner.bottom { text-align: right; transform: rotate(180deg); }
+
+        .card-display { font-size: 22px; font-weight: bold; color: var(--accent-color); margin: 12px 0; min-height: 35px; }
+
+        .stats-row { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px; }
+        .stat-box { background: var(--panel-bg); border: 1px solid var(--border-color); padding: 18px; border-radius: 8px; flex: 1; min-width: 190px; text-align: center; }
+        .stat-val { font-size: 26px; font-weight: bold; color: var(--accent-color); }
+    </style>
+</head>
+<body>
+
+    <div id="image-preload-vault" style="display: none;">
+        <img id="skin_c51970" src="image_c51970.png">
+        <img id="skin_c5198f" src="image_c5198f.png">
+        <img id="skin_c519af" src="image_c519af.png">
+        <img id="skin_c519cd" src="image_c519cd.png">
+        <img id="skin_c519b3" src="image_c519b3.png">
+        <img id="skin_c519d3" src="image_c519d3.png">
+        <img id="skin_c51975" src="image_c51975.png">
+    </div>
+
+    <nav>
+        <button id="btn-info" class="active" onclick="switchTab('info')">Archive System Info</button>
+        <button id="btn-game" onclick="switchTab('game')">Pearl.io Arena</button>
+        <button id="btn-videos" onclick="switchTab('videos')">Scat Room Vault</button>
+        <button id="btn-casino" onclick="switchTab('casino')">Pearl Casino</button>
+        <button id="btn-stats" onclick="switchTab('stats')">User Dashboard</button>
+    </nav>
+
+    <div class="container">
+        <div class="utility-header">
+            <div id="coin-bar">💩 Scat Points: <span id="coin-count">1000</span> SP</div>
+            <button class="btn" id="wheel-btn" onclick="spinBonusWheel()" style="background:#00e676; color:#000;">🎁 Collect Daily Bonus</button>
+        </div>
+
+        <div id="info" class="tab-content active">
+            <h2>Tom Pearl Historical Tribute Array</h2>
+            <hr>
+            <p>Welcome to the consolidated network interface. This application preserves underground digital internet assets, historic video review logs, and structural game variations under a simplified ecosystem model matrix.</p>
+        </div>
+
+        <div id="game" class="tab-content">
+            <h2>Pearl.io Arena Engine (Double Boundaries)</h2>
+            <p class="text-muted"><b>Controls:</b> Mouse guides movement when spawned. Press <b>W</b> to split. Press <b>Spacebar</b> to escape Dash. Consume shit (brown) and piss (yellow) fields. Killing a cell directly awards bonus Scat Points! Unlocked store skins permanently bind to your token archive.</p>
+            
+            <div id="game-setup">
+                <label><b>Character Target Tag:</b></label>
+                <input type="text" id="player-name" value="PearlConsumer" style="padding:10px; margin-left:10px; background:#050508; color:#fff; border:1px solid var(--border-color); border-radius:4px; font-weight:bold; width: 180px;">
+                
+                <br><br>
+                <label><b>Profile Custom Costume Skin Store / Selector:</b></label>
+                <div class="skin-selector">
+                    <div id="container-skin_c51970" class="skin-container selected" onclick="selectSkinStore('skin_c51970')">
+                        <img src="image_c51970.png" class="skin-option">
+                        <div class="skin-price-tag" id="price-skin_c51970">UNLOCKED</div>
+                    </div>
+                    <div id="container-skin_c5198f" class="skin-container" onclick="selectSkinStore('skin_c5198f')">
+                        <img src="image_c5198f.png" class="skin-option">
+                        <div class="skin-price-tag" id="price-skin_c5198f">200 SP</div>
+                    </div>
+                    <div id="container-skin_c519af" class="skin-container" onclick="selectSkinStore('skin_c519af')">
+                        <img src="image_c519af.png" class="skin-option">
+                        <div class="skin-price-tag" id="price-skin_c519af">400 SP</div>
+                    </div>
+                    <div id="container-skin_c519cd" class="skin-container" onclick="selectSkinStore('skin_c519cd')">
+                        <img src="image_c519cd.png" class="skin-option">
+                        <div class="skin-price-tag" id="price-skin_c519cd">600 SP</div>
+                    </div>
+                    <div id="container-skin_c519b3" class="skin-container" onclick="selectSkinStore('skin_c519b3')">
+                        <img src="image_c519b3.png" class="skin-option">
+                        <div class="skin-price-tag" id="price-skin_c519b3">800 SP</div>
+                    </div>
+                    <div id="container-skin_c519d3" class="skin-container" onclick="selectSkinStore('skin_c519d3')">
+                        <img src="image_c519d3.png" class="skin-option">
+                        <div class="skin-price-tag" id="price-skin_c519d3">1000 SP</div>
+                    </div>
+                    <div id="container-skin_c51975" class="skin-container" onclick="selectSkinStore('skin_c51975')">
+                        <img src="image_c51975.png" class="skin-option">
+                        <div class="skin-price-tag" id="price-skin_c51975">1500 SP</div>
+                    </div>
+                </div>
+                <button class="btn" onclick="spawnAsPlayer()">Spawn Into Grid Matrix</button>
+            </div>
+
+            <div class="game-ui">
+                <canvas id="agarCanvas" width="950" height="530"></canvas>
+                <div id="leaderboard">
+                    <div style="color:var(--accent-color); font-weight:bold; border-bottom:1px solid #222; padding-bottom:4px; margin-bottom:6px; text-align:center;">TOP CONSUMERS</div>
+                    <div id="lb-list"></div>
+                </div>
+                <div id="powerup-status-bar">POWERUP: None active (Press W to Split | SPACE to Dash)</div>
+                
+                <div id="death-screen">
+                    <div class="death-box">
+                        <h2 id="death-title" style="color:var(--accent-color); margin-bottom:5px;">Spectator Simulation Mode</h2>
+                        <p id="death-desc" style="color: var(--text-muted); font-size:13px; margin-bottom:20px;">AI bots are running wild. Jump in when ready.</p>
+                        <button class="btn" onclick="spawnAsPlayer()">Spawn Cell</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="videos" class="tab-content">
+            <h2>Tom Pearl's Archival Collection Vault</h2>
+            <div id="game-setup" style="background:var(--container-bg);">
+                <h3>Append Custom Field Document Item</h3>
+                <input type="text" id="vid-title" placeholder="Archive Asset Designation Label" style="width:100%; padding:10px; background:#050508; border:1px solid var(--border-color); color:#fff; border-radius:5px; margin-bottom:12px; box-sizing:border-box;">
+                <input type="text" id="vid-url" placeholder="Direct MP4 File Stream Target Path URL (Optional)" style="width:100%; padding:10px; background:#050508; border:1px solid var(--border-color); color:#fff; border-radius:5px; margin-bottom:12px; box-sizing:border-box;">
+                <textarea id="vid-review" rows="2" placeholder="Write historical review analysis notes..." style="width:100%; padding:10px; background:#050508; border:1px solid var(--border-color); color:#fff; border-radius:5px; margin-bottom:12px; box-sizing:border-box;"></textarea>
+                <select id="vid-rating" style="width:100%; padding:10px; background:#050508; border:1px solid var(--border-color); color:#fff; border-radius:5px; margin-bottom:15px;">
+                    <option value="5">⭐⭐⭐⭐⭐ Elite Level Classic Asset</option>
+                    <option value="4">⭐⭐⭐⭐ Notable Historical Documentation Value</option>
+                    <option value="3">⭐⭐ Standard Archival Entry Segment</option>
+                </select>
+                <button class="btn" onclick="postVideo()">Commit Document to Matrix Feed</button>
+            </div>
+            <h3>Archived Grid Stream Feed</h3>
+            <div class="scat-grid" id="thumbnail-container-grid"></div>
+        </div>
+
+        <div id="casino" class="tab-content">
+            <h2>Premium Single-Player Wager Tables</h2>
+            <div class="casino-grid">
+                <div class="game-card" style="grid-column: span 2;">
+                    <div>
+                        <h3>Cinematic Live Roulette Wheel Layout</h3>
+                    </div>
+                    <div class="game-panel" style="background:#040c08; border:1px solid #0d261a;">
+                        <div class="chip-selector">
+                            <div class="chip active-chip" onclick="selectChip(25, this)">25</div>
+                            <div class="chip" onclick="selectChip(50, this)">50</div>
+                            <div class="chip" onclick="selectChip(100, this)">100</div>
+                            <div class="chip" onclick="selectChip(500, this)">500</div>
+                        </div>
+                        
+                        <div class="roulette-wrapper">
+                            <canvas id="rouletteWheelCanvas" width="260" height="260"></canvas>
+                            
+                            <div style="font-weight:bold; font-size:12px; letter-spacing:1px; margin-bottom:5px; color:#99bda9;">CHIP ALLOCATION: <span id="current-chip-view" style="color:var(--accent-color);">25</span> SCAT POINTS</div>
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap:10px; width:100%; max-width:550px; margin:0 auto;">
+                                <button class="btn" id="btn-roulette-red" onclick="executeRouletteWager('red')" style="background:#b71c1c; color:#fff;">RED FIELDS (2x)</button>
+                                <button class="btn" id="btn-roulette-black" onclick="executeRouletteWager('black')" style="background:#111; color:#fff; border:1px solid #2e2e3a;">BLACK FIELDS (2x)</button>
+                                <button class="btn" id="btn-roulette-7" onclick="executeRouletteWager('7')" style="background:#ff9800; color:#000;">LUCKY 7 SPOT (35x)</button>
+                            </div>
+                        </div>
+                        <div class="card-display" id="roulette-status-field" style="font-size:14px; min-height:30px; color:#fff; font-family:monospace;">System primed...</div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div><h3>Pearl Kinetic Slots</h3></div>
+                    <div class="game-panel">
+                        <div class="slot-reel-container">
+                            <div class="slot-window" id="slot-w1">💩</div>
+                            <div class="slot-window" id="slot-w2">👑</div>
+                            <div class="slot-window" id="slot-w3">💩</div>
+                        </div>
+                        <button class="btn" id="slot-spin-btn" onclick="playSlotsAnimated()">Engage Reel Crank</button>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div><h3>High-Low Card Predictor</h3></div>
+                    <div class="game-panel">
+                        <div class="card-table">
+                            <div id="hilo-visual-card" class="playing-card">
+                                <div class="card-corner top" id="card-val-t">7</div>
+                                <div class="card-suit" id="card-suit-center">♠</div>
+                                <div class="card-corner bottom" id="card-val-b">7</div>
+                            </div>
+                        </div>
+                        <div id="hilo-text-status" style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Predict if next card drawn is higher or lower.</div>
+                        <button class="btn" onclick="playHiLo('high')">Predict Higher (▲)</button>
+                        <button class="btn" onclick="playHiLo('low')" style="margin-left:8px;">Predict Lower (▼)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="stats" class="tab-content">
+            <h2>Account System Metrics Display Ledger</h2>
+            <hr>
+            <div class="stats-row">
+                <div class="stat-box"><div class="stat-val" id="stat-games">0</div><div>Arena Matches Initialized</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-maxmass">0</div><div>Peak Structural Cell Mass</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-bets">0</div><div>Total Interactive Wagers Settled</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="media-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeMediaViewer()">&times;</span>
+            <h3 id="modal-video-title">Target Loading...</h3>
+            <div id="modal-media-frame" style="background:#020204; min-height:280px; border-radius:6px; display:flex; align-items:center; justify-content:center; margin:15px 0; border:1px solid var(--border-color);"></div>
+            <p id="modal-video-review" style="color:var(--text-muted); font-size:13px; background:#07070a; padding:12px; border-radius:5px; border:1px solid #1c1c26; line-height:1.6;"></p>
+        </div>
+    </div>
+
+    <script>
+        let coins = parseInt(localStorage.getItem('pearlCoins')) || 1000;
+        let selectedSkinId = 'skin_c51970'; 
+        let activeBetChipValue = 25;
+
+        let statsGames = parseInt(localStorage.getItem('statsGames')) || 0;
+        let statsMaxMass = parseInt(localStorage.getItem('statsMaxMass')) || 0;
+        let statsBets = parseInt(localStorage.getItem('statsBets')) || 0;
+
+        // SKINS PERMISSION AND VALUES MATRIX STORE
+        let unlockedSkins = JSON.parse(localStorage.getItem('unlockedSkins')) || ['skin_c51970'];
+        const skinPrices = {
+            'skin_c51970': 0,
+            'skin_c5198f': 200,
+            'skin_c519af': 400,
+            'skin_c519cd': 600,
+            'skin_c519b3': 800,
+            'skin_c519d3': 1000,
+            'skin_c51975': 1500
+        };
+
+        document.getElementById('coin-count').innerText = coins;
+        const skinMappingArray = ['skin_c51970', 'skin_c5198f', 'skin_c519af', 'skin_c519cd', 'skin_c519b3', 'skin_c519d3', 'skin_c51975'];
+
+        function updateCoins(amount) {
+            coins += amount;
+            localStorage.setItem('pearlCoins', coins);
+            document.getElementById('coin-count').innerText = coins;
+            renderSkinPriceTags();
+        }
+
+        function renderSkinPriceTags() {
+            for (let skinId in skinPrices) {
+                let el = document.getElementById('price-' + skinId);
+                if (el) {
+                    if (unlockedSkins.includes(skinId)) {
+                        el.innerText = "UNLOCKED";
+                        el.style.color = "var(--success-color)";
+                    } else {
+                        el.innerText = skinPrices[skinId] + " SP";
+                        el.style.color = "#ffcc00";
+                    }
+                }
+            }
+        }
+
+        function selectSkinStore(skinId) {
+            if (unlockedSkins.includes(skinId)) {
+                selectedSkinId = skinId;
+                document.querySelectorAll('.skin-container').forEach(el => el.classList.remove('selected'));
+                document.getElementById('container-' + skinId).classList.add('selected');
+            } else {
+                let price = skinPrices[skinId];
+                if (coins >= price) {
+                    if (confirm(`Do you wish to purchase this custom premium skin profile for ${price} Scat Points?`)) {
+                        updateCoins(-price);
+                        unlockedSkins.push(skinId);
+                        localStorage.setItem('unlockedSkins', JSON.stringify(unlockedSkins));
+                        selectedSkinId = skinId;
+                        document.querySelectorAll('.skin-container').forEach(el => el.classList.remove('selected'));
+                        document.getElementById('container-' + skinId).classList.add('selected');
+                        renderSkinPriceTags();
+                    }
+                } else {
+                    alert("Inadequate token reserves. Accrue more Scat Points through match eliminations or table wagers.");
+                }
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+            if(tabId === 'stats') {
+                document.getElementById('stat-games').innerText = statsGames;
+                document.getElementById('stat-maxmass').innerText = statsMaxMass;
+                document.getElementById('stat-bets').innerText = statsBets;
+            }
+        }
+
+        function spinBonusWheel() {
+            let stamp = localStorage.getItem('lastWheelSpinStamp') || 0;
+            let current = Date.now();
+            if(current - stamp < 12000) return alert("Cooldown active.");
+            let generatedBonus = Math.floor(Math.random() * 3 + 2) * 50;
+            updateCoins(generatedBonus);
+            localStorage.setItem('lastWheelSpinStamp', current);
+            alert(`+${generatedBonus} Scat Points.`);
+        }
+
+        // ========================================================
+        // POLISHED SANDBOX ENGINE WITH DOUBLE BOUNDS & SPATIAL BULK
+        // ========================================================
+        const canvas = document.getElementById('agarCanvas');
+        const ctx = canvas.getContext('2d');
+        let gameInterval = null;
+        let entities = [], pellets = [], powerups = [], bombs = [];
+        let respawnQueue = []; 
+        let mouseX = canvas.width / 2, mouseY = canvas.height / 2;
+        let isPlayerAlive = false;
+
+        let playerJoinIdleTimer = 0;
+
+        // DOUBLE SCALE EXPANSION COMPENSATING FOR MASS SCALE SPLITTING
+        const MAP_WIDTH = 8000;
+        const MAP_HEIGHT = 8000;
+        const TARGET_BOT_COUNT = 65;
+
+        const botNamesPool = [
+            "AssGuzzler69", "DiaperSniffer", "ScatManTom", "EnemaEnthusiast", "FecalFeaster", 
+            "GapingVoid", "PornAddictNode", "OnlyFansSimp", "ClitCommander", "ThiccCuckold", 
+            "BDSM_Mistress", "SuckingSewerPipe", "HotPooInjector", "CumStainedSkin", "CockCrusher", 
+            "GloryHoleCam", "FetishLord", "AnalPlunger", "HornySlutBot", "WetFartViolator", 
+            "MilfHunterPro", "GoblinGoo", "NutGobbler", "SemenSlurper", "TurboDildo", "RectalWrecker"
+        ];
+        const emergencyHexColors = ["#e91e63", "#9c27b0", "#3f51b5", "#00bcd4", "#4caf50", "#ffeb3b", "#ff9800", "#e11d48"];
+
+        let activePowerUpType = null;
+        let powerUpTimeRemaining = 0;
+
+        window.addEventListener('keydown', e => {
+            if(!isPlayerAlive) return;
+            if(e.key.toLowerCase() === 'w') executePlayerSplitAction();
+            if(e.key === ' ' || e.code === 'Space') {
+                e.preventDefault();
+                executePlayerDashAction();
+            }
+        });
+
+        canvas.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+        });
+
+        function createEntity(isPlayer, name, overruleX = null, overruleY = null, overruleRadius = null) {
+            let randomAssignedSkin = skinMappingArray[Math.floor(Math.random() * skinMappingArray.length)];
+            return {
+                id: Math.random().toString(36).substr(2, 9),
+                isPlayer: isPlayer,
+                name: name,
+                x: overruleX !== null ? overruleX : Math.random() * (MAP_WIDTH - 600) + 300,
+                y: overruleY !== null ? overruleY : Math.random() * (MAP_HEIGHT - 600) + 300,
+                radius: overruleRadius !== null ? overruleRadius : (isPlayer ? 45 : Math.floor(Math.random() * 45) + 25),
+                color: emergencyHexColors[Math.floor(Math.random() * emergencyHexColors.length)],
+                skinElementId: isPlayer ? selectedSkinId : randomAssignedSkin,
+                vx: 0,
+                vy: 0,
+                recombineTimer: 0
+            };
+        }
+
+        function executePlayerSplitAction() {
+            let playerNodes = entities.filter(x => x.isPlayer);
+            if (playerNodes.length >= 12) return; 
+
+            let newNodes = [];
+            playerNodes.forEach(p => {
+                if (p.radius >= 35) {
+                    let halfRadius = p.radius * 0.707; 
+                    p.radius = halfRadius;
+
+                    let dX = mouseX - canvas.width / 2;
+                    let dY = mouseY - canvas.height / 2;
+                    let len = Math.hypot(dX, dY) || 1;
+
+                    let splitNode = createEntity(true, p.name, p.x, p.y, halfRadius);
+                    splitNode.vx = (dX / len) * 18;
+                    splitNode.vy = (dY / len) * 18;
+                    splitNode.recombineTimer = 600; 
+                    newNodes.push(splitNode);
+                }
+            });
+            entities.push(...newNodes);
+        }
+
+        function executePlayerDashAction() {
+            let playerNodes = entities.filter(x => x.isPlayer);
+            playerNodes.forEach(p => {
+                if (p.radius > 22) {
+                    p.radius -= 0.9; 
+                    let dX = mouseX - canvas.width / 2;
+                    let dY = mouseY - canvas.height / 2;
+                    let len = Math.hypot(dX, dY) || 1;
+                    p.vx += (dX / len) * 26; 
+                    p.vy += (dY / len) * 26;
+                }
+            });
+        }
+
+        function spawnPowerUpOrb() {
+            return {
+                x: Math.random() * (MAP_WIDTH - 400) + 200,
+                y: Math.random() * (MAP_HEIGHT - 400) + 200,
+                type: ['speed', 'shield', 'magnet'][Math.floor(Math.random() * 3)],
+                pulse: 0
+            };
+        }
+
+        function spawnVirusBomb() {
+            return { 
+                x: Math.random() * (MAP_WIDTH - 600) + 300, 
+                y: Math.random() * (MAP_HEIGHT - 600) + 300, 
+                radius: 55 
+            };
+        }
+
+        function spawnWastePellet() {
+            // Random distribution between fecal brown and urine yellow
+            let wasteType = Math.random() > 0.4 ? 'fecal' : 'urine';
+            return {
+                x: Math.random() * MAP_WIDTH,
+                y: Math.random() * MAP_HEIGHT,
+                type: wasteType,
+                color: wasteType === 'fecal' ? varColor('--fecal-brown') : varColor('--urine-yellow'),
+                radius: wasteType === 'fecal' ? Math.random() * 3 + 4 : Math.random() * 2 + 3.5
+            };
+        }
+
+        function startGlobalSimulation() {
+            entities = []; pellets = []; powerups = []; bombs = []; respawnQueue = [];
+            isPlayerAlive = false; playerJoinIdleTimer = 0;
+
+            for(let i = 0; i < TARGET_BOT_COUNT; i++) {
+                entities.push(createEntity(false, botNamesPool[Math.floor(Math.random() * botNamesPool.length)] + "_" + Math.floor(Math.random()*99)));
+            }
+            // Scale up population density across expanded boundary maps
+            for(let i = 0; i < 850; i++) pellets.push(spawnWastePellet());
+            for(let i = 0; i < 20; i++) powerups.push(spawnPowerUpOrb());
+            
+            // Highly spaced out bombs distribution algorithm
+            while(bombs.length < 25) {
+                let candidate = spawnVirusBomb();
+                let tooClose = false;
+                for(let b of bombs) {
+                    if(Math.hypot(candidate.x - b.x, candidate.y - b.y) < 650) { tooClose = true; break; }
+                }
+                if(!tooClose) bombs.push(candidate);
+            }
+
+            clearInterval(gameInterval);
+            gameInterval = setInterval(gameLoop, 1000 / 60);
+        }
+
+        function spawnAsPlayer() {
+            document.getElementById('death-screen').style.display = 'none';
+            entities = entities.filter(x => !x.isPlayer);
+
+            statsGames++; 
+            localStorage.setItem('statsGames', statsGames);
+
+            let assignedName = document.getElementById('player-name').value.trim() || 'PearlConsumer';
+            entities.push(createEntity(true, assignedName, MAP_WIDTH / 2, MAP_HEIGHT / 2, 50));
+            isPlayerAlive = true;
+            playerJoinIdleTimer = 0;
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            let playerNodes = entities.filter(x => x.isPlayer);
+            
+            if (playerNodes.length === 0) {
+                if (!isPlayerAlive && document.getElementById('death-screen').style.display === 'none') {
+                    document.getElementById('death-title').innerText = "Spectator Simulation Mode";
+                    document.getElementById('death-desc').innerText = "AI bots are running wild. Jump in when ready.";
+                    document.getElementById('death-screen').style.display = 'flex';
+                }
+                playerJoinIdleTimer += 1 / 60;
+                if (playerJoinIdleTimer >= 600) {
+                    startGlobalSimulation();
+                    return;
+                }
+            } else {
+                playerJoinIdleTimer = 0;
+            }
+
+            let currentViewX = 0, currentViewY = 0;
+            if(playerNodes.length > 0) {
+                playerNodes.forEach(p => { currentViewX += p.x; currentViewY += p.y; });
+                currentViewX /= playerNodes.length;
+                currentViewY /= playerNodes.length;
+            } else {
+                let leadBot = [...entities].sort((a,b)=> b.radius - a.radius)[0];
+                if (leadBot) { currentViewX = leadBot.x; currentViewY = leadBot.y; }
+                else { currentViewX = MAP_WIDTH / 2; currentViewY = MAP_HEIGHT / 2; }
+            }
+
+            let viewOffsetX = canvas.width / 2 - currentViewX;
+            let viewOffsetY = canvas.height / 2 - currentViewY;
+
+            if(powerUpTimeRemaining > 0) {
+                powerUpTimeRemaining -= 1/60;
+                document.getElementById('powerup-status-bar').innerText = `POWERUP: ${activePowerUpType.toUpperCase()} (${Math.max(0, powerUpTimeRemaining).toFixed(1)}s)`;
+                if(powerUpTimeRemaining <= 0) activePowerUpType = null;
+            } else {
+                document.getElementById('powerup-status-bar').innerText = "POWERUP: None active (W to Split | SPACE to Dash)";
+            }
+
+            let currentTimestamp = Date.now();
+            for(let i = respawnQueue.length - 1; i >= 0; i--) {
+                if (currentTimestamp >= respawnQueue[i].readyTime) {
+                    entities.push(createEntity(false, botNamesPool[Math.floor(Math.random() * botNamesPool.length)] + "_" + Math.floor(Math.random()*99)));
+                    respawnQueue.splice(i, 1);
+                }
+            }
+
+            // Draw field environment grid line arrays
+            ctx.strokeStyle = '#0e0e16'; ctx.lineWidth = 1;
+            let spaceInterval = 100;
+            let initialX = viewOffsetX % spaceInterval; let initialY = viewOffsetY % spaceInterval;
+            ctx.beginPath();
+            for(let x = initialX; x < canvas.width; x += spaceInterval) { ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); }
+            for(let y = initialY; y < canvas.height; y += spaceInterval) { ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); }
+            ctx.stroke();
+
+            // Continuous dynamic random map replacements
+            while(pellets.length < 850) pellets.push(spawnWastePellet());
+            while(powerups.length < 20) powerups.push(spawnPowerUpOrb());
+            while(bombs.length < 25) {
+                let candidate = spawnVirusBomb();
+                let tooClose = false;
+                for(let b of bombs) {
+                    if(Math.hypot(candidate.x - b.x, candidate.y - b.y) < 650) { tooClose = true; break; }
+                }
+                if(!tooClose) bombs.push(candidate);
+            }
+
+            entities.forEach(ent => {
+                let absoluteSpeed = Math.max(1.0, 4.2 - (ent.radius / 75));
+                if(ent.isPlayer && activePowerUpType === 'speed') absoluteSpeed *= 1.8;
+
+                if (ent.vx !== 0 || ent.vy !== 0) {
+                    ent.x += ent.vx; ent.y += ent.vy;
+                    ent.vx *= 0.89; ent.vy *= 0.89; 
+                    if(Math.hypot(ent.vx, ent.vy) < 0.2) { ent.vx = 0; ent.vy = 0; }
+                }
+
+                if(ent.recombineTimer > 0) ent.recombineTimer--;
+
+                if(ent.isPlayer) {
+                    let dX = mouseX - canvas.width / 2;
+                    let dY = mouseY - canvas.height / 2;
+                    let range = Math.hypot(dX, dY);
+                    if(range > 10) {
+                        ent.x += (dX / range) * absoluteSpeed;
+                        ent.y += (dY / range) * absoluteSpeed;
+                    }
+                } else {
+                    let targetX = ent.x; let targetY = ent.y;
+                    let threat = null, prey = null, targetPellet = null;
+                    let minPreyDist = Infinity, minPelletDist = Infinity;
+
+                    entities.forEach(other => {
+                        if(other.id === ent.id) return;
+                        let gap = Math.hypot(other.x - ent.x, other.y - ent.y);
+                        
+                        if(other.radius > ent.radius * 1.12 && gap < ent.radius * 6) {
+                            threat = other;
+                        } else if(ent.radius > other.radius * 1.12 && gap < ent.radius * 14 && gap < minPreyDist) {
+                            if(other.isPlayer && activePowerUpType === 'shield') return;
+                            minPreyDist = gap; prey = other;
+                        }
+                    });
+
+                    if(threat) {
+                        let fX = ent.x - threat.x; let fY = ent.y - threat.y;
+                        let fLen = Math.hypot(fX, fY) || 1;
+                        targetX = ent.x + (fX / fLen) * 500; targetY = ent.y + (fY / fLen) * 500;
+                    } else if(prey) {
+                        targetX = prey.x; targetY = prey.y;
+                        if(minPreyDist < ent.radius * 4) absoluteSpeed *= 1.4;
+                    } else {
+                        pellets.forEach(p => {
+                            let gap = Math.hypot(p.x - ent.x, p.y - ent.y);
+                            if(gap < minPelletDist && gap < 600) { minPelletDist = gap; targetPellet = p; }
+                        });
+                        if(targetPellet) { targetX = targetPellet.x; targetY = targetPellet.y; }
+                    }
+
+                    let pX = targetX - ent.x, pY = targetY - ent.y;
+                    let pLen = Math.hypot(pX, pY);
+                    if(pLen > 5) {
+                        ent.x += (pX / pLen) * absoluteSpeed;
+                        ent.y += (pY / pLen) * absoluteSpeed;
+                    }
+                }
+
+                ent.x = Math.max(ent.radius, Math.min(MAP_WIDTH - ent.radius, ent.x));
+                ent.y = Math.max(ent.radius, Math.min(MAP_HEIGHT - ent.radius, ent.y));
+            });
+
+            for(let i = 0; i < entities.length; i++) {
+                for(let j = 0; j < entities.length; j++) {
+                    if(i === j) continue;
+                    let a = entities[i], b = entities[j];
+                    if(!a || !b || !a.isPlayer || !b.isPlayer) continue;
+                    if(a.recombineTimer === 0 && b.recombineTimer === 0) {
+                        let d = Math.hypot(a.x - b.x, a.y - b.y);
+                        if(d < a.radius + b.radius) {
+                            a.radius = Math.hypot(a.radius, b.radius); 
+                            entities.splice(j, 1);
+                            if(j < i) i--;
+                        }
+                    }
+                }
+            }
+
+            entities.forEach(ent => {
+                let magnetActive = (ent.isPlayer && activePowerUpType === 'magnet');
+                let effectiveDistance = magnetActive ? 320 : ent.radius;
+
+                for(let j = pellets.length - 1; j >= 0; j--) {
+                    let gap = Math.hypot(ent.x - pellets[j].x, ent.y - pellets[j].y);
+                    if(magnetActive && gap < effectiveDistance) {
+                        pellets[j].x += (ent.x - pellets[j].x) * 0.18;
+                        pellets[j].y += (ent.y - pellets[j].y) * 0.18;
+                    }
+                    if(gap < ent.radius) {
+                        ent.radius += pellets[j].type === 'fecal' ? 0.35 : 0.22; 
+                        pellets.splice(j, 1);
+                    }
+                }
+
+                if(ent.isPlayer) {
+                    for(let k = powerups.length - 1; k >= 0; k--) {
+                        if(Math.hypot(ent.x - powerups[k].x, ent.y - powerups[k].y) < ent.radius + 20) {
+                            activePowerUpType = powerups[k].type;
+                            powerUpTimeRemaining = 8.0;
+                            powerups.splice(k, 1);
+                        }
+                    }
+                }
+
+                bombs.forEach((bomb, bIdx) => {
+                    let gap = Math.hypot(ent.x - bomb.x, ent.y - bomb.y);
+                    if(gap < ent.radius && ent.radius > bomb.radius) {
+                        bombs.splice(bIdx, 1);
+                        triggerShatterDetonation(ent);
+                    }
+                });
+            });
+
+            let destroyedEntityIds = new Set();
+            for(let i = 0; i < entities.length; i++) {
+                let cellA = entities[i];
+                if(destroyedEntityIds.has(cellA.id)) continue;
+
+                for(let j = 0; j < entities.length; j++) {
+                    if(i === j) continue;
+                    let cellB = entities[j];
+                    if(destroyedEntityIds.has(cellB.id)) continue;
+                    if(cellA.isPlayer && cellB.isPlayer) continue; 
+
+                    let gap = Math.hypot(cellA.x - cellB.x, cellA.y - cellB.y);
+                    if (gap < cellA.radius && cellA.radius > cellB.radius * 1.02) {
+                        if (cellB.isPlayer && activePowerUpType === 'shield') continue;
+
+                        cellA.radius = Math.hypot(cellA.radius, cellB.radius);
+                        destroyedEntityIds.add(cellB.id);
+
+                        // AWARD SCAT POINTS DIRECTLY UPON SUCCESSFUL GRID ELIMINATION
+                        if (cellA.isPlayer) {
+                            let spReward = Math.floor(cellB.radius / 2) + 15;
+                            updateCoins(spReward);
+                            console.log(`Eliminated player/bot node. Earned +${spReward} Scat Points.`);
+                        }
+
+                        if (!cellB.isPlayer) {
+                            respawnQueue.push({ readyTime: Date.now() + 20000 }); 
+                        }
+                    }
+                }
+            }
+
+            if (destroyedEntityIds.size > 0) {
+                entities = entities.filter(ent => !destroyedEntityIds.has(ent.id));
+                
+                let remainingPlayerNodes = entities.filter(x => x.isPlayer);
+                if (remainingPlayerNodes.length === 0 && isPlayerAlive) {
+                    isPlayerAlive = false;
+                    document.getElementById('death-title').innerText = "Ecosystem Absorption Complete";
+                    document.getElementById('death-desc').innerText = "Your cell was fully digested. Spectating bots...";
+                    document.getElementById('death-screen').style.display = 'flex';
+                }
+            }
+
+            let maxCurrentPlayerRadius = 0;
+            entities.forEach(x => { if(x.isPlayer && x.radius > maxCurrentPlayerRadius) maxCurrentPlayerRadius = x.radius; });
+            if(Math.floor(maxCurrentPlayerRadius) > statsMaxMass) {
+                statsMaxMass = Math.floor(maxCurrentPlayerRadius);
+                localStorage.setItem('statsMaxMass', statsMaxMass);
+            }
+
+            // RENDERING PHASE
+            pellets.forEach(p => {
+                let sX = p.x + viewOffsetX, sY = p.y + viewOffsetY;
+                if(sX >= 0 && sX <= canvas.width && sY >= 0 && sY <= canvas.height) {
+                    ctx.beginPath(); 
+                    if (p.type === 'fecal') {
+                        // Render fecal lump coordinates
+                        ctx.arc(sX, sY, p.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = p.color;
+                        ctx.fill();
+                    } else {
+                        // Render irregular fluid drops
+                        ctx.ellipse(sX, sY, p.radius * 1.3, p.radius * 0.8, Math.PI / 4, 0, Math.PI * 2);
+                        ctx.fillStyle = p.color;
+                        ctx.fill();
+                    }
+                }
+            });
+
+            powerups.forEach(pw => {
+                let sX = pw.x + viewOffsetX, sY = pw.y + viewOffsetY;
+                pw.pulse += 0.05; let sizeRad = 24 + Math.sin(pw.pulse) * 4;
+                ctx.save(); ctx.shadowBlur = 15;
+                if(pw.type === 'speed') ctx.shadowColor = ctx.fillStyle = varColor('--success-color');
+                else if(pw.type === 'shield') ctx.shadowColor = ctx.fillStyle = varColor('--powerup-blue');
+                else ctx.shadowColor = ctx.fillStyle = varColor('--powerup-purple');
+                ctx.beginPath(); ctx.arc(sX, sY, sizeRad, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+                ctx.fillStyle = "#000"; ctx.font = "bold 11px sans-serif"; ctx.textAlign = "center";
+                ctx.fillText(pw.type.toUpperCase(), sX, sY + 4);
+            });
+
+            bombs.forEach(b => {
+                let sX = b.x + viewOffsetX, sY = b.y + viewOffsetY;
+                ctx.save(); ctx.fillStyle = varColor('--virus-green'); ctx.strokeStyle = "#1b5e20"; ctx.lineWidth = 4;
+                ctx.beginPath();
+                let spikes = 16, rot = Math.PI / 2 * 3, step = Math.PI / spikes;
+                let x = sX, y = sY; ctx.moveTo(sX, sY - b.radius);
+                for (let i = 0; i < spikes; i++) {
+                    x = sX + Math.cos(rot) * b.radius; y = sY + Math.sin(rot) * b.radius; ctx.lineTo(x, y); rot += step;
+                    x = sX + Math.cos(rot) * (b.radius - 12); y = sY + Math.sin(rot) * (b.radius - 12); ctx.lineTo(x, y); rot += step;
+                }
+                ctx.lineTo(sX, sY - b.radius); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore();
+            });
+
+            let queue = [...entities].sort((a, b) => a.radius - b.radius);
+            queue.forEach(ent => {
+                let renderX = ent.x + viewOffsetX, renderY = ent.y + viewOffsetY;
+                ctx.save(); ctx.beginPath(); ctx.arc(renderX, renderY, ent.radius, 0, Math.PI * 2); ctx.clip();
+
+                let img = document.getElementById(ent.skinElementId);
+                if (img && img.naturalWidth !== 0) {
+                    ctx.drawImage(img, renderX - ent.radius, renderY - ent.radius, ent.radius * 2, ent.radius * 2);
+                } else {
+                    ctx.fillStyle = ent.color; ctx.fill();
+                }
+                ctx.restore();
+
+                if(ent.isPlayer && activePowerUpType) {
+                    ctx.beginPath(); ctx.arc(renderX, renderY, ent.radius + 5, 0, Math.PI * 2); ctx.lineWidth = 4;
+                    if(activePowerUpType === 'speed') ctx.strokeStyle = varColor('--success-color');
+                    else if(activePowerUpType === 'shield') ctx.strokeStyle = varColor('--powerup-blue');
+                    else ctx.strokeStyle = varColor('--powerup-purple');
+                    ctx.stroke();
+                }
+
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center';
+                ctx.strokeStyle = '#000'; ctx.lineWidth = 3;
+                ctx.strokeText(ent.name, renderX, renderY - ent.radius - 8);
+                ctx.fillText(ent.name, renderX, renderY - ent.radius - 8);
+
+                let sizeValueLabel = Math.floor(ent.radius);
+                ctx.fillStyle = varColor('--accent-color'); ctx.font = '900 10px monospace';
+                ctx.strokeText(`[${sizeValueLabel}]`, renderX, renderY + 4);
+                ctx.fillText(`[${sizeValueLabel}]`, renderX, renderY + 4);
+            });
+
+            // MINIMAP DRAWING INTEGRATED WITH PROPORTIONAL ENEMY SIZE METRICS
+            const mmS = 130; const mmX = canvas.width - mmS - 15; const mmY = canvas.height - mmS - 15;
+            ctx.fillStyle = "rgba(4, 4, 6, 0.88)"; ctx.fillRect(mmX, mmY, mmS, mmS);
+            ctx.strokeStyle = "rgba(255, 152, 0, 0.25)"; ctx.strokeRect(mmX, mmY, mmS, mmS);
+            entities.forEach(ent => {
+                let dotX = mmX + (ent.x / MAP_WIDTH) * mmS, dotY = mmY + (ent.y / MAP_HEIGHT) * mmS;
+                
+                // Map tracking factor projects true size dynamically onto radar space layout
+                let dynamicRadarRadius = Math.max(2, (ent.radius / MAP_WIDTH) * mmS * 3.5);
+                if (ent.isPlayer) dynamicRadarRadius = Math.max(4, (ent.radius / MAP_WIDTH) * mmS * 4);
+
+                ctx.beginPath(); ctx.arc(dotX, dotY, dynamicRadarRadius, 0, Math.PI * 2);
+                ctx.fillStyle = ent.isPlayer ? varColor('--accent-color') : (ent.radius > 90 ? varColor('--danger-color') : "#ffffff"); 
+                ctx.fill();
+            });
+
+            let leaders = [...entities].sort((a, b) => b.radius - a.radius);
+            let lbText = "";
+            leaders.slice(0, 5).forEach((e, idx) => {
+                let col = e.isPlayer ? "color:var(--accent-color); font-weight:800;" : "color:#aaa;";
+                lbText += `<div style="${col}">${idx+1}. ${e.name.substring(0,11)} (${Math.floor(e.radius)})</div>`;
+            });
+            document.getElementById('lb-list').innerHTML = lbText;
+        }
+
+        function triggerShatterDetonation(targetCell) {
+            let splitCount = 6;
+            let shardRadius = Math.max(14, targetCell.radius / Math.sqrt(splitCount));
+            targetCell.radius = shardRadius; targetCell.recombineTimer = 2000;
+            let shards = [];
+            for(let i = 1; i < splitCount; i++) {
+                let angle = (Math.PI * 2 / splitCount) * i;
+                let shard = createEntity(targetCell.isPlayer, targetCell.name, targetCell.x, targetCell.y, shardRadius);
+                shard.vx = Math.cos(angle) * 16; shard.vy = Math.sin(angle) * 16;
+                shard.recombineTimer = 2000; shards.push(shard);
+            }
+            entities.push(...shards);
+        }
+
+        function varColor(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+        // ==========================================
+        // VIDEOS SYSTEM ARCHIVE
+        // ==========================================
+        let mockVideos = JSON.parse(localStorage.getItem('mockVids')) || [
+            { id: 701, title: "Classic Archival Capture Record (2011)", url: "", review: "Primary documentation data array inspecting old community media profiles.", rating: 5, views: "14.2K", duration: "11:42", date: "4 years ago" },
+            { id: 702, title: "Deep Web Core Room Analysis Log", url: "", review: "Highly detailed look tracing original operational coordinates.", rating: 4, views: "8.9K", duration: "08:15", date: "2 years ago" }
+        ];
+
+        function renderThumbnailGrid() {
+            const grid = document.getElementById('thumbnail-container-grid'); grid.innerHTML = '';
+            mockVideos.forEach(v => {
+                grid.innerHTML += `
+                    <div class="thumbnail-card" onclick="openMediaViewer(${v.id})">
+                        <div class="thumb-preview">🎥<div class="thumb-tag">${v.duration}</div></div>
+                        <div class="thumb-info">
+                            <h4 style="font-size:14px; margin:0 0 4px 0; color:#fff;">${v.title}</h4>
+                            <div style="color:var(--accent-color); font-size:11px; margin-bottom:5px;">Rating: ${'⭐'.repeat(v.rating)}</div>
+                            <div class="video-meta-metrics"><span>👁️ ${v.views} views</span><span>📅 ${v.date}</span></div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function postVideo() {
+            let title = document.getElementById('vid-title').value.trim();
+            let url = document.getElementById('vid-url').value.trim();
+            let review = document.getElementById('vid-review').value.trim();
+            let rating = parseInt(document.getElementById('vid-rating').value);
+            if(!title || !review) return alert('Fill fields completely.');
+            mockVideos.unshift({ id: Date.now(), title, url, review, rating, views: "1", duration: "04:20", date: "Just now" });
+            localStorage.setItem('mockVids', JSON.stringify(mockVideos));
+            document.getElementById('vid-title').value = ''; document.getElementById('vid-url').value = ''; document.getElementById('vid-review').value = '';
+            renderThumbnailGrid();
+        }
+
+        function openMediaViewer(id) {
+            let item = mockVideos.find(x => x.id === id); if(!item) return;
+            document.getElementById('modal-video-title').innerText = item.title;
+            document.getElementById('modal-video-review').innerText = item.review;
+            document.getElementById('media-modal').style.display = 'flex';
+        }
+        function closeMediaViewer() { document.getElementById('media-modal').style.display = 'none'; }
+
+        // ==========================================
+        // KINETIC CANVAS ROULETTE WHEEL SYSTEM
+        // ==========================================
+        const wCanvas = document.getElementById("rouletteWheelCanvas");
+        const wCtx = wCanvas.getContext("2d");
+        
+        const rouletteNumbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
+        let wheelAngle = 0;
+        let wheelVelocity = 0;
+        let isWheelSpinning = false;
+        let targetCategoryWager = "";
+
+        function drawRouletteWheel() {
+            let totalSlices = rouletteNumbers.length;
+            let sliceAngle = (Math.PI * 2) / totalSlices;
+            let cx = wCanvas.width / 2;
+            let cy = wCanvas.height / 2;
+            let r = wCanvas.width / 2 - 10;
+
+            wCtx.clearRect(0, 0, wCanvas.width, wCanvas.height);
+
+            for (let i = 0; i < totalSlices; i++) {
+                let num = rouletteNumbers[i];
+                let currentSliceAngle = wheelAngle + i * sliceAngle;
+
+                wCtx.beginPath();
+                wCtx.moveTo(cx, cy);
+                wCtx.arc(cx, cy, r, currentSliceAngle, currentSliceAngle + sliceAngle);
+                wCtx.closePath();
+
+                if (num === 0) wCtx.fillStyle = "#00e676";
+                else if (num === 7) wCtx.fillStyle = "#ff9800"; 
+                else wCtx.fillStyle = (i % 2 === 0) ? "#d32f2f" : "#111115";
+                wCtx.fill();
+                wCtx.strokeStyle = "rgba(255,255,255,0.08)";
+                wCtx.stroke();
+
+                wCtx.save();
+                wCtx.translate(cx, cy);
+                wCtx.rotate(currentSliceAngle + sliceAngle / 2);
+                wCtx.fillStyle = "#fff";
+                wCtx.font = "bold 9px monospace";
+                wCtx.fillText(num, r - 18, 3);
+                wCtx.restore();
+            }
+
+            wCtx.beginPath(); wCtx.arc(cx, cy, 14, 0, Math.PI*2);
+            wCtx.fillStyle = "#222"; wCtx.fill();
+            wCtx.strokeStyle = varColor('--accent-color'); wCtx.lineWidth = 2; wCtx.stroke();
+
+            ctx.fillStyle = varColor('--accent-color');
+            wCtx.fillStyle = varColor('--accent-color');
+            wCtx.beginPath();
+            wCtx.moveTo(cx, 4);
+            wCtx.lineTo(cx - 8, 20);
+            wCtx.lineTo(cx + 8, 20);
+            wCtx.closePath();
+            wCtx.fill();
+        }
+
+        function animateWheelSpin() {
+            if (wheelVelocity > 0.002) {
+                wheelAngle += wheelVelocity;
+                wheelVelocity *= 0.982; 
+                drawRouletteWheel();
+                requestAnimationFrame(animateWheelSpin);
+            } else {
+                wheelVelocity = 0;
+                isWheelSpinning = false;
+                toggleRouletteButtons(false);
+
+                let totalSlices = rouletteNumbers.length;
+                let sliceAngle = (Math.PI * 2) / totalSlices;
+
+                let normalizedAngle = (Math.PI * 3 / 2 - wheelAngle) % (Math.PI * 2);
+                if (normalizedAngle < 0) normalizedAngle += Math.PI * 2;
+
+                let selectedIndex = Math.floor(normalizedAngle / sliceAngle) % totalSlices;
+                let winningNumber = rouletteNumbers[selectedIndex];
+
+                let colField = "black";
+                if (winningNumber === 0) colField = "green";
+                else if (winningNumber === 7) colField = "orange";
+                else {
+                    let numericIndex = rouletteNumbers.indexOf(winningNumber);
+                    colField = (numericIndex % 2 === 0) ? "red" : "black";
+                }
+
+                let isWin = (targetCategoryWager === colField) || (targetCategoryWager === "7" && winningNumber === 7);
+                let multiplier = (targetCategoryWager === "7") ? 35 : 2;
+
+                if (isWin) {
+                    let payoutValue = activeBetChipValue * multiplier;
+                    updateCoins(payoutValue);
+                    document.getElementById('roulette-status-field').innerHTML = `<span style="color:var(--success-color); font-weight:bold;">🏆 WINNER! Wheel stopped on ${winningNumber} (${colField.toUpperCase()}). Awarded +${payoutValue} SP!</span>`;
+                } else {
+                    document.getElementById('roulette-status-field').innerHTML = `<span style="color:var(--danger-color);">💥 COLD LOSS. Stopped on ${winningNumber} (${colField.toUpperCase()}). Better luck next round!</span>`;
+                }
+            }
+        }
+
+        function toggleRouletteButtons(disable) {
+            document.getElementById('btn-roulette-red').disabled = disable;
+            document.getElementById('btn-roulette-black').disabled = disable;
+            document.getElementById('btn-roulette-7').disabled = disable;
+        }
+
+        function selectChip(val, element) {
+            if(isWheelSpinning) return;
+            activeBetChipValue = val; document.getElementById('current-chip-view').innerText = val;
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active-chip')); element.classList.add('active-chip');
+        }
+
+        function executeRouletteWager(category) {
+            if (isWheelSpinning) return;
+            if (coins < activeBetChipValue) return alert("Insufficient Scat Point token reserves inside your ledger.");
+
+            updateCoins(-activeBetChipValue);
+            statsBets++; localStorage.setItem('statsBets', statsBets);
+
+            targetCategoryWager = category;
+            isWheelSpinning = true;
+            toggleRouletteButtons(true);
+            document.getElementById('roulette-status-field').innerText = "Wheel launched! Inertia computing metrics...";
+
+            wheelVelocity = Math.random() * 0.4 + 0.45; 
+            animateWheelSpin();
+        }
+
+        // ========================================================
+        // HIGH POLISH ANIMATED SLOTS MACHINE SYSTEM
+        // ========================================================
+        let slotIntervalId = null;
+        function playSlotsAnimated() {
+            if (slotIntervalId !== null) return;
+            if(coins < 50) return alert("Inadequate Scat Points balance.");
+            
+            updateCoins(-50); 
+            statsBets++; localStorage.setItem('statsBets', statsBets);
+            
+            let btn = document.getElementById('slot-spin-btn');
+            btn.disabled = true;
+
+            const poolOptions = ['💩', '👑', '🎰', '💎', '🔥'];
+            let ticks = 0;
+            
+            slotIntervalId = setInterval(() => {
+                ticks++;
+                document.getElementById('slot-w1').innerText = poolOptions[Math.floor(Math.random() * poolOptions.length)];
+                document.getElementById('slot-w2').innerText = poolOptions[Math.floor(Math.random() * poolOptions.length)];
+                document.getElementById('slot-w3').innerText = poolOptions[Math.floor(Math.random() * poolOptions.length)];
+                
+                if (ticks > 22) {
+                    clearInterval(slotIntervalId);
+                    slotIntervalId = null;
+                    btn.disabled = false;
+                    
+                    // Final absolute values definition
+                    let r1 = poolOptions[Math.floor(Math.random()*poolOptions.length)];
+                    let r2 = poolOptions[Math.floor(Math.random()*poolOptions.length)];
+                    let r3 = poolOptions[Math.floor(Math.random()*poolOptions.length)];
+                    
+                    document.getElementById('slot-w1').innerText = r1;
+                    document.getElementById('slot-w2').innerText = r2;
+                    document.getElementById('slot-w3').innerText = r3;
+                    
+                    if(r1 === r2 && r2 === r3) { 
+                        updateCoins(650); 
+                        alert("JACKPOT! Triple sequence sync confirmed! Unlocked +650 SP!"); 
+                    }
+                }
+            }, 60);
+        }
+
+        // ========================================================
+        // CASINO CARD SHIELD RENDERING HI-LOW SYSTEM
+        // ========================================================
+        let currentHiLoValue = 7;
+        const cardSuitsList = ['♠', '♥', '♦', '♣'];
+
+        function playHiLo(pred) {
+            if(coins < 25) return alert("Low balance.");
+            updateCoins(-25); statsBets++; localStorage.setItem('statsBets', statsBets);
+            
+            let nextCard = Math.floor(Math.random() * 13) + 1;
+            let assignedSuit = cardSuitsList[Math.floor(Math.random() * cardSuitsList.length)];
+            let isRed = (assignedSuit === '♥' || assignedSuit === '♦');
+
+            let visualCard = document.getElementById('hilo-visual-card');
+            if (isRed) visualCard.classList.add('red-card');
+            else visualCard.classList.remove('red-card');
+
+            // Translate numerical indicators into character representations
+            let faceMapping = nextCard;
+            if (nextCard === 1) faceMapping = 'A';
+            if (nextCard === 11) faceMapping = 'J';
+            if (nextCard === 12) faceMapping = 'Q';
+            if (nextCard === 13) faceMapping = 'K';
+
+            document.getElementById('card-val-t').innerText = faceMapping;
+            document.getElementById('card-val-b').innerText = faceMapping;
+            document.getElementById('card-suit-center').innerText = assignedSuit;
+
+            let win = (pred === 'high' && nextCard >= currentHiLoValue) || (pred === 'low' && nextCard <= currentHiLoValue);
+            let indicatorText = document.getElementById('hilo-text-status');
+
+            if(win) { 
+                updateCoins(65); 
+                indicatorText.innerHTML = `<span style="color:var(--success-color); font-weight:bold;">Success! Card pulled was ${faceMapping}. +65 SP added.</span>`; 
+            } else { 
+                indicatorText.innerHTML = `<span style="color:var(--danger-color);">Bust! Card pulled was ${faceMapping}. Anchor refreshed.</span>`; 
+            }
+            currentHiLoValue = nextCard;
+        }
+
+        // Initialize state logic vectors consecutively
+        renderSkinPriceTags();
+        startGlobalSimulation();
+        drawRouletteWheel();
+        renderThumbnailGrid();
+    </script>
+</body>
+</html>
