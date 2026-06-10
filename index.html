@@ -562,55 +562,95 @@
         renderSkinGrid(); // Init on load
 
         // ==========================================
-        // SKIN WHEEL LOGIC
+        // CASINO CANVAS WHEEL
         // ==========================================
-        let isSpinning = false;
-        window.spinSkinWheel = function() {
-            if (isSpinning) return;
+        const wCanvas = document.getElementById('wheelCanvas');
+        const wCtx = wCanvas ? wCanvas.getContext('2d') : null;
+        
+        const slices = [
+            { text: "Skin", color: "#e91e63", type: "skin" },
+            { text: "100", color: "#2196f3", type: "coin", val: 100 },
+            { text: "Skin", color: "#9c27b0", type: "skin" },
+            { text: "500", color: "#ff9800", type: "coin", val: 500 },
+            { text: "Skin", color: "#e91e63", type: "skin" },
+            { text: "50", color: "#4caf50", type: "coin", val: 50 },
+            { text: "Skin", color: "#9c27b0", type: "skin" },
+            { text: "1000", color: "#ffc107", type: "coin", val: 1000 },
+            { text: "Skin", color: "#e91e63", type: "skin" },
+            { text: "200", color: "#00bcd4", type: "coin", val: 200 }
+        ];
+
+        function drawWheel() {
+            if(!wCtx) return;
+            const cx = wCanvas.width / 2;
+            const cy = wCanvas.height / 2;
+            const radius = cx;
+            const arc = Math.PI * 2 / slices.length;
+
+            for (let i = 0; i < slices.length; i++) {
+                wCtx.beginPath();
+                wCtx.fillStyle = slices[i].color;
+                wCtx.moveTo(cx, cy);
+                wCtx.arc(cx, cy, radius, i * arc - Math.PI/2 - arc/2, (i + 1) * arc - Math.PI/2 - arc/2);
+                wCtx.lineTo(cx, cy);
+                wCtx.fill();
+                wCtx.stroke();
+
+                wCtx.save();
+                wCtx.translate(cx, cy);
+                wCtx.rotate(i * arc - Math.PI/2);
+                wCtx.textAlign = "right";
+                wCtx.fillStyle = "#fff";
+                wCtx.font = "bold 24px sans-serif";
+                wCtx.fillText(slices[i].text, radius - 20, 10);
+                wCtx.restore();
+            }
+        }
+        
+        drawWheel();
+
+        let canvasWheelSpinning = false;
+        let currentRotation = 0;
+
+        window.spinCanvasWheel = function() {
+            if (canvasWheelSpinning) return;
             if (coins < 250) return alert("Insufficient coins. You need 250 to spin.");
             
             window.updateCoins(-250);
-            isSpinning = true;
+            canvasWheelSpinning = true;
             document.getElementById('btn-spin').disabled = true;
             document.getElementById('wheel-result').innerText = "Spinning...";
 
-            const wheel = document.getElementById('skin-wheel-spin');
+            const prizeIndex = Math.floor(Math.random() * slices.length);
+            const sliceDeg = 360 / slices.length;
+            const targetDeg = 360 - (prizeIndex * sliceDeg);
             
-            // Random prize 1 to 10
-            const prize = Math.floor(Math.random() * 10) + 1;
-            
-            // Calculate degrees (10 slices, each 36 degrees)
-            // Prize 1 is at 0-36 (center 18), Prize 2 at 36-72 (center 54) etc.
-            const sliceDeg = 36;
-            const targetDeg = (prize - 1) * sliceDeg + 18;
-            
-            // Add extra spins
             const extraSpins = 5 * 360;
-            // Negative to rotate clockwise relative to the top pointer
-            const finalRotation = extraSpins + (360 - targetDeg);
+            currentRotation += extraSpins + targetDeg - (currentRotation % 360);
 
-            // Apply rotation (we use a cumulative approach or reset animation)
-            wheel.style.transition = 'transform 3s cubic-bezier(0.2, 0.8, 0.2, 1)';
-            wheel.style.transform = `rotate(${finalRotation}deg)`;
+            wCanvas.style.transition = 'transform 4s cubic-bezier(0.1, 0.7, 0.1, 1)';
+            wCanvas.style.transform = `rotate(${currentRotation}deg)`;
 
             setTimeout(() => {
-                isSpinning = false;
+                canvasWheelSpinning = false;
                 document.getElementById('btn-spin').disabled = false;
                 
-                // Reset rotation cleanly for next spin
-                wheel.style.transition = 'none';
-                wheel.style.transform = `rotate(${finalRotation % 360}deg)`;
-                
-                // Handle Prize
-                if (!unlockedSkins.includes(prize)) {
-                    unlockedSkins.push(prize);
-                    localStorage.setItem('unlockedSkins', JSON.stringify(unlockedSkins));
-                    document.getElementById('wheel-result').innerHTML = `<span style="color:var(--success)">🎉 You won Skin ${prize}! Check Pearl.io tab.</span>`;
-                    renderSkinGrid();
-                } else {
-                    document.getElementById('wheel-result').innerHTML = `<span style="color:var(--text-muted)">Landed on Skin ${prize}. You already own it!</span>`;
+                const won = slices[prizeIndex];
+                if (won.type === 'coin') {
+                    window.updateCoins(won.val);
+                    document.getElementById('wheel-result').innerHTML = `<span style="color:var(--success)">🎉 You won ${won.val} Coins!</span>`;
+                } else if (won.type === 'skin') {
+                    const skinPrize = Math.floor(Math.random() * 10) + 1;
+                    if (!unlockedSkins.includes(skinPrize)) {
+                        unlockedSkins.push(skinPrize);
+                        localStorage.setItem('unlockedSkins', JSON.stringify(unlockedSkins));
+                        document.getElementById('wheel-result').innerHTML = `<span style="color:var(--success)">🎉 You unlocked Skin ${skinPrize}! Check Pearl.io tab.</span>`;
+                        if(typeof renderSkinGrid === 'function') renderSkinGrid();
+                    } else {
+                        document.getElementById('wheel-result').innerHTML = `<span style="color:var(--text-muted)">Landed on Skin ${skinPrize}, but you already own it!</span>`;
+                    }
                 }
-            }, 3000);
+            }, 4000);
         }
 
         // ==========================================
@@ -872,98 +912,7 @@
             updateLeaderboard();
         }
 
-        // ==========================================
-        // VIDEOS SYSTEM & CASINO MINIGAMES
-        // ==========================================
-        let mockVideos = JSON.parse(localStorage.getItem('mockVids')) || [
-            { id: 1, title: "Classical Room Asset", url: "https://www.w3schools.com/html/mov_bbb.mp4", review: "Sample high fidelity preserve.", rating: 5, likes: 12, comments: [] }
-        ];
-
-        function renderFeed() {
-            const container = document.getElementById('video-feed-container');
-            container.innerHTML = '';
-            mockVideos.forEach(v => {
-                let starStr = '⭐'.repeat(v.rating);
-                let mediaElement = `<div class="video-embed-placeholder">Video asset not directly playable.</div>`;
-                if (v.url.includes('.mp4')) mediaElement = `<video src="${v.url}" controls style="width:100%; border-radius:8px;"></video>`;
-                container.innerHTML += `
-                    <div class="video-card glass-card" style="padding:20px; margin-bottom:20px;">
-                        <h4>${v.title}</h4>
-                        <div style="color:var(--primary); font-size:13px; margin-bottom:10px;">Evaluation Tier: ${starStr}</div>
-                        <div class="video-container-box" style="margin-bottom:15px;">${mediaElement}</div>
-                        <p><b>Note:</b> ${v.review}</p>
-                        <button class="btn" style="padding:6px 15px; font-size:12px;" onclick="likeVideo(${v.id})">👍 Endorse (${v.likes})</button>
-                    </div>`;
-            });
-        }
-        window.postVideo = function() {
-            let title = document.getElementById('vid-title').value, url = document.getElementById('vid-url').value;
-            let review = document.getElementById('vid-review').value, rating = parseInt(document.getElementById('vid-rating').value);
-            if (!title || !review) return alert('Missing fields.');
-            mockVideos.unshift({ id: Date.now(), title, url, review, rating, likes: 0, comments: [] });
-            localStorage.setItem('mockVids', JSON.stringify(mockVideos));
-            renderFeed();
-        }
-        window.likeVideo = function(id) {
-            let item = mockVideos.find(x => x.id === id); if(item) item.likes++; renderFeed();
-        }
-        renderFeed();
-
-        // CASINO
-        window.playSlots = function() {
-            if (coins < 50) return alert("Insufficient coins."); window.updateCoins(-50);
-            const sym = ['💩', '👑', '🎰', '💎', '🔥'];
-            let s1 = sym[Math.floor(Math.random()*5)], s2 = sym[Math.floor(Math.random()*5)], s3 = sym[Math.floor(Math.random()*5)];
-            document.getElementById('slot-display').innerText = `${s1} ${s2} ${s3}`;
-            if (s1 === s2 && s2 === s3) { window.updateCoins(500); alert("JACKPOT! +500"); }
-        }
-
-        let hiloVal = 7;
-        window.playHiLo = function(guess) {
-            if (coins < 25) return; window.updateCoins(-25);
-            let rolled = Math.floor(Math.random()*13)+1;
-            let win = (guess === 'high' && rolled >= hiloVal) || (guess === 'low' && rolled <= hiloVal);
-            document.getElementById('hilo-card').innerHTML = win ? `<span style="color:var(--success)">Win! Rolled ${rolled}</span>` : `<span style="color:var(--danger)">Loss. Rolled ${rolled}</span>`;
-            hiloVal = rolled;
-        }
-
-        window.playCoinFlip = function(guess) {
-            if (coins < 50) return; window.updateCoins(-50);
-            let res = Math.random() < 0.5 ? 'heads' : 'tails';
-            if (guess === res) { window.updateCoins(100); document.getElementById('coin-result').innerHTML = `<span style="color:var(--success)">Victory: ${res.toUpperCase()}</span>`; }
-            else { document.getElementById('coin-result').innerHTML = `<span style="color:var(--danger)">Loss: ${res.toUpperCase()}</span>`; }
-        }
-
-        let pHand=0, dHand=0;
-        window.startBlackjack = function() {
-            if (coins < 100) return; window.updateCoins(-100);
-            pHand = Math.floor(Math.random()*10)+2 + Math.floor(Math.random()*10)+2;
-            dHand = Math.floor(Math.random()*10)+2;
-            document.getElementById('bj-score').innerText = `You: ${pHand} | Dealer: ${dHand}`;
-            document.getElementById('bj-hit').disabled = false; document.getElementById('bj-stand').disabled = false;
-        }
-        window.blackjackHit = function() {
-            pHand += Math.floor(Math.random()*10)+2;
-            if (pHand > 21) { document.getElementById('bj-score').innerHTML = `<span style="color:var(--danger)">Busted! ${pHand}</span>`; document.getElementById('bj-hit').disabled=true; document.getElementById('bj-stand').disabled=true; }
-            else document.getElementById('bj-score').innerText = `You: ${pHand} | Dealer: ${dHand}`;
-        }
-        window.blackjackStand = function() {
-            while(dHand < 17) dHand += Math.floor(Math.random()*10)+2;
-            if (dHand > 21 || pHand > dHand) { window.updateCoins(200); document.getElementById('bj-score').innerHTML = `<span style="color:var(--success)">Win! You: ${pHand} | Dealer: ${dHand}</span>`; }
-            else document.getElementById('bj-score').innerHTML = `<span style="color:var(--danger)">Loss. You: ${pHand} | Dealer: ${dHand}</span>`;
-            document.getElementById('bj-hit').disabled=true; document.getElementById('bj-stand').disabled=true;
-        }
-
-        window.playRoulette = function(bet) {
-            if (coins < 50) return; window.updateCoins(-50);
-            let res = Math.floor(Math.random()*12)+1;
-            let col = res % 2 === 0 ? 'black' : 'red';
-            if (bet === col) { window.updateCoins(100); document.getElementById('roulette-result').innerHTML = `<span style="color:var(--success)">Hit: ${col} - Won 100</span>`; }
-            else if (bet === '7' && res === 7) { window.updateCoins(1750); document.getElementById('roulette-result').innerHTML = `<span style="color:var(--primary)">JACKPOT 7! Won 1750</span>`; }
-            else document.getElementById('roulette-result').innerHTML = `<span style="color:var(--danger)">Hit: ${col} - Lost</span>`;
-        }
-
-    </script>
+        </script>
 </body>
 
 </html>
