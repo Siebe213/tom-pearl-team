@@ -18,14 +18,19 @@ function replaceOnce(search, replacement, label) {
 if (!html.includes('window.PEARL_PROFILE=')) {
   replaceOnce(
     '</style>',
-    '.serverStatus{justify-content:center;margin:0 0 10px;background:rgba(0,0,0,.38)}.serverStatus.online{color:#86efac;border-color:rgba(16,185,129,.45);box-shadow:0 0 20px rgba(16,185,129,.12)}.serverStatus.connecting{color:#fde68a;border-color:rgba(245,158,11,.4)}.serverStatus.offline{color:#fca5a5;border-color:rgba(239,68,68,.42)}.onlineSummary{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:9px}.onlineSummary .pill{font-size:12px}\n</style>',
+    `.serverStatus{justify-content:center;margin:0 0 10px;background:rgba(0,0,0,.38)}.serverStatus.online{color:#86efac;border-color:rgba(16,185,129,.45);box-shadow:0 0 20px rgba(16,185,129,.12)}.serverStatus.connecting{color:#fde68a;border-color:rgba(245,158,11,.4)}.serverStatus.offline{color:#fca5a5;border-color:rgba(239,68,68,.42)}.onlineSummary{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:9px}.onlineSummary .pill{font-size:12px}
+</style>`,
     'style closing tag'
   );
-  replaceOnce(
-    '<div class="card" style="padding:14px 16px">\n    <div class="row">',
-    '<div class="card" style="padding:14px 16px">\n    <div id="serverStatus" class="pill serverStatus connecting">Connecting to public arena...</div>\n    <div class="row">',
-    'game controls card'
-  );
+
+  const gameSection = html.indexOf('<section id="game" class="tab">');
+  const controlsRow = html.indexOf('<div class="row">', gameSection);
+  if (gameSection < 0 || controlsRow < 0) {
+    throw new Error('Could not find game controls in index.html');
+  }
+  html = `${html.slice(0, controlsRow)}<div id="serverStatus" class="pill serverStatus connecting">Connecting to public arena...</div>
+    ${html.slice(controlsRow)}`;
+
   replaceOnce('>Spawn / Restart</button>', '>Join Public Arena</button>', 'spawn button');
   replaceOnce(
     '<p class="muted small" style="margin:0">Controls: mouse moves, Space split, W eject mass, Q pulls cells together after merge timer. Scroll to zoom.</p>',
@@ -39,19 +44,45 @@ if (!html.includes('window.PEARL_PROFILE=')) {
   );
   replaceOnce(
     '// ================= GAME =================',
-    '// ================= GAME =================\nif(false){',
+    `// ================= GAME =================
+if(false){`,
     'local game marker'
   );
   replaceOnce(
     '// ================ CASINO ================',
-    `}\n\nwindow.PEARL_SKINS=SKINS.map(s=>({name:s.name,color:s.color,icon:s.icon,img:s.img||''}));\nwindow.PEARL_PROFILE={\n  getSkin(){return state.skin},\n  runStarted(){state.stats.runs++;save();renderStats()},\n  award(rewards){\n    state.stats.food+=Math.max(0,Math.floor(rewards.food||0));\n    state.stats.kills+=Math.max(0,Math.floor(rewards.kills||0));\n    const coins=Math.max(0,Math.floor(rewards.coins||0));\n    if(coins)addCoins(coins);else{save();renderStats()}\n  },\n  observeMass(value){\n    if(value>state.stats.best){state.stats.best=value;save();renderStats()}\n  }\n};\n\n// ================ CASINO ================`,
+    `}
+
+window.PEARL_SKINS=SKINS.map(s=>({name:s.name,color:s.color,icon:s.icon,img:s.img||''}));
+window.PEARL_PROFILE={
+  getSkin(){return state.skin},
+  runStarted(){state.stats.runs++;save();renderStats()},
+  award(rewards){
+    state.stats.food+=Math.max(0,Math.floor(rewards.food||0));
+    state.stats.kills+=Math.max(0,Math.floor(rewards.kills||0));
+    const coins=Math.max(0,Math.floor(rewards.coins||0));
+    if(coins)addCoins(coins);else{save();renderStats()}
+  },
+  observeMass(value){
+    if(value>state.stats.best){state.stats.best=value;save();renderStats()}
+  }
+};
+
+// ================ CASINO ================`,
     'casino marker'
   );
-  replaceOnce(
-    '})();\n</script>\n\n<script>\n(function(){\n\'use strict\';',
-    '})();\n</script>\n\n<script src="config.js?v=1"></script>\n<script src="online-client.js?v=1"></script>\n\n<script>\n(function(){\n\'use strict\';',
-    'main script ending'
-  );
+
+  const mediaMarker = 'renderWheelPreview();';
+  const mediaPosition = html.indexOf(mediaMarker);
+  const scriptEnd = html.indexOf('</script>', mediaPosition);
+  if (mediaPosition < 0 || scriptEnd < 0) {
+    throw new Error('Could not find main script ending in index.html');
+  }
+  const afterScript = scriptEnd + '</script>'.length;
+  html = `${html.slice(0, afterScript)}
+
+<script src="config.js?v=1"></script>
+<script src="online-client.js?v=1"></script>
+${html.slice(afterScript)}`;
 }
 
 fs.mkdirSync(path.dirname(publicPath), { recursive: true });
