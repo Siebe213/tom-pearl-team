@@ -1,0 +1,15 @@
+{
+  "name": "pearl-io-public-arena",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Authoritative shared-world server for Pearl.io",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/online-client.js",
+    "test": "node test/smoke.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
