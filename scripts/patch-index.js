@@ -6,6 +6,8 @@ const path = require('path');
 const root = path.resolve(__dirname, '..');
 const indexPath = path.join(root, 'index.html');
 const publicPath = path.join(root, 'public', 'index.html');
+const clientPath = path.join(root, 'online-client.js');
+const publicClientPath = path.join(root, 'public', 'online-client.js');
 let html = fs.readFileSync(indexPath, 'utf8');
 
 function replaceOnce(search, replacement, label) {
@@ -88,4 +90,5 @@ ${html.slice(afterScript)}`;
 fs.mkdirSync(path.dirname(publicPath), { recursive: true });
 fs.writeFileSync(indexPath, html);
 fs.writeFileSync(publicPath, html);
+fs.copyFileSync(clientPath, publicClientPath);
 console.log('Pearl.io index patched for the shared public arena.');
