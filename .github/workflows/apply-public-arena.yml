@@ -1,0 +1,41 @@
+name: Apply public arena
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - codex/public-multiplayer-arena
+    paths:
+      - server.js
+      - public/online-client.js
+      - scripts/patch-index.js
+      - .github/workflows/apply-public-arena.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/public-multiplayer-arena
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Patch the existing Pearl.io page
+        run: node scripts/patch-index.js
+      - name: Validate JavaScript
+        run: npm run check
+      - name: Commit generated game page
+        run: |
+          if git diff --quiet; then
+            echo "The game page is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html public/index.html
+          git commit -m "Integrate public multiplayer into Pearl.io"
+          git push
