@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pearl.io V9 - Rival AI</title>
+<title>Pearl.io V9.1 - Living Arena</title>
 <style>
 :root{
   --bg:#040407;--panel:rgba(255,255,255,.045);--panel2:rgba(255,255,255,.075);--line:rgba(255,255,255,.10);
@@ -81,6 +81,7 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
 .skinAbilitySmall{font-size:11px;color:var(--cyan);margin-top:5px;min-height:14px}.hudAbility{background:linear-gradient(90deg,rgba(34,211,238,.18),rgba(255,51,102,.13))!important;border-color:rgba(34,211,238,.25)!important}
 
 .casinoHero{display:grid;grid-template-columns:1.4fr repeat(3,minmax(110px,.55fr));gap:12px;align-items:stretch;margin-bottom:16px}.casinoStat{display:grid;place-items:center;text-align:center;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:linear-gradient(145deg,rgba(255,51,102,.11),rgba(34,211,238,.07))}.casinoStat b{font-size:22px;color:#fff}.casinoGame{position:relative;overflow:hidden}.casinoGame:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 0,rgba(255,255,255,.08),transparent 34%);pointer-events:none}.casinoOdds{font-size:11px;color:#9ca3af;min-height:28px;margin:7px 0}.hotStreak{color:#fde047;text-shadow:0 0 14px rgba(253,224,71,.45)}@media(max-width:760px){.casinoHero{grid-template-columns:1fr 1fr}.casinoHero .card{grid-column:1/-1}}
+.arenaStatus{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:4;pointer-events:none;display:flex;gap:8px;align-items:center;padding:9px 14px;border:1px solid rgba(34,211,238,.25);border-radius:999px;background:rgba(3,7,18,.72);backdrop-filter:blur(14px);box-shadow:0 8px 30px rgba(0,0,0,.42),0 0 24px rgba(34,211,238,.08);font-size:12px;font-weight:900}.arenaLiveDot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 12px #22c55e;animation:arenaPulse 1.6s ease-in-out infinite}.arenaLiveDot.idle{background:#f59e0b;box-shadow:0 0 12px #f59e0b}.spectatorDock{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:6;display:none;gap:8px;align-items:center;padding:10px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(3,7,18,.82);backdrop-filter:blur(16px);box-shadow:0 12px 38px rgba(0,0,0,.5)}.spectatorDock.show{display:flex}.spectatorDock .btn{padding:8px 11px;font-size:12px}.killFeed{position:absolute;right:14px;top:330px;width:min(280px,38vw);z-index:4;pointer-events:none;display:grid;gap:5px}.killItem{padding:7px 10px;border-left:3px solid #fb7185;border-radius:7px;background:linear-gradient(90deg,rgba(15,23,42,.84),rgba(15,23,42,.28));backdrop-filter:blur(8px);font-size:11px;font-weight:800;animation:killIn .25s ease-out}.gameShell:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(34,211,238,.035),transparent 22%,transparent 78%,rgba(255,51,102,.035));mix-blend-mode:screen}.leader div{padding:3px 5px;border-radius:6px}.leader div:first-child{background:linear-gradient(90deg,rgba(245,158,11,.2),transparent)}.hud .pill{position:relative;overflow:hidden}.hud .pill:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.09),transparent 80%);transform:translateX(-100%);animation:hudSweep 5s linear infinite}@keyframes arenaPulse{50%{transform:scale(1.45);opacity:.55}}@keyframes killIn{from{transform:translateX(18px);opacity:0}}@keyframes hudSweep{to{transform:translateX(100%)}}@media(max-width:1100px){.arenaStatus{left:14px;top:100px;transform:none}}@media(max-width:760px){.arenaStatus{top:105px;max-width:calc(100% - 290px);border-radius:14px}.killFeed{display:none}.spectatorDock{width:calc(100% - 26px);justify-content:center;flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -153,12 +154,15 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
   </div>
   <div class="gameShell">
     <canvas id="gameCanvas"></canvas>
+    <div class="arenaStatus"><span id="arenaLiveDot" class="arenaLiveDot"></span><span id="arenaStatusText">Arena waiting for a player</span></div>
     <div class="gameTop">
       <div class="hud" id="hud"></div>
       <div class="leader"><h4>Leaderboard</h4><div id="leaderboard"></div></div>
     </div>
     <div class="gameBottom"><canvas id="mini" class="minimap" width="160" height="160"></canvas><div id="powerBar" class="powerbar"></div></div>
-    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io Arena</h2><p class="muted">Eat food, consume smaller cells, dodge viruses, steal power-ups, split to attack, survive the chaos.</p><div class="speedBalanceNote">V9: human-like rival bots, photo-only skins, smarter powers and faster 26-second merging.</div><button class="btn primary" id="overlaySpawn">Spawn now</button></div></div>
+    <div id="killFeed" class="killFeed"></div>
+    <div id="spectatorDock" class="spectatorDock"><span class="small muted">SPECTATING</span><button class="btn" id="spectatePrev">Previous</button><b id="spectateName">Arena leader</b><button class="btn" id="spectateNext">Next</button><button class="btn primary" id="spectateJoin">Join arena</button></div>
+    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io Arena</h2><p class="muted">Eat food, consume smaller cells, dodge viruses, steal power-ups, split to attack, survive the chaos.</p><div class="speedBalanceNote">V9.1: a living 10-minute AI arena, tactical rivals, spectator mode and upgraded neon visuals.</div><button class="btn primary" id="overlaySpawn">Spawn now</button></div></div>
   </div>
 </section>
 <section id="casino" class="tab">
@@ -282,7 +286,7 @@ function setCoins(n){state.coins=Math.max(0,Math.floor(n));$('coinCount').textCo
 function addCoins(n){setCoins(state.coins+n)}
 function spend(n){if(state.coins<n){flash('Need '+n+' coins');return false}addCoins(-n);return true}
 function flash(msg){const el=$('moodDisplay');if(el){const old=el.textContent;el.textContent=msg;setTimeout(()=>{if(el.textContent===msg)el.textContent=old},1200)}}
-function setTab(id){document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));state.tab=id;if(id==='shop')renderSkins();}
+function setTab(id){const leavingGame=state.tab==='game'&&id!=='game';document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));state.tab=id;if(leavingGame&&typeof leaveArenaToSpectate==='function')leaveArenaToSpectate();if(id==='game'&&typeof enterArenaView==='function')enterArenaView();if(id==='shop')renderSkins();}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));document.querySelectorAll('[data-tab-jump]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tabJump)));
 $('adultToggle').addEventListener('click',()=>{state.adult=!state.adult;save();renderAdult()});
 function renderAdult(){document.body.classList.toggle('adultOn',state.adult);$('adultToggle').textContent='Adult arcade mode: '+(state.adult?'ON':'OFF');$('moodDisplay').textContent=state.adult?'18+ grimy neon chaos mode':'Neon meme archive mode'}
@@ -437,7 +441,7 @@ setCoins(state.coins);renderAdult();renderSkins();
 // ================= GAME =================
 const canvas=$('gameCanvas'),ctx=canvas.getContext('2d');const mini=$('mini'),mctx=mini.getContext('2d');let DPR=1;
 const WORLD=5600,FOOD_TARGET=3600,BOT_TARGET=48,VIRUS_TARGET=36,POWER_TARGET=32,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=26000;
-const game={running:false,food:[],bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,forceMerge:false,spawnShield:0,frame:0};
+const game={running:false,food:[],bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,forceMerge:false,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0};
 function resize(){DPR=Math.min(2,window.devicePixelRatio||1);const rect=canvas.getBoundingClientRect();canvas.width=Math.max(800,Math.floor(rect.width*DPR));canvas.height=Math.max(520,Math.floor(rect.height*DPR));ctx.setTransform(DPR,0,0,DPR,0,0)}window.addEventListener('resize',resize);setTimeout(resize,0);
 function cw(){return canvas.width/DPR}function ch(){return canvas.height/DPR}
 function newCell(owner,x,y,r,skin,name){return{id:Math.random().toString(36).slice(2),owner,x,y,r,vx:0,vy:0,skin,name,mergeAt:now()+MERGE_MS,dead:false}}
@@ -463,10 +467,63 @@ function makeBot(i){
     target:null,lockUntil:0,nextThink:0,splitCd:rand(0,3),ejectCd:rand(2,7),style,skill,
     bravery:clamp(rand(.55,1.25)+(style==='hunter'?.18:style==='survivor'?-.18:0),.35,1.45),
     greed:clamp(rand(.65,1.3)+(style==='farmer'?.2:0),.45,1.5),wander:rand(0,TAU),
-    aim:{x,y},lastThreat:null,mistakeAt:0,dead:false}
+    aim:{x,y},lastThreat:null,mistakeAt:0,threatMemory:0,preyMemory:0,feintAt:0,kills:0,dead:false}
 }
-function resetGame(){resize();game.food=[];game.bots=[];game.viruses=[];game.powers=[];game.ejected=[];game.particles=[];game.player.name=($('playerName').value||'PearlConsumer').slice(0,18);const sm=selectedMods();game.player.powers={shield:3+(sm.spawnShield||0),speed:2,magnet:0,growth:0};game.player.cells=[newCell('player',WORLD/2,WORLD/2,34+(sm.startMass||0),state.skin,game.player.name)];game.spawnShield=3+(sm.spawnShield||0);for(let i=0;i<FOOD_TARGET;i++)game.food.push(makeFood());for(let i=0;i<BOT_TARGET;i++)game.bots.push(makeBot(i));for(let i=0;i<VIRUS_TARGET;i++)game.viruses.push(makeVirus());for(let i=0;i<POWER_TARGET;i++)game.powers.push(makePower());game.running=true;game.last=now();state.stats.runs++;save();$('spawnOverlay').style.display='none';requestAnimationFrame(loop)}
-$('spawnBtn').addEventListener('click',resetGame);$('overlaySpawn').addEventListener('click',resetGame);$('splitBtn').addEventListener('click',()=>splitOwner('player'));$('ejectBtn').addEventListener('click',()=>ejectOwner('player'));$('mergeBtn').addEventListener('click',()=>{game.forceMerge=true;setTimeout(()=>game.forceMerge=false,1000)});
+function initialiseArena(){
+  resize();game.food=[];game.bots=[];game.viruses=[];game.powers=[];game.ejected=[];game.particles=[];game.killFeed=[];
+  for(let i=0;i<FOOD_TARGET;i++)game.food.push(makeFood());
+  for(let i=0;i<BOT_TARGET;i++)game.bots.push(makeBot(i));
+  for(let i=0;i<VIRUS_TARGET;i++)game.viruses.push(makeVirus());
+  for(let i=0;i<POWER_TARGET;i++)game.powers.push(makePower());
+  game.running=true;game.startedAt=Date.now();game.last=now();game.loopId++;requestAnimationFrame(t=>loop(t,game.loopId))
+}
+function spawnHuman(){
+  if(!game.running)initialiseArena();
+  game.player.name=($('playerName').value||'PearlConsumer').slice(0,18);const sm=selectedMods();
+  game.player.powers={shield:3+(sm.spawnShield||0),speed:2,magnet:0,growth:0};
+  const leaders=[...game.bots].sort((a,b)=>totalMass(b.cells)-totalMass(a.cells)),avoid=leaders.slice(0,5).flatMap(b=>b.cells);
+  let x=WORLD/2,y=WORLD/2,best=-1;
+  for(let i=0;i<16;i++){const tx=rand(600,WORLD-600),ty=rand(600,WORLD-600),clear=avoid.length?Math.min(...avoid.map(c=>dist(tx,ty,c.x,c.y))):9999;if(clear>best){best=clear;x=tx;y=ty}}
+  game.player.cells=[newCell('player',x,y,34+(sm.startMass||0),state.skin,game.player.name)];
+  game.cam.x=x;game.cam.y=y;game.mouse.wx=x;game.mouse.wy=y;game.spawnShield=3+(sm.spawnShield||0);
+  game.humanPresent=true;game.spectating=false;game.idleDeadline=0;game.last=now();state.stats.runs++;save();
+  $('spawnOverlay').style.display='none';$('spectatorDock').classList.remove('show');updateArenaStatus()
+}
+function resetGame(){spawnHuman()}
+function beginIdleCountdown(){
+  if(!game.running||game.humanPresent)return;game.idleDeadline=Date.now()+600000;updateArenaStatus()
+}
+function leaveArenaToSpectate(){
+  if(!game.running||!game.humanPresent)return;
+  game.player.cells=[];game.player.powers={};game.humanPresent=false;game.spectating=true;beginIdleCountdown();save()
+}
+function enterArenaView(){
+  if(game.running&&!game.humanPresent){game.spectating=true;$('spawnOverlay').style.display='none';$('spectatorDock').classList.add('show');updateSpectatorTarget();updateArenaStatus()}
+}
+function endArenaForInactivity(){
+  game.running=false;game.loopId++;game.humanPresent=false;game.spectating=false;game.idleDeadline=0;
+  $('spectatorDock').classList.remove('show');$('spawnOverlay').style.display='flex';
+  $('spawnOverlay').querySelector('h2').textContent='Arena reset';
+  $('spawnOverlay').querySelector('p').textContent='No real player stayed for 10 minutes, so a fresh arena is ready.';
+  updateArenaStatus()
+}
+function updateArenaStatus(){
+  const dot=$('arenaLiveDot'),text=$('arenaStatusText');if(!dot||!text)return;
+  if(!game.running){dot.className='arenaLiveDot idle';text.textContent='Arena waiting for a player';return}
+  if(game.humanPresent){dot.className='arenaLiveDot';text.textContent='LIVE ARENA · player active · '+game.bots.length+' rivals';return}
+  const left=Math.max(0,Math.ceil((game.idleDeadline-Date.now())/1000));dot.className='arenaLiveDot idle';
+  text.textContent='AI-ONLY · resets in '+Math.floor(left/60)+':'+String(left%60).padStart(2,'0')+' unless a player joins'
+}
+function spectatorBots(){return [...game.bots].filter(b=>b.cells.length).sort((a,b)=>totalMass(b.cells)-totalMass(a.cells))}
+function updateSpectatorTarget(){
+  const bots=spectatorBots();if(!bots.length)return;game.spectateIndex=(game.spectateIndex+bots.length)%bots.length;
+  const b=bots[game.spectateIndex],cen=centerOf(b.cells);game.cam.x=cen.x;game.cam.y=cen.y;$('spectateName').textContent=b.name+' · '+Math.floor(totalMass(b.cells))+' mass'
+}
+function cycleSpectator(dir){game.spectateIndex+=dir;updateSpectatorTarget()}
+function addKillFeed(killer,victim){
+  game.killFeed.unshift({text:killer+' consumed '+victim,until:Date.now()+5500});game.killFeed=game.killFeed.slice(0,5)
+}
+$('spawnBtn').addEventListener('click',spawnHuman);$('overlaySpawn').addEventListener('click',spawnHuman);$('spectateJoin').addEventListener('click',spawnHuman);$('spectatePrev').addEventListener('click',()=>cycleSpectator(-1));$('spectateNext').addEventListener('click',()=>cycleSpectator(1));$('splitBtn').addEventListener('click',()=>splitOwner('player'));$('ejectBtn').addEventListener('click',()=>ejectOwner('player'));$('mergeBtn').addEventListener('click',()=>{game.forceMerge=true;setTimeout(()=>game.forceMerge=false,1000)});
 canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();game.mouse.x=e.clientX-r.left;game.mouse.y=e.clientY-r.top});canvas.addEventListener('touchmove',e=>{const t=e.touches[0],r=canvas.getBoundingClientRect();game.mouse.x=t.clientX-r.left;game.mouse.y=t.clientY-r.top;e.preventDefault()},{passive:false});canvas.addEventListener('wheel',e=>{e.preventDefault();game.cam.manual=clamp(game.cam.manual+(e.deltaY>0?-0.08:0.08),.68,1.55)},{passive:false});
 window.addEventListener('keydown',e=>{if(!game.running)return;if(e.code==='Space'){e.preventDefault();splitOwner('player')}if(e.code==='KeyW'){e.preventDefault();ejectOwner('player')}if(e.code==='KeyQ'){e.preventDefault();game.forceMerge=true;setTimeout(()=>game.forceMerge=false,900)}});
 function ownerCells(owner){if(owner==='player')return game.player.cells;const b=game.bots.find(x=>x.id===owner);return b?b.cells:[]}
@@ -476,7 +533,7 @@ function dirToTarget(from,target){let dx=target.x-from.x,dy=target.y-from.y,d=Ma
 function cellSpeed(r,powers){let s=clamp(9.45-r*.073,2.35,9.45);if(powers&&powers.speed>0)s*=1.38;if(powers&&powers.frenzy>0)s*=1.18;return s}
 function splitOwner(owner){const cells=ownerCells(owner);const max=owner==='player'?MAX_PLAYER_CELLS:MAX_BOT_CELLS;if(cells.length>=max)return;const target=owner==='player'?{x:game.mouse.wx,y:game.mouse.wy}:((game.bots.find(b=>b.id===owner)||{}).aim||null);let made=[];for(const c of [...cells]){if(c.r<36||cells.length+made.length>=max)continue;let aim=target||{x:c.x+c.vx*20+rand(-80,80),y:c.y+c.vy*20+rand(-80,80)};const d=dirToTarget(c,aim);const nr=c.r/Math.SQRT2;c.r=nr;const n=newCell(owner,c.x+d.dx*(c.r+8),c.y+d.dy*(c.r+8),nr,c.skin,c.name);const m=cellMods(c);const launch=22*(m.splitLaunch||1);n.vx=d.dx*launch;n.vy=d.dy*launch;c.mergeAt=now()+mergeDelayForCell(c);n.mergeAt=now()+mergeDelayForCell(n);made.push(n);}
  cells.push(...made)}
-function ejectOwner(owner){const cells=ownerCells(owner);const target=owner==='player'?{x:game.mouse.wx,y:game.mouse.wy}:null;for(const c of cells){if(c.r<30)continue;const aim=target||{x:c.x+c.vx*30,y:c.y+c.vy*30};const d=dirToTarget(c,aim);c.r=Math.sqrt(Math.max(100,c.r*c.r-72));const sk=SKINS[c.skin]||SKINS[0];game.ejected.push({x:c.x+d.dx*(c.r+12),y:c.y+d.dy*(c.r+12),r:8,vx:d.dx*16,vy:d.dy*16,color:sk.color||'#fff',life:5,dead:false});}}
+function ejectOwner(owner){const cells=ownerCells(owner);const bot=owner==='player'?null:game.bots.find(b=>b.id===owner);const target=owner==='player'?{x:game.mouse.wx,y:game.mouse.wy}:(bot&&bot.aim);for(const c of cells){if(c.r<30)continue;const aim=target||{x:c.x+c.vx*30,y:c.y+c.vy*30};const d=dirToTarget(c,aim);c.r=Math.sqrt(Math.max(100,c.r*c.r-72));const sk=SKINS[c.skin]||SKINS[0];game.ejected.push({x:c.x+d.dx*(c.r+12),y:c.y+d.dy*(c.r+12),r:8,vx:d.dx*16,vy:d.dy*16,color:sk.color||'#fff',life:5,dead:false});}}
 function applyPower(owner,type){
   const p=owner==='player'?game.player:game.bots.find(b=>b.id===owner);if(!p)return;
   const mods=owner==='player'?selectedMods():ownerMods(owner),bonus=mods.powerDuration||0;
@@ -491,65 +548,62 @@ function movePlayer(dt){const cells=game.player.cells;const powers=game.player.p
 function bound(c){c.x=clamp(c.x,c.r,WORLD-c.r);c.y=clamp(c.y,c.r,WORLD-c.r)}
 function botThink(b,t){
   if(t<b.nextThink)return;
-  b.nextThink=t+rand(150,360)+(1-b.skill)*280;
+  b.nextThink=t+rand(120,300)+(1-b.skill)*240;
   const cells=b.cells.filter(c=>!c.dead),main=[...cells].sort((a,z)=>z.r-a.r)[0];if(!main)return;
-  const center=centerOf(cells),myMass=totalMass(cells),visible=760+main.r*8+b.skill*320;
-  let threat=null,threatScore=0,prey=null,preyScore=0;
+  const center=centerOf(cells),myMass=totalMass(cells),visible=820+main.r*9+b.skill*360;
+  let threat=null,threatScore=0,prey=null,preyScore=0,nearestVirus=null,virusDist=1e9;
+  for(const v of game.viruses){const d=dist(center.x,center.y,v.x,v.y);if(d<virusDist){virusDist=d;nearestVirus=v}}
   for(const other of allCells()){
     if(other.owner===b.id||other.dead)continue;
     const d=dist(center.x,center.y,other.x,other.y);if(d>visible)continue;
     const approach=((other.vx||0)*(center.x-other.x)+(other.vy||0)*(center.y-other.y))/(d||1);
-    if(other.r>main.r*1.12){
-      const score=(other.r/main.r)*2.2+(visible-d)/visible+Math.max(0,approach)*.03;
+    const edgeTrap=Math.min(other.x,other.y,WORLD-other.x,WORLD-other.y)<220?.45:0;
+    if(other.r>main.r*1.1){
+      const canEnemySplit=other.r>main.r*1.62&&d<other.r*4.8;
+      const score=(other.r/main.r)*2.35+(visible-d)/visible+Math.max(0,approach)*.035+(canEnemySplit?1.2:0);
       if(score>threatScore){threatScore=score;threat=other}
-    }else if(main.r>other.r*1.18){
-      const splitReach=main.r*4.4*(cellMods(main).splitLaunch||1);
-      const score=(main.r/other.r)*1.4+(visible-d)/visible+(d<splitReach?.7:0);
+    }else if(main.r>other.r*1.16){
+      const splitReach=main.r*(4.1+b.skill*.8)*(cellMods(main).splitLaunch||1);
+      const enemyFriends=ownerCells(other.owner).filter(c=>c!==other&&!c.dead&&dist(other.x,other.y,c.x,c.y)<450).length;
+      const score=(main.r/other.r)*1.35+(visible-d)/visible+(d<splitReach?.9:0)+edgeTrap-enemyFriends*.24;
       if(score>preyScore){preyScore=score;prey=other}
     }
   }
-  if(threat&&threatScore>1.8*b.bravery){
-    b.intent='flee';b.lastThreat=threat;
-    const lead=.8+b.skill*.8,tx=threat.x+(threat.vx||0)*lead*15,ty=threat.y+(threat.vy||0)*lead*15;
-    b.target={x:clamp(center.x-(tx-center.x)*2.3,80,WORLD-80),y:clamp(center.y-(ty-center.y)*2.3,80,WORLD-80)};
-    b.lockUntil=t+rand(420,850);return
+  if(threat&&threatScore>(1.72+.25*b.bravery)){
+    b.intent='flee';b.lastThreat=threat;b.threatMemory=t+1800;
+    let vx=center.x-threat.x,vy=center.y-threat.y;
+    if(nearestVirus&&main.r<threat.r*.82&&virusDist<480){vx=nearestVirus.x-center.x;vy=nearestVirus.y-center.y;b.intent='virus-cover'}
+    const side=(center.x<260||center.x>WORLD-260)?(center.x<WORLD/2?1:-1):0;
+    b.target={x:clamp(center.x+vx*2.6+side*240,90,WORLD-90),y:clamp(center.y+vy*2.6,90,WORLD-90)};
+    b.lockUntil=t+rand(520,980);return
   }
   let bestPower=null,bestPowerScore=-1;
   for(const p of game.powers){
-    if(p.dead)continue;const d=dist(center.x,center.y,p.x,p.y);if(d>900+b.skill*250)continue;
-    const value={nova:6,ghost:5,frenzy:4.7,shield:4.4,growth:4,speed:3.5,magnet:3,coin:2}[p.type]||1;
-    const score=value-d/280+(b.style==='opportunist'?1:0);
+    if(p.dead)continue;const d=dist(center.x,center.y,p.x,p.y);if(d>1050+b.skill*260)continue;
+    let value={nova:6.5,ghost:5.3,frenzy:4.9,shield:4.7,growth:4.2,speed:3.7,magnet:3.2,coin:2}[p.type]||1;
+    if(threatScore>1.2&&(p.type==='shield'||p.type==='ghost'||p.type==='speed'))value+=2;
+    const score=value-d/300+(b.style==='opportunist'?1.1:0);
     if(score>bestPowerScore){bestPowerScore=score;bestPower=p}
   }
-  if(bestPower&&bestPowerScore>1.15){
-    b.intent='power';b.target=bestPower;b.lockUntil=t+rand(500,1000);return
-  }
-  if(prey&&preyScore>(b.style==='hunter'?2.0:2.45)/b.bravery){
-    b.intent='hunt';
-    const prediction=(.35+b.skill*.65)*Math.min(28,dist(main.x,main.y,prey.x,prey.y)/Math.max(2,cellSpeed(main.r,b.powers)));
-    b.target={...prey,x:prey.x+(prey.vx||0)*prediction,y:prey.y+(prey.vy||0)*prediction};
-    b.lockUntil=t+rand(600,1200);
-    const range=dist(main.x,main.y,b.target.x,b.target.y),splitReach=main.r*(3.8+b.skill*.9);
-    const safeSplit=main.r>prey.r*(1.62+(1-b.skill)*.28)&&cells.length<MAX_BOT_CELLS/2;
-    if(safeSplit&&range<splitReach&&range>main.r*.9&&b.splitCd<=0&&Math.random()<.45+b.skill*.45){
-      b.aim={x:b.target.x,y:b.target.y};splitOwner(b.id);b.splitCd=7.5+rand(0,3)
+  if(bestPower&&bestPowerScore>1.2){b.intent='power';b.target=bestPower;b.lockUntil=t+rand(500,950);return}
+  if(prey&&preyScore>(b.style==='hunter'?1.9:2.35)/b.bravery){
+    b.intent='hunt';b.preyMemory=t+1700;
+    const pd=dist(main.x,main.y,prey.x,prey.y),prediction=(.45+b.skill*.7)*Math.min(32,pd/Math.max(2,cellSpeed(main.r,b.powers)));
+    let tx=prey.x+(prey.vx||0)*prediction,ty=prey.y+(prey.vy||0)*prediction;
+    if(prey.x<260)tx-=180;if(prey.x>WORLD-260)tx+=180;if(prey.y<260)ty-=180;if(prey.y>WORLD-260)ty+=180;
+    b.target={...prey,x:clamp(tx,35,WORLD-35),y:clamp(ty,35,WORLD-35)};b.aim={x:b.target.x,y:b.target.y};b.lockUntil=t+rand(650,1250);
+    const splitReach=main.r*(4.0+b.skill*.85),safeSplit=main.r>prey.r*(1.56+(1-b.skill)*.25)&&cells.length<MAX_BOT_CELLS/2;
+    if(safeSplit&&pd<splitReach&&pd>main.r*.85&&b.splitCd<=0&&Math.random()<.58+b.skill*.34){splitOwner(b.id);b.splitCd=7+rand(0,2.5);return}
+    if(main.r>prey.r*2.25&&pd<520&&pd>210&&b.ejectCd<=0&&t>b.feintAt&&Math.random()<.22+b.skill*.2){
+      ejectOwner(b.id);b.ejectCd=8+rand(0,5);b.feintAt=t+3500;b.intent='bait'
     }
     return
   }
   let fx=0,fy=0,weight=0;
-  for(let k=0;k<64;k++){
-    const f=game.food[Math.floor(rand(0,game.food.length))];if(!f||f.dead)continue;
-    const d=dist(center.x,center.y,f.x,f.y);if(d>900)continue;
-    const w=1/(80+d);fx+=f.x*w;fy+=f.y*w;weight+=w
-  }
-  if(weight&&Math.random()<.82){
-    b.intent='farm';b.target={x:fx/weight,y:fy/weight};b.lockUntil=t+rand(500,950)
-  }else{
-    b.intent='roam';b.wander+=rand(-.8,.8);
-    b.target={x:clamp(center.x+Math.cos(b.wander)*rand(350,850),100,WORLD-100),y:clamp(center.y+Math.sin(b.wander)*rand(350,850),100,WORLD-100)};
-    b.lockUntil=t+rand(700,1400)
-  }
-  if(Math.random()<(1-b.skill)*.08)b.target={x:rand(100,WORLD-100),y:rand(100,WORLD-100)}
+  for(let k=0;k<76;k++){const f=game.food[Math.floor(rand(0,game.food.length))];if(!f||f.dead)continue;const d=dist(center.x,center.y,f.x,f.y);if(d>980)continue;const w=1/(65+d);fx+=f.x*w;fy+=f.y*w;weight+=w}
+  if(weight&&Math.random()<.86){b.intent='farm';b.target={x:fx/weight,y:fy/weight};b.lockUntil=t+rand(480,900)}
+  else{b.intent='roam';b.wander+=rand(-.65,.65);b.target={x:clamp(center.x+Math.cos(b.wander)*rand(420,920),100,WORLD-100),y:clamp(center.y+Math.sin(b.wander)*rand(420,920),100,WORLD-100)};b.lockUntil=t+rand(750,1450)}
+  if(Math.random()<(1-b.skill)*.045)b.target={x:rand(100,WORLD-100),y:rand(100,WORLD-100)}
 }
 function moveBots(dt,t){
   for(const b of game.bots){
@@ -589,11 +643,32 @@ function collisions(dt){const cells=allCells();
  // viruses
  for(const v of game.viruses){for(const c of [...allCells()]){if(c.dead)continue;if(dist(c.x,c.y,v.x,v.y)<c.r+v.r*.65)virusHit(c.owner,c,v)}}
  // cell eating - largest first
- const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.09:1.13)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.18){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;if(a.owner==='player'){state.stats.kills++;addCoins(15)}}}}
+ const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.09:1.13)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.18){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell';addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;addCoins(15)}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}}}}
  cleanDead();}
 function cleanDead(){game.player.cells=game.player.cells.filter(c=>!c.dead);for(const b of game.bots)b.cells=b.cells.filter(c=>!c.dead);game.bots=game.bots.filter(b=>b.cells.length>0);if(game.bots.length<BOT_TARGET){const start=game.bots.length;for(let i=start;i<BOT_TARGET;i++)game.bots.push(makeBot(i+Math.floor(rand(0,9999))))}game.food=game.food.filter(f=>!f.dead);while(game.food.length<FOOD_TARGET)game.food.push(makeFood());game.powers=game.powers.filter(p=>!p.dead);while(game.powers.length<POWER_TARGET)game.powers.push(makePower());game.ejected=game.ejected.filter(e=>!e.dead);}
-function updateCamera(){const pc=game.player.cells;if(!pc.length)return;const cen=centerOf(pc);game.cam.x+=(cen.x-game.cam.x)*.08;game.cam.y+=(cen.y-game.cam.y)*.08;const tm=totalMass(pc);const targetZoom=clamp(1.28-tm/900,.42,1.18)*game.cam.manual;game.cam.zoom+=(targetZoom-game.cam.zoom)*.05;game.mouse.wx=game.cam.x+(game.mouse.x-cw()/2)/game.cam.zoom;game.mouse.wy=game.cam.y+(game.mouse.y-ch()/2)/game.cam.zoom}
-function loop(t){if(!game.running)return;let dt=Math.min(.05,(t-game.last)/1000||.016);game.last=t;game.frame++;tickPowers(game.player,dt);movePlayer(dt);moveBots(dt,t);separateOwnerCells('player',game.forceMerge);for(const b of game.bots)separateOwnerCells(b.id,false);for(const b of game.bots)mergeCells(b.id,false);mergeCells('player',game.forceMerge);collisions(dt);updateCamera();render();updateHud();const tm=totalMass(game.player.cells);if(tm>state.stats.best){state.stats.best=tm;save()}if(!game.player.cells.length){game.running=false;$('spawnOverlay').style.display='flex';$('spawnOverlay').querySelector('h2').textContent='You were eaten';$('spawnOverlay').querySelector('p').textContent='Final run saved. Respawn and take revenge.';save();return}requestAnimationFrame(loop)}
+function updateCamera(){
+  let cells=game.player.cells;
+  if(!game.humanPresent&&game.spectating){const bots=spectatorBots();if(bots.length){game.spectateIndex=clamp(game.spectateIndex,0,bots.length-1);cells=bots[game.spectateIndex].cells;$('spectateName').textContent=bots[game.spectateIndex].name+' · '+Math.floor(totalMass(cells))+' mass'}}
+  if(!cells.length)return;const cen=centerOf(cells);game.cam.x+=(cen.x-game.cam.x)*.065;game.cam.y+=(cen.y-game.cam.y)*.065;
+  const tm=totalMass(cells),targetZoom=clamp(1.28-tm/900,.38,1.18)*game.cam.manual;game.cam.zoom+=(targetZoom-game.cam.zoom)*.045;
+  game.mouse.wx=game.cam.x+(game.mouse.x-cw()/2)/game.cam.zoom;game.mouse.wy=game.cam.y+(game.mouse.y-ch()/2)/game.cam.zoom
+}
+function loop(t,id){
+  if(!game.running||id!==game.loopId)return;
+  if(!game.humanPresent&&game.idleDeadline&&Date.now()>=game.idleDeadline){endArenaForInactivity();return}
+  let dt=Math.min(.05,(t-game.last)/1000||.016);game.last=t;game.frame++;
+  if(game.humanPresent){tickPowers(game.player,dt);movePlayer(dt)}
+  moveBots(dt,t);if(game.humanPresent)separateOwnerCells('player',game.forceMerge);
+  for(const b of game.bots)separateOwnerCells(b.id,false);for(const b of game.bots)mergeCells(b.id,false);
+  if(game.humanPresent)mergeCells('player',game.forceMerge);
+  collisions(dt);updateCamera();render();updateHud();
+  const tm=totalMass(game.player.cells);if(tm>state.stats.best){state.stats.best=tm;save()}
+  if(game.humanPresent&&!game.player.cells.length){
+    game.humanPresent=false;game.spectating=true;beginIdleCountdown();$('spectatorDock').classList.add('show');
+    $('spawnOverlay').style.display='none';updateSpectatorTarget();save()
+  }
+  requestAnimationFrame(nt=>loop(nt,id))
+}
 function worldToScreen(x,y){return{x:(x-game.cam.x)*game.cam.zoom+cw()/2,y:(y-game.cam.y)*game.cam.zoom+ch()/2}}
 function onScreen(x,y,r=0){const s=worldToScreen(x,y);return s.x+r>-80&&s.x-r<cw()+80&&s.y+r>-80&&s.y-r<ch()+80}
 
@@ -648,11 +723,37 @@ function drawCell(c,isPlayer){
   ctx.restore();
 }
 
-function render(){ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,cw(),ch());ctx.fillStyle='#06060b';ctx.fillRect(0,0,cw(),ch());ctx.save();ctx.translate(cw()/2,ch()/2);ctx.scale(game.cam.zoom,game.cam.zoom);ctx.translate(-game.cam.x,-game.cam.y);ctx.strokeStyle='rgba(255,255,255,.045)';ctx.lineWidth=1/game.cam.zoom;const gs=120,startX=Math.floor((game.cam.x-cw()/game.cam.zoom/2)/gs)*gs,endX=game.cam.x+cw()/game.cam.zoom/2+gs,startY=Math.floor((game.cam.y-ch()/game.cam.zoom/2)/gs)*gs,endY=game.cam.y+ch()/game.cam.zoom/2+gs;for(let x=startX;x<endX;x+=gs){ctx.beginPath();ctx.moveTo(x,startY);ctx.lineTo(x,endY);ctx.stroke()}for(let y=startY;y<endY;y+=gs){ctx.beginPath();ctx.moveTo(startX,y);ctx.lineTo(endX,y);ctx.stroke()}ctx.strokeStyle='rgba(255,51,102,.72)';ctx.lineWidth=7/game.cam.zoom;ctx.strokeRect(0,0,WORLD,WORLD);for(const f of game.food){if(f.x<game.cam.x-cw()/game.cam.zoom/2-40||f.x>game.cam.x+cw()/game.cam.zoom/2+40||f.y<game.cam.y-ch()/game.cam.zoom/2-40||f.y>game.cam.y+ch()/game.cam.zoom/2+40)continue;ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,TAU);ctx.fillStyle=f.color;ctx.fill()}for(const e of game.ejected){ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,TAU);ctx.fillStyle=e.color;ctx.fill()}for(const v of game.viruses){ctx.save();ctx.beginPath();for(let i=0;i<22;i++){const a=i/22*TAU,rr=v.r+(i%2?5:-3);ctx[i?'lineTo':'moveTo'](v.x+Math.cos(a)*rr,v.y+Math.sin(a)*rr)}ctx.closePath();ctx.fillStyle='rgba(34,197,94,.34)';ctx.fill();ctx.strokeStyle='#22c55e';ctx.lineWidth=3/game.cam.zoom;ctx.stroke();ctx.restore()}for(const p of game.powers){p.pulse+=.08;const rr=p.r+Math.sin(p.pulse)*4;ctx.save();ctx.shadowColor=p.color;ctx.shadowBlur=30;ctx.beginPath();ctx.arc(p.x,p.y,rr,0,TAU);ctx.fillStyle='rgba(255,255,255,.10)';ctx.fill();ctx.lineWidth=4/game.cam.zoom;ctx.strokeStyle=p.color;ctx.stroke();ctx.font='24px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.emoji,p.x,p.y);ctx.font='900 12px system-ui';ctx.fillStyle='#fff';ctx.fillText(p.type.toUpperCase(),p.x,p.y+38);ctx.restore()}ctx.restore();const cells=allCells().sort((a,b)=>a.r-b.r);for(const c of cells)if(onScreen(c.x,c.y,c.r*game.cam.zoom+40))drawCell(c,c.owner==='player');drawMini();}
+function render(){
+  ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,cw(),ch());
+  const bg=ctx.createRadialGradient(cw()*.5,ch()*.45,20,cw()*.5,ch()*.45,Math.max(cw(),ch())*.72);
+  bg.addColorStop(0,'#10132b');bg.addColorStop(.5,'#080a17');bg.addColorStop(1,'#03040a');ctx.fillStyle=bg;ctx.fillRect(0,0,cw(),ch());
+  ctx.save();ctx.translate(cw()/2,ch()/2);ctx.scale(game.cam.zoom,game.cam.zoom);ctx.translate(-game.cam.x,-game.cam.y);
+  const gs=120,startX=Math.floor((game.cam.x-cw()/game.cam.zoom/2)/gs)*gs,endX=game.cam.x+cw()/game.cam.zoom/2+gs,startY=Math.floor((game.cam.y-ch()/game.cam.zoom/2)/gs)*gs,endY=game.cam.y+ch()/game.cam.zoom/2+gs;
+  for(let x=startX;x<endX;x+=gs){ctx.strokeStyle=x%600===0?'rgba(34,211,238,.10)':'rgba(255,255,255,.035)';ctx.lineWidth=(x%600===0?1.5:1)/game.cam.zoom;ctx.beginPath();ctx.moveTo(x,startY);ctx.lineTo(x,endY);ctx.stroke()}
+  for(let y=startY;y<endY;y+=gs){ctx.strokeStyle=y%600===0?'rgba(255,51,102,.09)':'rgba(255,255,255,.035)';ctx.lineWidth=(y%600===0?1.5:1)/game.cam.zoom;ctx.beginPath();ctx.moveTo(startX,y);ctx.lineTo(endX,y);ctx.stroke()}
+  ctx.shadowColor='#ff3366';ctx.shadowBlur=24/game.cam.zoom;ctx.strokeStyle='rgba(255,51,102,.82)';ctx.lineWidth=8/game.cam.zoom;ctx.strokeRect(0,0,WORLD,WORLD);ctx.shadowBlur=0;
+  for(const f of game.food){if(f.x<game.cam.x-cw()/game.cam.zoom/2-40||f.x>game.cam.x+cw()/game.cam.zoom/2+40||f.y<game.cam.y-ch()/game.cam.zoom/2-40||f.y>game.cam.y+ch()/game.cam.zoom/2+40)continue;ctx.shadowColor=f.color;ctx.shadowBlur=7/game.cam.zoom;ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,TAU);ctx.fillStyle=f.color;ctx.fill()}ctx.shadowBlur=0;
+  for(const e of game.ejected){ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,TAU);ctx.fillStyle=e.color;ctx.fill()}
+  for(const v of game.viruses){ctx.save();ctx.shadowColor='#22c55e';ctx.shadowBlur=18/game.cam.zoom;ctx.beginPath();for(let i=0;i<22;i++){const a=i/22*TAU,rr=v.r+(i%2?6:-4);ctx[i?'lineTo':'moveTo'](v.x+Math.cos(a)*rr,v.y+Math.sin(a)*rr)}ctx.closePath();ctx.fillStyle='rgba(34,197,94,.28)';ctx.fill();ctx.strokeStyle='#4ade80';ctx.lineWidth=3/game.cam.zoom;ctx.stroke();ctx.restore()}
+  for(const p of game.powers){p.pulse+=.08;const rr=p.r+Math.sin(p.pulse)*4;ctx.save();ctx.shadowColor=p.color;ctx.shadowBlur=32;ctx.beginPath();ctx.arc(p.x,p.y,rr,0,TAU);ctx.fillStyle='rgba(255,255,255,.10)';ctx.fill();ctx.lineWidth=4/game.cam.zoom;ctx.strokeStyle=p.color;ctx.stroke();ctx.font='24px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.emoji,p.x,p.y);ctx.font='900 12px system-ui';ctx.fillStyle='#fff';ctx.fillText(p.type.toUpperCase(),p.x,p.y+38);ctx.restore()}
+  ctx.restore();const cells=allCells().sort((a,b)=>a.r-b.r);for(const c of cells)if(onScreen(c.x,c.y,c.r*game.cam.zoom+40))drawCell(c,c.owner==='player');
+  drawMini();game.killFeed=game.killFeed.filter(k=>k.until>Date.now());$('killFeed').innerHTML=game.killFeed.map(k=>'<div class="killItem">'+k.text+'</div>').join('')
+}
 function drawMini(){mctx.clearRect(0,0,160,160);mctx.fillStyle='rgba(0,0,0,.65)';mctx.fillRect(0,0,160,160);const s=160/WORLD;for(const p of game.powers){mctx.beginPath();mctx.arc(p.x*s,p.y*s,2.3,0,TAU);mctx.fillStyle=p.color;mctx.fill()}for(const b of game.bots){for(const c of b.cells){mctx.beginPath();mctx.arc(c.x*s,c.y*s,Math.max(1.6,c.r*s*2),0,TAU);mctx.fillStyle='rgba(167,139,250,.8)';mctx.fill()}}for(const c of game.player.cells){mctx.beginPath();mctx.arc(c.x*s,c.y*s,Math.max(3,c.r*s*2.4),0,TAU);mctx.fillStyle='#ff3366';mctx.fill();mctx.strokeStyle='#fff';mctx.stroke()}mctx.strokeStyle='rgba(255,255,255,.35)';mctx.strokeRect(0,0,160,160)}
-function updateHud(){const cells=game.player.cells,tm=totalMass(cells),largest=Math.max(0,...cells.map(mass));let merge=0;if(cells.length>1){merge=Math.max(0,Math.ceil((Math.min(...cells.map(c=>c.mergeAt))-now())/1000))}$('hud').innerHTML='<span class="pill">Mass '+Math.floor(tm)+'</span><span class="pill">Cells '+cells.length+'</span><span class="pill">Largest '+Math.floor(largest)+'</span><span class="pill">Merge '+(merge>0?merge+'s':'READY')+'</span><span class="pill">Zoom '+game.cam.zoom.toFixed(2)+'</span>';$('powerBar').innerHTML=Object.keys(game.player.powers).map(k=>'<span class="powerChip">'+k.toUpperCase()+' '+game.player.powers[k].toFixed(1)+'s</span>').join('');const rows=[{name:game.player.name,m:tm,me:true},...game.bots.map(b=>({name:b.name,m:totalMass(b.cells),mode:b.intent}))].sort((a,b)=>b.m-a.m).slice(0,10);$('leaderboard').innerHTML=rows.map((r,i)=>'<div style="'+(r.me?'color:#ff8aaa;font-weight:950':'')+'">'+(i+1)+'. '+r.name+' <span class="muted">'+Math.floor(r.m)+'</span> '+(r.mode?'<span class="muted">'+r.mode+'</span>':'')+'</div>').join('')}
+function updateHud(){
+  const cells=game.player.cells,tm=totalMass(cells),largest=Math.max(0,...cells.map(mass));let merge=0;
+  if(cells.length>1)merge=Math.max(0,Math.ceil((Math.min(...cells.map(c=>c.mergeAt))-now())/1000));
+  const arenaAge=game.running?Math.floor((Date.now()-game.startedAt)/1000):0;
+  $('hud').innerHTML=game.humanPresent?
+    '<span class="pill">MASS '+Math.floor(tm)+'</span><span class="pill">CELLS '+cells.length+'</span><span class="pill">LARGEST '+Math.floor(largest)+'</span><span class="pill">MERGE '+(merge>0?merge+'s':'READY')+'</span><span class="pill">ARENA '+Math.floor(arenaAge/60)+':'+String(arenaAge%60).padStart(2,'0')+'</span>':
+    '<span class="pill">SPECTATOR MODE</span><span class="pill">AI RIVALS '+game.bots.length+'</span><span class="pill">ARENA '+Math.floor(arenaAge/60)+':'+String(arenaAge%60).padStart(2,'0')+'</span>';
+  $('powerBar').innerHTML=game.humanPresent?Object.keys(game.player.powers).map(k=>'<span class="powerChip">'+k.toUpperCase()+' '+game.player.powers[k].toFixed(1)+'s</span>').join(''):'';
+  const rows=[...(game.humanPresent?[{name:game.player.name,m:tm,me:true,mode:'player'}]:[]),...game.bots.map(b=>({name:b.name,m:totalMass(b.cells),mode:b.intent,kills:b.kills||0}))].sort((a,b)=>b.m-a.m).slice(0,10);
+  $('leaderboard').innerHTML=rows.map((r,i)=>'<div style="'+(r.me?'color:#ff8aaa;font-weight:950':'')+'">'+(i+1)+'. '+r.name+' <span class="muted">'+Math.floor(r.m)+'</span> '+(r.mode?'<span class="muted">'+r.mode+'</span>':'')+(r.kills?' <span style="color:#fb7185">x'+r.kills+'</span>':'')+'</div>').join('');
+  updateArenaStatus()
+}
 
-// ================ CASINO ================
+// ================ CASINO// ================ CASINO ================
 const casinoMeta=safeStore.get('v9casino',{jackpot:1000,streak:0,best:0});
 function saveCasino(){safeStore.set('v9casino',casinoMeta);renderCasinoMeta()}
 function renderCasinoMeta(){
