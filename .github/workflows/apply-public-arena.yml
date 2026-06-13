@@ -1,42 +1,39 @@
-name: Apply public arena
+name: Restore stable Pearl.io site
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - codex/public-multiplayer-arena
+      - main
     paths:
-      - server.js
-      - online-client.js
-      - public/online-client.js
-      - scripts/patch-index.js
       - .github/workflows/apply-public-arena.yml
 
 permissions:
   contents: write
 
 jobs:
-  patch-index:
+  restore-site:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: codex/public-multiplayer-arena
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Patch the existing Pearl.io page
-        run: node scripts/patch-index.js
-      - name: Validate JavaScript
-        run: npm run check
-      - name: Commit generated game page
+          ref: main
+          fetch-depth: 0
+      - name: Restore the pre-multiplayer game
         run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "The game page is already current."
-            exit 0
-          fi
+          git show f97b92d02837c36dbdb924106a22808dcb69be1b:index.html > index.html
+          git rm -r --ignore-unmatch public scripts test
+          git rm --ignore-unmatch server.js online-client.js package.json render.yaml README.md .gitignore
+          git rm --ignore-unmatch .github/workflows/apply-public-arena.yml
+      - name: Verify the restored page
+        run: |
+          ! grep -q "online-client.js" index.html
+          ! grep -q "if(false){" index.html
+          grep -q "Spawn / Restart" index.html
+      - name: Commit the clean site
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html public/index.html public/online-client.js
-          git commit -m "Integrate public multiplayer into Pearl.io"
+          git add index.html
+          git commit -m "Remove multiplayer and restore the stable site"
           git push
