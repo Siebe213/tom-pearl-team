@@ -22,11 +22,16 @@ jobs:
           node-version: 20
       - name: Build Pearl.io V9
         run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          p.write_bytes(p.read_bytes().replace(b'\r\n', b'\n'))
+          PY
           base64 --decode upgrade-v9.xz.b64 | xz --decompress > /tmp/upgrade-v9.js
           node /tmp/upgrade-v9.js index.html index.html
           grep -q 'Pearl.io V9 - Rival AI' index.html
           grep -q 'Pearl Casino V9' index.html
-          grep -q "style='opportunist'" index.html || grep -q "'opportunist'" index.html
+          grep -q "'opportunist'" index.html
       - name: Publish and clean temporary files
         run: |
           git config user.name 'github-actions[bot]'
