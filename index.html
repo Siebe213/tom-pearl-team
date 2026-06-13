@@ -80,7 +80,6 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
 .abilityPanel h4{margin:0 0 8px;color:#fff}.abilityLine{display:flex;gap:8px;margin:6px 0;font-size:13px}.abilityTag{display:inline-flex;align-items:center;justify-content:center;min-width:72px;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:900;color:#fff}.abilityTag.good{color:#86efac;border-color:rgba(134,239,172,.28)}.abilityTag.bad{color:#fca5a5;border-color:rgba(252,165,165,.28)}.abilityTag.rare{color:#93c5fd;border-color:rgba(147,197,253,.28)}
 .skinAbilitySmall{font-size:11px;color:var(--cyan);margin-top:5px;min-height:14px}.hudAbility{background:linear-gradient(90deg,rgba(34,211,238,.18),rgba(255,51,102,.13))!important;border-color:rgba(34,211,238,.25)!important}
 
-.serverStatus{justify-content:center;margin:0 0 10px;background:rgba(0,0,0,.38)}.serverStatus.online{color:#86efac;border-color:rgba(16,185,129,.45);box-shadow:0 0 20px rgba(16,185,129,.12)}.serverStatus.connecting{color:#fde68a;border-color:rgba(245,158,11,.4)}.serverStatus.offline{color:#fca5a5;border-color:rgba(239,68,68,.42)}.onlineSummary{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:9px}.onlineSummary .pill{font-size:12px}
 </style>
 </head>
 <body>
@@ -142,15 +141,14 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
 </section>
 <section id="game" class="tab">
   <div class="card" style="padding:14px 16px">
-    <div id="serverStatus" class="pill serverStatus connecting">Connecting to public arena...</div>
     <div class="row">
       <div><label>Nickname</label><input id="playerName" value="PearlConsumer" maxlength="18"></div>
-      <button class="btn primary" id="spawnBtn">Join Public Arena</button>
+      <button class="btn primary" id="spawnBtn">Spawn / Restart</button>
       <button class="btn" id="splitBtn">Split <span class="kbd">Space</span></button>
       <button class="btn" id="ejectBtn">Eject <span class="kbd">W</span></button>
       <button class="btn" id="mergeBtn">Force Merge <span class="kbd">Q</span></button>
     </div>
-    <div class="onlineSummary"><span class="pill">One public lobby</span><span class="pill">Real players online: <b id="onlineCount">0</b></span><span class="muted small">Mouse moves, Space splits, W ejects mass, Q pulls ready cells together. Bots keep the arena populated.</span></div>
+    <p class="muted small" style="margin:0">Controls: mouse moves, Space split, W eject mass, Q pulls cells together after merge timer. Scroll to zoom.</p>
   </div>
   <div class="gameShell">
     <canvas id="gameCanvas"></canvas>
@@ -159,7 +157,7 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
       <div class="leader"><h4>Leaderboard</h4><div id="leaderboard"></div></div>
     </div>
     <div class="gameBottom"><canvas id="mini" class="minimap" width="160" height="160"></canvas><div id="powerBar" class="powerbar"></div></div>
-    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io Public Arena</h2><p class="muted">Everyone joins the same persistent world with real players and bots.</p><div class="speedBalanceNote">The server owns movement, food, powers, viruses and combat so every player sees the same arena.</div><button class="btn primary" id="overlaySpawn">Join public arena</button></div></div>
+    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io Arena</h2><p class="muted">Eat food, consume smaller cells, dodge viruses, steal power-ups, split to attack, survive the chaos.</p><div class="speedBalanceNote">V8.7: skins now have balanced abilities, and virus-split cells cannot instantly merge back.</div><button class="btn primary" id="overlaySpawn">Spawn now</button></div></div>
   </div>
 </section>
 <section id="casino" class="tab">
@@ -434,7 +432,6 @@ $('resetSave').addEventListener('click',()=>{if(confirm('Reset coins, skins and 
 setCoins(state.coins);renderAdult();renderSkins();
 
 // ================= GAME =================
-if(false){
 const canvas=$('gameCanvas'),ctx=canvas.getContext('2d');const mini=$('mini'),mctx=mini.getContext('2d');let DPR=1;
 const WORLD=5600,FOOD_TARGET=4400,BOT_TARGET=58,VIRUS_TARGET=42,POWER_TARGET=26,MAX_PLAYER_CELLS=24,MAX_BOT_CELLS=12,MERGE_MS=30000;
 const game={running:false,food:[],bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,forceMerge:false,spawnShield:0,frame:0};
@@ -547,23 +544,6 @@ function render(){ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,cw(),ch())
 function drawMini(){mctx.clearRect(0,0,160,160);mctx.fillStyle='rgba(0,0,0,.65)';mctx.fillRect(0,0,160,160);const s=160/WORLD;for(const p of game.powers){mctx.beginPath();mctx.arc(p.x*s,p.y*s,2.3,0,TAU);mctx.fillStyle=p.color;mctx.fill()}for(const b of game.bots){for(const c of b.cells){mctx.beginPath();mctx.arc(c.x*s,c.y*s,Math.max(1.6,c.r*s*2),0,TAU);mctx.fillStyle='rgba(167,139,250,.8)';mctx.fill()}}for(const c of game.player.cells){mctx.beginPath();mctx.arc(c.x*s,c.y*s,Math.max(3,c.r*s*2.4),0,TAU);mctx.fillStyle='#ff3366';mctx.fill();mctx.strokeStyle='#fff';mctx.stroke()}mctx.strokeStyle='rgba(255,255,255,.35)';mctx.strokeRect(0,0,160,160)}
 function updateHud(){const cells=game.player.cells,tm=totalMass(cells),largest=Math.max(0,...cells.map(mass));let merge=0;if(cells.length>1){merge=Math.max(0,Math.ceil((Math.min(...cells.map(c=>c.mergeAt))-now())/1000))}$('hud').innerHTML='<span class="pill">Mass '+Math.floor(tm)+'</span><span class="pill">Cells '+cells.length+'</span><span class="pill">Largest '+Math.floor(largest)+'</span><span class="pill">Merge '+(merge>0?merge+'s':'READY')+'</span><span class="pill">Zoom '+game.cam.zoom.toFixed(2)+'</span>';$('powerBar').innerHTML=Object.keys(game.player.powers).map(k=>'<span class="powerChip">'+k.toUpperCase()+' '+game.player.powers[k].toFixed(1)+'s</span>').join('');const rows=[{name:game.player.name,m:tm,me:true},...game.bots.map(b=>({name:b.name,m:totalMass(b.cells),mode:b.intent}))].sort((a,b)=>b.m-a.m).slice(0,10);$('leaderboard').innerHTML=rows.map((r,i)=>'<div style="'+(r.me?'color:#ff8aaa;font-weight:950':'')+'">'+(i+1)+'. '+r.name+' <span class="muted">'+Math.floor(r.m)+'</span> '+(r.mode?'<span class="muted">'+r.mode+'</span>':'')+'</div>').join('')}
 
-}
-
-window.PEARL_SKINS=SKINS.map(s=>({name:s.name,color:s.color,icon:s.icon,img:s.img||''}));
-window.PEARL_PROFILE={
-  getSkin(){return state.skin},
-  runStarted(){state.stats.runs++;save();renderStats()},
-  award(rewards){
-    state.stats.food+=Math.max(0,Math.floor(rewards.food||0));
-    state.stats.kills+=Math.max(0,Math.floor(rewards.kills||0));
-    const coins=Math.max(0,Math.floor(rewards.coins||0));
-    if(coins)addCoins(coins);else{save();renderStats()}
-  },
-  observeMass(value){
-    if(value>state.stats.best){state.stats.best=value;save();renderStats()}
-  }
-};
-
 // ================ CASINO ================
 function casinoWin(msg,amt,el){addCoins(amt);state.stats.casinoWins++;save();el.innerHTML='<span class="good">'+msg+'</span>'}function casinoLoss(msg,el){state.stats.casinoLosses++;save();el.innerHTML='<span class="bad">'+msg+'</span>'}
 $('slotPlay').addEventListener('click',()=>{if(!spend(50))return;const sy=['🍒','💎','👑','🔥','🍀','⭐'];const a=[0,0,0].map(()=>sy[Math.floor(rand(0,sy.length))]);$('slotDisplay').textContent=a.join(' ');if(a[0]===a[1]&&a[1]===a[2])casinoWin('Jackpot +650',650,$('slotLog'));else if(new Set(a).size===2)casinoWin('Pair +120',120,$('slotLog'));else casinoLoss('No match',$('slotLog'))});
@@ -632,10 +612,6 @@ renderWheelPreview();
 
 })();
 </script>
-
-<script src="config.js?v=1"></script>
-<script src="online-client.js?v=1"></script>
-
 
 <script>
 (function(){
