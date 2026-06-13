@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pearl.io V9.1 - Living Arena</title>
+<title>Pearl.io V11.3 - Perfect Overdrive</title>
 <style>
 :root{
   --bg:#040407;--panel:rgba(255,255,255,.045);--panel2:rgba(255,255,255,.075);--line:rgba(255,255,255,.10);
@@ -82,12 +82,178 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
 
 .casinoHero{display:grid;grid-template-columns:1.4fr repeat(3,minmax(110px,.55fr));gap:12px;align-items:stretch;margin-bottom:16px}.casinoStat{display:grid;place-items:center;text-align:center;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:linear-gradient(145deg,rgba(255,51,102,.11),rgba(34,211,238,.07))}.casinoStat b{font-size:22px;color:#fff}.casinoGame{position:relative;overflow:hidden}.casinoGame:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 0,rgba(255,255,255,.08),transparent 34%);pointer-events:none}.casinoOdds{font-size:11px;color:#9ca3af;min-height:28px;margin:7px 0}.hotStreak{color:#fde047;text-shadow:0 0 14px rgba(253,224,71,.45)}@media(max-width:760px){.casinoHero{grid-template-columns:1fr 1fr}.casinoHero .card{grid-column:1/-1}}
 .arenaStatus{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:4;pointer-events:none;display:flex;gap:8px;align-items:center;padding:9px 14px;border:1px solid rgba(34,211,238,.25);border-radius:999px;background:rgba(3,7,18,.72);backdrop-filter:blur(14px);box-shadow:0 8px 30px rgba(0,0,0,.42),0 0 24px rgba(34,211,238,.08);font-size:12px;font-weight:900}.arenaLiveDot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 12px #22c55e;animation:arenaPulse 1.6s ease-in-out infinite}.arenaLiveDot.idle{background:#f59e0b;box-shadow:0 0 12px #f59e0b}.spectatorDock{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:6;display:none;gap:8px;align-items:center;padding:10px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(3,7,18,.82);backdrop-filter:blur(16px);box-shadow:0 12px 38px rgba(0,0,0,.5)}.spectatorDock.show{display:flex}.spectatorDock .btn{padding:8px 11px;font-size:12px}.killFeed{position:absolute;right:14px;top:330px;width:min(280px,38vw);z-index:4;pointer-events:none;display:grid;gap:5px}.killItem{padding:7px 10px;border-left:3px solid #fb7185;border-radius:7px;background:linear-gradient(90deg,rgba(15,23,42,.84),rgba(15,23,42,.28));backdrop-filter:blur(8px);font-size:11px;font-weight:800;animation:killIn .25s ease-out}.gameShell:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(34,211,238,.035),transparent 22%,transparent 78%,rgba(255,51,102,.035));mix-blend-mode:screen}.leader div{padding:3px 5px;border-radius:6px}.leader div:first-child{background:linear-gradient(90deg,rgba(245,158,11,.2),transparent)}.hud .pill{position:relative;overflow:hidden}.hud .pill:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.09),transparent 80%);transform:translateX(-100%);animation:hudSweep 5s linear infinite}@keyframes arenaPulse{50%{transform:scale(1.45);opacity:.55}}@keyframes killIn{from{transform:translateX(18px);opacity:0}}@keyframes hudSweep{to{transform:translateX(100%)}}@media(max-width:1100px){.arenaStatus{left:14px;top:100px;transform:none}}@media(max-width:760px){.arenaStatus{top:105px;max-width:calc(100% - 290px);border-radius:14px}.killFeed{display:none}.spectatorDock{width:calc(100% - 26px);justify-content:center;flex-wrap:wrap}}
+
+/* Pearl.io V10 - Neon Nexus */
+:root{--v10-blue:#38bdf8;--v10-violet:#8b5cf6;--v10-rose:#fb3f73}
+body{background:
+  radial-gradient(circle at 8% 8%,rgba(56,189,248,.13),transparent 24%),
+  radial-gradient(circle at 92% 14%,rgba(251,63,115,.16),transparent 27%),
+  radial-gradient(circle at 50% 78%,rgba(139,92,246,.18),transparent 35%),
+  linear-gradient(180deg,#030308,#080713 48%,#030308)}
+.nav{top:10px;width:min(1180px,calc(100% - 24px));margin:10px auto 0;border-radius:18px;padding:10px;
+  background:linear-gradient(135deg,rgba(7,8,20,.92),rgba(19,8,30,.88));box-shadow:0 18px 55px rgba(0,0,0,.5),0 0 50px rgba(139,92,246,.13)}
+.nav:after{content:"V10";position:absolute;right:12px;top:-8px;padding:4px 8px;border-radius:999px;background:linear-gradient(135deg,var(--v10-rose),var(--v10-violet));font-size:10px;font-weight:1000;letter-spacing:.12em}
+.wrap{max-width:1380px}.v10Eyebrow{color:#a5f3fc;text-transform:uppercase;letter-spacing:.22em;font-weight:950;font-size:11px}
+.v10Hero{position:relative;overflow:hidden;min-height:440px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:28px;
+  background:radial-gradient(circle at 78% 30%,rgba(56,189,248,.19),transparent 28%),radial-gradient(circle at 20% 90%,rgba(251,63,115,.2),transparent 30%),linear-gradient(135deg,rgba(12,13,30,.95),rgba(29,8,37,.88))}
+.v10Hero:after{content:"";position:absolute;width:420px;height:420px;right:-80px;top:8px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 40px rgba(139,92,246,.04),0 0 0 80px rgba(56,189,248,.025);animation:v10Orbit 14s linear infinite}
+.v10Logo{font-size:clamp(3.2rem,8vw,7.4rem);line-height:.76;letter-spacing:-.09em;margin:12px 0 22px;text-shadow:0 0 44px rgba(251,63,115,.22)}
+.v10Showcase{position:relative;z-index:2;min-height:310px;display:grid;place-items:center}
+.v10Orb{width:min(78vw,310px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-weight:1000;font-size:clamp(2rem,5vw,4.2rem);
+  background:radial-gradient(circle at 35% 28%,#fff 0 3%,#67e8f9 5%,#7c3aed 30%,#220a37 67%,#030308 70%);
+  box-shadow:inset -30px -45px 70px rgba(0,0,0,.66),0 0 45px rgba(56,189,248,.34),0 0 100px rgba(139,92,246,.25);animation:v10Float 4.2s ease-in-out infinite}
+.v10OrbitChip{position:absolute;padding:9px 13px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(4,5,14,.72);backdrop-filter:blur(10px);font-weight:900;font-size:12px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.v10OrbitChip.one{top:18%;left:0}.v10OrbitChip.two{right:0;top:48%}.v10OrbitChip.three{left:12%;bottom:5%}
+@keyframes v10Float{50%{transform:translateY(-12px) rotate(2deg)}}@keyframes v10Orbit{to{transform:rotate(360deg)}}
+
+.casinoStage{position:relative;margin-bottom:18px;padding:18px;border:1px solid rgba(251,191,36,.22);border-radius:22px;overflow:hidden;
+  background:radial-gradient(circle at 50% -20%,rgba(251,191,36,.2),transparent 35%),linear-gradient(135deg,rgba(56,16,43,.64),rgba(6,8,25,.94))}
+.casinoStage:before{content:"PEARL CASINO";display:block;text-align:center;font-size:clamp(2.2rem,6vw,5.7rem);font-weight:1000;letter-spacing:-.07em;color:rgba(255,255,255,.95);text-shadow:0 0 12px #fbbf24,0 0 35px rgba(251,63,115,.8)}
+.casinoStageLights{height:16px;margin:12px auto 0;max-width:760px;background:radial-gradient(circle,#fde68a 0 3px,transparent 4px) 0 0/32px 16px;filter:drop-shadow(0 0 7px #f59e0b);animation:casinoLights .7s steps(2) infinite}
+@keyframes casinoLights{50%{background-position:16px 0;opacity:.65}}
+.casinoGame{min-height:285px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}.casinoGame h3{font-size:1.35rem}
+.casinoGame .display{position:relative;min-height:82px;font-size:clamp(1.5rem,3vw,2.35rem);overflow:hidden}
+.casinoGame .display:after{content:"";position:absolute;inset:-30%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.15),transparent 65%);transform:translateX(-90%);animation:casinoScan 4s linear infinite}
+.casinoGame.casinoPlaying{transform:translateY(-5px) scale(1.012);border-color:rgba(56,189,248,.55);box-shadow:0 22px 65px rgba(0,0,0,.48),0 0 35px rgba(56,189,248,.2)}
+.casinoGame.casinoPlaying .display{animation:casinoShake .16s linear infinite;color:#fff;text-shadow:0 0 18px currentColor}
+.casinoGame.casinoWin{border-color:rgba(52,211,153,.65);box-shadow:0 0 42px rgba(52,211,153,.23)}
+.casinoGame.casinoLoss{border-color:rgba(251,63,115,.5)}
+.casinoBurst{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5}.casinoParticle{position:absolute;left:50%;top:44%;width:8px;height:8px;border-radius:50%;background:var(--particle,#fde047);box-shadow:0 0 12px var(--particle,#fde047);animation:casinoBurst 850ms ease-out forwards}
+@keyframes casinoScan{to{transform:translateX(90%)}}@keyframes casinoShake{25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}@keyframes casinoBurst{to{transform:translate(var(--x),var(--y)) scale(.1);opacity:0}}
+
+.snakeIntro{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.snakeRules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.snakeRule{padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.045)}
+.snakeShell{position:relative;overflow:hidden;border-radius:24px;border:1px solid rgba(56,189,248,.3);background:#02050a;box-shadow:0 28px 90px rgba(0,0,0,.64),0 0 65px rgba(56,189,248,.13)}
+#snakeCanvas{display:block;width:100%;height:min(72vh,720px);min-height:560px;touch-action:none;cursor:crosshair;background:radial-gradient(circle at center,rgba(56,189,248,.07),transparent 40%),#02050a}
+.snakeHud{position:absolute;inset:14px 14px auto 14px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;pointer-events:none}
+.snakeStats,.snakeLeaders{padding:11px 14px;border:1px solid rgba(255,255,255,.16);border-radius:14px;background:rgba(2,5,12,.72);backdrop-filter:blur(12px);box-shadow:0 12px 36px rgba(0,0,0,.38)}
+.snakeStats{display:flex;gap:13px;flex-wrap:wrap}.snakeStats b{color:#fff}.snakeLeaders{width:220px;font-size:12px}.snakeLeaders strong{display:block;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:.1em}
+.snakeBoost{position:absolute;left:14px;bottom:14px;width:min(320px,45%);padding:10px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(2,5,12,.72)}
+.snakeBoostBar{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:6px}.snakeBoostFill{height:100%;width:100%;background:linear-gradient(90deg,#22d3ee,#8b5cf6,#fb3f73);box-shadow:0 0 14px #38bdf8}
+.snakeMap{position:absolute;right:14px;bottom:14px;width:150px;height:100px;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(2,5,12,.72)}
+.snakeOverlay{position:absolute;inset:0;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at center,rgba(17,24,39,.42),rgba(1,3,8,.82));backdrop-filter:blur(5px);z-index:6}
+.snakeOverlay.hidden{display:none}.snakeStart{width:min(520px,94%);text-align:center;background:linear-gradient(145deg,rgba(13,18,38,.94),rgba(35,8,43,.9))}
+.snakeStart h2{font-size:clamp(2.4rem,7vw,5rem);line-height:.82}.snakeBadge{display:inline-flex;padding:6px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.35);color:#a5f3fc;font-size:11px;font-weight:950;letter-spacing:.14em}
+@media(max-width:900px){.v10Hero,.snakeIntro{grid-template-columns:1fr}.v10Showcase{min-height:270px}.snakeRules{grid-template-columns:1fr}.snakeLeaders{display:none}.snakeMap{width:115px;height:78px}#snakeCanvas{min-height:520px}}
+@media(max-width:620px){.nav{top:4px;margin-top:4px}.nav:after{display:none}.snakeBoost{width:calc(100% - 158px)}.v10OrbitChip{display:none}}
+
+/* V10.1 EXTREME OVERDRIVE */
+:root{--acid:#b7ff00;--electric:#00e5ff;--hot:#ff275f;--ultra:#9d4edd}
+body{animation:extremeHue 18s linear infinite;background-size:140% 140%}
+body:not(.lowFx):before{animation:extremeGrid 11s linear infinite}
+@keyframes extremeHue{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(12deg)}}@keyframes extremeGrid{to{background-position:46px 46px}}
+.v10Hero{border-color:rgba(0,229,255,.32);box-shadow:0 30px 100px rgba(0,0,0,.62),0 0 80px rgba(157,78,221,.2)}
+.v10Logo{background:linear-gradient(90deg,#fff,#00e5ff,#b7ff00,#ff275f,#fff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:logoFlow 3s linear infinite}
+@keyframes logoFlow{to{background-position:300% 0}}
+.gameShell,.snakeShell{isolation:isolate;border-color:rgba(0,229,255,.45);box-shadow:0 28px 100px rgba(0,0,0,.72),0 0 45px rgba(0,229,255,.18),0 0 100px rgba(255,39,95,.12)}
+.gameShell:before,.snakeShell:before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:
+  repeating-linear-gradient(90deg,transparent 0 14%,rgba(0,229,255,.025) 14.2%,transparent 14.5%),
+  radial-gradient(circle at 50% 50%,transparent 45%,rgba(0,0,0,.34) 100%);mix-blend-mode:screen}
+.gameShell:after,.snakeShell:after{content:"";position:absolute;inset:-80% -10%;z-index:3;pointer-events:none;background:conic-gradient(from 0deg,transparent,rgba(0,229,255,.035),transparent,rgba(255,39,95,.035),transparent);animation:arenaSweep 16s linear infinite}
+@keyframes arenaSweep{to{transform:rotate(360deg)}}
+.gameTop,.gameBottom,.arenaStatus,.killFeed,.spectatorDock,.centerOverlay,.snakeHud,.snakeBoost,.snakeMap,.snakeOverlay{z-index:5}
+.arenaOverdrive{position:absolute;left:50%;top:60px;transform:translateX(-50%);z-index:5;pointer-events:none;text-align:center}
+.arenaOverdrive b{display:block;font-size:clamp(1.1rem,3vw,2.25rem);font-weight:1000;font-style:italic;letter-spacing:.08em;color:#fff;text-shadow:0 0 8px #fff,0 0 24px var(--hot);opacity:0;transform:scale(.6)}
+.arenaOverdrive b.show{animation:impactTitle 1.1s cubic-bezier(.2,.9,.2,1)}
+.arenaOverdrive span{font-size:10px;letter-spacing:.25em;color:#a5f3fc;font-weight:950}
+@keyframes impactTitle{0%{opacity:0;transform:scale(.5) rotate(-3deg)}25%{opacity:1;transform:scale(1.18) rotate(1deg)}70%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.35)}}
+.hud .pill,.snakeStats span{border:1px solid rgba(255,255,255,.1);box-shadow:inset 0 0 15px rgba(0,229,255,.04);text-shadow:0 0 12px rgba(0,229,255,.32)}
+.powerChip{animation:powerThrob 1.2s ease-in-out infinite alternate}@keyframes powerThrob{to{transform:translateY(-2px);filter:brightness(1.35)}}
+.killItem{border-left-width:5px;background:linear-gradient(90deg,rgba(255,39,95,.32),rgba(5,8,20,.72));box-shadow:0 8px 26px rgba(0,0,0,.38),0 0 18px rgba(255,39,95,.14)}
+.snakeCombo{position:absolute;left:50%;top:78px;transform:translateX(-50%);z-index:5;pointer-events:none;text-align:center;min-width:240px}
+.snakeCombo b{display:block;font-size:clamp(2rem,6vw,4.8rem);font-weight:1000;font-style:italic;line-height:.8;color:#fff;text-shadow:0 0 8px #fff,0 0 24px #00e5ff,0 0 48px #9d4edd;transition:.16s}
+.snakeCombo span{font-size:10px;letter-spacing:.3em;font-weight:950;color:#b7ff00}
+.snakeCombo.hot b{animation:comboPunch .24s ease-out}.snakeCombo.fever b{color:#fff700;text-shadow:0 0 8px #fff,0 0 22px #ff7b00,0 0 55px #ff275f}
+@keyframes comboPunch{50%{transform:scale(1.35) rotate(-2deg)}}
+.snakeEvent{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;font-size:clamp(2rem,8vw,7rem);font-weight:1000;font-style:italic;letter-spacing:-.07em;color:#fff;text-align:center;text-shadow:0 0 10px #fff,0 0 35px var(--electric),0 0 75px var(--ultra);opacity:0}
+.snakeEvent.show{animation:none}@keyframes snakeEvent{0%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(-5deg)}22%,70%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.7)}}
+.snakeStats{background:linear-gradient(135deg,rgba(2,8,20,.86),rgba(43,8,55,.72));border-color:rgba(0,229,255,.28)}
+.snakeStats b{font-size:1.15rem}.snakeBoostFill{background:linear-gradient(90deg,#b7ff00,#00e5ff,#9d4edd,#ff275f);background-size:250% 100%;animation:boostFlow 1s linear infinite}@keyframes boostFlow{to{background-position:250% 0}}
+.snakeShell.boosting{box-shadow:0 28px 100px rgba(0,0,0,.7),0 0 65px rgba(0,229,255,.35),inset 0 0 85px rgba(0,229,255,.08)}
+.snakeShell.fever{animation:feverBorder .38s linear infinite alternate}@keyframes feverBorder{to{border-color:#fff700;box-shadow:0 0 35px #ff275f,0 0 80px rgba(255,123,0,.35)}}
+.snakeRule{transition:.2s}.snakeRule:hover{transform:translateY(-5px) scale(1.025);border-color:rgba(183,255,0,.45);box-shadow:0 18px 40px rgba(0,0,0,.35),0 0 24px rgba(183,255,0,.1)}
+.coinbar{border-color:rgba(183,255,0,.45);color:#dfff8a;animation:coinPulse 2s ease-in-out infinite}@keyframes coinPulse{50%{box-shadow:0 0 42px rgba(183,255,0,.25)}}
+.snakeEvent,.arenaOverdrive{display:none!important}.snakeCombo{left:14px;top:84px;transform:none;min-width:0;text-align:left;padding:7px 10px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(2,7,18,.7);backdrop-filter:blur(10px)}.snakeCombo b{font-size:18px!important;line-height:1;text-shadow:0 0 12px rgba(39,245,255,.45)}.snakeCombo span{font-size:8px}
+@media(max-width:700px){.snakeCombo{top:112px}.snakeCombo b{font-size:2.5rem}.arenaOverdrive{top:auto;bottom:185px;width:92%}.arenaOverdrive span{display:none}.arenaOverdrive b{font-size:1.4rem}}
+
+/* V11 ULTRA DIMENSION */
+:root{--v11-cyan:#27f5ff;--v11-pink:#ff247f;--v11-lime:#c6ff1a;--v11-void:#7a35ff}
+.nav{background:linear-gradient(125deg,rgba(3,9,23,.94),rgba(28,5,40,.92),rgba(4,17,26,.94));border-color:rgba(39,245,255,.2)}
+.nav button.active{background:linear-gradient(115deg,#ff247f,#7a35ff 52%,#00c8ff);background-size:180% 100%;animation:activeFlow 2s linear infinite}
+@keyframes activeFlow{to{background-position:180% 0}}
+.ultraTag{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid rgba(198,255,26,.35);border-radius:999px;background:rgba(198,255,26,.07);color:#eaff9b;font-size:10px;font-weight:1000;letter-spacing:.16em}
+.ultraTag:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--v11-lime);box-shadow:0 0 15px var(--v11-lime);animation:ultraBlink .8s ease-in-out infinite alternate}
+@keyframes ultraBlink{to{opacity:.3;transform:scale(.65)}}
+.arenaEventHud{position:absolute;left:14px;top:72px;z-index:6;width:min(260px,42%);padding:11px 13px;border:1px solid rgba(39,245,255,.25);border-radius:14px;background:linear-gradient(135deg,rgba(3,10,25,.86),rgba(45,5,55,.72));backdrop-filter:blur(14px);pointer-events:none;box-shadow:0 12px 35px rgba(0,0,0,.4),inset 0 0 20px rgba(39,245,255,.04)}
+.arenaEventHud b{display:block;color:#fff;font-size:13px}.arenaEventHud span{font-size:10px;color:#9ff8ff;letter-spacing:.08em}.eventProgress{height:4px;margin-top:7px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.08)}.eventProgress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#27f5ff,#c6ff1a,#ff247f);box-shadow:0 0 12px #27f5ff}
+.dangerRadar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:6;width:150px;text-align:center;padding:8px 10px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(2,7,18,.75);backdrop-filter:blur(10px);pointer-events:none;font-size:10px;font-weight:950;letter-spacing:.13em;color:#86efac}
+.dangerRadar.danger{color:#ff8aa8;border-color:rgba(255,36,127,.48);box-shadow:0 0 32px rgba(255,36,127,.22);animation:dangerPulse .35s linear infinite alternate}
+@keyframes dangerPulse{to{transform:translateX(-50%) scale(1.05);background:rgba(80,4,30,.78)}}
+.gameShell.ultraStorm{animation:stormShell .25s linear infinite alternate}.gameShell.ultraStorm #gameCanvas{filter:saturate(1.35) contrast(1.08)}
+@keyframes stormShell{to{border-color:#c6ff1a;box-shadow:0 0 45px rgba(198,255,26,.22),0 0 100px rgba(122,53,255,.25)}}
+.snakeWorldHud{position:absolute;right:14px;top:176px;z-index:6;width:190px;padding:10px 12px;border:1px solid rgba(39,245,255,.22);border-radius:14px;background:rgba(2,7,18,.78);backdrop-filter:blur(12px);pointer-events:none}
+.snakeWorldHud b{display:block;font-size:12px}.snakeWorldHud span{font-size:10px;color:#9ff8ff}.snakeWorldHud .eventProgress{margin-top:6px}
+.snakeSkinPreview{display:flex;align-items:center;gap:10px;margin:5px 0 12px;padding:9px;border:1px solid rgba(255,255,255,.11);border-radius:13px;background:rgba(0,0,0,.2)}
+.snakeSkinPreview img,.snakeSkinPreview .fallback{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.24);box-shadow:0 0 18px var(--preview-color,#27f5ff)}
+.snakeSkinPreview .fallback{display:grid;place-items:center;background:var(--preview-color,#27f5ff);font-weight:1000}
+.snakeGateLegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.snakeGateLegend span{padding:5px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.11);font-size:10px;font-weight:900}
+.snakeShell.pearlStorm{animation:pearlStormShell .28s linear infinite alternate}@keyframes pearlStormShell{to{border-color:#fff700;box-shadow:0 0 40px rgba(255,247,0,.3),0 0 95px rgba(255,36,127,.25)}}
+.skinPulse{animation:skinPulse 1.4s ease-in-out infinite alternate}@keyframes skinPulse{to{filter:brightness(1.35) saturate(1.3)}}
+@media(max-width:760px){.arenaEventHud{top:154px;width:155px}.dangerRadar{bottom:112px}.snakeWorldHud{right:8px;top:164px;width:145px}.snakeWorldHud span{display:none}}
+
+/* V11.1 CASINO ROYALE */
+.casinoFloorNav{display:flex;gap:10px;justify-content:center;margin:0 0 20px;position:sticky;top:92px;z-index:14;padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(3,5,14,.85);backdrop-filter:blur(16px)}
+.casinoFloorNav button{min-width:180px}.casinoFloorNav button.active{background:linear-gradient(135deg,#b91c1c,#f59e0b);border-color:rgba(253,230,138,.55);box-shadow:0 0 28px rgba(245,158,11,.2)}
+.casinoFloor{display:none}.casinoFloor.active{display:block;animation:casinoFloorIn .32s ease-out}@keyframes casinoFloorIn{from{opacity:0;transform:translateY(14px)}}
+.floorMarquee{position:relative;overflow:hidden;padding:20px 24px;margin-bottom:18px;border:1px solid rgba(253,230,138,.25);border-radius:22px;background:radial-gradient(circle at 15% 20%,rgba(185,28,28,.3),transparent 26%),radial-gradient(circle at 85% 35%,rgba(245,158,11,.18),transparent 28%),linear-gradient(135deg,#160609,#080914 60%,#170e04)}
+.floorMarquee h2{font-size:clamp(2.2rem,6vw,5rem);line-height:.8;color:#fff7d6;text-shadow:0 0 12px #f59e0b,0 0 35px rgba(185,28,28,.8)}
+.floorMarquee:after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.12),transparent 70%);transform:translateX(-100%);animation:floorShine 4s linear infinite}@keyframes floorShine{to{transform:translateX(100%)}}
+.tableGrid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}.casinoTable{grid-column:span 6;position:relative;overflow:hidden;min-height:380px;padding:20px;border:1px solid rgba(253,230,138,.22);border-radius:22px;background:radial-gradient(circle at 50% 120%,rgba(5,150,105,.28),transparent 45%),linear-gradient(160deg,rgba(18,50,38,.96),rgba(3,12,16,.98));box-shadow:0 20px 65px rgba(0,0,0,.52),inset 0 1px 0 rgba(255,255,255,.08)}
+.casinoTable.wide{grid-column:span 12}.casinoTable.redTable{background:radial-gradient(circle at 50% 120%,rgba(185,28,28,.3),transparent 45%),linear-gradient(160deg,rgba(55,7,15,.95),rgba(6,5,14,.98))}
+.casinoTable h3{font-size:1.45rem;color:#fff7d6;text-shadow:0 0 14px rgba(245,158,11,.32)}
+.feltLabel{text-align:center;font-size:10px;letter-spacing:.22em;color:#fde68a;font-weight:950;margin:8px 0}
+.playingCards{display:flex;gap:9px;justify-content:center;align-items:center;min-height:126px;flex-wrap:wrap;perspective:900px}
+.playingCard{position:relative;width:76px;height:108px;border-radius:9px;background:linear-gradient(145deg,#fff,#ece7dc);color:#111;box-shadow:0 9px 18px rgba(0,0,0,.42),inset 0 0 0 1px rgba(0,0,0,.12);font-family:Georgia,serif;animation:cardDeal .35s cubic-bezier(.2,.8,.2,1) both}
+.playingCard.red{color:#c1121f}.playingCard.back{background:repeating-linear-gradient(45deg,#7f1d1d 0 6px,#fbbf24 6px 8px,#450a0a 8px 14px);box-shadow:inset 0 0 0 5px #fff,inset 0 0 0 7px #7f1d1d,0 9px 18px rgba(0,0,0,.42)}
+.playingCard .corner{position:absolute;left:7px;top:5px;font-size:19px;font-weight:bold;line-height:.86;text-align:center}.playingCard .suitBig{position:absolute;inset:0;display:grid;place-items:center;font-size:42px}.playingCard .corner.bottom{left:auto;top:auto;right:7px;bottom:5px;transform:rotate(180deg)}
+@keyframes cardDeal{from{opacity:0;transform:translateY(-40px) rotateY(75deg) rotate(5deg)}}
+.rouletteLayout{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:20px;align-items:center}.rouletteWrap{position:relative;aspect-ratio:1;max-width:420px;margin:auto}.rouletteWrap canvas{width:100%;height:100%;filter:drop-shadow(0 0 24px rgba(245,158,11,.24))}.rouletteBall{position:absolute;left:50%;top:50%;width:13px;height:13px;margin:-6px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff;transform:rotate(var(--ball-angle,0deg)) translateY(-43%);transform-origin:center}
+.rouletteBetGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:12px 0}.rouletteBet{padding:8px 4px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:#111827;color:#fff;font-weight:900}.rouletteBet.red{background:#991b1b}.rouletteBet.black{background:#09090b}.rouletteBet.green{background:#047857}.rouletteBet.selected{outline:3px solid #fbbf24;transform:translateY(-2px)}
+.chipRow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.casinoChip{width:54px;height:54px;border-radius:50%;border:5px dashed rgba(255,255,255,.75);display:grid;place-items:center;background:#7c2d12;box-shadow:0 7px 15px rgba(0,0,0,.4),inset 0 0 0 3px rgba(255,255,255,.18);font-size:11px;font-weight:1000}.casinoChip.active{outline:3px solid #fde047;transform:translateY(-4px)}
+.diceStage{display:flex;gap:18px;justify-content:center;align-items:center;min-height:130px}.die{width:82px;height:82px;border-radius:16px;background:linear-gradient(145deg,#fff,#ddd6c8);color:#111;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:12px;box-shadow:0 10px 24px rgba(0,0,0,.45)}.die.rolling{animation:dieRoll .18s linear infinite}@keyframes dieRoll{to{transform:rotate(90deg) scale(.9)}}.pip{width:12px;height:12px;border-radius:50%;background:#111;align-self:center;justify-self:center}
+.pokerHand{display:flex;gap:7px;justify-content:center;min-height:116px}.pokerHand .playingCard{width:64px;height:94px}.pokerResult{text-align:center;font-size:1.4rem;font-weight:1000;color:#fde68a;min-height:34px}
+.machineGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}.machineGrid .casinoGame{min-height:320px;border-radius:22px;border-color:rgba(39,245,255,.2);background:radial-gradient(circle at 50% 115%,rgba(122,53,255,.25),transparent 44%),linear-gradient(150deg,rgba(7,10,30,.96),rgba(28,5,40,.92))}
+.machineGrid .display{min-height:94px}.machineGrid .casinoGame:hover{border-color:rgba(39,245,255,.45)}
+.slotReels{display:flex;gap:7px;justify-content:center}.slotReel{width:70px;height:82px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(#fff,#d9d4c9);color:#111;font-size:35px;box-shadow:inset 0 0 0 2px #7c2d12,0 7px 16px rgba(0,0,0,.4)}.slotReel.spinning{animation:reelBlur .12s linear infinite}@keyframes reelBlur{50%{filter:blur(3px);transform:translateY(4px)}}
+@media(max-width:900px){.casinoTable{grid-column:span 12}.rouletteLayout{grid-template-columns:1fr}.casinoFloorNav{top:142px}.casinoFloorNav button{min-width:0}.playingCard{width:62px;height:92px}}
+
+/* V11.3 PERFECT OVERDRIVE */
+body,body:before{animation:none!important}
+.perfDock{position:fixed;left:16px;bottom:16px;z-index:80;display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(39,245,255,.26);border-radius:13px;background:rgba(2,7,18,.84);box-shadow:0 10px 34px rgba(0,0,0,.38),0 0 24px rgba(39,245,255,.08);backdrop-filter:blur(12px);font-size:11px;font-weight:950;letter-spacing:.06em}
+.perfDot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 12px currentColor}.perfDock[data-tier="balanced"] .perfDot{background:#fbbf24}.perfDock[data-tier="eco"] .perfDot{background:#fb7185}
+.perfDock b{color:#fff}.perfDock span{color:#9ff8ff}.perfDock .fps{min-width:42px;text-align:right;color:#d9f99d}
+.casinoCommand{display:grid;grid-template-columns:1fr 1.35fr;gap:14px;margin:0 0 18px}.casinoCommandPanel{position:relative;overflow:hidden;padding:16px 18px;border:1px solid rgba(253,230,138,.22);border-radius:18px;background:linear-gradient(135deg,rgba(80,12,25,.8),rgba(3,9,23,.92));box-shadow:0 16px 44px rgba(0,0,0,.34)}
+.casinoCommandPanel h3{color:#fff7d6}.casinoLiveFeed{display:grid;gap:7px;max-height:130px;overflow:hidden}.casinoFeedItem{display:flex;justify-content:space-between;gap:12px;padding:7px 9px;border-radius:9px;background:rgba(255,255,255,.055);font-size:12px}.casinoFeedItem.win{border-left:3px solid #34d399}.casinoFeedItem.loss{border-left:3px solid #fb3f73}.casinoFeedItem b{color:#fff}.casinoFeedEmpty{color:var(--muted);font-size:12px}
+.casinoPulseLine{height:7px;margin-top:12px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.08)}.casinoPulseLine i{display:block;width:70%;height:100%;background:linear-gradient(90deg,#fbbf24,#ff247f,#27f5ff);background-size:200% 100%;animation:activeFlow 2.4s linear infinite;box-shadow:0 0 16px rgba(251,191,36,.4)}
+.casinoTable:after,.machineGrid .casinoGame:after{content:"";position:absolute;inset:auto 0 0;height:2px;background:linear-gradient(90deg,transparent,#fbbf24,#27f5ff,transparent);opacity:.42}.casinoTable:hover{border-color:rgba(253,230,138,.42);transform:translateY(-2px)}
+.quality-balanced .gameShell:after,.quality-balanced .snakeShell:after,.quality-balanced body:after{display:none!important}.quality-balanced .card:hover,.quality-balanced .casinoGame:hover,.quality-balanced .mission:hover,.quality-balanced .mediaSlot:hover{transform:none}
+.quality-eco *{backdrop-filter:none!important}.quality-eco:after,.quality-eco .gameShell:before,.quality-eco .gameShell:after,.quality-eco .snakeShell:before,.quality-eco .snakeShell:after,.quality-eco .floorMarquee:after,.quality-eco .casinoGame .display:after,.quality-eco .nav button:before,.quality-eco .btn:after{display:none!important}
+.quality-eco .card,.quality-eco .casinoGame,.quality-eco .casinoTable,.quality-eco .mission,.quality-eco .mediaSlot,.quality-eco .gameShell,.quality-eco .snakeShell{box-shadow:0 8px 24px rgba(0,0,0,.34)!important}.quality-eco .skinPulse,.quality-eco .coinbar,.quality-eco .powerChip,.quality-eco .snakeBoostFill,.quality-eco .casinoStageLights,.quality-eco .v10Logo,.quality-eco .nav button.active{animation:none!important}
+.quality-eco .card:hover,.quality-eco .casinoGame:hover,.quality-eco .casinoTable:hover,.quality-eco .mission:hover,.quality-eco .mediaSlot:hover,.quality-eco .btn:hover{transform:none!important}.quality-eco .rouletteWrap canvas{filter:none}.quality-eco .casinoParticle:nth-child(n+9){display:none}
+@media(max-width:760px){.perfDock{left:8px;bottom:8px}.perfDock span:not(.fps){display:none}.casinoCommand{grid-template-columns:1fr}.coinbar{right:8px;bottom:8px}}
+@media(max-width:560px){
+  #game>.card:first-child .row{display:grid;grid-template-columns:1fr 1fr}
+  #game>.card:first-child .row>div{grid-column:1/-1}
+  #game>.card:first-child .btn{min-height:48px;padding:10px 8px}
+  .gameTop{right:auto;max-width:calc(100% - 24px)}.gameTop .leader{display:none}.hud{gap:5px}.hud .pill{padding:7px 9px;font-size:10px}
+  .arenaEventHud{top:126px}.gameBottom{bottom:8px}.minimap{width:105px;height:105px}
+}
 </style>
 </head>
 <body>
 <nav class="nav">
   <button data-tab="home" class="active">Home</button>
   <button data-tab="game">Pearl.io</button>
+  <button data-tab="snake">Pearl Snake</button>
   <button data-tab="casino">Casino</button>
   <button data-tab="shop">Skins & Stats</button>
   <button data-tab="media">Media</button>
@@ -95,13 +261,26 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
   <button data-tab="lore">Lore</button>
 </nav>
 <div class="coinbar">💰 <span id="coinCount">0</span> Pearl Coins</div>
+<div class="perfDock" id="perfDock" data-tier="high"><i class="perfDot"></i><b id="qualityBadge">AUTO · ULTRA</b><span>ADAPTIVE ENGINE</span><span class="fps" id="fpsMeter">60 FPS</span></div>
 <main class="wrap">
 <section id="home" class="tab active">
+  <div class="card v10Hero">
+    <div style="position:relative;z-index:2">
+      <div class="ultraTag">V11.3 PERFECT OVERDRIVE</div><div class="v10Eyebrow">Adaptive ultra arcade / laptop tuned</div>
+      <h1 class="v10Logo">PLAY.<br>GROW.<br>RULE.</h1>
+      <p class="muted">Two living arenas, a rebuilt visual casino and one shared Pearl Coin economy. Enter the classic cell arena or carve your name across Pearl Snake.</p>
+      <div class="row" style="margin-top:20px"><button class="btn primary" data-tab-jump="snake">Launch Pearl Snake</button><button class="btn" data-tab-jump="game">Enter Pearl.io</button><button class="btn" data-tab-jump="casino">Visit Casino</button></div>
+    </div>
+    <div class="v10Showcase">
+      <div class="v10Orb">V11.3</div>
+      <span class="v10OrbitChip one">LIVE BOT ARENAS</span><span class="v10OrbitChip two">VISUAL CASINO</span><span class="v10OrbitChip three">SHARED PROGRESSION</span>
+    </div>
+  </div>
   <div class="card two">
     <div>
-      <p class="pill">V8.3 Site Upgrade · neon arcade mode</p>
+      <p class="pill">V11.3 Complete Arcade · adaptive neon mode</p>
       <h1>PEARL.IO<br>NEON LORE</h1>
-      <p class="muted">A dark-glass Tom Pearl inspired arcade: Agar-style cells, casino minigames, unlockable skins, bots, power-ups, viruses, achievements, local saves, and V8.6 visual polish. This version is rebuilt to actually work instead of stacking broken patches.</p>
+      <p class="muted">A complete dark-glass arcade with two living arenas, unlockable skins, smarter rivals, world events, local progression and a two-floor visual casino.</p>
       <div class="row" style="margin-top:18px"><button class="btn primary" data-tab-jump="game">Play Pearl.io</button><button class="btn" data-tab-jump="casino">Enter Casino</button><button class="btn" id="dailyBtn">Claim Daily Bonus</button></div>
     </div>
     <div class="card adult" style="margin:0">
@@ -125,7 +304,7 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
       </div>
       <div class="siteTools">
         <button class="btn primary" data-tab-jump="media">Open Media Board</button>
-        <button class="btn" id="fxToggle">Performance FX: ON</button>
+        <button class="btn" id="fxToggle">Quality: AUTO</button>
         <button class="btn" id="fullArenaBtn">Fullscreen Arena</button>
       </div>
       <p class="compactHint small" style="margin-top:12px">Pictures: add them in the Media tab now, or later replace files like <b>assets/banner.png</b> when you move to GitHub.</p>
@@ -154,26 +333,60 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
   </div>
   <div class="gameShell">
     <canvas id="gameCanvas"></canvas>
-    <div class="arenaStatus"><span id="arenaLiveDot" class="arenaLiveDot"></span><span id="arenaStatusText">Arena waiting for a player</span></div>
+    <div class="arenaStatus"><span id="arenaLiveDot" class="arenaLiveDot"></span><span id="arenaStatusText">Arena waiting for a player</span></div><div class="arenaEventHud"><b id="classicEventName">DIMENSION STABLE</b><span id="classicEventDetail">Next world event charging</span><div class="eventProgress"><i id="classicEventProgress"></i></div></div><div id="dangerRadar" class="dangerRadar">SECTOR CLEAR</div>
     <div class="gameTop">
       <div class="hud" id="hud"></div>
       <div class="leader"><h4>Leaderboard</h4><div id="leaderboard"></div></div>
     </div>
     <div class="gameBottom"><canvas id="mini" class="minimap" width="160" height="160"></canvas><div id="powerBar" class="powerbar"></div></div>
-    <div id="killFeed" class="killFeed"></div>
+    <div class="arenaOverdrive"><span>ARENA OVERDRIVE</span><b id="arenaImpact">READY</b></div><div id="killFeed" class="killFeed"></div>
     <div id="spectatorDock" class="spectatorDock"><span class="small muted">SPECTATING</span><button class="btn" id="spectatePrev">Previous</button><b id="spectateName">Arena leader</b><button class="btn" id="spectateNext">Next</button><button class="btn primary" id="spectateJoin">Join arena</button></div>
-    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io Arena</h2><p class="muted">Eat food, consume smaller cells, dodge viruses, steal power-ups, split to attack, survive the chaos.</p><div class="speedBalanceNote">V9.1: a living 10-minute AI arena, tactical rivals, spectator mode and upgraded neon visuals.</div><button class="btn primary" id="overlaySpawn">Spawn now</button></div></div>
+    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io Arena</h2><p class="muted">Eat food, consume smaller cells, dodge viruses, steal power-ups, split to attack, survive the chaos.</p><div class="speedBalanceNote">V11.3: adaptive performance, spatial collisions, tactical rivals and a living 10-minute arena.</div><button class="btn primary" id="overlaySpawn">Spawn now</button></div></div>
   </div>
 </section>
+<section id="snake" class="tab">
+  <div class="snakeIntro">
+    <div class="card">
+      <div class="v10Eyebrow">Perfected in V11.3</div>
+      <h2>Pearl Snake</h2>
+      <p class="muted">A full neon snake arena with tactical bots, boost energy, roaming pearls, live ranking and a world that keeps moving around you.</p>
+      <div class="snakeRules">
+        <div class="snakeRule"><b>Hunt</b><br><span class="muted small">Cut across rival paths and collect the pearls they drop.</span></div>
+        <div class="snakeRule"><b>Grow</b><br><span class="muted small">Every pearl extends your body and raises your score.</span></div>
+        <div class="snakeRule"><b>Boost</b><br><span class="muted small">Hold mouse or Space for speed, but watch your energy.</span></div>
+      </div>
+    </div>
+    <div class="card" style="background:radial-gradient(circle at 80% 20%,rgba(56,189,248,.2),transparent 32%),linear-gradient(145deg,rgba(15,23,42,.9),rgba(45,8,54,.82))">
+      <h3>Snake loadout</h3>
+      <label>Nickname</label><input id="snakeName" maxlength="18" value="PearlRider">
+      <label>Pearl.io skin</label><select id="snakeSkin"></select><div id="snakeSkinPreview" class="snakeSkinPreview"></div><label>Trail color</label><select id="snakeColor"><option value="#22d3ee">Cyan Pulse</option><option value="#fb3f73">Pearl Rose</option><option value="#a78bfa">Void Violet</option><option value="#34d399">Toxic Mint</option><option value="#fbbf24">Casino Gold</option></select>
+      <div class="snakeGateLegend"><span style="color:#67e8f9">CYAN: speed gate</span><span style="color:#c6ff1a">LIME: growth gate</span><span style="color:#ff8aab">PINK: score gate</span></div><p class="compactHint small">Controls: move with mouse or touch. Hold click, touch or Space to boost. Cross energy gates, chain pearls and survive every rival trail.</p>
+    </div>
+  </div>
+  <div class="snakeShell">
+    <canvas id="snakeCanvas"></canvas>
+    <div class="snakeHud"><div class="snakeStats"><span>Score <b id="snakeScore">0</b></span><span>Length <b id="snakeLength">45</b></span><span>KOs <b id="snakeKills">0</b></span><span>Width <b id="snakeWidth">1.0x</b></span><span>Rank <b id="snakeRank">-</b></span></div><div class="snakeLeaders"><strong>Top Snakes</strong><div id="snakeLeaderboard"></div></div></div>
+    <div class="snakeWorldHud"><b id="snakeWorldEvent">WORLD ONLINE</b><span id="snakeWorldDetail">Pearl storm charging</span><div class="eventProgress"><i id="snakeWorldProgress"></i></div></div><div id="snakeCombo" class="snakeCombo"><span>PEARL CHAIN</span><b id="snakeComboValue">x1</b></div><div id="snakeEvent" class="snakeEvent">OVERDRIVE</div><div class="snakeBoost"><span class="small">BOOST ENERGY</span><div class="snakeBoostBar"><div id="snakeBoostFill" class="snakeBoostFill"></div></div></div>
+    <canvas id="snakeMap" class="snakeMap" width="150" height="100"></canvas>
+    <div id="snakeOverlay" class="snakeOverlay"><div class="card snakeStart"><span class="snakeBadge">V11.3 WORLD ARENA</span><h2>PEARL<br>SNAKE</h2><p id="snakeMessage" class="muted">Build the longest neon trail in the arena.</p><button class="btn primary" id="snakeStart">Enter the arena</button></div></div>
+  </div>
+</section>
+
 <section id="casino" class="tab">
+  <div class="casinoStage"><div class="casinoStageLights"></div></div>
   <div class="casinoHero">
-    <div class="card"><h2>Pearl Casino V9</h2><p class="muted">Arcade gambling with visible odds, streak rewards and one shared progressive jackpot. All currency stays inside the game.</p></div>
+    <div class="card"><div class="v10Eyebrow">V11.3 living casino</div><h2>Pearl Casino Royale</h2><p class="muted">Arcade gambling with visible odds, streak rewards and one shared progressive jackpot. All currency stays inside the game.</p></div>
     <div class="casinoStat"><span class="muted small">Jackpot</span><b id="casinoJackpot">1000</b></div>
     <div class="casinoStat"><span class="muted small">Win streak</span><b id="casinoStreak">0</b></div>
     <div class="casinoStat"><span class="muted small">Best streak</span><b id="casinoBestStreak">0</b></div>
   </div>
 
-  <div class="card skinWheelCard"><div class="card skinWheelCard">
+  <div class="casinoCommand">
+    <div class="casinoCommandPanel"><div class="v10Eyebrow">Casino control</div><h3>One living casino</h3><p class="muted small">Every table now feeds the same streak, jackpot and live result board. Cards keep their suits and low-end mode trims only expensive effects.</p><div class="casinoPulseLine"><i></i></div></div>
+    <div class="casinoCommandPanel"><div class="v10Eyebrow">Recent results</div><div id="casinoLiveFeed" class="casinoLiveFeed"><div class="casinoFeedEmpty">Your next result appears here.</div></div></div>
+  </div>
+
+  <div class="card skinWheelCard">
     <div class="wheelLayout">
       <div>
         <div class="wheelWrap">
@@ -194,17 +407,74 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
     </div>
   </div>
 
-  <div class="casinoGrid">
-    <div class="casinoGame"><h3>🎰 Neon Slots</h3><div class="display" id="slotDisplay">❔ ❔ ❔</div><div class="log" id="slotLog"></div><div class="casinoOdds">Pair 2.2x · Triple 8x · three 💎 wins the jackpot</div><button class="btn primary" id="slotPlay">Spin - 50</button></div>
-    <div class="casinoGame"><h3>🪙 Coin Flip</h3><div class="display" id="flipDisplay">Pick a side</div><div class="log" id="flipLog"></div><div class="casinoOdds">49% win chance · payout 1.95x</div><div class="row"><button class="btn primary" id="flipHeads">Heads - 50</button><button class="btn primary" id="flipTails">Tails - 50</button></div></div>
-    <div class="casinoGame"><h3>🃏 Blackjack</h3><div class="display" id="bjDisplay">Deal to start</div><div class="log" id="bjLog"></div><div class="casinoOdds">Dealer stands on 17 · blackjack pays 2.5x</div><div class="row"><button class="btn primary" id="bjDeal">Deal - 100</button><button class="btn" id="bjHit" disabled>Hit</button><button class="btn" id="bjStand" disabled>Stand</button></div></div>
-    <div class="casinoGame"><h3>🎲 Lucky Number</h3><div class="display" id="numDisplay">1–10</div><div class="log" id="numLog"></div><div class="casinoOdds">Exact 8x · one away 1.35x</div><input id="numPick" type="number" min="1" max="10" value="7"><button class="btn primary" id="numPlay">Bet - 75</button></div>
-    <div class="casinoGame"><h3>🚀 Crash</h3><div class="display" id="crashDisplay">1.00x</div><div class="log" id="crashLog"></div><div class="casinoOdds">Cash out before the hidden crash point</div><div class="row"><button class="btn primary" id="crashStart">Start - 100</button><button class="btn green" id="crashCash" disabled>Cash Out</button></div></div>
-    <div class="casinoGame"><h3>🎫 Pearl Scratch</h3><div class="display" id="scratchDisplay">▒ ▒ ▒</div><div class="log" id="scratchLog"></div><div class="casinoOdds">Pair 1.8x · triple 9x</div><button class="btn primary" id="scratchPlay">Scratch - 80</button></div>
-    <div class="casinoGame"><h3>📈 Higher / Lower</h3><div class="display" id="highDisplay">Card: 7</div><div class="log" id="highLog">Will the next card be higher or lower?</div><div class="casinoOdds">Correct guess pays 1.8x · ties refund</div><div class="row"><button class="btn primary" id="highHigher">Higher - 60</button><button class="btn primary" id="highLower">Lower - 60</button></div></div>
+  <div class="casinoFloorNav"><button class="btn active" data-casino-floor="tables">Floor I · Grand Tables</button><button class="btn" data-casino-floor="arcade">Floor II · Neon Arcade</button></div>
+
+  <div id="casinoFloorTables" class="casinoFloor active">
+    <div class="floorMarquee"><div class="v10Eyebrow">Floor I</div><h2>GRAND TABLES</h2><p class="muted">Roulette, blackjack, baccarat, poker and high-stakes dice on a cinematic casino floor.</p></div>
+    <div class="tableGrid">
+      <div class="casinoTable wide redTable">
+        <h3>European Pearl Roulette</h3>
+        <div class="rouletteLayout">
+          <div class="rouletteWrap"><canvas id="rouletteCanvas" width="500" height="500"></canvas><i id="rouletteBall" class="rouletteBall"></i></div>
+          <div>
+            <div class="feltLabel">SELECT A NUMBER OR OUTSIDE BET · 50 COINS</div>
+            <div id="rouletteBetGrid" class="rouletteBetGrid"></div>
+            <div class="chipRow"><button class="casinoChip active" data-chip="50">50</button><button class="casinoChip" data-chip="100">100</button><button class="casinoChip" data-chip="250">250</button></div>
+            <div class="display" id="rouletteDisplay">Place your bet</div><div class="log" id="rouletteLog"></div>
+            <button class="btn primary" id="rouletteSpin">Spin Roulette</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="casinoTable">
+        <h3>Blackjack Royale</h3>
+        <div class="feltLabel">DEALER</div><div id="bjDealerCards" class="playingCards"></div>
+        <div class="feltLabel">PLAYER</div><div id="bjPlayerCards" class="playingCards"></div>
+        <div class="log" id="bjLog"></div><div class="casinoOdds">Dealer stands on 17 · blackjack pays 2.5x</div>
+        <div class="row"><button class="btn primary" id="bjDeal">Deal - 100</button><button class="btn" id="bjHit" disabled>Hit</button><button class="btn" id="bjStand" disabled>Stand</button></div>
+        <div id="bjDisplay" style="display:none">Deal to start</div>
+      </div>
+
+      <div class="casinoTable">
+        <h3>Pearl Baccarat</h3>
+        <div class="feltLabel">BANKER</div><div id="baccaratBanker" class="playingCards"></div>
+        <div class="feltLabel">PLAYER</div><div id="baccaratPlayer" class="playingCards"></div>
+        <div class="log" id="baccaratLog">Choose Player, Banker or Tie.</div>
+        <div class="row"><button class="btn primary baccaratBet" data-bet="player">Player - 100</button><button class="btn baccaratBet" data-bet="banker">Banker - 100</button><button class="btn baccaratBet" data-bet="tie">Tie - 100</button></div>
+      </div>
+
+      <div class="casinoTable">
+        <h3>Five Card Pearl Poker</h3>
+        <div id="pokerHand" class="pokerHand"></div><div id="pokerResult" class="pokerResult">Deal a hand</div>
+        <div class="casinoOdds">Pair 1.5x · Two pair 2.5x · Trips 4x · Straight 6x · Flush 8x · Full house 10x · Four 20x</div>
+        <button class="btn primary" id="pokerDeal">Deal - 100</button>
+      </div>
+
+      <div class="casinoTable">
+        <h3>High / Low Cards</h3>
+        <div id="highCards" class="playingCards"></div><div class="log" id="highLog">Will the next card be higher or lower?</div>
+        <div class="casinoOdds">Correct guess pays 1.8x · ties refund</div>
+        <div class="row"><button class="btn primary" id="highHigher">Higher - 60</button><button class="btn primary" id="highLower">Lower - 60</button></div><div id="highDisplay" style="display:none">Card: 7</div>
+      </div>
+
+      <div class="casinoTable redTable">
+        <h3>Double Dice</h3><div id="diceStage" class="diceStage"></div><div class="log" id="diceLog">Pick under 7, exactly 7, or over 7.</div>
+        <div class="row"><button class="btn diceBet" data-bet="under">Under 7 - 75</button><button class="btn primary diceBet" data-bet="seven">Exactly 7 - 75</button><button class="btn diceBet" data-bet="over">Over 7 - 75</button></div>
+      </div>
+    </div>
   </div>
-</section>
-<section id="shop"  </div>
+
+  <div id="casinoFloorArcade" class="casinoFloor">
+    <div class="floorMarquee"><div class="v10Eyebrow">Floor II</div><h2>NEON ARCADE</h2><p class="muted">Fast machines, explosive reels, crash multipliers and instant-win games.</p></div>
+    <div class="machineGrid">
+      <div class="casinoGame"><h3>Neon Slots</h3><div class="display"><div id="slotReels" class="slotReels"><span class="slotReel">?</span><span class="slotReel">?</span><span class="slotReel">?</span></div></div><div class="log" id="slotLog"></div><div class="casinoOdds">Pair 2.2x · Triple 8x · three diamonds wins the jackpot</div><button class="btn primary" id="slotPlay">Spin - 50</button><div id="slotDisplay" style="display:none">? ? ?</div></div>
+      <div class="casinoGame"><h3>Crash Reactor</h3><div class="display" id="crashDisplay">1.00x</div><div class="log" id="crashLog"></div><div class="casinoOdds">Cash out before the reactor overloads</div><div class="row"><button class="btn primary" id="crashStart">Launch - 100</button><button class="btn green" id="crashCash" disabled>Cash Out</button></div></div>
+      <div class="casinoGame"><h3>Golden Coin</h3><div class="display" id="flipDisplay">PICK A SIDE</div><div class="log" id="flipLog"></div><div class="casinoOdds">49% win chance · payout 1.95x</div><div class="row"><button class="btn primary" id="flipHeads">Heads - 50</button><button class="btn primary" id="flipTails">Tails - 50</button></div></div>
+      <div class="casinoGame"><h3>Lucky Number</h3><div class="display" id="numDisplay">1–10</div><div class="log" id="numLog"></div><div class="casinoOdds">Exact 8x · one away 1.35x</div><input id="numPick" type="number" min="1" max="10" value="7"><button class="btn primary" id="numPlay">Bet - 75</button></div>
+      <div class="casinoGame"><h3>Pearl Scratch</h3><div class="display" id="scratchDisplay">▒ ▒ ▒</div><div class="log" id="scratchLog"></div><div class="casinoOdds">Pair 1.8x · triple 9x</div><button class="btn primary" id="scratchPlay">Scratch - 80</button></div>
+      <div class="casinoGame"><h3>Color Reactor</h3><div class="display" id="colorDisplay">RED · CYAN · GOLD</div><div class="log" id="colorLog">Pick the reactor color.</div><div class="row"><button class="btn colorBet danger" data-color="red">Red - 50</button><button class="btn colorBet green" data-color="cyan">Cyan - 50</button><button class="btn colorBet" data-color="gold" style="background:#92400e">Gold - 50</button></div></div>
+    </div>
+  </div>
 </section>
 <section id="shop" class="tab">
   <div class="card"><h2>Skins & Stats</h2><p class="muted">Use the Skin Locker to select skins. The custom photo skins are embedded directly into this file and are unlocked through the casino wheel.</p></div>
@@ -267,7 +537,7 @@ h1,h2,h3{text-shadow:0 0 24px rgba(255,51,102,.16)}.glitchTitle{filter:drop-shad
     <div class="card"><h3>Creator Tip</h3><p class="muted">Use the Media tab first. Once your images look good, I can convert the single HTML into a clean GitHub folder.</p></div>
   </div>
 </section>
-<p class="footerNote small muted">Pearl.io V8.7 Skin Abilities — balanced passives, virus merge fix, smarter bot recombining, preview-safe.</p>
+<p class="footerNote small muted">Pearl.io V11.3 Perfect Overdrive — adaptive quality, spatial collision engine, smarter arenas and Casino Royale.</p>
 </main>
 <script>
 
@@ -281,9 +551,45 @@ const now=()=>performance.now();
 const TAU=Math.PI*2;
 const safeStore={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const state={coins:safeStore.get('v8coins',1600),skins:safeStore.get('v8skins',[0]),skin:safeStore.get('v8skin',0),adult:safeStore.get('v8adult',false),stats:safeStore.get('v8stats',{runs:0,kills:0,best:0,food:0,casinoWins:0,casinoLosses:0}),tab:'home'};
+const PERF_PROFILES={
+  high:{tier:'high',label:'ULTRA',dpr:1.6,fps:50,food:3800,bots:42,viruses:32,powers:36,pearlStars:82,snakeFood:2600,snakeBots:34,snakeGates:24,snakeStars:100,particleCap:380,mapEvery:2,bodyStep:3},
+  balanced:{tier:'balanced',label:'BALANCED',dpr:1.25,fps:42,food:2700,bots:32,viruses:26,powers:30,pearlStars:52,snakeFood:1900,snakeBots:26,snakeGates:20,snakeStars:64,particleCap:220,mapEvery:4,bodyStep:4},
+  eco:{tier:'eco',label:'ECO',dpr:1,fps:32,food:1700,bots:22,viruses:20,powers:22,pearlStars:28,snakeFood:1250,snakeBots:18,snakeGates:16,snakeStars:34,particleCap:110,mapEvery:7,bodyStep:6}
+};
+function detectedTier(){const cores=navigator.hardwareConcurrency||4,mem=navigator.deviceMemory||4;if(mem<=4||cores<=4)return'eco';if(mem<=8||cores<=8)return'balanced';return'high'}
+let perfPreference=safeStore.get('v113quality','auto'),perfTier=perfPreference==='auto'?detectedTier():perfPreference,perfListeners=[];
+if(!PERF_PROFILES[perfTier])perfTier='balanced';
+function perfProfile(){return PERF_PROFILES[perfTier]}
+function renderPerfUi(fps){
+  document.body.classList.toggle('quality-balanced',perfTier==='balanced');document.body.classList.toggle('quality-eco',perfTier==='eco');document.body.classList.toggle('lowFx',perfTier==='eco');
+  const dock=$('perfDock'),badge=$('qualityBadge'),meter=$('fpsMeter'),btn=$('fxToggle');if(dock)dock.dataset.tier=perfTier;if(badge)badge.textContent=(perfPreference==='auto'?'AUTO · ':'')+perfProfile().label;if(meter&&fps)meter.textContent=Math.round(fps)+' FPS';if(btn)btn.textContent='Quality: '+(perfPreference==='auto'?'AUTO':perfProfile().label)
+}
+function setPerfTier(tier,autoDrop=false){if(!PERF_PROFILES[tier]||tier===perfTier)return;perfTier=tier;renderPerfUi();perfListeners.forEach(fn=>fn(perfProfile(),autoDrop))}
+function cycleQuality(){const order=['auto','high','balanced','eco'],next=order[(order.indexOf(perfPreference)+1)%order.length];perfPreference=next;safeStore.set('v113quality',next);setPerfTier(next==='auto'?detectedTier():next);renderPerfUi()}
+window.pearlPerformance={profile:perfProfile,subscribe(fn){perfListeners.push(fn)},cycle:cycleQuality,preference:()=>perfPreference};
+let perfFrames=0,perfStamp=performance.now(),perfLowSamples=0,perfLastDrop=0;
+function monitorPerformance(t){
+  perfFrames++;const elapsed=t-perfStamp;
+  if(elapsed>1800){
+    const focused=document.hasFocus()&&!document.hidden;
+    if(elapsed<5000&&focused){
+      const fps=perfFrames*1000/elapsed;renderPerfUi(fps);
+      const threshold=perfTier==='high'?44:32;
+      if(perfPreference==='auto'&&t-perfLastDrop>18000){
+        perfLowSamples=fps<threshold?perfLowSamples+1:Math.max(0,perfLowSamples-1);
+        if(perfLowSamples>=4&&perfTier!=='eco'){setPerfTier(perfTier==='high'?'balanced':'eco',true);perfLowSamples=0;perfLastDrop=t}
+      }
+    }else{
+      const meter=$('fpsMeter');if(meter)meter.textContent='PAUSED';perfLowSamples=0
+    }
+    perfFrames=0;perfStamp=t
+  }
+  requestAnimationFrame(monitorPerformance)
+}
+$('fxToggle').addEventListener('click',cycleQuality);renderPerfUi();requestAnimationFrame(monitorPerformance);
 function save(){safeStore.set('v8coins',state.coins);safeStore.set('v8skins',state.skins);safeStore.set('v8skin',state.skin);safeStore.set('v8adult',state.adult);safeStore.set('v8stats',state.stats)}
 function setCoins(n){state.coins=Math.max(0,Math.floor(n));$('coinCount').textContent=state.coins;save();renderStats()}
-function addCoins(n){setCoins(state.coins+n)}
+function addCoins(n){setCoins(state.coins+n)} window.pearlAddCoins=addCoins;
 function spend(n){if(state.coins<n){flash('Need '+n+' coins');return false}addCoins(-n);return true}
 function flash(msg){const el=$('moodDisplay');if(el){const old=el.textContent;el.textContent=msg;setTimeout(()=>{if(el.textContent===msg)el.textContent=old},1200)}}
 function setTab(id){const leavingGame=state.tab==='game'&&id!=='game';document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));state.tab=id;if(leavingGame&&typeof leaveArenaToSpectate==='function')leaveArenaToSpectate();if(id==='game'&&typeof enterArenaView==='function')enterArenaView();if(id==='shop')renderSkins();}
@@ -440,13 +746,22 @@ setCoins(state.coins);renderAdult();renderSkins();
 
 // ================= GAME =================
 const canvas=$('gameCanvas'),ctx=canvas.getContext('2d');const mini=$('mini'),mctx=mini.getContext('2d');let DPR=1;
-const WORLD=5600,FOOD_TARGET=3600,BOT_TARGET=48,VIRUS_TARGET=36,POWER_TARGET=32,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=26000;
-const game={running:false,food:[],bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,forceMerge:false,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0};
-function resize(){DPR=Math.min(2,window.devicePixelRatio||1);const rect=canvas.getBoundingClientRect();canvas.width=Math.max(800,Math.floor(rect.width*DPR));canvas.height=Math.max(520,Math.floor(rect.height*DPR));ctx.setTransform(DPR,0,0,DPR,0,0)}window.addEventListener('resize',resize);setTimeout(resize,0);
+const WORLD=5600,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=24000,FOOD_BUCKET=220;
+let FOOD_TARGET=perfProfile().food,BOT_TARGET=perfProfile().bots,VIRUS_TARGET=perfProfile().viruses,POWER_TARGET=perfProfile().powers;
+const game={running:false,food:[],foodGrid:new Map(),bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,forceMerge:false,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0,combo:0,comboUntil:0,fxBursts:[],shake:0,event:{type:'calm',nextAt:Date.now()+12000,until:0,startedAt:0},rifts:[],shards:[]};
+function resize(){DPR=Math.min(perfProfile().dpr,window.devicePixelRatio||1);const rect=canvas.getBoundingClientRect();canvas.width=Math.max(800,Math.floor(rect.width*DPR));canvas.height=Math.max(520,Math.floor(rect.height*DPR));ctx.setTransform(DPR,0,0,DPR,0,0)}window.addEventListener('resize',resize);setTimeout(resize,0);
 function cw(){return canvas.width/DPR}function ch(){return canvas.height/DPR}
-function newCell(owner,x,y,r,skin,name){return{id:Math.random().toString(36).slice(2),owner,x,y,r,vx:0,vy:0,skin,name,mergeAt:now()+MERGE_MS,dead:false}}
+function foodKey(x,y){return Math.floor(x/FOOD_BUCKET)+'|'+Math.floor(y/FOOD_BUCKET)}
+function rebuildFoodGrid(){game.foodGrid.clear();for(const f of game.food){if(f.dead)continue;const key=foodKey(f.x,f.y),bucket=game.foodGrid.get(key);if(bucket)bucket.push(f);else game.foodGrid.set(key,[f])}}
+function gameFoodNear(x,y,range){const out=[],x0=Math.floor((x-range)/FOOD_BUCKET),x1=Math.floor((x+range)/FOOD_BUCKET),y0=Math.floor((y-range)/FOOD_BUCKET),y1=Math.floor((y+range)/FOOD_BUCKET);for(let gx=x0;gx<=x1;gx++)for(let gy=y0;gy<=y1;gy++){const bucket=game.foodGrid.get(gx+'|'+gy);if(bucket)out.push(...bucket)}return out}
+function applyPearlPerf(){
+  const p=perfProfile();FOOD_TARGET=p.food;BOT_TARGET=p.bots;VIRUS_TARGET=p.viruses;POWER_TARGET=p.powers;
+  if(game.running){game.bots.splice(BOT_TARGET);game.food.splice(FOOD_TARGET);game.viruses.splice(VIRUS_TARGET);game.powers.splice(POWER_TARGET);cleanDead();rebuildFoodGrid()}resize()
+}
+window.pearlPerformance.subscribe(applyPearlPerf);
+function newCell(owner,x,y,r,skin,name){return{id:Math.random().toString(36).slice(2),owner,x,y,r,vx:0,vy:0,skin,name,mergeAt:now()+MERGE_MS,dead:false,trail:[]}}
 function mass(c){return c.r*c.r/100}function totalMass(cells){return cells.reduce((s,c)=>s+mass(c),0)}function grow(c,r,scale){c.r=Math.sqrt(c.r*c.r+r*r*scale)}
-function makeFood(){return{x:rand(30,WORLD-30),y:rand(30,WORLD-30),r:rand(3.2,5.6),color:'hsl('+Math.floor(rand(0,360))+',88%,62%)',dead:false}}
+function makeFood(){const rare=Math.random()>.991;return{x:rand(30,WORLD-30),y:rand(30,WORLD-30),r:rare?10:rand(3.2,5.6),color:rare?'#fff700':'hsl('+Math.floor(rand(0,360))+',88%,62%)',dead:false,rare,pulse:rand(0,TAU)}}
 function makeVirus(){return{x:rand(140,WORLD-140),y:rand(140,WORLD-140),r:34+rand(-3,4)}}
 const POWERS=[
 ['speed','⚡','#fde047',18],['shield','🛡️','#60a5fa',16],['magnet','🧲','#c084fc',18],
@@ -470,24 +785,42 @@ function makeBot(i){
     aim:{x,y},lastThreat:null,mistakeAt:0,threatMemory:0,preyMemory:0,feintAt:0,kills:0,dead:false}
 }
 function initialiseArena(){
-  resize();game.food=[];game.bots=[];game.viruses=[];game.powers=[];game.ejected=[];game.particles=[];game.killFeed=[];
+  resize();game.food=[];game.bots=[];game.viruses=[];game.powers=[];game.ejected=[];game.particles=[];game.killFeed=[];game.rifts=Array.from({length:5},()=>({x:rand(500,WORLD-500),y:rand(500,WORLD-500),r:rand(90,155),phase:rand(0,TAU),color:Math.random()>.5?'#27f5ff':'#ff247f'}));game.event={type:'calm',nextAt:Date.now()+9000,until:0,startedAt:0};
   for(let i=0;i<FOOD_TARGET;i++)game.food.push(makeFood());
   for(let i=0;i<BOT_TARGET;i++)game.bots.push(makeBot(i));
   for(let i=0;i<VIRUS_TARGET;i++)game.viruses.push(makeVirus());
   for(let i=0;i<POWER_TARGET;i++)game.powers.push(makePower());
+  rebuildFoodGrid();
   game.running=true;game.startedAt=Date.now();game.last=now();game.loopId++;requestAnimationFrame(t=>loop(t,game.loopId))
 }
 function spawnHuman(){
   if(!game.running)initialiseArena();
   game.player.name=($('playerName').value||'PearlConsumer').slice(0,18);const sm=selectedMods();
-  game.player.powers={shield:3+(sm.spawnShield||0),speed:2,magnet:0,growth:0};
+  game.player.powers={shield:6+(sm.spawnShield||0),speed:2,magnet:0,growth:0};
   const leaders=[...game.bots].sort((a,b)=>totalMass(b.cells)-totalMass(a.cells)),avoid=leaders.slice(0,5).flatMap(b=>b.cells);
   let x=WORLD/2,y=WORLD/2,best=-1;
   for(let i=0;i<16;i++){const tx=rand(600,WORLD-600),ty=rand(600,WORLD-600),clear=avoid.length?Math.min(...avoid.map(c=>dist(tx,ty,c.x,c.y))):9999;if(clear>best){best=clear;x=tx;y=ty}}
-  game.player.cells=[newCell('player',x,y,34+(sm.startMass||0),state.skin,game.player.name)];
-  game.cam.x=x;game.cam.y=y;game.mouse.wx=x;game.mouse.wy=y;game.spawnShield=3+(sm.spawnShield||0);
+  game.player.cells=[newCell('player',x,y,20+(sm.startMass||0)*.25,state.skin,game.player.name)];
+  game.cam.x=x;game.cam.y=y;game.mouse.wx=x;game.mouse.wy=y;game.spawnShield=6+(sm.spawnShield||0);
   game.humanPresent=true;game.spectating=false;game.idleDeadline=0;game.last=now();state.stats.runs++;save();
   $('spawnOverlay').style.display='none';$('spectatorDock').classList.remove('show');updateArenaStatus()
+}
+function updateClassicEvent(dt){
+  const t=Date.now(),ev=game.event;
+  if(ev.type==='calm'&&t>=ev.nextAt){const types=['pearlstorm','overdrive','riftwave'];ev.type=types[Math.floor(rand(0,types.length))];ev.startedAt=t;ev.until=t+12000;arenaImpact(ev.type==='pearlstorm'?'PEARL STORM':ev.type==='overdrive'?'SPEED OVERDRIVE':'RIFT WAVE',ev.type==='pearlstorm'?'#fff700':ev.type==='overdrive'?'#27f5ff':'#ff247f');if(ev.type==='pearlstorm')for(let i=0;i<260;i++)game.food.push(makeFood())}
+  if(ev.type!=='calm'&&t>=ev.until){ev.type='calm';ev.nextAt=t+rand(13000,19000)}
+  document.querySelector('.gameShell').classList.toggle('ultraStorm',ev.type!=='calm');
+  const names={calm:'DIMENSION STABLE',pearlstorm:'PEARL STORM',overdrive:'SPEED OVERDRIVE',riftwave:'RIFT WAVE'};
+  const details={calm:'Next world event charging',pearlstorm:'Rare shards are flooding the map',overdrive:'Every cell moves at impossible speed',riftwave:'Rifts are pulling mass across sectors'};
+  $('classicEventName').textContent=names[ev.type];$('classicEventDetail').textContent=details[ev.type];
+  const pct=ev.type==='calm'?clamp(100-(ev.nextAt-t)/180,0,100):clamp((ev.until-t)/120,0,100);$('classicEventProgress').style.width=pct+'%';
+  if(ev.type==='overdrive'){for(const c of allCells()){c.x+=c.vx*.2;c.y+=c.vy*.2;bound(c)}}
+  if(ev.type==='riftwave')for(const c of allCells()){for(const r of game.rifts){const d=dist(c.x,c.y,r.x,r.y);if(d<r.r*4&&d>20){c.vx+=(r.x-c.x)/d*.025;c.vy+=(r.y-c.y)/d*.025}}}
+}
+function updateDangerRadar(){
+  const radar=$('dangerRadar');if(!radar||!game.player.cells.length)return;const me=[...game.player.cells].sort((a,b)=>b.r-a.r)[0];let danger=9999;
+  for(const c of allCells())if(c.owner!=='player'&&c.r>me.r*1.12)danger=Math.min(danger,dist(me.x,me.y,c.x,c.y)-c.r-me.r);
+  radar.classList.toggle('danger',danger<320);radar.textContent=danger<120?'COLLISION IMMINENT':danger<320?'PREDATOR '+Math.max(0,Math.floor(danger))+'m':'SECTOR CLEAR';
 }
 function resetGame(){spawnHuman()}
 function beginIdleCountdown(){
@@ -520,8 +853,14 @@ function updateSpectatorTarget(){
   const b=bots[game.spectateIndex],cen=centerOf(b.cells);game.cam.x=cen.x;game.cam.y=cen.y;$('spectateName').textContent=b.name+' · '+Math.floor(totalMass(b.cells))+' mass'
 }
 function cycleSpectator(dir){game.spectateIndex+=dir;updateSpectatorTarget()}
+function arenaImpact(text,color='#00e5ff'){
+  const el=$('arenaImpact');if(el){el.textContent=text;el.style.color=color;el.classList.remove('show');void el.offsetWidth;el.classList.add('show')}
+  game.shake=Math.max(game.shake,8);const cen=game.player.cells.length?centerOf(game.player.cells):{x:game.cam.x,y:game.cam.y};
+  game.fxBursts.push({x:cen.x,y:cen.y,life:1,color})
+}
 function addKillFeed(killer,victim){
-  game.killFeed.unshift({text:killer+' consumed '+victim,until:Date.now()+5500});game.killFeed=game.killFeed.slice(0,5)
+  game.killFeed.unshift({text:'⚡ '+killer+' ERASED '+victim,until:Date.now()+6500});game.killFeed=game.killFeed.slice(0,6);
+  if(killer===game.player.name){game.combo++;game.comboUntil=Date.now()+4500;arenaImpact(game.combo>2?'RAMPAGE x'+game.combo:'CELL ERASED','#ff275f')}
 }
 $('spawnBtn').addEventListener('click',spawnHuman);$('overlaySpawn').addEventListener('click',spawnHuman);$('spectateJoin').addEventListener('click',spawnHuman);$('spectatePrev').addEventListener('click',()=>cycleSpectator(-1));$('spectateNext').addEventListener('click',()=>cycleSpectator(1));$('splitBtn').addEventListener('click',()=>splitOwner('player'));$('ejectBtn').addEventListener('click',()=>ejectOwner('player'));$('mergeBtn').addEventListener('click',()=>{game.forceMerge=true;setTimeout(()=>game.forceMerge=false,1000)});
 canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();game.mouse.x=e.clientX-r.left;game.mouse.y=e.clientY-r.top});canvas.addEventListener('touchmove',e=>{const t=e.touches[0],r=canvas.getBoundingClientRect();game.mouse.x=t.clientX-r.left;game.mouse.y=t.clientY-r.top;e.preventDefault()},{passive:false});canvas.addEventListener('wheel',e=>{e.preventDefault();game.cam.manual=clamp(game.cam.manual+(e.deltaY>0?-0.08:0.08),.68,1.55)},{passive:false});
@@ -530,99 +869,84 @@ function ownerCells(owner){if(owner==='player')return game.player.cells;const b=
 function allCells(){let arr=[];game.player.cells.forEach(c=>arr.push(c));game.bots.forEach(b=>b.cells.forEach(c=>arr.push(c)));return arr.filter(c=>!c.dead)}
 function centerOf(cells){let sx=0,sy=0,sm=0;cells.forEach(c=>{const m=c.r*c.r;sx+=c.x*m;sy+=c.y*m;sm+=m});return sm?{x:sx/sm,y:sy/sm}:{x:WORLD/2,y:WORLD/2}}
 function dirToTarget(from,target){let dx=target.x-from.x,dy=target.y-from.y,d=Math.hypot(dx,dy)||1;return{dx:dx/d,dy:dy/d,d}}
-function cellSpeed(r,powers){let s=clamp(9.45-r*.073,2.35,9.45);if(powers&&powers.speed>0)s*=1.38;if(powers&&powers.frenzy>0)s*=1.18;return s}
+function cellSpeed(r,powers){let s=clamp(10.25-r*.075,2.55,10.25);if(powers&&powers.speed>0)s*=1.38;if(powers&&powers.frenzy>0)s*=1.18;return s}
 function splitOwner(owner){const cells=ownerCells(owner);const max=owner==='player'?MAX_PLAYER_CELLS:MAX_BOT_CELLS;if(cells.length>=max)return;const target=owner==='player'?{x:game.mouse.wx,y:game.mouse.wy}:((game.bots.find(b=>b.id===owner)||{}).aim||null);let made=[];for(const c of [...cells]){if(c.r<36||cells.length+made.length>=max)continue;let aim=target||{x:c.x+c.vx*20+rand(-80,80),y:c.y+c.vy*20+rand(-80,80)};const d=dirToTarget(c,aim);const nr=c.r/Math.SQRT2;c.r=nr;const n=newCell(owner,c.x+d.dx*(c.r+8),c.y+d.dy*(c.r+8),nr,c.skin,c.name);const m=cellMods(c);const launch=22*(m.splitLaunch||1);n.vx=d.dx*launch;n.vy=d.dy*launch;c.mergeAt=now()+mergeDelayForCell(c);n.mergeAt=now()+mergeDelayForCell(n);made.push(n);}
  cells.push(...made)}
 function ejectOwner(owner){const cells=ownerCells(owner);const bot=owner==='player'?null:game.bots.find(b=>b.id===owner);const target=owner==='player'?{x:game.mouse.wx,y:game.mouse.wy}:(bot&&bot.aim);for(const c of cells){if(c.r<30)continue;const aim=target||{x:c.x+c.vx*30,y:c.y+c.vy*30};const d=dirToTarget(c,aim);c.r=Math.sqrt(Math.max(100,c.r*c.r-72));const sk=SKINS[c.skin]||SKINS[0];game.ejected.push({x:c.x+d.dx*(c.r+12),y:c.y+d.dy*(c.r+12),r:8,vx:d.dx*16,vy:d.dy*16,color:sk.color||'#fff',life:5,dead:false});}}
 function applyPower(owner,type){
   const p=owner==='player'?game.player:game.bots.find(b=>b.id===owner);if(!p)return;
   const mods=owner==='player'?selectedMods():ownerMods(owner),bonus=mods.powerDuration||0;
-  if(type==='coin'){if(owner==='player')addCoins(Math.floor(55*(mods.coinGain||1)));else p.cells.forEach(c=>grow(c,9,1.1));return}
-  if(type==='growth'){p.cells.forEach(c=>grow(c,16,2.05));return}
+  if(type==='coin'){if(owner==='player'){addCoins(Math.floor(75*(mods.coinGain||1)));arenaImpact('COIN SURGE','#fbbf24')}else p.cells.forEach(c=>grow(c,9,1.1));return}
+  if(type==='growth'){p.cells.forEach(c=>grow(c,19,2.5));if(owner==='player')arenaImpact('MASS OVERLOAD','#b7ff00');return}
   if(type==='nova'){p.cells.forEach(c=>grow(c,11,1.7));p.powers.shield=Math.max(p.powers.shield||0,2.5+bonus);p.powers.speed=Math.max(p.powers.speed||0,2.5+bonus);return}
   const duration={shield:5.5,magnet:7,speed:5,frenzy:5,ghost:4.5}[type]||4;
   p.powers[type]=Math.max(p.powers[type]||0,duration+bonus)
 }
 function tickPowers(obj,dt){for(const k of Object.keys(obj.powers||{})){obj.powers[k]-=dt;if(obj.powers[k]<=0)delete obj.powers[k]}}
-function movePlayer(dt){const cells=game.player.cells;const powers=game.player.powers;for(const c of cells){const d=dirToTarget(c,{x:game.mouse.wx,y:game.mouse.wy});if(d.d>4){const sp=cellSpeed(c.r,powers);c.vx+=(d.dx*sp-c.vx)*.23;c.vy+=(d.dy*sp-c.vy)*.23}c.vx*=.94;c.vy*=.94;c.x+=c.vx;c.y+=c.vy;bound(c)}}
+function movePlayer(dt){const cells=game.player.cells;const powers=game.player.powers;for(const c of cells){if(game.frame%3===0){c.trail.push({x:c.x,y:c.y,r:c.r,life:1});if(c.trail.length>12)c.trail.shift()}const d=dirToTarget(c,{x:game.mouse.wx,y:game.mouse.wy});if(d.d>4){const sp=cellSpeed(c.r,powers);c.vx+=(d.dx*sp-c.vx)*.23;c.vy+=(d.dy*sp-c.vy)*.23}c.vx*=.94;c.vy*=.94;c.x+=c.vx;c.y+=c.vy;bound(c)}}
 function bound(c){c.x=clamp(c.x,c.r,WORLD-c.r);c.y=clamp(c.y,c.r,WORLD-c.r)}
 function botThink(b,t){
   if(t<b.nextThink)return;
-  b.nextThink=t+rand(120,300)+(1-b.skill)*240;
+  b.nextThink=t+rand(120,260)+(1-b.skill)*180;
   const cells=b.cells.filter(c=>!c.dead),main=[...cells].sort((a,z)=>z.r-a.r)[0];if(!main)return;
-  const center=centerOf(cells),myMass=totalMass(cells),visible=820+main.r*9+b.skill*360;
-  let threat=null,threatScore=0,prey=null,preyScore=0,nearestVirus=null,virusDist=1e9;
-  for(const v of game.viruses){const d=dist(center.x,center.y,v.x,v.y);if(d<virusDist){virusDist=d;nearestVirus=v}}
+  const center=centerOf(cells),visible=950+main.r*10+b.skill*420;
+  let threat=null,threatScore=-Infinity,prey=null,preyScore=-Infinity,bestPower=null,bestPowerScore=-Infinity;
+
   for(const other of allCells()){
     if(other.owner===b.id||other.dead)continue;
     const d=dist(center.x,center.y,other.x,other.y);if(d>visible)continue;
-    const approach=((other.vx||0)*(center.x-other.x)+(other.vy||0)*(center.y-other.y))/(d||1);
-    const edgeTrap=Math.min(other.x,other.y,WORLD-other.x,WORLD-other.y)<220?.45:0;
     if(other.r>main.r*1.1){
-      const canEnemySplit=other.r>main.r*1.62&&d<other.r*4.8;
-      const score=(other.r/main.r)*2.35+(visible-d)/visible+Math.max(0,approach)*.035+(canEnemySplit?1.2:0);
+      const score=(other.r/main.r)*2.8+(visible-d)/visible+(d<other.r*5?1.1:0);
       if(score>threatScore){threatScore=score;threat=other}
-    }else if(main.r>other.r*1.16){
-      const splitReach=main.r*(4.1+b.skill*.8)*(cellMods(main).splitLaunch||1);
-      const enemyFriends=ownerCells(other.owner).filter(c=>c!==other&&!c.dead&&dist(other.x,other.y,c.x,c.y)<450).length;
-      const score=(main.r/other.r)*1.35+(visible-d)/visible+(d<splitReach?.9:0)+edgeTrap-enemyFriends*.24;
+    }else if(main.r>other.r*1.14){
+      const score=(main.r/other.r)*1.7+(visible-d)/visible+(d<main.r*4.8?1.2:0);
       if(score>preyScore){preyScore=score;prey=other}
     }
   }
-  if(threat&&threatScore>(1.72+.25*b.bravery)){
-    b.intent='flee';b.lastThreat=threat;b.threatMemory=t+1800;
-    let vx=center.x-threat.x,vy=center.y-threat.y;
-    if(nearestVirus&&main.r<threat.r*.82&&virusDist<480){vx=nearestVirus.x-center.x;vy=nearestVirus.y-center.y;b.intent='virus-cover'}
-    const side=(center.x<260||center.x>WORLD-260)?(center.x<WORLD/2?1:-1):0;
-    b.target={x:clamp(center.x+vx*2.6+side*240,90,WORLD-90),y:clamp(center.y+vy*2.6,90,WORLD-90)};
-    b.lockUntil=t+rand(520,980);return
-  }
-  let bestPower=null,bestPowerScore=-1;
+
   for(const p of game.powers){
-    if(p.dead)continue;const d=dist(center.x,center.y,p.x,p.y);if(d>1050+b.skill*260)continue;
-    let value={nova:6.5,ghost:5.3,frenzy:4.9,shield:4.7,growth:4.2,speed:3.7,magnet:3.2,coin:2}[p.type]||1;
-    if(threatScore>1.2&&(p.type==='shield'||p.type==='ghost'||p.type==='speed'))value+=2;
-    const score=value-d/300+(b.style==='opportunist'?1.1:0);
+    if(p.dead)continue;const d=dist(center.x,center.y,p.x,p.y);if(d>1100+b.skill*320)continue;
+    const value={nova:8,ghost:6.5,frenzy:6,shield:5.5,growth:5,speed:4.5,magnet:3.6,coin:2.2}[p.type]||1;
+    const score=value-d/280+(threat&&['shield','ghost','speed'].includes(p.type)?2.5:0);
     if(score>bestPowerScore){bestPowerScore=score;bestPower=p}
   }
-  if(bestPower&&bestPowerScore>1.2){b.intent='power';b.target=bestPower;b.lockUntil=t+rand(500,950);return}
-  if(prey&&preyScore>(b.style==='hunter'?1.9:2.35)/b.bravery){
-    b.intent='hunt';b.preyMemory=t+1700;
-    const pd=dist(main.x,main.y,prey.x,prey.y),prediction=(.45+b.skill*.7)*Math.min(32,pd/Math.max(2,cellSpeed(main.r,b.powers)));
-    let tx=prey.x+(prey.vx||0)*prediction,ty=prey.y+(prey.vy||0)*prediction;
-    if(prey.x<260)tx-=180;if(prey.x>WORLD-260)tx+=180;if(prey.y<260)ty-=180;if(prey.y>WORLD-260)ty+=180;
-    b.target={...prey,x:clamp(tx,35,WORLD-35),y:clamp(ty,35,WORLD-35)};b.aim={x:b.target.x,y:b.target.y};b.lockUntil=t+rand(650,1250);
-    const splitReach=main.r*(4.0+b.skill*.85),safeSplit=main.r>prey.r*(1.56+(1-b.skill)*.25)&&cells.length<MAX_BOT_CELLS/2;
-    if(safeSplit&&pd<splitReach&&pd>main.r*.85&&b.splitCd<=0&&Math.random()<.58+b.skill*.34){splitOwner(b.id);b.splitCd=7+rand(0,2.5);return}
-    if(main.r>prey.r*2.25&&pd<520&&pd>210&&b.ejectCd<=0&&t>b.feintAt&&Math.random()<.22+b.skill*.2){
-      ejectOwner(b.id);b.ejectCd=8+rand(0,5);b.feintAt=t+3500;b.intent='bait'
+
+  if(threat&&threatScore>2.15){
+    b.intent='run';b.lastThreat=threat;
+    const dx=center.x-threat.x,dy=center.y-threat.y,d=Math.hypot(dx,dy)||1;
+    b.target={x:clamp(center.x+dx/d*900,100,WORLD-100),y:clamp(center.y+dy/d*900,100,WORLD-100)};
+    b.lockUntil=t+rand(500,900);return
+  }
+
+  if(bestPower&&bestPowerScore>2.25){
+    b.intent='power';b.target=bestPower;b.lockUntil=t+rand(450,800);return
+  }
+
+  b.intent='hunt';
+  if(prey){
+    const d=dist(main.x,main.y,prey.x,prey.y),lead=Math.min(28,d/Math.max(2,cellSpeed(main.r,b.powers)));
+    b.target={x:clamp(prey.x+(prey.vx||0)*lead,40,WORLD-40),y:clamp(prey.y+(prey.vy||0)*lead,40,WORLD-40)};
+    b.aim=b.target;b.lockUntil=t+rand(600,1050);
+    if(main.r>prey.r*1.58&&d<main.r*(4.1+b.skill*.8)&&d>main.r*.8&&b.splitCd<=0&&cells.length<MAX_BOT_CELLS/2){
+      splitOwner(b.id);b.splitCd=7+rand(0,2.5)
     }
     return
   }
-  let fx=0,fy=0,weight=0;
-  for(let k=0;k<76;k++){const f=game.food[Math.floor(rand(0,game.food.length))];if(!f||f.dead)continue;const d=dist(center.x,center.y,f.x,f.y);if(d>980)continue;const w=1/(65+d);fx+=f.x*w;fy+=f.y*w;weight+=w}
-  if(weight&&Math.random()<.86){b.intent='farm';b.target={x:fx/weight,y:fy/weight};b.lockUntil=t+rand(480,900)}
-  else{b.intent='roam';b.wander+=rand(-.65,.65);b.target={x:clamp(center.x+Math.cos(b.wander)*rand(420,920),100,WORLD-100),y:clamp(center.y+Math.sin(b.wander)*rand(420,920),100,WORLD-100)};b.lockUntil=t+rand(750,1450)}
-  if(Math.random()<(1-b.skill)*.045)b.target={x:rand(100,WORLD-100),y:rand(100,WORLD-100)}
+
+  let targetFood=null,bestFood=-Infinity;
+  for(let i=0;i<90;i++){const f=game.food[Math.floor(rand(0,game.food.length))];if(!f||f.dead)continue;const d=dist(center.x,center.y,f.x,f.y),score=(f.rare?5:1)-d/800;if(score>bestFood){bestFood=score;targetFood=f}}
+  b.target=targetFood||{x:rand(120,WORLD-120),y:rand(120,WORLD-120)};
+  b.lockUntil=t+rand(550,950)
 }
 function moveBots(dt,t){
   for(const b of game.bots){
     tickPowers(b,dt);b.splitCd=Math.max(0,b.splitCd-dt);b.ejectCd=Math.max(0,b.ejectCd-dt);botThink(b,t);
     pullBotCellsForMerge(b,dt);
     for(const c of b.cells){
+      if(game.frame%5===0){c.trail.push({x:c.x,y:c.y,r:c.r,life:1});if(c.trail.length>7)c.trail.shift()}
       const target=b.target||b.aim||{x:c.x+300,y:c.y},tx=target.x||c.x,ty=target.y||c.y;
-      let avoidX=0,avoidY=0;
-      for(const v of game.viruses){
-        const d=dist(c.x,c.y,v.x,v.y),danger=c.r>v.r*1.04;
-        const range=danger?(b.intent==='hunt'?c.r+v.r+35:190+c.r):80;
-        if(d<range){avoidX+=(c.x-v.x)/(d||1)*(range-d);avoidY+=(c.y-v.y)/(d||1)*(range-d)}
-      }
-      if(b.intent==='flee'&&b.lastThreat){
-        const d=dist(c.x,c.y,b.lastThreat.x,b.lastThreat.y),range=520+c.r*4;
-        if(d<range){avoidX+=(c.x-b.lastThreat.x)/(d||1)*(range-d)*1.4;avoidY+=(c.y-b.lastThreat.y)/(d||1)*(range-d)*1.4}
-      }
-      const d=dirToTarget(c,{x:tx+avoidX*4.2,y:ty+avoidY*4.2}),mods=cellMods(c);
-      let style=b.intent==='flee'?(mods.flee||1):b.intent==='hunt'?(mods.chase||1):b.intent==='farm'?(mods.aloneSpeed||1):1;
+      const d=dirToTarget(c,{x:tx,y:ty}),mods=cellMods(c);
+      let style=b.intent==='run'?(mods.flee||1)*1.1:b.intent==='hunt'?(mods.chase||1):b.intent==='power'?1.04:1;
       if(totalMass(b.cells)>500)style*=mods.hugeSpeed||1;
       const sp=cellSpeed(c.r,b.powers)*(mods.speed||1)*style*(.96+b.skill*.06);
       const accel=.12+b.skill*.08;
@@ -633,9 +957,9 @@ function moveBots(dt,t){
 function separateOwnerCells(owner,force){const cells=ownerCells(owner);if(cells.length<2)return;const t=now();for(let i=0;i<cells.length;i++){for(let j=i+1;j<cells.length;j++){const a=cells[i],b=cells[j];if(!a||!b||a.dead||b.dead)continue;const ready=(t>a.mergeAt&&t>b.mergeAt)||force;if(ready)continue;let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);if(d<.001){const ang=rand(0,TAU);dx=Math.cos(ang);dy=Math.sin(ang);d=1}const min=(a.r+b.r)*.92;if(d<min){const nx=dx/d,ny=dy/d,over=min-d,total=a.r+b.r||1;const aw=b.r/total,bw=a.r/total;a.x-=nx*over*.52*aw;a.y-=ny*over*.52*aw;b.x+=nx*over*.52*bw;b.y+=ny*over*.52*bw;const kick=clamp(over*.045,.08,1.75);a.vx-=nx*kick*aw;a.vy-=ny*kick*aw;b.vx+=nx*kick*bw;b.vy+=ny*kick*bw;bound(a);bound(b)}}}}
 function mergeCells(owner,force){const cells=ownerCells(owner);if(cells.length<2)return;const t=now();for(let i=0;i<cells.length;i++){for(let j=i+1;j<cells.length;j++){const a=cells[i],b=cells[j];if(!a||!b||a.dead||b.dead)continue;const ready=(t>a.mergeAt&&t>b.mergeAt)||force;if(!ready)continue;let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;const nx=dx/d,ny=dy/d,total=a.r+b.r||1;const pull=(force?1.35:.72)*clamp(d/260,.32,1.25);a.vx+=nx*pull*(b.r/total);a.vy+=ny*pull*(b.r/total);b.vx-=nx*pull*(a.r/total);b.vy-=ny*pull*(a.r/total);if(d<Math.max(a.r,b.r)*.92||d<(a.r+b.r)*.28){const big=a.r>=b.r?a:b,small=a.r>=b.r?b:a;big.r=Math.sqrt(big.r*big.r+small.r*small.r);small.dead=true}}}for(let i=cells.length-1;i>=0;i--)if(cells[i].dead)cells.splice(i,1)}
 function virusHit(owner,c,v){if(c.r<v.r*1.08)return;const powerOwner=owner==='player'?game.player:game.bots.find(b=>b.id===owner);if(powerOwner&&(powerOwner.powers.shield>0||powerOwner.powers.ghost>0))return;const cells=ownerCells(owner);const max=owner==='player'?MAX_PLAYER_CELLS:MAX_BOT_CELLS;const free=max-cells.length+1;if(free<=1){c.r*= (cellMods(c).virusResist||.68);v.x=rand(140,WORLD-140);v.y=rand(140,WORLD-140);return}const desired=c.r>72?10:(c.r>55?8:6);const pieces=Math.max(4,Math.min(desired,free));const oldR=c.r*(cellMods(c).virusResist||1),nr=Math.max(12,oldR/Math.sqrt(pieces));const base=Math.atan2(c.y-v.y,c.x-v.x);c.r=nr;c.mergeAt=now()+Math.max(30000,mergeDelayForCell(c));for(let i=1;i<pieces;i++){const spread=(i/(pieces-1))*TAU;const ang=base+spread+rand(-.18,.18);const n=newCell(owner,c.x+Math.cos(ang)*(nr+10),c.y+Math.sin(ang)*(nr+10),nr,c.skin,c.name);const speed=rand(12,22)*(owner==='player'?1.05:.95);n.vx=Math.cos(ang)*speed+c.vx*.25;n.vy=Math.sin(ang)*speed+c.vy*.25;n.mergeAt=now()+Math.max(30000,mergeDelayForCell(n));cells.push(n)}c.vx+=Math.cos(base)*13;c.vy+=Math.sin(base)*13;v.x=rand(140,WORLD-140);v.y=rand(140,WORLD-140)}
-function collisions(dt){const cells=allCells();
+function collisions(dt){const cells=allCells();if(game.frame%4===1)rebuildFoodGrid();
  // food
- for(const c of cells){const mag=(c.owner==='player'?game.player.powers.magnet:((game.bots.find(b=>b.id===c.owner)||{}).powers||{}).magnet)>0;for(let i=0;i<game.food.length;i++){const f=game.food[i];if(f.dead)continue;const d=dist(c.x,c.y,f.x,f.y);if(mag&&d<c.r+170){f.x+=(c.x-f.x)/(d||1)*8;f.y+=(c.y-f.y)/(d||1)*8}if(d<c.r+f.r*.35){grow(c,f.r,c.owner==='player'?3.2:2.5);f.dead=true;if(c.owner==='player'){state.stats.food++;if(state.stats.food%80===0)addCoins(10)}}}}
+ for(const c of cells){const mag=(c.owner==='player'?game.player.powers.magnet:((game.bots.find(b=>b.id===c.owner)||{}).powers||{}).magnet)>0;for(const f of gameFoodNear(c.x,c.y,c.r+(mag?190:30))){if(f.dead)continue;const d=dist(c.x,c.y,f.x,f.y);if(mag&&d<c.r+170){f.x+=(c.x-f.x)/(d||1)*8;f.y+=(c.y-f.y)/(d||1)*8}if(d<c.r+f.r*.35){grow(c,f.r,c.owner==='player'?(f.rare?9:2):(f.rare?4:1.45));if(f.rare&&c.owner==='player'){addCoins(25);arenaImpact('ULTRA SHARD','#fff700')}f.dead=true;if(c.owner==='player'){state.stats.food++;game.comboUntil=Date.now()+1800;if(state.stats.food%50===0){addCoins(15);arenaImpact('PEARL RUSH','#00e5ff')}}}}}
  // ejected mass
  for(const e of game.ejected){if(e.dead)continue;e.x+=e.vx;e.y+=e.vy;e.vx*=.96;e.vy*=.96;e.life-=dt;if(e.life<=0)e.dead=true;for(const c of cells){if(e.dead)break;if(dist(c.x,c.y,e.x,e.y)<c.r){grow(c,e.r,1.7);e.dead=true}}}
  // powers
@@ -643,9 +967,9 @@ function collisions(dt){const cells=allCells();
  // viruses
  for(const v of game.viruses){for(const c of [...allCells()]){if(c.dead)continue;if(dist(c.x,c.y,v.x,v.y)<c.r+v.r*.65)virusHit(c.owner,c,v)}}
  // cell eating - largest first
- const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.09:1.13)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.18){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell';addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;addCoins(15)}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}}}}
+ const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.09:1.13)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.18){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell';addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;addCoins(30);game.shake=14;game.fxBursts.push({x:b.x,y:b.y,life:1,color:'#ff275f'})}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}}}}
  cleanDead();}
-function cleanDead(){game.player.cells=game.player.cells.filter(c=>!c.dead);for(const b of game.bots)b.cells=b.cells.filter(c=>!c.dead);game.bots=game.bots.filter(b=>b.cells.length>0);if(game.bots.length<BOT_TARGET){const start=game.bots.length;for(let i=start;i<BOT_TARGET;i++)game.bots.push(makeBot(i+Math.floor(rand(0,9999))))}game.food=game.food.filter(f=>!f.dead);while(game.food.length<FOOD_TARGET)game.food.push(makeFood());game.powers=game.powers.filter(p=>!p.dead);while(game.powers.length<POWER_TARGET)game.powers.push(makePower());game.ejected=game.ejected.filter(e=>!e.dead);}
+function cleanDead(){game.player.cells=game.player.cells.filter(c=>!c.dead);for(const b of game.bots)b.cells=b.cells.filter(c=>!c.dead);game.bots=game.bots.filter(b=>b.cells.length>0);game.bots.splice(BOT_TARGET);if(game.bots.length<BOT_TARGET){const start=game.bots.length;for(let i=start;i<BOT_TARGET;i++)game.bots.push(makeBot(i+Math.floor(rand(0,9999))))}game.food=game.food.filter(f=>!f.dead).slice(0,FOOD_TARGET);while(game.food.length<FOOD_TARGET)game.food.push(makeFood());game.powers=game.powers.filter(p=>!p.dead).slice(0,POWER_TARGET);while(game.powers.length<POWER_TARGET)game.powers.push(makePower());game.viruses=game.viruses.slice(0,VIRUS_TARGET);while(game.viruses.length<VIRUS_TARGET)game.viruses.push(makeVirus());game.ejected=game.ejected.filter(e=>!e.dead);}
 function updateCamera(){
   let cells=game.player.cells;
   if(!game.humanPresent&&game.spectating){const bots=spectatorBots();if(bots.length){game.spectateIndex=clamp(game.spectateIndex,0,bots.length-1);cells=bots[game.spectateIndex].cells;$('spectateName').textContent=bots[game.spectateIndex].name+' · '+Math.floor(totalMass(cells))+' mass'}}
@@ -656,12 +980,13 @@ function updateCamera(){
 function loop(t,id){
   if(!game.running||id!==game.loopId)return;
   if(!game.humanPresent&&game.idleDeadline&&Date.now()>=game.idleDeadline){endArenaForInactivity();return}
+  const minFrame=1000/perfProfile().fps;if(t-game.last<minFrame*.82){requestAnimationFrame(nt=>loop(nt,id));return}
   let dt=Math.min(.05,(t-game.last)/1000||.016);game.last=t;game.frame++;
   if(game.humanPresent){tickPowers(game.player,dt);movePlayer(dt)}
   moveBots(dt,t);if(game.humanPresent)separateOwnerCells('player',game.forceMerge);
   for(const b of game.bots)separateOwnerCells(b.id,false);for(const b of game.bots)mergeCells(b.id,false);
   if(game.humanPresent)mergeCells('player',game.forceMerge);
-  collisions(dt);updateCamera();render();updateHud();
+  collisions(dt);updateClassicEvent(dt);if(game.frame%2===0)updateDangerRadar();updateCamera();render();if(game.frame%2===0)updateHud();
   const tm=totalMass(game.player.cells);if(tm>state.stats.best){state.stats.best=tm;save()}
   if(game.humanPresent&&!game.player.cells.length){
     game.humanPresent=false;game.spectating=true;beginIdleCountdown();$('spectatorDock').classList.add('show');
@@ -675,7 +1000,8 @@ function onScreen(x,y,r=0){const s=worldToScreen(x,y);return s.x+r>-80&&s.x-r<cw
 function drawCell(c,isPlayer){
   const s=worldToScreen(c.x,c.y),r=c.r*game.cam.zoom;
   const sk=SKINS[c.skin]||SKINS[0];
-  ctx.save();
+  if(c.trail&&c.trail.length){ctx.save();ctx.lineCap='round';for(let i=0;i<c.trail.length;i++){const tr=c.trail[i],ts=worldToScreen(tr.x,tr.y),alpha=(i+1)/c.trail.length*.16;ctx.globalAlpha=alpha;ctx.fillStyle=sk.color||'#27f5ff';ctx.shadowColor=sk.color||'#27f5ff';ctx.shadowBlur=18;ctx.beginPath();ctx.arc(ts.x,ts.y,Math.max(2,tr.r*game.cam.zoom*(.35+i/c.trail.length*.28)),0,TAU);ctx.fill()}ctx.restore()}
+  ctx.save();ctx.shadowColor=sk.color||'#00e5ff';ctx.shadowBlur=isPlayer?32:clamp(r*.22,5,18);if(isPlayer){ctx.strokeStyle=sk.color||'#00e5ff';ctx.globalAlpha=.35+.18*Math.sin(game.frame*.09);ctx.lineWidth=3;ctx.beginPath();ctx.arc(s.x,s.y,r+10+Math.sin(game.frame*.08)*4,0,TAU);ctx.stroke();ctx.globalAlpha=1}
   ctx.beginPath();
   ctx.arc(s.x,s.y,r,0,TAU);
   const grad=ctx.createRadialGradient(s.x-r*.3,s.y-r*.4,r*.1,s.x,s.y,r);
@@ -724,20 +1050,23 @@ function drawCell(c,isPlayer){
 }
 
 function render(){
-  ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,cw(),ch());
+  ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,cw(),ch());if(game.comboUntil<Date.now())game.combo=0;const sx=game.shake?rand(-game.shake,game.shake):0,sy=game.shake?rand(-game.shake,game.shake):0;game.shake*=.86;ctx.save();ctx.translate(sx,sy);
   const bg=ctx.createRadialGradient(cw()*.5,ch()*.45,20,cw()*.5,ch()*.45,Math.max(cw(),ch())*.72);
-  bg.addColorStop(0,'#10132b');bg.addColorStop(.5,'#080a17');bg.addColorStop(1,'#03040a');ctx.fillStyle=bg;ctx.fillRect(0,0,cw(),ch());
+  bg.addColorStop(0,'#151648');bg.addColorStop(.42,'#090d24');bg.addColorStop(1,'#02030a');ctx.fillStyle=bg;ctx.fillRect(0,0,cw(),ch());
+  for(let i=0;i<perfProfile().pearlStars;i++){const x=(i*137+game.frame*.16)%cw(),y=(i*83+Math.sin(game.frame*.01+i)*18+ch())%ch(),a=.12+(i%7)*.025;ctx.fillStyle='rgba('+(i%3? '0,229,255':'255,39,95')+','+a+')';ctx.fillRect(x,y,i%9===0?2:1,i%9===0?2:1)}
   ctx.save();ctx.translate(cw()/2,ch()/2);ctx.scale(game.cam.zoom,game.cam.zoom);ctx.translate(-game.cam.x,-game.cam.y);
   const gs=120,startX=Math.floor((game.cam.x-cw()/game.cam.zoom/2)/gs)*gs,endX=game.cam.x+cw()/game.cam.zoom/2+gs,startY=Math.floor((game.cam.y-ch()/game.cam.zoom/2)/gs)*gs,endY=game.cam.y+ch()/game.cam.zoom/2+gs;
   for(let x=startX;x<endX;x+=gs){ctx.strokeStyle=x%600===0?'rgba(34,211,238,.10)':'rgba(255,255,255,.035)';ctx.lineWidth=(x%600===0?1.5:1)/game.cam.zoom;ctx.beginPath();ctx.moveTo(x,startY);ctx.lineTo(x,endY);ctx.stroke()}
   for(let y=startY;y<endY;y+=gs){ctx.strokeStyle=y%600===0?'rgba(255,51,102,.09)':'rgba(255,255,255,.035)';ctx.lineWidth=(y%600===0?1.5:1)/game.cam.zoom;ctx.beginPath();ctx.moveTo(startX,y);ctx.lineTo(endX,y);ctx.stroke()}
   ctx.shadowColor='#ff3366';ctx.shadowBlur=24/game.cam.zoom;ctx.strokeStyle='rgba(255,51,102,.82)';ctx.lineWidth=8/game.cam.zoom;ctx.strokeRect(0,0,WORLD,WORLD);ctx.shadowBlur=0;
-  for(const f of game.food){if(f.x<game.cam.x-cw()/game.cam.zoom/2-40||f.x>game.cam.x+cw()/game.cam.zoom/2+40||f.y<game.cam.y-ch()/game.cam.zoom/2-40||f.y>game.cam.y+ch()/game.cam.zoom/2+40)continue;ctx.shadowColor=f.color;ctx.shadowBlur=7/game.cam.zoom;ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,TAU);ctx.fillStyle=f.color;ctx.fill()}ctx.shadowBlur=0;
-  for(const e of game.ejected){ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,TAU);ctx.fillStyle=e.color;ctx.fill()}
-  for(const v of game.viruses){ctx.save();ctx.shadowColor='#22c55e';ctx.shadowBlur=18/game.cam.zoom;ctx.beginPath();for(let i=0;i<22;i++){const a=i/22*TAU,rr=v.r+(i%2?6:-4);ctx[i?'lineTo':'moveTo'](v.x+Math.cos(a)*rr,v.y+Math.sin(a)*rr)}ctx.closePath();ctx.fillStyle='rgba(34,197,94,.28)';ctx.fill();ctx.strokeStyle='#4ade80';ctx.lineWidth=3/game.cam.zoom;ctx.stroke();ctx.restore()}
-  for(const p of game.powers){p.pulse+=.08;const rr=p.r+Math.sin(p.pulse)*4;ctx.save();ctx.shadowColor=p.color;ctx.shadowBlur=32;ctx.beginPath();ctx.arc(p.x,p.y,rr,0,TAU);ctx.fillStyle='rgba(255,255,255,.10)';ctx.fill();ctx.lineWidth=4/game.cam.zoom;ctx.strokeStyle=p.color;ctx.stroke();ctx.font='24px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.emoji,p.x,p.y);ctx.font='900 12px system-ui';ctx.fillStyle='#fff';ctx.fillText(p.type.toUpperCase(),p.x,p.y+38);ctx.restore()}
+  for(const rift of game.rifts){if(!onScreen(rift.x,rift.y,rift.r*2))continue;rift.phase+=.018;ctx.save();ctx.translate(rift.x,rift.y);ctx.rotate(rift.phase);for(let k=0;k<(perfProfile().tier==='eco'?2:4);k++){ctx.strokeStyle=k%2?rift.color:'rgba(255,255,255,.18)';ctx.globalAlpha=.42-k*.07;ctx.lineWidth=(5-k)/game.cam.zoom;ctx.beginPath();ctx.ellipse(0,0,rift.r+k*18,rift.r*.35+k*8,k*.45,0,TAU);ctx.stroke()}ctx.globalAlpha=1;ctx.shadowColor=rift.color;ctx.shadowBlur=perfProfile().tier==='eco'?0:32/game.cam.zoom;ctx.fillStyle='rgba(3,4,16,.8)';ctx.beginPath();ctx.arc(0,0,rift.r*.27,0,TAU);ctx.fill();ctx.restore()}
+  const viewRange=Math.max(cw(),ch())/game.cam.zoom*.72+80;for(const f of gameFoodNear(game.cam.x,game.cam.y,viewRange)){if(f.dead)continue;f.pulse+=.05;if(f.x<game.cam.x-cw()/game.cam.zoom/2-40||f.x>game.cam.x+cw()/game.cam.zoom/2+40||f.y<game.cam.y-ch()/game.cam.zoom/2-40||f.y>game.cam.y+ch()/game.cam.zoom/2+40)continue;ctx.shadowColor=f.color;ctx.shadowBlur=perfProfile().tier==='eco'?0:(f.rare?28:7)/game.cam.zoom;ctx.beginPath();if(f.rare){for(let k=0;k<8;k++){const a=f.pulse+k/8*TAU,rr=k%2?f.r*.4:f.r;ctx[k?'lineTo':'moveTo'](f.x+Math.cos(a)*rr,f.y+Math.sin(a)*rr)}ctx.closePath()}else ctx.arc(f.x,f.y,f.r,0,TAU);ctx.fillStyle=f.color;ctx.fill();if(f.rare){ctx.strokeStyle='#fff';ctx.lineWidth=2/game.cam.zoom;ctx.stroke()}}ctx.shadowBlur=0;
+  for(const e of game.ejected){if(!onScreen(e.x,e.y,e.r+20))continue;ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,TAU);ctx.fillStyle=e.color;ctx.fill()}
+  for(const v of game.viruses){if(!onScreen(v.x,v.y,v.r+40))continue;ctx.save();ctx.shadowColor='#22c55e';ctx.shadowBlur=perfProfile().tier==='eco'?0:18/game.cam.zoom;ctx.beginPath();for(let i=0;i<22;i++){const a=i/22*TAU,rr=v.r+(i%2?6:-4);ctx[i?'lineTo':'moveTo'](v.x+Math.cos(a)*rr,v.y+Math.sin(a)*rr)}ctx.closePath();ctx.fillStyle='rgba(34,197,94,.28)';ctx.fill();ctx.strokeStyle='#4ade80';ctx.lineWidth=3/game.cam.zoom;ctx.stroke();ctx.restore()}
+  for(const p of game.powers){if(!onScreen(p.x,p.y,p.r+55))continue;p.pulse+=.08;const rr=p.r+Math.sin(p.pulse)*4;ctx.save();ctx.shadowColor=p.color;ctx.shadowBlur=perfProfile().tier==='eco'?0:24;ctx.beginPath();ctx.arc(p.x,p.y,rr,0,TAU);ctx.fillStyle='rgba(255,255,255,.10)';ctx.fill();ctx.lineWidth=4/game.cam.zoom;ctx.strokeStyle=p.color;ctx.stroke();ctx.font='24px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.emoji,p.x,p.y);ctx.font='900 12px system-ui';ctx.fillStyle='#fff';ctx.fillText(p.type.toUpperCase(),p.x,p.y+38);ctx.restore()}
   ctx.restore();const cells=allCells().sort((a,b)=>a.r-b.r);for(const c of cells)if(onScreen(c.x,c.y,c.r*game.cam.zoom+40))drawCell(c,c.owner==='player');
-  drawMini();game.killFeed=game.killFeed.filter(k=>k.until>Date.now());$('killFeed').innerHTML=game.killFeed.map(k=>'<div class="killItem">'+k.text+'</div>').join('')
+  for(const burst of game.fxBursts){const s=worldToScreen(burst.x,burst.y),r=(1-burst.life)*170;ctx.globalAlpha=burst.life;ctx.strokeStyle=burst.color;ctx.shadowColor=burst.color;ctx.shadowBlur=28;ctx.lineWidth=5;ctx.beginPath();ctx.arc(s.x,s.y,r,0,TAU);ctx.stroke();burst.life-=.035}ctx.globalAlpha=1;ctx.shadowBlur=0;game.fxBursts=game.fxBursts.filter(b=>b.life>0);ctx.restore();
+  if(game.frame%perfProfile().mapEvery===0)drawMini();game.killFeed=game.killFeed.filter(k=>k.until>Date.now());$('killFeed').innerHTML=game.killFeed.map(k=>'<div class="killItem">'+k.text+'</div>').join('')
 }
 function drawMini(){mctx.clearRect(0,0,160,160);mctx.fillStyle='rgba(0,0,0,.65)';mctx.fillRect(0,0,160,160);const s=160/WORLD;for(const p of game.powers){mctx.beginPath();mctx.arc(p.x*s,p.y*s,2.3,0,TAU);mctx.fillStyle=p.color;mctx.fill()}for(const b of game.bots){for(const c of b.cells){mctx.beginPath();mctx.arc(c.x*s,c.y*s,Math.max(1.6,c.r*s*2),0,TAU);mctx.fillStyle='rgba(167,139,250,.8)';mctx.fill()}}for(const c of game.player.cells){mctx.beginPath();mctx.arc(c.x*s,c.y*s,Math.max(3,c.r*s*2.4),0,TAU);mctx.fillStyle='#ff3366';mctx.fill();mctx.strokeStyle='#fff';mctx.stroke()}mctx.strokeStyle='rgba(255,255,255,.35)';mctx.strokeRect(0,0,160,160)}
 function updateHud(){
@@ -755,6 +1084,10 @@ function updateHud(){
 
 // ================ CASINO// ================ CASINO ================
 const casinoMeta=safeStore.get('v9casino',{jackpot:1000,streak:0,best:0});
+let casinoHistory=safeStore.get('v113casinoHistory',[]);
+function casinoGameName(el){const card=el&&el.closest('.casinoTable,.casinoGame,.skinWheelCard');const h=card&&card.querySelector('h3');return h?h.textContent.trim():'Pearl Casino'}
+function renderCasinoHistory(){const feed=$('casinoLiveFeed');if(!feed)return;feed.innerHTML=casinoHistory.length?casinoHistory.slice(0,5).map(r=>'<div class="casinoFeedItem '+r.type+'"><span><b>'+r.game+'</b><br><small>'+r.text+'</small></span><strong>'+(r.type==='win'?'+':'')+r.amount+'</strong></div>').join(''):'<div class="casinoFeedEmpty">Your next result appears here.</div>'}
+function recordCasino(type,text,amount,el){casinoHistory.unshift({type,text,amount,game:casinoGameName(el)});casinoHistory=casinoHistory.slice(0,8);safeStore.set('v113casinoHistory',casinoHistory);renderCasinoHistory()}
 function saveCasino(){safeStore.set('v9casino',casinoMeta);renderCasinoMeta()}
 function renderCasinoMeta(){
   const j=$('casinoJackpot'),s=$('casinoStreak'),b=$('casinoBestStreak');
@@ -766,19 +1099,19 @@ function casinoWin(msg,amount,el){
   const streakBonus=casinoMeta.streak>=2?Math.min(75,casinoMeta.streak*10):0;
   addCoins(amount+streakBonus);casinoMeta.streak++;casinoMeta.best=Math.max(casinoMeta.best,casinoMeta.streak);
   state.stats.casinoWins++;save();saveCasino();
-  el.innerHTML='<span class="good">'+msg+(streakBonus?' · streak bonus +'+streakBonus:'')+'</span>'
+  el.innerHTML='<span class="good">'+msg+(streakBonus?' · streak bonus +'+streakBonus:'')+'</span>';recordCasino('win',msg,amount+streakBonus,el)
 }
 function casinoLoss(msg,el){
   casinoMeta.streak=0;state.stats.casinoLosses++;save();saveCasino();
-  el.innerHTML='<span class="bad">'+msg+'</span>'
+  el.innerHTML='<span class="bad">'+msg+'</span>';recordCasino('loss',msg,0,el)
 }
 function weightedPick(items){let r=rand(0,items.reduce((s,x)=>s+x[1],0));for(const item of items){r-=item[1];if(r<=0)return item[0]}return items[0][0]}
-renderCasinoMeta();
+renderCasinoMeta();renderCasinoHistory();
 
 $('slotPlay').addEventListener('click',()=>{
   if(!casinoStake(50))return;
   const pool=[['🍒',28],['🍀',23],['⭐',18],['🔥',14],['👑',10],['💎',7]];
-  const a=[weightedPick(pool),weightedPick(pool),weightedPick(pool)];$('slotDisplay').textContent=a.join(' ');
+  const a=[weightedPick(pool),weightedPick(pool),weightedPick(pool)];$('slotDisplay').textContent=a.join(' ');document.querySelectorAll('#slotReels .slotReel').forEach((r,i)=>{r.classList.add('spinning');setTimeout(()=>{r.textContent=a[i];r.classList.remove('spinning')},260+i*170)});
   if(a.every(x=>x==='💎')){
     const prize=Math.floor(casinoMeta.jackpot);casinoMeta.jackpot=1000;casinoWin('PROGRESSIVE JACKPOT +'+prize,prize,$('slotLog'));saveCasino()
   }else if(a[0]===a[1]&&a[1]===a[2])casinoWin('Triple +400',400,$('slotLog'));
@@ -797,21 +1130,25 @@ const cardNames={1:'A',11:'J',12:'Q',13:'K'};
 function drawCard(){return Math.floor(rand(1,14))}
 function handValue(hand){let value=hand.reduce((s,c)=>s+(c===1?11:Math.min(c,10)),0),aces=hand.filter(c=>c===1).length;while(value>21&&aces-- >0)value-=10;return value}
 function handText(hand){return hand.map(c=>cardNames[c]||c).join(' ')}
-let bj={active:false,player:[],dealer:[]};
-function bjShow(text=''){const dealer=bj.active?(cardNames[bj.dealer[0]]||bj.dealer[0])+' ?':handText(bj.dealer);$('bjDisplay').textContent='You '+handText(bj.player)+' ('+handValue(bj.player)+') | Dealer '+dealer;$('bjLog').innerHTML=text}
+const casinoSuits=['♠','♥','♦','♣'];
+function cardObject(value){return{value,suit:casinoSuits[Math.floor(rand(0,casinoSuits.length))]}}
+function cardMarkup(card,back=false){if(back)return'<div class="playingCard back"></div>';const value=typeof card==='number'?card:card.value,suit=typeof card==='number'?casinoSuits[Math.floor(rand(0,4))]:card.suit,red=suit==='♥'||suit==='♦';return'<div class="playingCard '+(red?'red':'')+'"><span class="corner">'+(cardNames[value]||value)+'<br>'+suit+'</span><span class="suitBig">'+suit+'</span><span class="corner bottom">'+(cardNames[value]||value)+'<br>'+suit+'</span></div>'}
+function renderCards(el,cards,hideAfter=-1){el.innerHTML=cards.map((c,i)=>cardMarkup(c,hideAfter>=0&&i>hideAfter)).join('')}
+let bj={active:false,player:[],dealer:[],playerCards:[],dealerCards:[]};
+function bjShow(text=''){renderCards($('bjPlayerCards'),bj.playerCards);renderCards($('bjDealerCards'),bj.dealerCards,bj.active?0:-1);$('bjDisplay').textContent='You '+handText(bj.player)+' ('+handValue(bj.player)+')';$('bjLog').innerHTML=text||('Player '+handValue(bj.player)+(bj.active?'':' · Dealer '+handValue(bj.dealer)))}
 function finishBj(){
-  while(handValue(bj.dealer)<17)bj.dealer.push(drawCard());bj.active=false;$('bjHit').disabled=true;$('bjStand').disabled=true;
+  while(handValue(bj.dealer)<17){const value=drawCard();bj.dealer.push(value);bj.dealerCards.push(cardObject(value))}bj.active=false;$('bjHit').disabled=true;$('bjStand').disabled=true;
   const p=handValue(bj.player),d=handValue(bj.dealer);bjShow();
   if(d>21||p>d)casinoWin('Blackjack win +200',200,$('bjLog'));
   else if(p===d){addCoins(100);casinoMeta.streak=0;saveCasino();$('bjLog').innerHTML='<span class="gold">Push · bet returned</span>'}
   else casinoLoss('Dealer wins',$('bjLog'))
 }
 $('bjDeal').addEventListener('click',()=>{
-  if(bj.active||!casinoStake(100))return;bj={active:true,player:[drawCard(),drawCard()],dealer:[drawCard(),drawCard()]};
+  if(bj.active||!casinoStake(100))return;const player=[drawCard(),drawCard()],dealer=[drawCard(),drawCard()];bj={active:true,player,dealer,playerCards:player.map(cardObject),dealerCards:dealer.map(cardObject)};
   $('bjHit').disabled=false;$('bjStand').disabled=false;bjShow('Hit or stand');
   if(handValue(bj.player)===21){bj.active=false;$('bjHit').disabled=true;$('bjStand').disabled=true;casinoWin('Natural blackjack +250',250,$('bjLog'))}
 });
-$('bjHit').addEventListener('click',()=>{if(!bj.active)return;bj.player.push(drawCard());if(handValue(bj.player)>21){bj.active=false;$('bjHit').disabled=true;$('bjStand').disabled=true;bjShow();casinoLoss('Bust',$('bjLog'))}else bjShow('Hit or stand')});
+$('bjHit').addEventListener('click',()=>{if(!bj.active)return;const value=drawCard();bj.player.push(value);bj.playerCards.push(cardObject(value));if(handValue(bj.player)>21){bj.active=false;$('bjHit').disabled=true;$('bjStand').disabled=true;bjShow();casinoLoss('Bust',$('bjLog'))}else bjShow('Hit or stand')});
 $('bjStand').addEventListener('click',()=>{if(bj.active)finishBj()});
 
 $('numPlay').addEventListener('click',()=>{
@@ -840,14 +1177,46 @@ $('scratchPlay').addEventListener('click',()=>{
   else casinoLoss('Blank card',$('scratchLog'))
 });
 
-let highCard=7;
+let highCard=7,highVisual=cardObject(highCard);renderCards($('highCards'),[highVisual]);
 function playHigh(direction){
   if(!casinoStake(60))return;const next=drawCard();$('highDisplay').textContent='Card: '+(cardNames[next]||next);
-  if(next===highCard){addCoins(60);casinoMeta.streak=0;saveCasino();$('highLog').innerHTML='<span class="gold">Tie · bet returned</span>'}
+  const nextVisual=cardObject(next);renderCards($('highCards'),[highVisual,nextVisual]);if(next===highCard){addCoins(60);casinoMeta.streak=0;saveCasino();$('highLog').innerHTML='<span class="gold">Tie · bet returned</span>'}
   else if((direction==='higher'&&next>highCard)||(direction==='lower'&&next<highCard))casinoWin('Correct +108',108,$('highLog'));
-  else casinoLoss('Wrong guess',$('highLog'));highCard=next
+  else casinoLoss('Wrong guess',$('highLog'));highCard=next;highVisual=nextVisual
 }
 $('highHigher').addEventListener('click',()=>playHigh('higher'));$('highLower').addEventListener('click',()=>playHigh('lower'));
+
+// V11.1 Grand Tables
+const rouletteNumbers=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+const redNums=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+let rouletteBet='red',rouletteChip=50,rouletteAngle=0,rouletteSpinning=false;
+function drawRoulette(){
+  const c=$('rouletteCanvas'),x=c.getContext('2d'),cx=250,cy=250,r=235;x.clearRect(0,0,500,500);
+  x.save();x.translate(cx,cy);x.rotate(rouletteAngle);
+  rouletteNumbers.forEach((n,i)=>{const a0=i/37*TAU-Math.PI/2,a1=(i+1)/37*TAU-Math.PI/2;x.beginPath();x.moveTo(0,0);x.arc(0,0,r,a0,a1);x.closePath();x.fillStyle=n===0?'#047857':redNums.has(n)?'#991b1b':'#09090b';x.fill();x.strokeStyle='#f6d365';x.lineWidth=1.5;x.stroke();const a=(a0+a1)/2;x.save();x.rotate(a+Math.PI/2);x.fillStyle='#fff7d6';x.font='bold 13px system-ui';x.textAlign='center';x.fillText(n,0,-205);x.restore()});
+  x.beginPath();x.arc(0,0,150,0,TAU);x.fillStyle='#6b3f14';x.fill();x.strokeStyle='#fbbf24';x.lineWidth=10;x.stroke();x.beginPath();x.arc(0,0,92,0,TAU);x.fillStyle='#140b05';x.fill();x.strokeStyle='#fde68a';x.lineWidth=5;x.stroke();x.beginPath();x.arc(0,0,28,0,TAU);x.fillStyle='#f59e0b';x.fill();x.restore()
+}
+function buildRouletteBets(){const grid=$('rouletteBetGrid'),bets=['0',...Array.from({length:12},(_,i)=>String(i+1)),'red','black','odd','even'];grid.innerHTML=bets.map(v=>'<button class="rouletteBet '+(v==='0'?'green':redNums.has(+v)||v==='red'?'red':v==='black'?'black':'')+(v===rouletteBet?' selected':'')+'" data-rbet="'+v+'">'+v.toUpperCase()+'</button>').join('');grid.querySelectorAll('[data-rbet]').forEach(b=>b.addEventListener('click',()=>{rouletteBet=b.dataset.rbet;buildRouletteBets()}))}
+buildRouletteBets();drawRoulette();
+document.querySelectorAll('[data-chip]').forEach(c=>c.addEventListener('click',()=>{rouletteChip=+c.dataset.chip;document.querySelectorAll('[data-chip]').forEach(x=>x.classList.toggle('active',x===c))}));
+$('rouletteSpin').addEventListener('click',()=>{if(rouletteSpinning||!casinoStake(rouletteChip))return;rouletteSpinning=true;const result=rouletteNumbers[Math.floor(rand(0,37))],idx=rouletteNumbers.indexOf(result),start=rouletteAngle,target=start+TAU*8+(TAU-idx/37*TAU),t0=now(),dur=window.pearlPerformance.profile().tier==='eco'?3000:4300;$('rouletteLog').textContent='No more bets...';let lastDraw=0,finished=false;
+  function finish(){if(finished)return;finished=true;rouletteAngle=target;drawRoulette();rouletteSpinning=false;$('rouletteDisplay').textContent='Winning number '+result;const color=result===0?'green':redNums.has(result)?'red':'black',win=rouletteBet===String(result)||(rouletteBet===color)||(rouletteBet==='odd'&&result&&result%2)||(rouletteBet==='even'&&result&&result%2===0);if(win){const exact=rouletteBet===String(result),pay=exact?rouletteChip*36:rouletteChip*2;casinoWin((exact?'Straight up':'Outside bet')+' +'+pay,pay,$('rouletteLog'))}else casinoLoss('Roulette loss',$('rouletteLog'))}
+  function frame(){if(finished)return;const stamp=now(),p=Math.min(1,(stamp-t0)/dur),ease=1-Math.pow(1-p,4);rouletteAngle=start+(target-start)*ease;if(stamp-lastDraw>(window.pearlPerformance.profile().tier==='eco'?32:12)||p===1){drawRoulette();lastDraw=stamp}$('rouletteBall').style.setProperty('--ball-angle',(p*2200)+'deg');if(p<1)return requestAnimationFrame(frame);finish()}
+  requestAnimationFrame(frame);setTimeout(finish,dur+350)
+});
+
+function baccaratValue(cards){return cards.reduce((s,c)=>s+(c.value>=10?0:c.value),0)%10}
+document.querySelectorAll('.baccaratBet').forEach(btn=>btn.addEventListener('click',()=>{if(!casinoStake(100))return;const player=[cardObject(drawCard()),cardObject(drawCard())],banker=[cardObject(drawCard()),cardObject(drawCard())];if(baccaratValue(player)<=5)player.push(cardObject(drawCard()));if(baccaratValue(banker)<=5)banker.push(cardObject(drawCard()));renderCards($('baccaratPlayer'),player);renderCards($('baccaratBanker'),banker);const pv=baccaratValue(player),bv=baccaratValue(banker),result=pv===bv?'tie':pv>bv?'player':'banker';if(btn.dataset.bet===result){const pay=result==='tie'?800:195;casinoWin(result.toUpperCase()+' '+(result==='tie'?8:1.95)+'x +'+pay,pay,$('baccaratLog'))}else casinoLoss('Result: '+result.toUpperCase(),$('baccaratLog'))}));
+
+function pokerRank(cards){const values=cards.map(c=>c.value===1?14:c.value).sort((a,b)=>a-b),counts={};values.forEach(v=>counts[v]=(counts[v]||0)+1);const groups=Object.values(counts).sort((a,b)=>b-a),flush=cards.every(c=>c.suit===cards[0].suit),straight=new Set(values).size===5&&(values[4]-values[0]===4||values.join(',')==='2,3,4,5,14');if(straight&&flush)return['Straight Flush',50];if(groups[0]===4)return['Four of a Kind',20];if(groups[0]===3&&groups[1]===2)return['Full House',10];if(flush)return['Flush',8];if(straight)return['Straight',6];if(groups[0]===3)return['Three of a Kind',4];if(groups[0]===2&&groups[1]===2)return['Two Pair',2.5];if(groups[0]===2)return['Pair',1.5];return['High Card',0]}
+$('pokerDeal').addEventListener('click',()=>{if(!casinoStake(100))return;const cards=Array.from({length:5},()=>cardObject(drawCard()));renderCards($('pokerHand'),cards);const [name,mult]=pokerRank(cards);$('pokerResult').textContent=name;if(mult)casinoWin(name+' +'+Math.floor(100*mult),Math.floor(100*mult),$('pokerResult'));else casinoLoss(name,$('pokerResult'))});
+
+function dieMarkup(n){const spots={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]}[n];return'<div class="die">'+Array.from({length:9},(_,i)=>spots.includes(i)?'<i class="pip"></i>':'<i></i>').join('')+'</div>'}
+$('diceStage').innerHTML=dieMarkup(1)+dieMarkup(1);document.querySelectorAll('.diceBet').forEach(btn=>btn.addEventListener('click',()=>{if(!casinoStake(75))return;document.querySelectorAll('.die').forEach(d=>d.classList.add('rolling'));setTimeout(()=>{const a=Math.floor(rand(1,7)),b=Math.floor(rand(1,7)),sum=a+b;$('diceStage').innerHTML=dieMarkup(a)+dieMarkup(b);const win=btn.dataset.bet==='seven'?sum===7:btn.dataset.bet==='under'?sum<7:sum>7;if(win){const pay=sum===7?300:140;casinoWin('Rolled '+sum+' +'+pay,pay,$('diceLog'))}else casinoLoss('Rolled '+sum,$('diceLog'))},700)}));
+
+document.querySelectorAll('.colorBet').forEach(btn=>btn.addEventListener('click',()=>{if(!casinoStake(50))return;const pool=['red','red','red','cyan','cyan','cyan','gold'],result=pool[Math.floor(rand(0,pool.length))];$('colorDisplay').textContent=result.toUpperCase();if(btn.dataset.color===result){const pay=result==='gold'?250:95;casinoWin(result.toUpperCase()+' +'+pay,pay,$('colorLog'))}else casinoLoss('Reactor landed '+result,$('colorLog'))}));
+
+document.querySelectorAll('[data-casino-floor]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-casino-floor]').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.casinoFloor').forEach(f=>f.classList.remove('active'));$('casinoFloor'+(btn.dataset.casinoFloor==='tables'?'Tables':'Arcade')).classList.add('active')}));
 
 function wheelAvailable(){return PHOTO_SKIN_IDS.slice()}
 const wheelState={angle:0,spinning:false};
@@ -904,6 +1273,11 @@ function spinSkinWheel(){
 $('skinWheelSpin').addEventListener('click',spinSkinWheel);
 $('skinWheelRedraw').addEventListener('click',()=>{drawSkinWheel();renderWheelPreview();});
 renderWheelPreview();
+window.pearlSkinBridge={
+  list(){return SKINS.map((s,i)=>({id:i,name:s.name,color:s.color,icon:s.icon,img:s.img||'',unlocked:state.skins.includes(i)}))},
+  unlocked(){return state.skins.slice()},
+  selected(){return state.skin}
+};
 
 
 })();
@@ -952,10 +1326,7 @@ document.querySelectorAll('.mediaSlot input[type=file]').forEach(input=>{
 });
 renderAllMedia();
 
-// Site FX toggle for low-end PCs.
-let fxOn = read('v83fxOn', true);
-function renderFx(){document.body.classList.toggle('lowFx', !fxOn); const b=$('fxToggle'); if(b)b.textContent='Performance FX: '+(fxOn?'ON':'LOW');}
-const fxBtn=$('fxToggle'); if(fxBtn) fxBtn.addEventListener('click',()=>{fxOn=!fxOn;write('v83fxOn',fxOn);renderFx();}); renderFx();
+// The main engine owns the adaptive quality button.
 
 // Fullscreen arena helper.
 const fullBtn=$('fullArenaBtn');
@@ -969,5 +1340,181 @@ document.querySelectorAll('.mission').forEach(m=>{
 })();
 </script>
 
+<script>
+(function(){
+'use strict';
+const q=id=>document.getElementById(id);
+
+// Casino presentation layer: the original payouts remain authoritative.
+const casinoButtonIds=new Set(['slotPlay','flipHeads','flipTails','bjDeal','bjHit','bjStand','numPlay','crashStart','crashCash','scratchPlay','highHigher','highLower','skinWheelSpin','rouletteSpin','pokerDeal']);
+function casinoBurst(card,win){
+  let layer=card.querySelector('.casinoBurst');if(!layer){layer=document.createElement('div');layer.className='casinoBurst';card.appendChild(layer)}
+  layer.innerHTML='';
+  const tier=window.pearlPerformance.profile().tier,count=tier==='eco'?(win?8:5):tier==='balanced'?(win?15:8):(win?24:12);
+  for(let i=0;i<count;i++){const p=document.createElement('i');p.className='casinoParticle';p.style.setProperty('--x',(Math.cos(i*2.4)*((win?80:45)+Math.random()*120))+'px');p.style.setProperty('--y',(Math.sin(i*2.4)*((win?60:35)+Math.random()*90))+'px');p.style.setProperty('--particle',win?(i%2?'#34d399':'#fde047'):'#fb3f73');layer.appendChild(p)}
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b||!casinoButtonIds.has(b.id))return;
+  const card=b.closest('.casinoGame,.casinoTable,.skinWheelCard');if(!card)return;
+  card.classList.remove('casinoWin','casinoLoss');card.classList.add('casinoPlaying');
+  setTimeout(()=>card.classList.remove('casinoPlaying'),b.id==='skinWheelSpin'?4500:850);
+});
+document.querySelectorAll('.casinoGame .log,.casinoTable .log,.casinoTable .pokerResult').forEach(log=>{
+  new MutationObserver(()=>{const card=log.closest('.casinoGame,.casinoTable');const win=!!log.querySelector('.good,.gold');const loss=!!log.querySelector('.bad');if(!win&&!loss)return;card.classList.remove('casinoWin','casinoLoss');card.classList.add(win?'casinoWin':'casinoLoss');casinoBurst(card,win);setTimeout(()=>card.classList.remove('casinoWin','casinoLoss'),1800)}).observe(log,{childList:true,subtree:true,characterData:true});
+});
+
+const canvas=q('snakeCanvas'),ctx=canvas.getContext('2d'),map=q('snakeMap'),mctx=map.getContext('2d');
+const WORLD={w:7000,h:4800},TAU=Math.PI*2;
+let running=false,raf=0,last=0,boosting=false,mouse={x:0,y:0},camera={x:WORLD.w/2,y:WORLD.h/2},snakeFrame=0;
+let player=null,snakes=[],food=[],particles=[],gates=[],shockwaves=[],snakeFoodGrid=new Map(),snakeBodyGrid=new Map(),snakeBest=Number(localStorage.getItem('v10SnakeBest')||0),snakeWorld={type:'calm',nextAt:performance.now()+9000,until:0,startedAt:0};
+const botNames=['Neon Nova','Pearl Hunter','Voidline','Casino King','Cyber Coil','Blue Static','Rose Viper','Night Drive','Mint Rush','Glow Unit','Orbit','Afterimage'];
+const colors=['#22d3ee','#fb3f73','#a78bfa','#34d399','#fbbf24','#60a5fa','#f472b6'];
+const skinBridge=window.pearlSkinBridge,sharedSkins=skinBridge?skinBridge.list():[{id:0,name:'Core',color:'#22d3ee',icon:'●',img:'',unlocked:true}];
+const snakeSkinImages=new Map();for(const skin of sharedSkins)if(skin.img){const im=new Image();im.src=skin.img;snakeSkinImages.set(skin.id,im)}
+function snakeSkin(id){return sharedSkins.find(s=>s.id===id)||sharedSkins[0]}
+function refreshSnakeSkinUI(){const select=q('snakeSkin'),available=sharedSkins.filter(s=>s.unlocked);select.innerHTML=sharedSkins.map(s=>'<option value="'+s.id+'" '+(s.unlocked?'':'disabled')+'>'+s.name+(s.unlocked?'':' (locked in Pearl.io)')+'</option>').join('');select.value=String(available.some(s=>s.id===(skinBridge&&skinBridge.selected()))?skinBridge.selected():available[0].id);renderSnakeSkinPreview()}
+function renderSnakeSkinPreview(){const skin=snakeSkin(Number(q('snakeSkin').value)),img=skin.img?'<img class="skinPulse" src="'+skin.img+'" alt="">':'<div class="fallback skinPulse">'+(skin.icon||'●')+'</div>';q('snakeSkinPreview').style.setProperty('--preview-color',skin.color);q('snakeSkinPreview').innerHTML=img+'<div><b>'+skin.name+'</b><br><span class="muted small">Shared Pearl.io skin</span></div>'}
+q('snakeSkin').addEventListener('change',renderSnakeSkinPreview);refreshSnakeSkinUI();
+const rnd=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+function snakePerf(){return window.pearlPerformance.profile()}
+function resizeSnake(){const r=canvas.getBoundingClientRect(),d=Math.min(snakePerf().dpr,devicePixelRatio||1);canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));ctx.setTransform(d,0,0,d,0,0)}
+const SNAKE_FOOD_BUCKET=180,SNAKE_BODY_BUCKET=100;
+function snakeGridKey(x,y,size){return Math.floor(x/size)+'|'+Math.floor(y/size)}
+function rebuildSnakeFoodGrid(){snakeFoodGrid.clear();for(const f of food){if(f.dead)continue;const key=snakeGridKey(f.x,f.y,SNAKE_FOOD_BUCKET),bucket=snakeFoodGrid.get(key);if(bucket)bucket.push(f);else snakeFoodGrid.set(key,[f])}}
+function snakeFoodNear(x,y,range){const out=[],x0=Math.floor((x-range)/SNAKE_FOOD_BUCKET),x1=Math.floor((x+range)/SNAKE_FOOD_BUCKET),y0=Math.floor((y-range)/SNAKE_FOOD_BUCKET),y1=Math.floor((y+range)/SNAKE_FOOD_BUCKET);for(let gx=x0;gx<=x1;gx++)for(let gy=y0;gy<=y1;gy++){const bucket=snakeFoodGrid.get(gx+'|'+gy);if(bucket)out.push(...bucket)}return out}
+function maintainSnakeFood(){food=food.filter(f=>!f.dead).slice(0,snakePerf().snakeFood+220);while(food.length<snakePerf().snakeFood)food.push(makeFood());rebuildSnakeFoodGrid()}
+function rebuildSnakeBodyGrid(){snakeBodyGrid.clear();const step=snakePerf().bodyStep;for(const owner of snakes){if(!owner.alive)continue;for(let i=5;i<owner.segments.length;i+=step){const p=owner.segments[i],key=snakeGridKey(p.x,p.y,SNAKE_BODY_BUCKET),entry={owner,index:i,p};const bucket=snakeBodyGrid.get(key);if(bucket)bucket.push(entry);else snakeBodyGrid.set(key,[entry])}}}
+function makeFood(x=rnd(40,WORLD.w-40),y=rnd(40,WORLD.h-40),value){
+  if(value==null){const roll=Math.random();value=roll>.988?8:roll>.94?3:1}
+  return{x,y,r:value>=8?11:value>=3?7:4.2,value,color:value>=8?'#fff700':value>=3?'#ff4fd8':colors[Math.floor(rnd(0,colors.length))],pulse:rnd(0,TAU),spin:rnd(0,TAU),dead:false}
+}
+function botSpawnLength(){const roll=Math.random();return roll<.52?Math.floor(rnd(15,27)):roll<.9?Math.floor(rnd(28,62)):Math.floor(rnd(95,190))}
+function snakeThickness(length){return clamp(6.2+Math.sqrt(Math.max(1,length))*.68,8.5,26)}
+function makeSnake(name,color,isPlayer=false,skinId){
+  const x=rnd(400,WORLD.w-400),y=rnd(350,WORLD.h-350),angle=rnd(0,TAU),segments=[],spawnLength=isPlayer?18:botSpawnLength();
+  for(let i=0;i<spawnLength;i++)segments.push({x:x-Math.cos(angle)*i*8,y:y-Math.sin(angle)*i*8});
+  if(skinId==null){const pool=sharedSkins;skinId=pool[Math.floor(rnd(0,pool.length))].id}
+  return{name,color,isPlayer,skinId,segments,angle,targetAngle:angle,speed:2.45+rnd(0,.45),targetLength:spawnLength,thickness:snakeThickness(spawnLength),score:spawnLength*2,kills:0,alive:true,energy:100,think:0,target:null,combo:1,comboUntil:0,peakCombo:1,botBoost:false};
+}
+function resetSnake(){
+  const perf=snakePerf();food=Array.from({length:perf.snakeFood},()=>makeFood());particles=[];snakes=[];shockwaves=[];gates=Array.from({length:perf.snakeGates},(_,i)=>({x:rnd(170,WORLD.w-170),y:rnd(150,WORLD.h-150),r:rnd(38,58),type:['speed','growth','score'][i%3],phase:rnd(0,TAU),cooldown:0}));snakeWorld={type:'calm',nextAt:performance.now()+8000,until:0,startedAt:0};snakeFrame=0;rebuildSnakeFoodGrid();
+  player=makeSnake((q('snakeName').value||'PearlRider').slice(0,18),q('snakeColor').value,true,Number(q('snakeSkin').value));player.targetLength=18;player.segments=player.segments.slice(0,18);player.speed=2.85;player.invulnerableUntil=performance.now()+4500;
+  const spawnDx=WORLD.w/2-player.segments[0].x,spawnDy=WORLD.h/2-player.segments[0].y;
+  for(const segment of player.segments){segment.x+=spawnDx;segment.y+=spawnDy}
+  for(let i=0;i<perf.snakeBots;i++)snakes.push(makeSnake(botNames[i%botNames.length]+' '+(i+1),colors[i%colors.length],false));
+  snakes.push(player);camera.x=WORLD.w/2;camera.y=WORLD.h/2;mouse.x=canvas.clientWidth/2+180;mouse.y=canvas.clientHeight/2;running=true;last=performance.now();q('snakeOverlay').classList.add('hidden');cancelAnimationFrame(raf);raf=requestAnimationFrame(snakeLoop);
+}
+function killSnake(snake,killer){
+  if(!snake.alive)return;snake.alive=false;
+  for(let i=3;i<snake.segments.length;i+=2){const s=snake.segments[i];food.push(makeFood(s.x+rnd(-5,5),s.y+rnd(-5,5),2))}
+  if(killer){killer.kills++;killer.score+=100*Math.max(1,killer.combo||1);killer.targetLength+=24;killer.thickness+=1.2;killer.energy=Math.min(100,killer.energy+45);killer.combo=Math.min(25,(killer.combo||1)+3);killer.comboUntil=performance.now()+5000;killer.peakCombo=Math.max(killer.peakCombo||1,killer.combo);if(killer.isPlayer){showSnakeEvent(killer.combo>=10?'ANNIHILATION':'SNAKE KO');snakeShake=18}}
+  shockwaves.push({x:snake.segments[0].x,y:snake.segments[0].y,r:10,life:1,color:snake.color});for(let i=0;i<(snakePerf().tier==='eco'?14:snakePerf().tier==='balanced'?26:42);i++)particles.push({x:snake.segments[0].x,y:snake.segments[0].y,vx:rnd(-6,6),vy:rnd(-6,6),life:rnd(.6,1.3),color:snake.color,size:rnd(2,7)});
+  if(snake===player){snakeBest=Math.max(snakeBest,Math.floor(player.score));localStorage.setItem('v10SnakeBest',snakeBest);running=false;q('snakeMessage').textContent='Run ended at '+Math.floor(player.score)+' points. Personal best: '+snakeBest+'.';q('snakeStart').textContent='Ride again';q('snakeOverlay').classList.remove('hidden')}
+  else setTimeout(()=>{if(running){const n=makeSnake(snake.name,colors[Math.floor(rnd(0,colors.length))],false);snakes[snakes.indexOf(snake)]=n}},1200);
+}
+let snakeShake=0,arenaPulse=0;
+function showSnakeEvent(text){q('snakeWorldDetail').textContent=text}
+function updateSnakeWorld(t){
+  if(snakeWorld.type==='calm'&&t>=snakeWorld.nextAt){snakeWorld.type=Math.random()>.45?'pearlstorm':'gatefrenzy';snakeWorld.startedAt=t;snakeWorld.until=t+11000;showSnakeEvent(snakeWorld.type==='pearlstorm'?'PEARL STORM':'GATE FRENZY');if(snakeWorld.type==='pearlstorm')for(let i=0;i<180;i++)food.push(makeFood(rnd(WORLD.w*.28,WORLD.w*.72),rnd(WORLD.h*.25,WORLD.h*.75),Math.random()>.8?3:1))}
+  if(snakeWorld.type!=='calm'&&t>=snakeWorld.until){snakeWorld.type='calm';snakeWorld.nextAt=t+rnd(12000,18000)}
+  const names={calm:'WORLD ONLINE',pearlstorm:'PEARL STORM',gatefrenzy:'GATE FRENZY'},detail={calm:'Pearl storm charging',pearlstorm:'Central sector is overflowing',gatefrenzy:'All gates are supercharged'};
+  q('snakeWorldEvent').textContent=names[snakeWorld.type];q('snakeWorldDetail').textContent=detail[snakeWorld.type];q('snakeCanvas').closest('.snakeShell').classList.toggle('pearlStorm',snakeWorld.type!=='calm');
+  q('snakeWorldProgress').style.width=(snakeWorld.type==='calm'?clamp(100-(snakeWorld.nextAt-t)/180,0,100):clamp((snakeWorld.until-t)/110,0,100))+'%';
+}
+function pearlBurst(x,y,color,count=10){const scale=snakePerf().tier==='eco'?.35:snakePerf().tier==='balanced'?.68:1;count=Math.max(2,Math.round(count*scale));for(let i=0;i<count&&particles.length<snakePerf().particleCap;i++)particles.push({x,y,vx:rnd(-5.5,5.5),vy:rnd(-5.5,5.5),life:rnd(.55,1.1),color,size:rnd(2,6)})}
+function angleDelta(a,b){return Math.atan2(Math.sin(b-a),Math.cos(b-a))}
+function steer(snake,dt){
+  const head=snake.segments[0];
+  if(snake.isPlayer){
+    const rect=canvas.getBoundingClientRect(),tx=camera.x+(mouse.x-rect.width/2),ty=camera.y+(mouse.y-rect.height/2);
+    snake.targetAngle=Math.atan2(ty-head.y,tx-head.x);
+  }else{
+    snake.think-=dt;
+    if(snake.think<=0){
+      snake.think=rnd(.12,.32);let danger=null,dangerD=Infinity,prey=null,preyD=Infinity;
+      for(const other of snakes){
+        if(other===snake||!other.alive)continue;const oh=other.segments[0],d=Math.hypot(oh.x-head.x,oh.y-head.y);
+        if(other.targetLength>snake.targetLength*1.22&&d<520&&d<dangerD){danger=other;dangerD=d}
+        if(snake.targetLength>other.targetLength*1.3&&d<900&&d<preyD){prey=other;preyD=d}
+        for(let i=10;i<other.segments.length;i+=Math.max(5,Math.floor(other.segments.length/18))){
+          const s=other.segments[i],bd=Math.hypot(s.x-head.x,s.y-head.y);
+          if(bd<105+snake.thickness+other.thickness&&bd<dangerD){danger={segments:[s],angle:other.angle,targetLength:other.targetLength};dangerD=bd}
+        }
+      }
+      if(danger){
+        const dh=danger.segments[0];snake.target={x:clamp(head.x+(head.x-dh.x)*3,80,WORLD.w-80),y:clamp(head.y+(head.y-dh.y)*3,80,WORLD.h-80)};snake.botBoost=true
+      }else if(prey){
+        const ph=prey.segments[0],lead=clamp(preyD/85,2,12);snake.target={x:ph.x+Math.cos(prey.angle)*lead*9,y:ph.y+Math.sin(prey.angle)*lead*9};snake.botBoost=preyD>180&&preyD<620
+      }else{
+        snake.botBoost=false;let best=null,bestScore=-Infinity;
+        for(let i=0;i<70;i++){const f=food[Math.floor(rnd(0,food.length))];if(!f)continue;const d=Math.hypot(f.x-head.x,f.y-head.y),score=f.value*5-d/450;if(score>bestScore){bestScore=score;best=f}}
+        snake.target=best||{x:rnd(120,WORLD.w-120),y:rnd(120,WORLD.h-120)}
+      }
+    }
+    if(snake.target)snake.targetAngle=Math.atan2(snake.target.y-head.y,snake.target.x-head.x);
+    const margin=180;if(head.x<margin)snake.targetAngle=0;if(head.x>WORLD.w-margin)snake.targetAngle=Math.PI;if(head.y<margin)snake.targetAngle=Math.PI/2;if(head.y>WORLD.h-margin)snake.targetAngle=-Math.PI/2;
+  }
+  snake.angle+=clamp(angleDelta(snake.angle,snake.targetAngle),-3.05*dt,3.05*dt);
+}
+function updateSnake(snake,dt){
+  if(!snake.alive)return;steer(snake,dt);const head=snake.segments[0],usingBoost=(snake.isPlayer?boosting:snake.botBoost)&&snake.energy>1;snake.thickness+=(snakeThickness(snake.targetLength)-snake.thickness)*.035;
+  if(usingBoost){if(Math.random()<.38)particles.push({x:head.x-Math.cos(snake.angle)*12,y:head.y-Math.sin(snake.angle)*12,vx:-Math.cos(snake.angle)*rnd(1,4)+rnd(-1,1),vy:-Math.sin(snake.angle)*rnd(1,4)+rnd(-1,1),life:rnd(.25,.55),color:snake.color,size:rnd(2,5)});snake.energy=Math.max(0,snake.energy-24*dt);snake.score=Math.max(0,snake.score-.8*dt)}else snake.energy=Math.min(100,snake.energy+17*dt);
+  const speed=(snake.speed+(usingBoost?2.75:0))*dt*60,nx=head.x+Math.cos(snake.angle)*speed,ny=head.y+Math.sin(snake.angle)*speed;
+  snake.segments.unshift({x:nx,y:ny});const spacing=7.5;
+  for(let i=1;i<snake.segments.length;i++){const a=snake.segments[i-1],b=snake.segments[i],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy)||1;if(d>spacing){b.x=a.x-dx/d*spacing;b.y=a.y-dy/d*spacing}}
+  while(snake.segments.length>snake.targetLength)snake.segments.pop();
+  if(nx<12||ny<12||nx>WORLD.w-12||ny>WORLD.h-12){killSnake(snake,null);return}
+  for(const gate of gates){gate.cooldown=Math.max(0,gate.cooldown-dt);if(gate.cooldown<=0&&Math.hypot(nx-gate.x,ny-gate.y)<gate.r+10){gate.cooldown=2.5;const boost=snakeWorld.type==='gatefrenzy'?2:1;if(gate.type==='speed'){snake.energy=Math.min(100,snake.energy+35*boost);snake.speed=Math.min(3.5,snake.speed+.08*boost)}if(gate.type==='growth')snake.targetLength+=10*boost;if(gate.type==='score')snake.score+=80*boost;pearlBurst(gate.x,gate.y,gate.type==='speed'?'#27f5ff':gate.type==='growth'?'#c6ff1a':'#ff247f',22);if(snake.isPlayer){showSnakeEvent(gate.type.toUpperCase()+' GATE');snakeShake=9}}}
+  for(const f of snakeFoodNear(nx,ny,snake.thickness+24)){if(f.dead)continue;if(Math.hypot(nx-f.x,ny-f.y)<snake.thickness+7+f.r){
+    const before=Math.floor(snake.score/100),active=performance.now()<snake.comboUntil;
+    snake.combo=active?Math.min(25,(snake.combo||1)+1):1;snake.comboUntil=performance.now()+2300;snake.peakCombo=Math.max(snake.peakCombo||1,snake.combo);
+    const mult=1+Math.min(2.5,(snake.combo-1)*.1);snake.score+=f.value*6*mult;snake.targetLength+=f.value*(2.25+Math.min(1.5,snake.combo*.055));snake.thickness+=(f.value>=8?.7:f.value>=3?.3:.055);snake.energy=Math.min(100,snake.energy+f.value*2.5);
+    pearlBurst(f.x,f.y,f.color,f.value>=8?28:f.value>=3?16:7);if(f.value>=8){showSnakeEvent('HYPER PEARL');snakeShake=13}else if(f.value>=3&&snake.isPlayer)showSnakeEvent('SUPER PEARL');
+    f.dead=true;food.push(makeFood());if(snake.isPlayer&&Math.floor(snake.score/100)>before&&window.pearlAddCoins)window.pearlAddCoins(15)
+  }}
+}
+function collisions(){
+  rebuildSnakeBodyGrid();for(const snake of snakes){if(!snake.alive)continue;if(snake.isPlayer&&performance.now()<(snake.invulnerableUntil||0))continue;const h=snake.segments[0],gx=Math.floor(h.x/SNAKE_BODY_BUCKET),gy=Math.floor(h.y/SNAKE_BODY_BUCKET);let hit=null;for(let x=gx-1;x<=gx+1&&!hit;x++)for(let y=gy-1;y<=gy+1&&!hit;y++){const bucket=snakeBodyGrid.get(x+'|'+y);if(!bucket)continue;for(const entry of bucket){if(entry.owner===snake&&entry.index<18)continue;if(Math.hypot(h.x-entry.p.x,h.y-entry.p.y)<(snake.thickness+entry.owner.thickness)*.54){hit=entry.owner;break}}}if(hit)killSnake(snake,hit===snake?null:hit)}
+}
+function respawnBots(){for(let i=0;i<snakes.length;i++){const s=snakes[i];if(s!==player&&!s.alive&&Math.random()<.008)snakes[i]=makeSnake(s.name,colors[Math.floor(rnd(0,colors.length))])}}
+function updateParticles(dt){for(const wave of shockwaves){wave.r+=220*dt;wave.life-=dt*1.1}shockwaves=shockwaves.filter(w=>w.life>0);for(const p of particles){p.x+=p.vx;p.y+=p.vy;p.vx*=.955;p.vy*=.955;p.life-=dt*.9}particles=particles.filter(p=>p.life>0).slice(-snakePerf().particleCap)}
+function drawGrid(w,h,ox,oy){ctx.strokeStyle='rgba(56,189,248,.075)';ctx.lineWidth=1;const size=55;for(let x=(-ox%size);x<w;x+=size){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=(-oy%size);y<h;y+=size){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}}
+function drawSnake(snake){
+  if(!snake.alive)return;const vw=canvas.clientWidth,vh=canvas.clientHeight,visible=snake.segments.some((p,i)=>i%20===0&&Math.abs(p.x-camera.x)<vw*.7+100&&Math.abs(p.y-camera.y)<vh*.7+100);if(!visible)return;ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor=snake.color;ctx.shadowBlur=snakePerf().tier==='eco'?0:snake.isPlayer?32:15;
+  const drawStep=snakePerf().tier==='eco'?2:1;ctx.beginPath();let moved=false;for(let i=snake.segments.length-1;i>=0;i-=drawStep){const s=snake.segments[i],x=s.x-camera.x+vw/2,y=s.y-camera.y+vh/2;if(!moved){ctx.moveTo(x,y);moved=true}else ctx.lineTo(x,y)}
+  const bodyWidth=snake.thickness*2;ctx.strokeStyle=snake.color;ctx.lineWidth=bodyWidth+8;ctx.globalAlpha=.24;ctx.stroke();ctx.globalAlpha=1;ctx.lineWidth=bodyWidth;ctx.stroke();ctx.shadowBlur=0;ctx.strokeStyle='rgba(255,255,255,.62)';ctx.lineWidth=Math.max(2.2,bodyWidth*.17);ctx.stroke();
+  const h=snake.segments[0],hx=h.x-camera.x+canvas.clientWidth/2,hy=h.y-camera.y+canvas.clientHeight/2,skin=snakeSkin(snake.skinId),skinImg=snakeSkinImages.get(snake.skinId);
+  if(snake.isPlayer&&performance.now()<(snake.invulnerableUntil||0)){ctx.strokeStyle='#fff';ctx.shadowColor='#27f5ff';ctx.shadowBlur=28;ctx.globalAlpha=.55+.25*Math.sin(performance.now()*.012);ctx.lineWidth=3;ctx.beginPath();ctx.arc(hx,hy,21+Math.sin(performance.now()*.008)*3,0,TAU);ctx.stroke();ctx.globalAlpha=1}
+  const headR=snake.thickness+3;ctx.save();ctx.beginPath();ctx.arc(hx,hy,headR,0,TAU);ctx.clip();if(skinImg&&skinImg.complete&&skinImg.naturalWidth)ctx.drawImage(skinImg,hx-headR,hy-headR,headR*2,headR*2);else{ctx.fillStyle=skin.color||snake.color;ctx.fillRect(hx-headR,hy-headR,headR*2,headR*2);ctx.fillStyle='#fff';ctx.font='900 10px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(skin.icon||'●',hx,hy)}ctx.restore();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(hx,hy,headR,0,TAU);ctx.stroke();ctx.fillStyle='#fff';for(const side of [-1,1]){const a=snake.angle+side*.6;ctx.beginPath();ctx.arc(hx+Math.cos(a)*headR*.58,hy+Math.sin(a)*headR*.58,Math.max(2,headR*.16),0,TAU);ctx.fill()}
+  if(snakePerf().tier!=='eco')for(let i=8;i<snake.segments.length;i+=12){const n=snake.segments[i],px=n.x-camera.x+vw/2,py=n.y-camera.y+vh/2;ctx.fillStyle=i%24?'rgba(255,255,255,.72)':'#fff700';ctx.beginPath();ctx.arc(px,py,i%24?1.7:2.8,0,TAU);ctx.fill();if(i%36===0&&skinImg&&skinImg.complete&&skinImg.naturalWidth){ctx.save();ctx.beginPath();ctx.arc(px,py,5.5,0,TAU);ctx.clip();ctx.drawImage(skinImg,px-6,py-6,12,12);ctx.restore()}}
+  ctx.font='800 11px system-ui';ctx.textAlign='center';ctx.fillStyle='#fff';ctx.fillText((snake.kills>=3?'♛ ':'')+snake.name,hx,hy-21);ctx.restore()
+}
+function renderSnake(){
+  const w=canvas.clientWidth,h=canvas.clientHeight;ctx.clearRect(0,0,w,h);const shakeX=snakeShake?rnd(-snakeShake,snakeShake):0,shakeY=snakeShake?rnd(-snakeShake,snakeShake):0;snakeShake*=.84;ctx.save();ctx.translate(shakeX,shakeY);
+  const neb=ctx.createRadialGradient(w*.5,h*.45,20,w*.5,h*.5,Math.max(w,h)*.75);neb.addColorStop(0,player&&player.combo>=10?'#3a082d':'#071b32');neb.addColorStop(.48,'#080921');neb.addColorStop(1,'#010207');ctx.fillStyle=neb;ctx.fillRect(-25,-25,w+50,h+50);
+  for(let i=0;i<snakePerf().snakeStars;i++){const x=(i*149+performance.now()*.018*(i%3+1))%w,y=(i*97+Math.sin(performance.now()*.0007+i)*24+h)%h;ctx.fillStyle=i%4?'rgba(0,229,255,.18)':'rgba(255,39,95,.2)';ctx.fillRect(x,y,i%13===0?2:1,i%13===0?2:1)}drawGrid(w,h,camera.x,camera.y);
+  for(const gate of gates){gate.phase+=.025;const gx=gate.x-camera.x+w/2,gy=gate.y-camera.y+h/2;if(gx<-100||gy<-100||gx>w+100||gy>h+100)continue;const color=gate.type==='speed'?'#27f5ff':gate.type==='growth'?'#c6ff1a':'#ff247f';ctx.save();ctx.translate(gx,gy);ctx.rotate(gate.phase);ctx.strokeStyle=color;ctx.shadowColor=color;ctx.shadowBlur=24;ctx.globalAlpha=gate.cooldown>0?.28:.86;ctx.lineWidth=4;for(let k=0;k<3;k++){ctx.beginPath();ctx.arc(0,0,gate.r-k*9,-1.2+k*.3,1.2+k*.3);ctx.stroke();ctx.beginPath();ctx.arc(0,0,gate.r-k*9,Math.PI-1.2+k*.3,Math.PI+1.2+k*.3);ctx.stroke()}ctx.restore()}
+  ctx.save();ctx.strokeStyle='rgba(251,63,115,.5)';ctx.shadowColor='#fb3f73';ctx.shadowBlur=18;ctx.lineWidth=5;ctx.strokeRect(-camera.x+w/2,-camera.y+h/2,WORLD.w,WORLD.h);ctx.restore();
+  for(const f of snakeFoodNear(camera.x,camera.y,Math.max(w,h)*.75+80)){if(f.dead)continue;const x=f.x-camera.x+w/2,y=f.y-camera.y+h/2;if(x<-25||y<-25||x>w+25||y>h+25)continue;f.pulse+=.06;f.spin+=.025;ctx.shadowColor=f.color;ctx.shadowBlur=snakePerf().tier==='eco'?0:f.value>=8?28:f.value>=3?18:10;ctx.fillStyle=f.color;const rr=f.r+Math.sin(f.pulse)*1.1;ctx.beginPath();if(f.value>=3){for(let k=0;k<10;k++){const a=f.spin+k/10*TAU,r2=k%2?rr*.48:rr;ctx[k?'lineTo':'moveTo'](x+Math.cos(a)*r2,y+Math.sin(a)*r2)}ctx.closePath()}else ctx.arc(x,y,rr,0,TAU);ctx.fill();if(f.value>=8){ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke()}}ctx.shadowBlur=0;
+  for(const wave of shockwaves){const x=wave.x-camera.x+w/2,y=wave.y-camera.y+h/2;ctx.globalAlpha=wave.life;ctx.strokeStyle=wave.color;ctx.shadowColor=wave.color;ctx.shadowBlur=30;ctx.lineWidth=5;ctx.beginPath();ctx.arc(x,y,wave.r,0,TAU);ctx.stroke()}ctx.globalAlpha=1;ctx.shadowBlur=0;[...snakes].sort((a,b)=>a.segments.length-b.segments.length).forEach(drawSnake);
+  for(const p of particles){const x=p.x-camera.x+w/2,y=p.y-camera.y+h/2;ctx.globalAlpha=Math.min(1,p.life);ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=12;const z=p.size||4;ctx.fillRect(x-z/2,y-z/2,z,z)}ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();
+  if(snakeFrame%snakePerf().mapEvery===0)drawMap();if(snakeFrame%2===0)updateSnakeHud()
+}
+function drawMap(){
+  mctx.clearRect(0,0,map.width,map.height);mctx.fillStyle='rgba(2,5,12,.94)';mctx.fillRect(0,0,map.width,map.height);
+  mctx.strokeStyle='rgba(39,245,255,.08)';mctx.lineWidth=.5;for(let i=1;i<5;i++){mctx.beginPath();mctx.moveTo(i/5*map.width,0);mctx.lineTo(i/5*map.width,map.height);mctx.stroke()}for(let i=1;i<4;i++){mctx.beginPath();mctx.moveTo(0,i/4*map.height);mctx.lineTo(map.width,i/4*map.height);mctx.stroke()}
+  for(const s of [...snakes].sort((a,b)=>a.targetLength-b.targetLength)){if(!s.alive||s.segments.length<2)continue;mctx.beginPath();for(let i=s.segments.length-1;i>=0;i-=Math.max(1,Math.floor(s.segments.length/35))){const p=s.segments[i],x=p.x/WORLD.w*map.width,y=p.y/WORLD.h*map.height;i>=s.segments.length-1?mctx.moveTo(x,y):mctx.lineTo(x,y)}mctx.strokeStyle=s.color;mctx.globalAlpha=s===player?1:.72;mctx.lineWidth=s===player?2.8:clamp(s.thickness*.09,.65,2);mctx.stroke();const h=s.segments[0];mctx.fillStyle=s.color;mctx.beginPath();mctx.arc(h.x/WORLD.w*map.width,h.y/WORLD.h*map.height,s===player?3:1.8,0,TAU);mctx.fill()}mctx.globalAlpha=1;mctx.strokeStyle='rgba(255,255,255,.34)';mctx.lineWidth=1;mctx.strokeRect(.5,.5,map.width-1,map.height-1)
+}
+function updateSnakeHud(){if(!player)return;const ranked=[...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score),rank=ranked.indexOf(player)+1,active=performance.now()<player.comboUntil;if(!active)player.combo=1;q('snakeScore').textContent=Math.floor(player.score);q('snakeLength').textContent=Math.floor(player.targetLength);q('snakeKills').textContent=player.kills;q('snakeWidth').textContent=(player.thickness/8.5).toFixed(1)+'x';q('snakeRank').textContent=rank>0?'#'+rank:'-';q('snakeBoostFill').style.width=player.energy+'%';q('snakeComboValue').textContent='x'+player.combo;q('snakeCombo').className='snakeCombo '+(player.combo>=10?'fever ':'')+(active?'hot':'');q('snakeCanvas').closest('.snakeShell').classList.toggle('boosting',boosting&&player.energy>1);q('snakeCanvas').closest('.snakeShell').classList.toggle('fever',player.combo>=10);q('snakeLeaderboard').innerHTML=[...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score).slice(0,7).map((s,i)=>'<div style="display:flex;justify-content:space-between;color:'+(s===player?'#67e8f9':'#fff')+'"><span>'+(i+1)+'. '+s.name+'</span><b>'+Math.floor(s.score)+'</b></div>').join('')}
+function snakeLoop(t){if(!running)return;const minFrame=1000/snakePerf().fps;if(t-last<minFrame*.82){raf=requestAnimationFrame(snakeLoop);return}const dt=Math.min(.04,(t-last)/1000||.016);snakeFrame++;arenaPulse+=dt;updateSnakeWorld(t);last=t;if(snakeFrame%5===1)maintainSnakeFood();for(const s of snakes)updateSnake(s,dt);collisions();respawnBots();updateParticles(dt);if(player&&player.alive){const h=player.segments[0];camera.x+=(h.x-camera.x)*.09;camera.y+=(h.y-camera.y)*.09}renderSnake();raf=requestAnimationFrame(snakeLoop)}
+q('snakeStart').addEventListener('click',resetSnake);
+canvas.addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
+canvas.addEventListener('pointerdown',e=>{boosting=true;canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointerup',()=>boosting=false);canvas.addEventListener('pointercancel',()=>boosting=false);
+window.addEventListener('keydown',e=>{if(e.code==='Space'&&document.getElementById('snake').classList.contains('active')){e.preventDefault();boosting=true}});window.addEventListener('keyup',e=>{if(e.code==='Space')boosting=false});
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab!=='snake'&&running){running=false;cancelAnimationFrame(raf);q('snakeOverlay').classList.remove('hidden');q('snakeMessage').textContent='Arena paused. Start a fresh run when you return.'}}));
+new ResizeObserver(resizeSnake).observe(canvas);resizeSnake();
+window.pearlPerformance.subscribe(()=>resizeSnake());
+})();
+</script>
 </body>
 </html>
