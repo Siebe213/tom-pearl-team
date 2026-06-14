@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pearl.io V11.4 - Predator Pulse</title>
+<title>Pearl.io V20 - Infinity Arcade</title>
 <style>
 :root{
   --bg:#040407;--panel:rgba(255,255,255,.045);--panel2:rgba(255,255,255,.075);--line:rgba(255,255,255,.10);
@@ -228,7 +228,7 @@ body:not(.lowFx):before{animation:extremeGrid 11s linear infinite}
 .slotReels{display:flex;gap:7px;justify-content:center}.slotReel{width:70px;height:82px;display:grid;place-items:center;border-radius:9px;background:linear-gradient(#fff,#d9d4c9);color:#111;font-size:35px;box-shadow:inset 0 0 0 2px #7c2d12,0 7px 16px rgba(0,0,0,.4)}.slotReel.spinning{animation:reelBlur .12s linear infinite}@keyframes reelBlur{50%{filter:blur(3px);transform:translateY(4px)}}
 @media(max-width:900px){.casinoTable{grid-column:span 12}.rouletteLayout{grid-template-columns:1fr}.casinoFloorNav{top:142px}.casinoFloorNav button{min-width:0}.playingCard{width:62px;height:92px}}
 
-/* V11.4 PREDATOR PULSE */
+/* Legacy performance layer retained by V20 */
 body,body:before{animation:none!important}
 .perfDock{position:fixed;left:16px;bottom:16px;z-index:80;display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(39,245,255,.26);border-radius:13px;background:rgba(2,7,18,.84);box-shadow:0 10px 34px rgba(0,0,0,.38),0 0 24px rgba(39,245,255,.08);backdrop-filter:blur(12px);font-size:11px;font-weight:950;letter-spacing:.06em}
 .perfDot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 12px currentColor}.perfDock[data-tier="balanced"] .perfDot{background:#fbbf24}.perfDock[data-tier="eco"] .perfDot{background:#fb7185}
@@ -249,78 +249,60 @@ body,body:before{animation:none!important}
   .gameTop{right:auto;max-width:calc(100% - 24px)}.gameTop .leader{display:none}.hud{gap:5px}.hud .pill{padding:7px 9px;font-size:10px}
   .arenaEventHud{top:126px}.gameBottom{bottom:8px}.minimap{width:105px;height:105px}
 }
+
+/* V20 INFINITY ARCADE */
+:root{--v20-blue:#38bdf8;--v20-lime:#c6ff1a;--v20-hot:#ff247f}
+html{scroll-behavior:smooth}.skipLink{position:fixed;left:12px;top:-70px;z-index:1000;padding:12px 16px;border-radius:12px;background:#fff;color:#050510;font-weight:950}.skipLink:focus{top:12px}
+button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--v20-lime);outline-offset:3px}
+.nav{max-width:1440px;display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(4,7,18,.9);border-color:rgba(56,189,248,.2)}.nav:after{content:"V20";background:linear-gradient(135deg,var(--v20-hot),#7c3aed,var(--v20-blue))}
+.navBrand{display:flex;align-items:center;gap:9px;padding-right:10px;border-right:1px solid var(--line);white-space:nowrap}.navMark{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:conic-gradient(var(--v20-hot),#7c3aed,var(--v20-blue),var(--v20-lime),var(--v20-hot));color:#050510;font-weight:1000}.navBrand b{font-size:13px}.navBrand small{display:block;color:#8ea1bd;font-size:9px;letter-spacing:.12em}.navRail{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none}.navRail::-webkit-scrollbar{display:none}.nav button{min-height:40px;padding:9px 12px}.navSpacer{flex:1}.navUtility{border-color:rgba(198,255,26,.28)!important;color:#dfff78!important}
+.v20Progress{position:fixed;left:50%;top:73px;transform:translateX(-50%);z-index:29;width:min(520px,calc(100% - 32px));display:flex;align-items:center;gap:10px;padding:7px 11px;border:1px solid rgba(56,189,248,.2);border-radius:999px;background:rgba(4,7,18,.82);backdrop-filter:blur(15px)}.levelBadge{display:grid;place-items:center;min-width:40px;height:30px;border-radius:999px;background:linear-gradient(135deg,var(--v20-lime),var(--v20-blue));color:#06101a;font-size:12px;font-weight:1000}.xpTrack{height:7px;flex:1;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}.xpFill{height:100%;width:0;background:linear-gradient(90deg,var(--v20-hot),#8b5cf6,var(--v20-blue),var(--v20-lime));transition:width .35s}.xpText{font-size:10px;font-weight:900;color:#cbd5e1;white-space:nowrap}.wrap{padding-top:32px}
+.v20Hero{min-height:520px;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:28px;padding:clamp(28px,5vw,68px);background:radial-gradient(circle at 82% 35%,rgba(56,189,248,.18),transparent 24%),radial-gradient(circle at 68% 70%,rgba(255,36,127,.18),transparent 30%),linear-gradient(135deg,rgba(9,14,35,.96),rgba(20,6,31,.93));border-color:rgba(56,189,248,.26)}.v20Hero h1{font-size:clamp(3.8rem,9vw,8.2rem);line-height:.72;letter-spacing:-.075em;margin:18px 0}.v20Hero h1 span{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.75)}.v20Kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid rgba(198,255,26,.28);border-radius:999px;color:var(--v20-lime);font-size:11px;font-weight:950;letter-spacing:.15em}.v20Kicker:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--v20-lime);box-shadow:0 0 12px var(--v20-lime)}
+.portalStack{position:relative;min-height:380px}.portal{position:absolute;display:grid;place-items:end start;padding:20px;border-radius:28px;border:1px solid rgba(255,255,255,.16);box-shadow:0 30px 70px rgba(0,0,0,.45);overflow:hidden}.portal:before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 65% 35%,transparent 0 24px,rgba(255,255,255,.045) 25px 27px)}.portal b,.portal span{position:relative;z-index:1}.portal b{font-size:23px}.portal span{font-size:11px;color:#d7e3f5}.portal.one{inset:8px 70px 125px 0;transform:rotate(-5deg);background:radial-gradient(circle at 75% 35%,#22d3ee,transparent 8%),linear-gradient(145deg,#071426,#123f5d)}.portal.two{inset:105px 0 35px 105px;transform:rotate(5deg);background:radial-gradient(circle at 70% 35%,#ff247f,transparent 8%),linear-gradient(145deg,#210922,#5a103d)}.portal.three{left:8px;right:145px;bottom:0;height:105px;background:linear-gradient(135deg,#392108,#966207)}
+.commandGrid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.profilePanel{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}.profileCore{width:110px;height:110px;display:grid;place-items:center;border-radius:34px;background:conic-gradient(var(--v20-hot),#7c3aed,var(--v20-blue),var(--v20-lime),var(--v20-hot));color:#050510;font-size:34px;font-weight:1000}.metricRow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.metric{padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.2)}.metric b{display:block;font-size:20px}.metric span{font-size:10px;color:#91a2ba;text-transform:uppercase}
+.quickPlay{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}.quickCard{min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,rgba(56,189,248,.14),rgba(0,0,0,.28));cursor:pointer;transition:.2s}.quickCard:nth-child(2){background:linear-gradient(160deg,rgba(255,36,127,.16),rgba(0,0,0,.28))}.quickCard:nth-child(3){background:linear-gradient(160deg,rgba(245,158,11,.17),rgba(0,0,0,.28))}.quickCard:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.28)}.quickCard b{font-size:22px}.quickCard span{color:#9fb0c7;font-size:12px;margin:5px 0 12px}
+.settingsPanel{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:18px;background:rgba(1,3,9,.72);backdrop-filter:blur(12px)}.settingsPanel.open{display:grid}.settingsCard{width:min(560px,100%);max-height:90vh;overflow:auto}.settingRow{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}.switch{min-width:82px}.switch.on{background:linear-gradient(135deg,#047857,#22c55e)}.toastStack{position:fixed;right:16px;top:128px;z-index:300;display:grid;gap:8px;pointer-events:none}.toast{width:min(330px,calc(100vw - 32px));padding:12px 14px;border:1px solid rgba(56,189,248,.25);border-radius:14px;background:rgba(4,7,18,.94);box-shadow:0 16px 45px rgba(0,0,0,.42);font-size:12px;font-weight:800;animation:toastIn .25s ease-out}.toast.good{border-color:rgba(198,255,26,.38)}@keyframes toastIn{from{opacity:0;transform:translateY(-8px)}}
+.mission{display:flex;flex-direction:column;min-height:220px}.mission .reward{margin-top:auto}.mission button{margin-top:12px}.mission.claimed{opacity:.68}.achievementGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.achievement{padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(0,0,0,.2)}.achievement.unlocked{border-color:rgba(198,255,26,.35);background:rgba(198,255,26,.06)}.achievement b{display:block}.achievement span{font-size:11px;color:#93a4bb}.codexGrid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.codexGrid .card{grid-column:span 4;margin:0}.codexGrid .wide{grid-column:span 8}.patchItem{display:grid;grid-template-columns:75px 1fr;gap:12px;padding:10px;border-radius:12px;background:rgba(255,255,255,.035);margin-top:8px}.patchItem b{color:var(--v20-lime)}.creatorPreview{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.creatorCanvas{min-height:280px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 72% 28%,rgba(56,189,248,.28),transparent 17%),radial-gradient(circle at 32% 72%,rgba(255,36,127,.28),transparent 21%),linear-gradient(145deg,#07101f,#240a2d);display:grid;place-items:center;text-align:center;padding:30px}.creatorCanvas b{font-size:clamp(2.5rem,6vw,5rem);line-height:.8}.highContrast{--muted:#dce8f7;--line:rgba(255,255,255,.28)}.highContrast .card,.highContrast .nav{border-color:rgba(255,255,255,.42)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}.reducedMotion *,.reducedMotion *:before,.reducedMotion *:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+@media(max-width:980px){.navBrand{display:none}.v20Hero,.commandGrid,.creatorPreview{grid-template-columns:1fr}.portalStack{min-height:330px}.codexGrid .card,.codexGrid .wide{grid-column:span 6}}
+@media(max-width:700px){.nav{position:sticky;top:4px}.navRail{width:100%}.navSpacer{display:none}.v20Progress{top:auto;bottom:10px;z-index:40}.coinbar,.perfDock{bottom:58px}.wrap{padding-top:15px;padding-bottom:90px}.v20Hero{min-height:auto;padding:30px 20px}.v20Hero h1{font-size:4.5rem}.quickPlay,.metricRow{grid-template-columns:1fr 1fr}.quickCard:last-child{grid-column:1/-1}.profilePanel{grid-template-columns:1fr}.codexGrid .card,.codexGrid .wide{grid-column:1/-1}.toastStack{top:80px}}
 </style>
 </head>
 <body>
-<nav class="nav">
-  <button data-tab="home" class="active">Home</button>
-  <button data-tab="game">Pearl.io</button>
-  <button data-tab="snake">Pearl Snake</button>
-  <button data-tab="casino">Casino</button>
-  <button data-tab="shop">Skins & Stats</button>
-  <button data-tab="media">Media</button>
-  <button data-tab="missions">Missions</button>
-  <button data-tab="lore">Lore</button>
+<a class="skipLink" href="#mainContent">Skip to arcade</a>
+<nav class="nav" aria-label="Arcade navigation">
+  <div class="navBrand"><span class="navMark">P</span><span><b>PEARL V20</b><small>INFINITY ARCADE</small></span></div>
+  <div class="navRail">
+    <button data-tab="home" class="active">Command</button><button data-tab="game">Pearl.io</button><button data-tab="snake">Snake</button><button data-tab="casino">Casino</button><button data-tab="shop">Locker</button><button data-tab="missions">Missions</button><button data-tab="media">Studio</button><button data-tab="lore">Codex</button>
+  </div>
+  <span class="navSpacer"></span><button class="navUtility" id="settingsOpen" aria-haspopup="dialog">Settings</button>
 </nav>
 <div class="coinbar">💰 <span id="coinCount">0</span> Pearl Coins</div>
 <div class="perfDock" id="perfDock" data-tier="high"><i class="perfDot"></i><b id="qualityBadge">AUTO · ULTRA</b><span>ADAPTIVE ENGINE</span><span class="fps" id="fpsMeter">60 FPS</span></div>
-<main class="wrap">
+<div class="v20Progress"><span class="levelBadge" id="levelBadge">LV 1</span><div class="xpTrack"><div class="xpFill" id="xpFill"></div></div><span class="xpText" id="xpText">0 / 250 XP</span></div>
+<div class="toastStack" id="toastStack" aria-live="polite"></div>
+<div class="settingsPanel" id="settingsPanel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="card settingsCard">
+    <div class="row" style="justify-content:space-between"><div><span class="v20Kicker">SYSTEM CONTROL</span><h2 id="settingsTitle">Arcade Settings</h2></div><button class="btn" id="settingsClose">Close</button></div>
+    <div class="settingRow"><div><b>Sound feedback</b><div class="small muted">Generated locally.</div></div><button class="btn switch" id="soundToggle">OFF</button></div>
+    <div class="settingRow"><div><b>Reduced motion</b><div class="small muted">Removes decorative movement.</div></div><button class="btn switch" id="motionToggle">OFF</button></div>
+    <div class="settingRow"><div><b>High contrast</b><div class="small muted">Sharper borders and text.</div></div><button class="btn switch" id="contrastToggle">OFF</button></div>
+    <div class="settingRow"><div><b>Screen shake</b><div class="small muted">Impact feedback in arenas.</div></div><button class="btn switch on" id="shakeToggle">ON</button></div>
+    <div class="settingRow"><div><b>Visual quality</b><div class="small muted">Auto protects slower laptops.</div></div><button class="btn" id="settingsQuality">AUTO</button></div>
+    <div class="settingRow"><div><b>Arcade mood</b><div class="small muted" id="moodDisplay">Neon meme archive mode</div></div><button class="btn danger" id="adultToggle">Adult arcade mode: OFF</button></div>
+  </div>
+</div>
+<main class="wrap" id="mainContent">
 <section id="home" class="tab active">
-  <div class="card v10Hero">
-    <div style="position:relative;z-index:2">
-      <div class="ultraTag">V11.4 PREDATOR PULSE</div><div class="v10Eyebrow">Smarter rivals / simple controls / laptop tuned</div>
-      <h1 class="v10Logo">PLAY.<br>GROW.<br>RULE.</h1>
-      <p class="muted">Two living arenas, a rebuilt visual casino and one shared Pearl Coin economy. Enter the classic cell arena or carve your name across Pearl Snake.</p>
-      <div class="row" style="margin-top:20px"><button class="btn primary" data-tab-jump="snake">Launch Pearl Snake</button><button class="btn" data-tab-jump="game">Enter Pearl.io</button><button class="btn" data-tab-jump="casino">Visit Casino</button></div>
-    </div>
-    <div class="v10Showcase">
-      <div class="v10Orb">V11.4</div>
-      <span class="v10OrbitChip one">LIVE BOT ARENAS</span><span class="v10OrbitChip two">VISUAL CASINO</span><span class="v10OrbitChip three">SHARED PROGRESSION</span>
-    </div>
+  <div class="card v20Hero">
+    <div><span class="v20Kicker">V20 INFINITY ARCADE</span><h1>PLAY.<br><span>EVOLVE.</span><br>DOMINATE.</h1><p class="muted">One profile across two giant living arenas, a two-floor casino, unlockable photo skins, daily missions, achievements and adaptive performance.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Pearl.io</button><button class="btn" data-tab-jump="snake">Ride Snake</button><button class="btn" id="dailyBtn">Daily Drop</button></div></div>
+    <div class="portalStack" aria-hidden="true"><div class="portal one"><span>5600 x 5600 CELL WAR</span><b>PEARL.IO</b></div><div class="portal two"><span>GIANT PREDATOR WORLD</span><b>PEARL SNAKE</b></div><div class="portal three"><span>TWO FLOORS / SHARED WALLET</span><b>CASINO ROYALE</b></div></div>
   </div>
-  <div class="card two">
-    <div>
-      <p class="pill">V11.4 Predator Arcade · adaptive neon mode</p>
-      <h1>PEARL.IO<br>NEON LORE</h1>
-      <p class="muted">A complete dark-glass arcade with two living arenas, unlockable skins, smarter rivals, world events, local progression and a two-floor visual casino.</p>
-      <div class="row" style="margin-top:18px"><button class="btn primary" data-tab-jump="game">Play Pearl.io</button><button class="btn" data-tab-jump="casino">Enter Casino</button><button class="btn" id="dailyBtn">Claim Daily Bonus</button></div>
-    </div>
-    <div class="card adult" style="margin:0">
-      <h3>18+ Flavor Toggle</h3>
-      <p class="muted small">Keeps the vibe darker and more chaotic. No real-person explicit photos or illegal stuff is included. You can add your own images later.</p>
-      <button class="btn danger" id="adultToggle">Adult arcade mode: OFF</button>
-      <div class="display" id="moodDisplay">Neon meme archive mode</div>
-    </div>
+  <div class="commandGrid">
+    <div class="card"><span class="v20Kicker">ARCADE COMMAND CENTER</span><h2>Your next run starts here</h2><div class="quickPlay"><button class="quickCard" data-tab-jump="game"><b>Pearl.io</b><span>Hunt, split and steal bounties.</span><strong>ENTER ARENA</strong></button><button class="quickCard" data-tab-jump="snake"><b>Pearl Snake</b><span>Grow thick, cut rivals, claim crowns.</span><strong>START RUN</strong></button><button class="quickCard" data-tab-jump="casino"><b>Casino</b><span>Cards, roulette and machines.</span><strong>OPEN FLOOR</strong></button></div><div class="row"><button class="btn" data-tab-jump="missions">View live missions</button><button class="btn" id="fxToggle">Quality: AUTO</button><button class="btn" id="fullArenaBtn">Fullscreen arena</button></div></div>
+    <div class="card"><div class="profilePanel"><div class="profileCore" id="profileCore">1</div><div><span class="small muted">PLAYER PROFILE</span><h2 id="profileTitle">Rookie Pearl</h2><p class="muted small" id="profileSummary">Build XP in every game.</p></div></div><div class="metricRow"><div class="metric"><b id="homeRuns">0</b><span>runs</span></div><div class="metric"><b id="homeKills">0</b><span>KOs</span></div><div class="metric"><b id="homeWins">0</b><span>wins</span></div><div class="metric"><b id="homeSkins">1</b><span>skins</span></div></div><div id="homeMissionPreview" style="margin-top:16px"></div></div>
   </div>
-
-  <div class="heroStrip">
-    <div class="neonPoster" aria-label="Neon Pearl.io poster placeholder"></div>
-    <div class="card" style="margin:0">
-      <h3>Creator Control Panel</h3>
-      <p class="muted">I added image slots, mission cards, better project notes, and a cleaner upload workflow. You can keep the placeholders or replace them with your own files later.</p>
-      <div class="statTiles">
-        <div class="statTile"><b>10x</b><span>virus split</span></div>
-        <div class="statTile"><b>30s</b><span>merge timer</span></div>
-        <div class="statTile"><b>local</b><span>image slots</span></div>
-        <div class="statTile"><b>safe</b><span>preview build</span></div>
-      </div>
-      <div class="siteTools">
-        <button class="btn primary" data-tab-jump="media">Open Media Board</button>
-        <button class="btn" id="fxToggle">Quality: AUTO</button>
-        <button class="btn" id="fullArenaBtn">Fullscreen Arena</button>
-      </div>
-      <p class="compactHint small" style="margin-top:12px">Pictures: add them in the Media tab now, or later replace files like <b>assets/banner.png</b> when you move to GitHub.</p>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="card"><h3>✅ Stable Game Core</h3><p class="muted">Player cells, bots, food, power-ups, viruses, split, eject and merge are implemented in one clean engine.</p></div>
-    <div class="card"><h3>🤖 Smoother AI</h3><p class="muted">Bots use locked intents, so they do not constantly stutter between hunting and defense.</p></div>
-    <div class="card"><h3>🎰 Working Casino</h3><p class="muted">Casino buttons are event-based, not fragile inline onclick names.</p></div>
-    <div class="card"><h3>🖼️ Media Ready</h3><p class="muted">Upload your own photos locally or swap asset filenames later for GitHub.</p></div>
-    <div class="card"><h3>📌 Mission Layer</h3><p class="muted">The site now has a missions page you can expand into real rewards later.</p></div>
-    <div class="card"><h3>⚙️ Cleaner Project</h3><p class="muted">Extra site tools were added without touching the stable game core.</p></div>
-  </div>
+  <div class="grid"><div class="card"><span class="v20Kicker">LIVE WORLDS</span><h3>Simple AI, sharper choices</h3><p class="muted">Rivals only hunt, run or chase power, but predict danger and choose safer routes.</p></div><div class="card"><span class="v20Kicker">TRUE PROGRESSION</span><h3>Everything now counts</h3><p class="muted">Food, KOs, runs, gates and casino plays feed XP, missions and achievements.</p></div><div class="card"><span class="v20Kicker">LAPTOP READY</span><h3>Adaptive visual engine</h3><p class="muted">The site automatically lowers heavy effects when performance stays low.</p></div></div>
 </section>
 <section id="game" class="tab">
   <div class="card" style="padding:14px 16px">
@@ -343,13 +325,13 @@ body,body:before{animation:none!important}
     <div class="gameBottom"><canvas id="mini" class="minimap" width="160" height="160"></canvas><div id="powerBar" class="powerbar"></div></div>
     <div class="arenaOverdrive"><span>ARENA OVERDRIVE</span><b id="arenaImpact">READY</b></div><div id="killFeed" class="killFeed"></div>
     <div id="spectatorDock" class="spectatorDock"><span class="small muted">SPECTATING</span><button class="btn" id="spectatePrev">Previous</button><b id="spectateName">Arena leader</b><button class="btn" id="spectateNext">Next</button><button class="btn primary" id="spectateJoin">Join arena</button></div>
-    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io Arena</h2><p class="muted">Eat food, consume smaller cells, dodge viruses, steal power-ups, split to attack, survive the chaos.</p><div class="speedBalanceNote">V11.4: predictive rivals, bounty leaders, pearl chains and adaptive performance.</div><button class="btn primary" id="overlaySpawn">Spawn now</button></div></div>
+    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io V20 Arena</h2><p class="muted">Start small, eat food, hunt smaller cells, dodge viruses and steal the bounty crown.</p><div class="speedBalanceNote">V20: real XP, live missions, predictive rivals and adaptive performance.</div><button class="btn primary" id="overlaySpawn">Spawn now</button></div></div>
   </div>
 </section>
 <section id="snake" class="tab">
   <div class="snakeIntro">
     <div class="card">
-      <div class="v10Eyebrow">Predator AI in V11.4</div>
+      <div class="v10Eyebrow">V20 predator world</div>
       <h2>Pearl Snake</h2>
       <p class="muted">A full neon snake arena with tactical bots, boost energy, roaming pearls, live ranking and a world that keeps moving around you.</p>
       <div class="snakeRules">
@@ -370,14 +352,14 @@ body,body:before{animation:none!important}
     <div class="snakeHud"><div class="snakeStats"><span>Score <b id="snakeScore">0</b></span><span>Length <b id="snakeLength">45</b></span><span>KOs <b id="snakeKills">0</b></span><span>Width <b id="snakeWidth">1.0x</b></span><span>Rank <b id="snakeRank">-</b></span></div><div class="snakeLeaders"><strong>Top Snakes</strong><div id="snakeLeaderboard"></div></div></div>
     <div class="snakeWorldHud"><b id="snakeWorldEvent">WORLD ONLINE</b><span id="snakeWorldDetail">Pearl storm charging</span><div class="eventProgress"><i id="snakeWorldProgress"></i></div></div><div id="snakeCombo" class="snakeCombo"><span>PEARL CHAIN</span><b id="snakeComboValue">x1</b></div><div id="snakeEvent" class="snakeEvent">OVERDRIVE</div><div class="snakeBoost"><span class="small">BOOST ENERGY</span><div class="snakeBoostBar"><div id="snakeBoostFill" class="snakeBoostFill"></div></div></div>
     <canvas id="snakeMap" class="snakeMap" width="150" height="100"></canvas>
-    <div id="snakeOverlay" class="snakeOverlay"><div class="card snakeStart"><span class="snakeBadge">V11.4 PREDATOR ARENA</span><h2>PEARL<br>SNAKE</h2><p id="snakeMessage" class="muted">Build the longest neon trail in the arena.</p><button class="btn primary" id="snakeStart">Enter the arena</button></div></div>
+    <div id="snakeOverlay" class="snakeOverlay"><div class="card snakeStart"><span class="snakeBadge">V20 INFINITY ARENA</span><h2>PEARL<br>SNAKE</h2><p id="snakeMessage" class="muted">Begin tiny, grow longer and thicker, then claim the crown.</p><button class="btn primary" id="snakeStart">Enter the arena</button></div></div>
   </div>
 </section>
 
 <section id="casino" class="tab">
   <div class="casinoStage"><div class="casinoStageLights"></div></div>
   <div class="casinoHero">
-    <div class="card"><div class="v10Eyebrow">V11.4 living casino</div><h2>Pearl Casino Royale</h2><p class="muted">Arcade gambling with visible odds, streak rewards and one shared progressive jackpot. All currency stays inside the game.</p></div>
+    <div class="card"><div class="v10Eyebrow">V20 two-floor casino</div><h2>Pearl Casino Royale</h2><p class="muted">Real card visuals, roulette, dice, machines, streak rewards and a shared jackpot. All currency stays inside the game.</p></div>
     <div class="casinoStat"><span class="muted small">Jackpot</span><b id="casinoJackpot">1000</b></div>
     <div class="casinoStat"><span class="muted small">Win streak</span><b id="casinoStreak">0</b></div>
     <div class="casinoStat"><span class="muted small">Best streak</span><b id="casinoBestStreak">0</b></div>
@@ -488,58 +470,40 @@ body,body:before{animation:none!important}
 
 <section id="media" class="tab">
   <div class="card">
-    <h2><span class="glitchTitle" data-text="Media Board">Media Board</span></h2>
-    <p class="muted">I did not put real Tom Pearl photos in the file. Use these slots to add your own images. They preview locally in your browser and save in localStorage. For GitHub, replace these later with real files in an <b>assets/</b> folder.</p>
+    <span class="v20Kicker">CREATOR STUDIO</span><h2>Build your arcade identity</h2>
+    <p class="muted">Create local banners and profile art without uploading anything. Your embedded Pearl skins work in both arenas.</p>
   </div>
+  <div class="creatorPreview"><div class="creatorCanvas"><div><span class="v20Kicker">LIVE PREVIEW</span><b>PEARL<br>V20</b><p class="muted">Private local creator slots.</p></div></div><div class="card" style="margin:0"><h3>Studio rules</h3><p class="muted">Use compressed JPG, PNG or WebP files. Images stay in this browser and can be removed at any time.</p><div class="featureList"><div class="featureItem"><div class="featureIcon">1</div><div><b>Pick a slot</b><br><span class="muted">Banner, profile, casino or skin pack.</span></div></div><div class="featureItem"><div class="featureIcon">2</div><div><b>Preview instantly</b><br><span class="muted">No account or upload required.</span></div></div><div class="featureItem"><div class="featureIcon">3</div><div><b>Keep it fast</b><br><span class="muted">Small images protect performance.</span></div></div></div></div></div>
   <div class="mediaGrid" id="mediaGrid">
     <div class="mediaSlot" data-slot="banner"><h3>Banner / Homepage</h3><div class="placeholderArt">Drop in your main banner image</div><div class="assetName">assets/banner.png</div><input type="file" accept="image/*"></div>
     <div class="mediaSlot" data-slot="profile"><h3>Profile / Lore Icon</h3><div class="placeholderArt">Tom Pearl image slot</div><div class="assetName">assets/tom-profile.png</div><input type="file" accept="image/*"></div>
     <div class="mediaSlot" data-slot="casino"><h3>Casino Poster</h3><div class="placeholderArt">Casino / neon poster slot</div><div class="assetName">assets/casino-poster.png</div><input type="file" accept="image/*"></div>
     <div class="mediaSlot" data-slot="skinpack"><h3>Skin Pack Preview</h3><div class="placeholderArt">Custom skin preview slot</div><div class="assetName">assets/skin-pack.png</div><input type="file" accept="image/*"></div>
   </div>
-  <div class="card">
-    <h3>How to use pictures on GitHub later</h3>
-    <div class="featureList">
-      <div class="featureItem"><div class="featureIcon">1</div><div><b>Create an assets folder</b><br><span class="muted">Put your images inside it, for example <code>assets/banner.png</code>.</span></div></div>
-      <div class="featureItem"><div class="featureIcon">2</div><div><b>Replace the placeholder names</b><br><span class="muted">Use the file names shown under each slot.</span></div></div>
-      <div class="featureItem"><div class="featureIcon">3</div><div><b>Keep image sizes reasonable</b><br><span class="muted">Large images make the site slow. Use compressed PNG/JPG/WebP.</span></div></div>
-    </div>
-  </div>
 </section>
 <section id="missions" class="tab">
   <div class="card">
-    <h2>Mission Board</h2>
-    <p class="muted">A polished progression layer for the site. These are currently visual/local missions; they can become real gameplay rewards in the next build.</p>
+    <span class="v20Kicker">LIVE PROGRESSION</span><h2>Mission Control</h2>
+    <p class="muted">Real objectives powered by your activity across Pearl.io, Pearl Snake and the casino.</p>
   </div>
-  <div class="missionGrid" id="missionGrid">
-    <div class="mission"><h3>🍬 Food Rush</h3><p class="muted">Eat 250 food in one session.</p><span class="reward">Reward: +300 coins</span><div class="progressBar"><div style="width:45%"></div></div></div>
-    <div class="mission"><h3>☣ Virus Breaker</h3><p class="muted">Use a virus to escape or bait a bigger cell.</p><span class="reward">Reward: Toxic badge</span><div class="progressBar"><div style="width:30%"></div></div></div>
-    <div class="mission"><h3>🎰 Casino Heat</h3><p class="muted">Win 3 casino games in a row.</p><span class="reward">Reward: +500 coins</span><div class="progressBar"><div style="width:60%"></div></div></div>
-    <div class="mission"><h3>👑 Arena King</h3><p class="muted">Reach #1 on the leaderboard.</p><span class="reward">Reward: Crown skin idea</span><div class="progressBar"><div style="width:15%"></div></div></div>
-  </div>
+  <div class="missionGrid" id="missionGrid"></div>
   <div class="card">
-    <h3>Next upgrade ideas I added to the design</h3>
-    <div class="timeline">
-      <div class="timelineItem"><div class="timelineDot">🤖</div><div><b>Bot difficulty slider</b><br><span class="muted">Easy, normal, chaos, impossible.</span></div></div>
-      <div class="timelineItem"><div class="timelineDot">🏆</div><div><b>Real achievements</b><br><span class="muted">Unlock coins/skins based on actual stats.</span></div></div>
-      <div class="timelineItem"><div class="timelineDot">🔊</div><div><b>Soundboard</b><br><span class="muted">Add your own MP3/WAV clips later.</span></div></div>
-      <div class="timelineItem"><div class="timelineDot">🌐</div><div><b>Multiplayer branch</b><br><span class="muted">Keep this stable single-player build, then later merge the Node server version.</span></div></div>
-    </div>
+    <h3>Achievement Vault</h3><div class="achievementGrid" id="achievementGrid"></div>
   </div>
 </section>
 
 <section id="lore" class="tab">
-  <div class="card warning"><h2>Tom Pearl Lore Archive</h2><p class="muted">This site is styled as a fictionalized internet-lore arcade inspired by Thomas Patrick Pearl / Tom Pearl meme culture. It avoids real explicit images and keeps the tribute arcade-focused so you can safely add your own assets later.</p></div>
-  <div class="grid">
-    <div class="card"><h3>Archive Terminal</h3><p class="muted">Patch notes, weird arena myths, bot names, casino events and unlocks can live here.</p></div>
-    <div class="card"><h3>Event Ideas</h3><p class="muted">Weekend XP storms, boss bots, rare skins, lore quests, clan tags, custom rooms.</p></div>
-    <div class="card"><h3>Asset Slots</h3><p class="muted">Add your own photos, soundboard clips, banners and icons by editing one section later.</p></div>
-    <div class="card"><h3>18+ Deployment Note</h3><p class="muted">You can use a darker/more adult theme on an 18+ platform, but keep real-person explicit material out unless you own/have permission to use it.</p></div>
-    <div class="card"><h3>GitHub-ready idea</h3><p class="muted">Later: split this into <code>index.html</code>, <code>style.css</code>, <code>game.js</code>, <code>casino.js</code>, and <code>assets/</code>.</p></div>
-    <div class="card"><h3>Creator Tip</h3><p class="muted">Use the Media tab first. Once your images look good, I can convert the single HTML into a clean GitHub folder.</p></div>
+  <div class="card"><span class="v20Kicker">PLAYER CODEX</span><h2>Master the Infinity Arcade</h2><p class="muted">Patch notes, strategy and system rules in one useful place.</p></div>
+  <div class="codexGrid">
+    <div class="card wide"><h3>V20 release file</h3><div class="patchItem"><b>PROFILE</b><span>Shared XP, levels, daily missions and achievements react to real play.</span></div><div class="patchItem"><b>ARENAS</b><span>Simple hunt/run/power AI with predictive danger routing.</span></div><div class="patchItem"><b>CASINO</b><span>Two visual floors, live results, cards, roulette, dice and machines.</span></div><div class="patchItem"><b>ACCESS</b><span>Motion, contrast, sound, shake and adaptive laptop controls.</span></div></div>
+    <div class="card"><h3>Pearl.io tactics</h3><p class="muted">Farm early, keep an escape angle and split only when you have room to recover.</p></div>
+    <div class="card"><h3>Snake tactics</h3><p class="muted">Boost to intercept. Gates restore momentum and close calls build score.</p></div>
+    <div class="card"><h3>Bot language</h3><p class="muted"><b>Hunt</b> cuts routes. <b>Run</b> samples safe angles. <b>Power</b> seeks resources.</p></div>
+    <div class="card"><h3>World events</h3><p class="muted">Bounty Rush, Pearl Storm and Gate Frenzy change the best strategy.</p></div>
+    <div class="card"><h3>Performance</h3><p class="muted">AUTO steps heavy effects down if frame rate remains low.</p></div>
   </div>
 </section>
-<p class="footerNote small muted">Pearl.io V11.4 Predator Pulse — predictive rivals, bounty arenas, adaptive quality and Casino Royale.</p>
+<p class="footerNote small muted">Pearl.io V20 Infinity Arcade - two predator worlds, real progression, creator tools and Casino Royale.</p>
 </main>
 <script>
 
@@ -552,7 +516,40 @@ const dist=(a,b,c,d)=>Math.hypot(a-c,b-d);
 const now=()=>performance.now();
 const TAU=Math.PI*2;
 const safeStore={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const state={coins:safeStore.get('v8coins',1600),skins:safeStore.get('v8skins',[0]),skin:safeStore.get('v8skin',0),adult:safeStore.get('v8adult',false),stats:safeStore.get('v8stats',{runs:0,kills:0,best:0,food:0,casinoWins:0,casinoLosses:0}),tab:'home'};
+const defaultStats={runs:0,kills:0,best:0,food:0,casinoWins:0,casinoLosses:0,casinoPlays:0,snakeRuns:0,snakeFood:0,snakeKills:0,snakeBest:0,closeCalls:0};
+const profileDefault={xp:0,claimed:[],unlocked:[],daily:{day:'',pearlFood:0,snakeFood:0,kills:0,casinoPlays:0}};
+const settingsDefault={sound:false,reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches,contrast:false,shake:true};
+const state={coins:safeStore.get('v8coins',1600),skins:safeStore.get('v8skins',[0]),skin:safeStore.get('v8skin',0),adult:safeStore.get('v8adult',false),stats:Object.assign({},defaultStats,safeStore.get('v8stats',{})),profile:Object.assign({},profileDefault,safeStore.get('v20profile',{})),settings:Object.assign({},settingsDefault,safeStore.get('v20settings',{})),tab:'home'};
+state.profile.daily=Object.assign({},profileDefault.daily,state.profile.daily||{});
+function dayKey(){return new Date().toISOString().slice(0,10)}
+function ensureDaily(){if(state.profile.daily.day!==dayKey()){state.profile.daily={day:dayKey(),pearlFood:0,snakeFood:0,kills:0,casinoPlays:0};state.profile.claimed=[]}}
+ensureDaily();
+const V20_MISSIONS=[
+  {id:'pearlFood',title:'Pearl Harvest',desc:'Eat 80 pieces of food in Pearl.io.',target:80,coins:180,xp:120},
+  {id:'snakeFood',title:'Snake Feast',desc:'Collect 60 pearls in Pearl Snake.',target:60,coins:220,xp:140},
+  {id:'casinoPlays',title:'Floor Tour',desc:'Play 5 casino rounds.',target:5,coins:160,xp:100}
+];
+const V20_ACHIEVEMENTS=[
+  {id:'firstRun',title:'First Contact',desc:'Start any arena run.',test:()=>state.stats.runs+state.stats.snakeRuns>=1},
+  {id:'hunter',title:'Predator',desc:'Score 10 total KOs.',test:()=>state.stats.kills+state.stats.snakeKills>=10},
+  {id:'massive',title:'Heavyweight',desc:'Reach 250 best Pearl.io mass.',test:()=>state.stats.best>=250},
+  {id:'longSnake',title:'Thick Legend',desc:'Reach a Snake score of 1000.',test:()=>state.stats.snakeBest>=1000},
+  {id:'casino',title:'House Challenger',desc:'Win 10 casino games.',test:()=>state.stats.casinoWins>=10},
+  {id:'collector',title:'Skin Vault',desc:'Unlock 5 skins.',test:()=>state.skins.length>=5}
+];
+function levelInfo(){const level=Math.floor(Math.sqrt(state.profile.xp/250))+1,start=(level-1)*(level-1)*250,next=level*level*250;return{level,start,next,inside:state.profile.xp-start,need:next-start}}
+function toast(text,good=false){const stack=$('toastStack');if(!stack)return;const el=document.createElement('div');el.className='toast'+(good?' good':'');el.textContent=text;stack.appendChild(el);setTimeout(()=>el.remove(),2600)}
+function saveProfile(){safeStore.set('v20profile',state.profile);safeStore.set('v20settings',state.settings)}
+function addXP(amount,reason){const before=levelInfo().level;state.profile.xp+=Math.max(0,Math.floor(amount));saveProfile();renderV20();const after=levelInfo().level;if(after>before){addCoins(after*75);toast('LEVEL '+after+' - bonus '+after*75+' coins',true)}else if(reason)toast('+'+amount+' XP - '+reason,true)}
+function trackDaily(key,amount=1){ensureDaily();if(key in state.profile.daily)state.profile.daily[key]+=amount;if(key==='casinoPlays'||state.profile.daily[key]%10===0)saveProfile();if(state.tab==='missions'||state.profile.daily[key]%5===0)renderMissions()}
+function checkAchievements(){let changed=false;for(const a of V20_ACHIEVEMENTS)if(a.test()&&!state.profile.unlocked.includes(a.id)){state.profile.unlocked.push(a.id);state.profile.xp+=150;state.coins+=200;changed=true;toast('Achievement unlocked: '+a.title,true)}if(changed){save();if($('coinCount'))$('coinCount').textContent=state.coins;renderV20()}}
+function renderMissions(){
+  const grid=$('missionGrid');if(grid){grid.innerHTML=V20_MISSIONS.map(m=>{const value=Math.min(m.target,state.profile.daily[m.id]||0),done=value>=m.target,claimed=state.profile.claimed.includes(m.id);return '<div class="mission '+(claimed?'claimed':'')+'"><span class="v20Kicker">DAILY</span><h3>'+m.title+'</h3><p class="muted">'+m.desc+'</p><b>'+value+' / '+m.target+'</b><div class="progressBar"><div style="width:'+(value/m.target*100)+'%"></div></div><span class="reward">+'+m.coins+' coins / +'+m.xp+' XP</span><button class="btn '+(done&&!claimed?'primary':'')+'" data-claim="'+m.id+'" '+(!done||claimed?'disabled':'')+'>'+(claimed?'CLAIMED':done?'CLAIM REWARD':'IN PROGRESS')+'</button></div>'}).join('');grid.querySelectorAll('[data-claim]').forEach(btn=>btn.addEventListener('click',()=>claimMission(btn.dataset.claim)))}
+  const vault=$('achievementGrid');if(vault)vault.innerHTML=V20_ACHIEVEMENTS.map(a=>'<div class="achievement '+(state.profile.unlocked.includes(a.id)?'unlocked':'')+'"><b>'+(state.profile.unlocked.includes(a.id)?'UNLOCKED - ':'LOCKED - ')+a.title+'</b><span>'+a.desc+'</span></div>').join('');
+  const next=V20_MISSIONS.find(m=>!state.profile.claimed.includes(m.id));const preview=$('homeMissionPreview');if(preview)preview.innerHTML=next?'<b>Next mission: '+next.title+'</b><div class="progressBar"><div style="width:'+Math.min(100,(state.profile.daily[next.id]||0)/next.target*100)+'%"></div></div><span class="small muted">'+Math.min(next.target,state.profile.daily[next.id]||0)+' / '+next.target+'</span>':'<b>All daily missions claimed.</b>'
+}
+function claimMission(id){const m=V20_MISSIONS.find(x=>x.id===id);if(!m||state.profile.claimed.includes(id)||(state.profile.daily[id]||0)<m.target)return;state.profile.claimed.push(id);state.coins+=m.coins;state.profile.xp+=m.xp;save();saveProfile();renderV20();toast(m.title+' claimed',true)}
+function renderV20(){const info=levelInfo(),titles=['Rookie Pearl','Arena Scout','Neon Hunter','Void Predator','Infinity Crown'];if($('levelBadge'))$('levelBadge').textContent='LV '+info.level;if($('xpFill'))$('xpFill').style.width=(info.inside/info.need*100)+'%';if($('xpText'))$('xpText').textContent=info.inside+' / '+info.need+' XP';if($('profileCore'))$('profileCore').textContent=info.level;if($('profileTitle'))$('profileTitle').textContent=titles[Math.min(titles.length-1,Math.floor((info.level-1)/3))];if($('profileSummary'))$('profileSummary').textContent=state.profile.xp+' total XP / '+state.profile.unlocked.length+' achievements';if($('homeRuns'))$('homeRuns').textContent=state.stats.runs+state.stats.snakeRuns;if($('homeKills'))$('homeKills').textContent=state.stats.kills+state.stats.snakeKills;if($('homeWins'))$('homeWins').textContent=state.stats.casinoWins;if($('homeSkins'))$('homeSkins').textContent=state.skins.length;renderMissions()}
 const PERF_PROFILES={
   high:{tier:'high',label:'ULTRA',dpr:1.6,fps:50,food:3800,bots:42,viruses:32,powers:36,pearlStars:82,snakeFood:2600,snakeBots:34,snakeGates:24,snakeStars:100,particleCap:380,mapEvery:2,bodyStep:3},
   balanced:{tier:'balanced',label:'BALANCED',dpr:1.25,fps:42,food:2700,bots:32,viruses:26,powers:30,pearlStars:52,snakeFood:1900,snakeBots:26,snakeGates:20,snakeStars:64,particleCap:220,mapEvery:4,bodyStep:4},
@@ -589,16 +586,22 @@ function monitorPerformance(t){
   requestAnimationFrame(monitorPerformance)
 }
 $('fxToggle').addEventListener('click',cycleQuality);renderPerfUi();requestAnimationFrame(monitorPerformance);
-function save(){safeStore.set('v8coins',state.coins);safeStore.set('v8skins',state.skins);safeStore.set('v8skin',state.skin);safeStore.set('v8adult',state.adult);safeStore.set('v8stats',state.stats)}
+function save(){safeStore.set('v8coins',state.coins);safeStore.set('v8skins',state.skins);safeStore.set('v8skin',state.skin);safeStore.set('v8adult',state.adult);safeStore.set('v8stats',state.stats);saveProfile()}
 function setCoins(n){state.coins=Math.max(0,Math.floor(n));$('coinCount').textContent=state.coins;save();renderStats()}
 function addCoins(n){setCoins(state.coins+n)} window.pearlAddCoins=addCoins;
 function spend(n){if(state.coins<n){flash('Need '+n+' coins');return false}addCoins(-n);return true}
 function flash(msg){const el=$('moodDisplay');if(el){const old=el.textContent;el.textContent=msg;setTimeout(()=>{if(el.textContent===msg)el.textContent=old},1200)}}
-function setTab(id){const leavingGame=state.tab==='game'&&id!=='game';document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));state.tab=id;if(leavingGame&&typeof leaveArenaToSpectate==='function')leaveArenaToSpectate();if(id==='game'&&typeof enterArenaView==='function')enterArenaView();if(id==='shop')renderSkins();}
+function setTab(id){const leavingGame=state.tab==='game'&&id!=='game';document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.id===id));document.querySelectorAll('.nav button[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));state.tab=id;if(leavingGame&&typeof leaveArenaToSpectate==='function')leaveArenaToSpectate();if(id==='game'&&typeof enterArenaView==='function')enterArenaView();if(id==='shop')renderSkins();if(id==='missions')renderMissions();window.scrollTo({top:0,behavior:state.settings.reducedMotion?'auto':'smooth'})}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));document.querySelectorAll('[data-tab-jump]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tabJump)));
 $('adultToggle').addEventListener('click',()=>{state.adult=!state.adult;save();renderAdult()});
 function renderAdult(){document.body.classList.toggle('adultOn',state.adult);$('adultToggle').textContent='Adult arcade mode: '+(state.adult?'ON':'OFF');$('moodDisplay').textContent=state.adult?'18+ grimy neon chaos mode':'Neon meme archive mode'}
-$('dailyBtn').addEventListener('click',()=>{const day=new Date().toDateString();if(safeStore.get('v8daily','')===day){flash('Daily already claimed');return}safeStore.set('v8daily',day);addCoins(500);flash('+500 daily coins')});
+$('dailyBtn').addEventListener('click',()=>{const day=dayKey();if(safeStore.get('v20daily','')===day){toast('Daily drop already claimed');return}safeStore.set('v20daily',day);addCoins(500);addXP(100,'daily drop');toast('+500 coins and +100 XP',true)});
+let audioCtx=null;
+function sfx(kind='tap'){if(!state.settings.sound)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain(),tones={tap:240,coin:520,win:760,loss:130,level:980};o.frequency.value=tones[kind]||240;o.type=kind==='loss'?'sawtooth':'sine';g.gain.setValueAtTime(.05,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.13);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.14)}catch(e){}}
+function applySettings(){document.body.classList.toggle('reducedMotion',state.settings.reducedMotion);document.body.classList.toggle('highContrast',state.settings.contrast);document.body.classList.toggle('noShake',!state.settings.shake);[['soundToggle','sound'],['motionToggle','reducedMotion'],['contrastToggle','contrast'],['shakeToggle','shake']].forEach(([id,key])=>{const b=$(id);if(b){b.textContent=state.settings[key]?'ON':'OFF';b.classList.toggle('on',state.settings[key])}});if($('settingsQuality'))$('settingsQuality').textContent=(perfPreference==='auto'?'AUTO':perfProfile().label)}
+function toggleSetting(key){state.settings[key]=!state.settings[key];saveProfile();applySettings();sfx('tap')}
+$('settingsOpen').addEventListener('click',()=>{$('settingsPanel').classList.add('open');$('settingsClose').focus()});$('settingsClose').addEventListener('click',()=>$('settingsPanel').classList.remove('open'));$('settingsPanel').addEventListener('click',e=>{if(e.target===$('settingsPanel'))$('settingsPanel').classList.remove('open')});
+$('soundToggle').addEventListener('click',()=>toggleSetting('sound'));$('motionToggle').addEventListener('click',()=>toggleSetting('reducedMotion'));$('contrastToggle').addEventListener('click',()=>toggleSetting('contrast'));$('shakeToggle').addEventListener('click',()=>toggleSetting('shake'));$('settingsQuality').addEventListener('click',()=>{cycleQuality();applySettings()});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('settingsPanel').classList.remove('open')});
 
 let SKINS=[
 {name:'Core',color:'#ff3366',icon:'●',img:'',wheelOnly:false},
@@ -740,14 +743,15 @@ function renderAbilityPanel(id){
 function renderStats(){
   const box=$('statsBox'); if(!box) return;
   const ownedCustom=PHOTO_SKIN_IDS.filter(i=>state.skins.includes(i)).length;
-  box.innerHTML='Runs: <b>'+state.stats.runs+'</b><br>Kills: <b>'+state.stats.kills+'</b><br>Best mass: <b>'+Math.floor(state.stats.best)+'</b><br>Food eaten: <b>'+state.stats.food+'</b><br>Casino wins: <b>'+state.stats.casinoWins+'</b><br>Casino losses: <b>'+state.stats.casinoLosses+'</b><br>Coins: <b>'+state.coins+'</b><br>Custom skins unlocked: <b>'+ownedCustom+'/'+PHOTO_SKIN_IDS.length+'</b>';
+  box.innerHTML='Pearl.io runs: <b>'+state.stats.runs+'</b><br>Pearl.io KOs: <b>'+state.stats.kills+'</b><br>Best mass: <b>'+Math.floor(state.stats.best)+'</b><br>Pearl.io food: <b>'+state.stats.food+'</b><br>Snake runs: <b>'+state.stats.snakeRuns+'</b><br>Snake KOs: <b>'+state.stats.snakeKills+'</b><br>Best Snake score: <b>'+state.stats.snakeBest+'</b><br>Casino wins: <b>'+state.stats.casinoWins+'</b><br>Casino plays: <b>'+state.stats.casinoPlays+'</b><br>Coins: <b>'+state.coins+'</b><br>Custom skins unlocked: <b>'+ownedCustom+'/'+PHOTO_SKIN_IDS.length+'</b>';
+  checkAchievements();renderV20();
 }
 
 $('resetSave').addEventListener('click',()=>{if(confirm('Reset coins, skins and stats?')){localStorage.clear();location.reload()}});
-setCoins(state.coins);renderAdult();renderSkins();
+setCoins(state.coins);renderAdult();renderSkins();applySettings();renderV20();
 
 // ================= GAME =================
-const canvas=$('gameCanvas'),ctx=canvas.getContext('2d');const mini=$('mini'),mctx=mini.getContext('2d');let DPR=1;
+const canvas=$('gameCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true});const mini=$('mini'),mctx=mini.getContext('2d');let DPR=1;
 const WORLD=5600,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=24000,FOOD_BUCKET=220;
 let FOOD_TARGET=perfProfile().food,BOT_TARGET=perfProfile().bots,VIRUS_TARGET=perfProfile().viruses,POWER_TARGET=perfProfile().powers;
 const game={running:false,food:[],foodGrid:new Map(),bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,forceMerge:false,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0,combo:0,comboUntil:0,pearlChain:0,pearlChainUntil:0,bountyId:null,fxBursts:[],shake:0,event:{type:'calm',nextAt:Date.now()+12000,until:0,startedAt:0},rifts:[],shards:[]};
@@ -804,7 +808,7 @@ function spawnHuman(){
   for(let i=0;i<16;i++){const tx=rand(600,WORLD-600),ty=rand(600,WORLD-600),clear=avoid.length?Math.min(...avoid.map(c=>dist(tx,ty,c.x,c.y))):9999;if(clear>best){best=clear;x=tx;y=ty}}
   game.player.cells=[newCell('player',x,y,20+(sm.startMass||0)*.25,state.skin,game.player.name)];
   game.cam.x=x;game.cam.y=y;game.mouse.wx=x;game.mouse.wy=y;game.spawnShield=6+(sm.spawnShield||0);
-  game.humanPresent=true;game.spectating=false;game.idleDeadline=0;game.last=now();state.stats.runs++;save();
+  game.humanPresent=true;game.spectating=false;game.idleDeadline=0;game.last=now();state.stats.runs++;save();addXP(20,'Pearl.io run');
   $('spawnOverlay').style.display='none';$('spectatorDock').classList.remove('show');updateArenaStatus()
 }
 function pearlBounty(){
@@ -885,7 +889,7 @@ function ejectOwner(owner){const cells=ownerCells(owner);const bot=owner==='play
 function applyPower(owner,type){
   const p=owner==='player'?game.player:game.bots.find(b=>b.id===owner);if(!p)return;
   const mods=owner==='player'?selectedMods():ownerMods(owner),bonus=mods.powerDuration||0;
-  if(type==='coin'){if(owner==='player'){addCoins(Math.floor(75*(mods.coinGain||1)));arenaImpact('COIN SURGE','#fbbf24')}else p.cells.forEach(c=>grow(c,9,1.1));return}
+  if(type==='coin'){if(owner==='player'){addCoins(Math.floor(75*(mods.coinGain||1)));addXP(15,'coin surge');sfx('coin');arenaImpact('COIN SURGE','#fbbf24')}else p.cells.forEach(c=>grow(c,9,1.1));return}
   if(type==='growth'){p.cells.forEach(c=>grow(c,19,2.5));if(owner==='player')arenaImpact('MASS OVERLOAD','#b7ff00');return}
   if(type==='nova'){p.cells.forEach(c=>grow(c,11,1.7));p.powers.shield=Math.max(p.powers.shield||0,2.5+bonus);p.powers.speed=Math.max(p.powers.speed||0,2.5+bonus);return}
   const duration={shield:5.5,magnet:7,speed:5,frenzy:5,ghost:4.5}[type]||4;
@@ -974,7 +978,7 @@ function mergeCells(owner,force){const cells=ownerCells(owner);if(cells.length<2
 function virusHit(owner,c,v){if(c.r<v.r*1.08)return;const powerOwner=owner==='player'?game.player:game.bots.find(b=>b.id===owner);if(powerOwner&&(powerOwner.powers.shield>0||powerOwner.powers.ghost>0))return;const cells=ownerCells(owner);const max=owner==='player'?MAX_PLAYER_CELLS:MAX_BOT_CELLS;const free=max-cells.length+1;if(free<=1){c.r*= (cellMods(c).virusResist||.68);v.x=rand(140,WORLD-140);v.y=rand(140,WORLD-140);return}const desired=c.r>72?10:(c.r>55?8:6);const pieces=Math.max(4,Math.min(desired,free));const oldR=c.r*(cellMods(c).virusResist||1),nr=Math.max(12,oldR/Math.sqrt(pieces));const base=Math.atan2(c.y-v.y,c.x-v.x);c.r=nr;c.mergeAt=now()+Math.max(30000,mergeDelayForCell(c));for(let i=1;i<pieces;i++){const spread=(i/(pieces-1))*TAU;const ang=base+spread+rand(-.18,.18);const n=newCell(owner,c.x+Math.cos(ang)*(nr+10),c.y+Math.sin(ang)*(nr+10),nr,c.skin,c.name);const speed=rand(12,22)*(owner==='player'?1.05:.95);n.vx=Math.cos(ang)*speed+c.vx*.25;n.vy=Math.sin(ang)*speed+c.vy*.25;n.mergeAt=now()+Math.max(30000,mergeDelayForCell(n));cells.push(n)}c.vx+=Math.cos(base)*13;c.vy+=Math.sin(base)*13;v.x=rand(140,WORLD-140);v.y=rand(140,WORLD-140)}
 function collisions(dt){const cells=allCells();if(game.frame%4===1)rebuildFoodGrid();
  // food
- for(const c of cells){const mag=(c.owner==='player'?game.player.powers.magnet:((game.bots.find(b=>b.id===c.owner)||{}).powers||{}).magnet)>0;for(const f of gameFoodNear(c.x,c.y,c.r+(mag?190:30))){if(f.dead)continue;const d=dist(c.x,c.y,f.x,f.y);if(mag&&d<c.r+170){f.x+=(c.x-f.x)/(d||1)*8;f.y+=(c.y-f.y)/(d||1)*8}if(d<c.r+f.r*.35){grow(c,f.r,c.owner==='player'?(f.rare?9:2):(f.rare?4:1.45));if(f.rare&&c.owner==='player'){addCoins(25);arenaImpact('ULTRA SHARD','#fff700')}f.dead=true;if(c.owner==='player'){const stamp=Date.now();game.pearlChain=stamp<game.pearlChainUntil?Math.min(99,game.pearlChain+1):1;game.pearlChainUntil=stamp+1650;state.stats.food++;if(game.pearlChain%12===0){game.player.powers.speed=Math.max(game.player.powers.speed||0,1.6);addCoins(5)}if(state.stats.food%50===0){addCoins(15);arenaImpact('PEARL RUSH','#00e5ff')}}}}}
+ for(const c of cells){const mag=(c.owner==='player'?game.player.powers.magnet:((game.bots.find(b=>b.id===c.owner)||{}).powers||{}).magnet)>0;for(const f of gameFoodNear(c.x,c.y,c.r+(mag?190:30))){if(f.dead)continue;const d=dist(c.x,c.y,f.x,f.y);if(mag&&d<c.r+170){f.x+=(c.x-f.x)/(d||1)*8;f.y+=(c.y-f.y)/(d||1)*8}if(d<c.r+f.r*.35){grow(c,f.r,c.owner==='player'?(f.rare?9:2):(f.rare?4:1.45));if(f.rare&&c.owner==='player'){addCoins(25);arenaImpact('ULTRA SHARD','#fff700')}f.dead=true;if(c.owner==='player'){const stamp=Date.now();game.pearlChain=stamp<game.pearlChainUntil?Math.min(99,game.pearlChain+1):1;game.pearlChainUntil=stamp+1650;state.stats.food++;trackDaily('pearlFood');if(game.pearlChain%12===0){game.player.powers.speed=Math.max(game.player.powers.speed||0,1.6);addCoins(5)}if(state.stats.food%50===0){addCoins(15);addXP(25,'Pearl harvest');arenaImpact('PEARL RUSH','#00e5ff')}}}}}
  // ejected mass
  for(const e of game.ejected){if(e.dead)continue;e.x+=e.vx;e.y+=e.vy;e.vx*=.96;e.vy*=.96;e.life-=dt;if(e.life<=0)e.dead=true;for(const c of cells){if(e.dead)break;if(dist(c.x,c.y,e.x,e.y)<c.r){grow(c,e.r,1.7);e.dead=true}}}
  // powers
@@ -982,7 +986,7 @@ function collisions(dt){const cells=allCells();if(game.frame%4===1)rebuildFoodGr
  // viruses
  for(const v of game.viruses){for(const c of [...allCells()]){if(c.dead)continue;if(dist(c.x,c.y,v.x,v.y)<c.r+v.r*.65)virusHit(c.owner,c,v)}}
  // cell eating - largest first
- const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.09:1.13)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.18){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell',bountyDown=game.event.type==='bountyrush'&&b.owner===game.bountyId&&ownerCells(b.owner).every(x=>x.dead);addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;addCoins(30);game.shake=14;game.fxBursts.push({x:b.x,y:b.y,life:1,color:'#ff275f'})}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}if(bountyDown){grow(a,18,2.2);if(a.owner==='player'){addCoins(150);game.player.powers.frenzy=Math.max(game.player.powers.frenzy||0,5);arenaImpact('BOUNTY CLAIMED','#fbbf24')}game.bountyId=null}}}}
+ const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.09:1.13)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.18){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell',bountyDown=game.event.type==='bountyrush'&&b.owner===game.bountyId&&ownerCells(b.owner).every(x=>x.dead);addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;trackDaily('kills');addXP(40,'Pearl.io KO');addCoins(30);sfx('win');game.shake=state.settings.shake?14:0;game.fxBursts.push({x:b.x,y:b.y,life:1,color:'#ff275f'})}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}if(bountyDown){grow(a,18,2.2);if(a.owner==='player'){addCoins(150);addXP(60,'bounty claimed');game.player.powers.frenzy=Math.max(game.player.powers.frenzy||0,5);arenaImpact('BOUNTY CLAIMED','#fbbf24')}game.bountyId=null}}}}
  cleanDead();}
 function cleanDead(){game.player.cells=game.player.cells.filter(c=>!c.dead);for(const b of game.bots)b.cells=b.cells.filter(c=>!c.dead);game.bots=game.bots.filter(b=>b.cells.length>0);game.bots.splice(BOT_TARGET);if(game.bots.length<BOT_TARGET){const start=game.bots.length;for(let i=start;i<BOT_TARGET;i++)game.bots.push(makeBot(i+Math.floor(rand(0,9999))))}game.food=game.food.filter(f=>!f.dead).slice(0,FOOD_TARGET);while(game.food.length<FOOD_TARGET)game.food.push(makeFood());game.powers=game.powers.filter(p=>!p.dead).slice(0,POWER_TARGET);while(game.powers.length<POWER_TARGET)game.powers.push(makePower());game.viruses=game.viruses.slice(0,VIRUS_TARGET);while(game.viruses.length<VIRUS_TARGET)game.viruses.push(makeVirus());game.ejected=game.ejected.filter(e=>!e.dead);}
 function updateCamera(){
@@ -1114,15 +1118,15 @@ function renderCasinoMeta(){
   if(j)j.textContent=Math.floor(casinoMeta.jackpot);if(s)s.textContent=casinoMeta.streak;if(b)b.textContent=casinoMeta.best;
   if(s)s.className=casinoMeta.streak>=3?'hotStreak':''
 }
-function casinoStake(amount){if(!spend(amount))return false;casinoMeta.jackpot+=Math.max(2,Math.floor(amount*.08));saveCasino();return true}
+function casinoStake(amount){if(!spend(amount))return false;casinoMeta.jackpot+=Math.max(2,Math.floor(amount*.08));state.stats.casinoPlays++;trackDaily('casinoPlays');if(state.stats.casinoPlays%5===0)addXP(20,'casino loyalty');save();saveCasino();sfx('tap');return true}
 function casinoWin(msg,amount,el){
   const streakBonus=casinoMeta.streak>=2?Math.min(75,casinoMeta.streak*10):0;
   addCoins(amount+streakBonus);casinoMeta.streak++;casinoMeta.best=Math.max(casinoMeta.best,casinoMeta.streak);
-  state.stats.casinoWins++;save();saveCasino();
+  state.stats.casinoWins++;addXP(18,'casino win');sfx('win');save();saveCasino();
   el.innerHTML='<span class="good">'+msg+(streakBonus?' · streak bonus +'+streakBonus:'')+'</span>';recordCasino('win',msg,amount+streakBonus,el)
 }
 function casinoLoss(msg,el){
-  casinoMeta.streak=0;state.stats.casinoLosses++;save();saveCasino();
+  casinoMeta.streak=0;state.stats.casinoLosses++;sfx('loss');save();saveCasino();
   el.innerHTML='<span class="bad">'+msg+'</span>';recordCasino('loss',msg,0,el)
 }
 function weightedPick(items){let r=rand(0,items.reduce((s,x)=>s+x[1],0));for(const item of items){r-=item[1];if(r<=0)return item[0]}return items[0][0]}
@@ -1298,6 +1302,15 @@ window.pearlSkinBridge={
   unlocked(){return state.skins.slice()},
   selected(){return state.skin}
 };
+window.pearlV20={
+  snakeRun(){state.stats.snakeRuns++;save();addXP(20,'Snake run')},
+  snakeFood(){state.stats.snakeFood++;trackDaily('snakeFood')},
+  snakeScore(){addXP(10,'Snake score chain')},
+  snakeKO(crown){state.stats.snakeKills++;trackDaily('kills');addXP(crown?75:45,crown?'crown claimed':'Snake KO');sfx('win')},
+  snakeEnd(score){state.stats.snakeBest=Math.max(state.stats.snakeBest,Math.floor(score));save();checkAchievements();sfx('loss')},
+  closeCall(){state.stats.closeCalls++;if(state.stats.closeCalls%5===0)addXP(20,'close-call streak')},
+  shakeEnabled(){return state.settings.shake}
+};
 
 
 })();
@@ -1383,7 +1396,7 @@ document.querySelectorAll('.casinoGame .log,.casinoTable .log,.casinoTable .poke
   new MutationObserver(()=>{const card=log.closest('.casinoGame,.casinoTable');const win=!!log.querySelector('.good,.gold');const loss=!!log.querySelector('.bad');if(!win&&!loss)return;card.classList.remove('casinoWin','casinoLoss');card.classList.add(win?'casinoWin':'casinoLoss');casinoBurst(card,win);setTimeout(()=>card.classList.remove('casinoWin','casinoLoss'),1800)}).observe(log,{childList:true,subtree:true,characterData:true});
 });
 
-const canvas=q('snakeCanvas'),ctx=canvas.getContext('2d'),map=q('snakeMap'),mctx=map.getContext('2d');
+const canvas=q('snakeCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true}),map=q('snakeMap'),mctx=map.getContext('2d');
 const WORLD={w:7000,h:4800},TAU=Math.PI*2;
 let running=false,raf=0,last=0,boosting=false,mouse={x:0,y:0},camera={x:WORLD.w/2,y:WORLD.h/2},snakeFrame=0;
 let player=null,snakes=[],food=[],particles=[],gates=[],shockwaves=[],snakeFoodGrid=new Map(),snakeBodyGrid=new Map(),snakeBest=Number(localStorage.getItem('v10SnakeBest')||0),snakeWorld={type:'calm',nextAt:performance.now()+9000,until:0,startedAt:0},snakeNotice='',snakeNoticeUntil=0;
@@ -1422,15 +1435,15 @@ function resetSnake(){
   const spawnDx=WORLD.w/2-player.segments[0].x,spawnDy=WORLD.h/2-player.segments[0].y;
   for(const segment of player.segments){segment.x+=spawnDx;segment.y+=spawnDy}
   for(let i=0;i<perf.snakeBots;i++)snakes.push(makeSnake(botNames[i%botNames.length]+' '+(i+1),colors[i%colors.length],false));
-  snakes.push(player);rebuildSnakeBodyGrid();camera.x=WORLD.w/2;camera.y=WORLD.h/2;mouse.x=canvas.clientWidth/2+180;mouse.y=canvas.clientHeight/2;running=true;last=performance.now();q('snakeOverlay').classList.add('hidden');cancelAnimationFrame(raf);raf=requestAnimationFrame(snakeLoop);
+  snakes.push(player);rebuildSnakeBodyGrid();camera.x=WORLD.w/2;camera.y=WORLD.h/2;mouse.x=canvas.clientWidth/2+180;mouse.y=canvas.clientHeight/2;running=true;last=performance.now();if(window.pearlV20)window.pearlV20.snakeRun();q('snakeOverlay').classList.add('hidden');cancelAnimationFrame(raf);raf=requestAnimationFrame(snakeLoop);
 }
 function snakeLeader(){return [...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score)[0]||null}
 function killSnake(snake,killer){
   if(!snake.alive)return;const crownDown=snakeWorld.type==='bountyrush'&&snake===snakeLeader();snake.alive=false;
   for(let i=3;i<snake.segments.length;i+=2){const s=snake.segments[i];food.push(makeFood(s.x+rnd(-5,5),s.y+rnd(-5,5),2))}
-  if(killer){killer.kills++;killer.score+=100*Math.max(1,killer.combo||1)+(crownDown?250:0);killer.targetLength+=24+(crownDown?20:0);killer.thickness+=1.2;killer.energy=Math.min(100,killer.energy+(crownDown?100:45));killer.combo=Math.min(25,(killer.combo||1)+3);killer.comboUntil=performance.now()+5000;killer.peakCombo=Math.max(killer.peakCombo||1,killer.combo);if(killer.isPlayer){showSnakeEvent(crownDown?'CROWN CLAIMED +250':killer.combo>=10?'ANNIHILATION':'SNAKE KO');snakeShake=crownDown?24:18}}
+  if(killer){killer.kills++;killer.score+=100*Math.max(1,killer.combo||1)+(crownDown?250:0);killer.targetLength+=24+(crownDown?20:0);killer.thickness+=1.2;killer.energy=Math.min(100,killer.energy+(crownDown?100:45));killer.combo=Math.min(25,(killer.combo||1)+3);killer.comboUntil=performance.now()+5000;killer.peakCombo=Math.max(killer.peakCombo||1,killer.combo);if(killer.isPlayer){if(window.pearlV20)window.pearlV20.snakeKO(crownDown);showSnakeEvent(crownDown?'CROWN CLAIMED +250':killer.combo>=10?'ANNIHILATION':'SNAKE KO');snakeShake=!window.pearlV20||window.pearlV20.shakeEnabled()?(crownDown?24:18):0}}
   shockwaves.push({x:snake.segments[0].x,y:snake.segments[0].y,r:10,life:1,color:snake.color});for(let i=0;i<(snakePerf().tier==='eco'?14:snakePerf().tier==='balanced'?26:42);i++)particles.push({x:snake.segments[0].x,y:snake.segments[0].y,vx:rnd(-6,6),vy:rnd(-6,6),life:rnd(.6,1.3),color:snake.color,size:rnd(2,7)});
-  if(snake===player){snakeBest=Math.max(snakeBest,Math.floor(player.score));localStorage.setItem('v10SnakeBest',snakeBest);running=false;q('snakeMessage').textContent='Run ended at '+Math.floor(player.score)+' points. Personal best: '+snakeBest+'.';q('snakeStart').textContent='Ride again';q('snakeOverlay').classList.remove('hidden')}
+  if(snake===player){snakeBest=Math.max(snakeBest,Math.floor(player.score));if(window.pearlV20)window.pearlV20.snakeEnd(snakeBest);localStorage.setItem('v10SnakeBest',snakeBest);running=false;q('snakeMessage').textContent='Run ended at '+Math.floor(player.score)+' points. Personal best: '+snakeBest+'.';q('snakeStart').textContent='Ride again';q('snakeOverlay').classList.remove('hidden')}
   else setTimeout(()=>{if(running){const n=makeSnake(snake.name,colors[Math.floor(rnd(0,colors.length))],false);snakes[snakes.indexOf(snake)]=n}},1200);
 }
 let snakeShake=0,arenaPulse=0;
@@ -1515,7 +1528,7 @@ function updateSnake(snake,dt){
     snake.combo=active?Math.min(25,(snake.combo||1)+1):1;snake.comboUntil=performance.now()+2300;snake.peakCombo=Math.max(snake.peakCombo||1,snake.combo);
     const mult=1+Math.min(2.5,(snake.combo-1)*.1);snake.score+=f.value*6*mult;snake.targetLength+=f.value*(2.25+Math.min(1.5,snake.combo*.055));snake.thickness+=(f.value>=8?.7:f.value>=3?.3:.055);snake.energy=Math.min(100,snake.energy+f.value*2.5);
     pearlBurst(f.x,f.y,f.color,f.value>=8?28:f.value>=3?16:7);if(f.value>=8){showSnakeEvent('HYPER PEARL');snakeShake=13}else if(f.value>=3&&snake.isPlayer)showSnakeEvent('SUPER PEARL');
-    f.dead=true;food.push(makeFood());if(snake.isPlayer&&Math.floor(snake.score/100)>before&&window.pearlAddCoins)window.pearlAddCoins(15)
+    f.dead=true;food.push(makeFood());if(snake.isPlayer){if(window.pearlV20)window.pearlV20.snakeFood();if(Math.floor(snake.score/100)>before&&window.pearlAddCoins){window.pearlAddCoins(15);if(window.pearlV20)window.pearlV20.snakeScore()}}
   }}
 }
 function collisions(){
@@ -1534,7 +1547,7 @@ function collisions(){
     }
     if(hit)killSnake(snake,hit===snake?null:hit);
     else if(snake.isPlayer&&closestRivalGap<24&&performance.now()>snake.closeCallAt){
-      snake.closeCallAt=performance.now()+1400;snake.score+=22;snake.energy=Math.min(100,snake.energy+12);snake.combo=Math.min(25,(snake.combo||1)+1);snake.comboUntil=performance.now()+2600;showSnakeEvent('CLOSE CALL +22');pearlBurst(h.x,h.y,'#fff700',12);snakeShake=6
+      snake.closeCallAt=performance.now()+1400;snake.score+=22;snake.energy=Math.min(100,snake.energy+12);snake.combo=Math.min(25,(snake.combo||1)+1);snake.comboUntil=performance.now()+2600;if(window.pearlV20)window.pearlV20.closeCall();showSnakeEvent('CLOSE CALL +22');pearlBurst(h.x,h.y,'#fff700',12);snakeShake=!window.pearlV20||window.pearlV20.shakeEnabled()?6:0
     }
   }
 }
