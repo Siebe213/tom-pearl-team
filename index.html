@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tom Pearl V20.3 - Apex Swarm</title>
+<title>Tom Pearl V20.4 - Night Circuit</title>
 <style>
 :root{
   --bg:#040407;--panel:rgba(255,255,255,.045);--panel2:rgba(255,255,255,.075);--line:rgba(255,255,255,.10);
@@ -366,12 +366,67 @@ input,select{border-color:#403d37;background:#121210;color:#eee9df;border-radius
   .legendPortrait.main{inset:15px 44px}.legendPortrait.a,.legendPortrait.b,.legendPortrait.c{display:none}
   .musicDock{width:calc(100vw - 24px);left:12px}.card{padding:18px}
 }
+
+/* V20.4 NIGHT CIRCUIT */
+:root{
+  --bg:#080a0d;--panel:#101419;--panel2:#171c22;--line:#29313a;
+  --text:#f4f6f8;--muted:#8e9aa7;--pink:#e43d4f;--purple:#7357d9;
+  --cyan:#3a9cff;--green:#47b881;--gold:#e7b64a;--red:#e43d4f;
+  --legend-gold:#e7b64a;--legend-cream:#f4f6f8;--legend-red:#e43d4f;
+  --shadow:0 18px 50px rgba(0,0,0,.34);--r:14px
+}
+html,body,body.adultOn{background:#080a0d!important;font-family:"Arial Narrow","Roboto Condensed",Inter,system-ui,sans-serif}
+body:before{opacity:.34!important;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px)!important;background-size:32px 32px!important}
+body:after{content:"TP / NIGHT CIRCUIT / V20.4"!important;background:#0b0e12!important;border-top:1px solid #252c34!important;color:#65717d!important;font-family:ui-monospace,Consolas,monospace!important}
+.wrap{max-width:1420px}
+.nav{background:rgba(8,10,13,.94)!important;border-bottom:1px solid #29313a!important}
+.navMark{background:#e43d4f!important;border-radius:4px;font-family:Impact,"Arial Black",sans-serif;transform:skew(-7deg)}
+.navBrand b,h1,h2,h3,.legendQuote blockquote,.casinoStage:before,.cinemaMarquee h2{font-family:"Arial Narrow","Roboto Condensed",Inter,sans-serif;font-weight:900;letter-spacing:-.045em}
+.navBrand b{font-size:13px;letter-spacing:.04em}.navBrand small{color:#6f7e8d}
+.nav button{border-radius:4px;text-transform:uppercase;font-size:11px;font-weight:850;letter-spacing:.07em}
+.nav button.active{background:#e43d4f!important;color:#fff!important}.nav button:hover{background:#171c22}
+.card,.casinoGame,.casinoTable,.mission,.mediaSlot,.casinoCommandPanel,.achievement,.legendChapter,.musicTrack,.cinemaClip{
+  background:linear-gradient(145deg,#12171d,#0d1116)!important;border-color:#29313a!important;border-radius:10px!important;
+  box-shadow:0 14px 36px rgba(0,0,0,.3)!important
+}
+.card:hover,.casinoGame:hover,.casinoTable:hover,.mission:hover,.mediaSlot:hover{border-color:#46525e!important}
+.card:after,.casinoGame:after,.casinoTable:after{content:"";position:absolute;left:0;top:0;width:52px;height:3px;display:block!important;background:#e43d4f!important;opacity:1}
+.btn{border-radius:4px;background:#171d23;border-color:#303944;text-transform:uppercase;font-size:12px;letter-spacing:.055em}
+.btn:hover:not(:disabled){background:#202832;border-color:#53606d}.btn.primary{background:#e43d4f!important;border-color:#e43d4f}.btn.green{background:#2e8c64!important}.btn.danger{background:#a92d3b!important}
+input,select{border-radius:4px;background:#090c10;border-color:#303944}
+.v20Kicker,.v10Eyebrow,.legendFullName,.tomStamp{color:#3a9cff!important;font-family:ui-monospace,Consolas,monospace!important;letter-spacing:.14em!important}
+.v20Hero.legendHero,.adultOn .legendHero{background:linear-gradient(118deg,#11161c 0 52%,#090c10 52%)!important;border-color:#29313a!important}
+.legendHero h1{font-family:Impact,"Arial Black",sans-serif;font-style:italic;font-weight:900;letter-spacing:-.055em;line-height:.78}
+.legendHero h1 .tomLine{color:#f4f6f8!important}.legendHero h1 .pearlLine{color:#e43d4f!important}
+.legendHeroCopy:before{content:"20.4";position:absolute;top:-24px;right:0;color:#202831;font:900 8rem/1 Impact,sans-serif;z-index:-1}
+.legendPortrait{border-radius:5px!important;border:1px solid #3b4651!important;background:#080a0d;box-shadow:10px 12px 0 #171d23!important}
+.legendPortrait.main{transform:skew(-2deg)!important}.legendPortrait img{filter:saturate(.9) contrast(1.1)}
+.legendTicker{border-radius:5px;background:#29313a;border-color:#29313a}.legendTicker div{background:#0e1217}.legendTicker b{color:#3a9cff}
+.legendQuote{background:linear-gradient(135deg,#1c2631,#11161c)!important}.legendChapter b{color:#e7b64a}
+.quickCard,.metric,.casinoStat,.patchItem,.featureItem,.abilityPanel,.tomLoreNotice,.afterDarkStrip{background:#11161c!important;border-color:#29313a!important;border-radius:6px!important}
+.pill,.display,.powerChip,.hud .pill,.leader,.minimap,.arenaStatus,.snakeWorldHud,.spectatorDock{background:rgba(8,11,15,.91)!important;border-color:#34404b!important;border-radius:5px!important}
+.gameShell,.snakeShell,.adultOn .gameShell,.adultOn .snakeShell{border:1px solid #35414c!important;border-radius:8px;background:#06090d!important;box-shadow:0 25px 65px rgba(0,0,0,.48)!important}
+.gameShell:before,.snakeShell:before{content:"";display:block!important;position:absolute;left:0;right:0;top:0;height:4px;z-index:4;background:linear-gradient(90deg,#e43d4f 0 18%,#3a9cff 18% 36%,transparent 36%)!important}
+.arenaStatus,.snakeWorldHud{font-family:ui-monospace,Consolas,monospace;font-size:10px;letter-spacing:.05em}
+.leader h4{font-family:ui-monospace,Consolas,monospace;color:#3a9cff}.killItem{border-radius:3px;background:#11161c}
+.coinbar,.perfDock,.v20Progress,.musicDock{background:#0d1116!important;border-color:#303944!important;border-radius:5px!important;color:#dce3e9!important}
+.progressBar,.musicProgress,.casinoPulseLine{border-radius:2px}.progressBar div,.musicProgress i,.casinoPulseLine i,.snakeBoostFill{background:linear-gradient(90deg,#e43d4f,#f17845)!important}
+.casinoStage{background:linear-gradient(110deg,#171d23,#0b0e12)!important;border-color:#303944!important;border-radius:7px!important}
+.casinoStage:before{font-family:Impact,"Arial Black",sans-serif;font-style:italic;color:#f4f6f8;letter-spacing:-.04em}
+.casinoStage:after{color:#e43d4f}.casinoFloorNav{background:#0d1116;border-radius:5px}.casinoFloorNav button.active{background:#e43d4f!important}
+.casinoTable.redTable,.machineGrid .casinoGame{background:linear-gradient(145deg,#151a20,#0b0e12)!important}
+.playingCard{border-radius:5px}.rouletteWrap canvas{filter:saturate(.88) contrast(1.05)}
+.cinemaMarquee{background:linear-gradient(120deg,#171d23,#0b0e12);border-color:#303944;border-radius:7px}.cinemaMarquee h2 span{color:#e43d4f}
+.cinemaScreen{border-radius:5px;border-color:#35414c}.cinemaClip.active{border-color:#3a9cff!important}
+.skin.selected{outline:2px solid #3a9cff;background:#152231}.skin,.wheelPreviewItem,.skinThumb{border-radius:5px}
+.agePlate{border-radius:4px;background:#11161c;border-color:#303944}.agePlate b{background:#e43d4f}
+@media(max-width:700px){.legendHero h1{font-size:4rem}.legendHeroCopy:before{font-size:5rem}.card{padding:17px}}
 </style>
 </head>
 <body>
 <a class="skipLink" href="#mainContent">Skip to arcade</a>
 <nav class="nav" aria-label="Arcade navigation">
-  <div class="navBrand"><span class="navMark">TP</span><span><b>TOM PEARL V20.3</b><small>APEX SWARM</small></span></div>
+  <div class="navBrand"><span class="navMark">TP</span><span><b>TOM PEARL V20.4</b><small>NIGHT CIRCUIT</small></span></div>
   <div class="navRail">
     <button data-tab="home" class="active">Command</button><button data-tab="game">Pearl.io</button><button data-tab="snake">Snake</button><button data-tab="casino">Casino</button><button data-tab="shop">Locker</button><button data-tab="missions">Missions</button><button data-tab="media">Studio</button><button data-tab="lore">Codex</button>
   </div>
@@ -397,7 +452,7 @@ input,select{border-color:#403d37;background:#121210;color:#eee9df;border-radius
 <main class="wrap" id="mainContent">
 <section id="home" class="tab active">
   <div class="card v20Hero legendHero">
-    <div class="legendHeroCopy"><span class="v20Kicker">V20.3 APEX SWARM</span><span class="legendFullName">Thomas Patrick Pearl</span><h1><span class="tomLine">TOM.</span><span class="pearlLine">PEARL.</span><span class="tomLine">LEGEND.</span></h1><p class="muted legendStatement">The entire arcade is now built as a fictional, community-inspired tribute to Tom Pearl, also known as Thomas Patrick Pearl. Every arena, rank, skin, mission, cinema screen and casino floor carries the Pearl identity.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Tom's Arena</button><button class="btn" data-tab-jump="snake">Ride the Pearl Serpent</button><button class="btn" id="dailyBtn">Claim Legend Drop</button></div></div>
+    <div class="legendHeroCopy"><span class="v20Kicker">V20.4 NIGHT CIRCUIT</span><span class="legendFullName">Thomas Patrick Pearl</span><h1><span class="tomLine">TOM.</span><span class="pearlLine">PEARL.</span><span class="tomLine">LEGEND.</span></h1><p class="muted legendStatement">A darker competitive arcade built around speed, territory and the Tom Pearl legend. Cleaner screens, harder edges and two completely restyled arenas.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Tom's Arena</button><button class="btn" data-tab-jump="snake">Ride the Pearl Serpent</button><button class="btn" id="dailyBtn">Claim Legend Drop</button></div></div>
     <div class="legendPortraits" aria-label="Tom Pearl skin portrait wall"><div class="legendPortrait main"><img id="legendPortraitMain" alt="Tom Pearl arcade portrait"></div><div class="legendPortrait a"><img id="legendPortraitA" alt=""></div><div class="legendPortrait b"><img id="legendPortraitB" alt=""></div><div class="legendPortrait c"><img id="legendPortraitC" alt=""></div><div class="legendSeal">THOMAS<br>PATRICK<br>PEARL</div></div>
   </div>
   <div class="legendTicker"><div><b>THE NAME</b><span>Thomas Patrick Pearl</span></div><div><b>THE ARENA</b><span>Pearl.io Dominion</span></div><div><b>THE SERPENT</b><span>Tom's Endless Coil</span></div><div><b>THE HOUSE</b><span>Grand Pearl Casino</span></div></div>
@@ -619,7 +674,7 @@ input,select{border-color:#403d37;background:#121210;color:#eee9df;border-radius
     <div class="card"><h3>Archive performance</h3><p class="muted">AUTO protects budget laptops by reducing portrait effects, particles and expensive shadows.</p></div>
   </div>
 </section>
-<p class="footerNote small muted">Tom Pearl V20.3 Apex Swarm - a fictional arcade tribute to Thomas Patrick Pearl.</p>
+<p class="footerNote small muted">Tom Pearl V20.4 Night Circuit - a fictional arcade tribute to Thomas Patrick Pearl.</p>
 </main>
 <script>
 
@@ -667,9 +722,9 @@ function renderMissions(){
 function claimMission(id){const m=V20_MISSIONS.find(x=>x.id===id);if(!m||state.profile.claimed.includes(id)||(state.profile.daily[id]||0)<m.target)return;state.profile.claimed.push(id);state.coins+=m.coins;state.profile.xp+=m.xp;save();saveProfile();renderV20();toast(m.title+' claimed',true)}
 function renderV20(){const info=levelInfo(),titles=['Pearl Initiate','Tom Disciple','Crown Hunter','Pearl Icon','Thomas Protocol'];if($('levelBadge'))$('levelBadge').textContent='LV '+info.level;if($('xpFill'))$('xpFill').style.width=(info.inside/info.need*100)+'%';if($('xpText'))$('xpText').textContent=info.inside+' / '+info.need+' XP';if($('profileCore'))$('profileCore').textContent=info.level;if($('profileTitle'))$('profileTitle').textContent=titles[Math.min(titles.length-1,Math.floor((info.level-1)/3))];if($('profileSummary'))$('profileSummary').textContent=state.profile.xp+' total XP / '+state.profile.unlocked.length+' achievements';if($('homeRuns'))$('homeRuns').textContent=state.stats.runs+state.stats.snakeRuns;if($('homeKills'))$('homeKills').textContent=state.stats.kills+state.stats.snakeKills;if($('homeWins'))$('homeWins').textContent=state.stats.casinoWins;if($('homeSkins'))$('homeSkins').textContent=state.skins.length;renderMissions()}
 const PERF_PROFILES={
-  high:{tier:'high',label:'ULTRA',dpr:1.6,fps:50,food:7000,bots:84,viruses:54,powers:58,pearlStars:82,snakeFood:5000,snakeBots:76,snakeGates:42,snakeStars:100,particleCap:380,mapEvery:2,bodyStep:3},
-  balanced:{tier:'balanced',label:'BALANCED',dpr:1.25,fps:42,food:5000,bots:62,viruses:42,powers:46,pearlStars:52,snakeFood:3700,snakeBots:56,snakeGates:34,snakeStars:64,particleCap:220,mapEvery:4,bodyStep:4},
-  eco:{tier:'eco',label:'ECO',dpr:1,fps:32,food:3100,bots:40,viruses:30,powers:32,pearlStars:28,snakeFood:2400,snakeBots:36,snakeGates:24,snakeStars:34,particleCap:110,mapEvery:7,bodyStep:6}
+  high:{tier:'high',label:'ULTRA',dpr:1.6,fps:50,food:8000,bots:96,viruses:64,powers:68,pearlStars:82,snakeFood:5800,snakeBots:88,snakeGates:52,snakeStars:100,particleCap:380,mapEvery:2,bodyStep:3},
+  balanced:{tier:'balanced',label:'BALANCED',dpr:1.25,fps:42,food:5800,bots:72,viruses:48,powers:54,pearlStars:52,snakeFood:4300,snakeBots:64,snakeGates:40,snakeStars:64,particleCap:220,mapEvery:4,bodyStep:4},
+  eco:{tier:'eco',label:'ECO',dpr:1,fps:32,food:3500,bots:46,viruses:34,powers:36,pearlStars:28,snakeFood:2800,snakeBots:42,snakeGates:28,snakeStars:34,particleCap:110,mapEvery:7,bodyStep:6}
 };
 function detectedTier(){const cores=navigator.hardwareConcurrency||4,mem=navigator.deviceMemory||4;if(mem<=4||cores<=4)return'eco';if(mem<=8||cores<=8)return'balanced';return'high'}
 let perfPreference=safeStore.get('v113quality','auto'),perfTier=perfPreference==='auto'?detectedTier():perfPreference,perfListeners=[];
@@ -883,7 +938,7 @@ setCoins(state.coins);renderAdult();renderSkins();applySettings();renderV20();
 
 // ================= GAME =================
 const canvas=$('gameCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true});const mini=$('mini'),mctx=mini.getContext('2d');let DPR=1;
-const WORLD=9200,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=20000,FOOD_BUCKET=240;
+const WORLD=18000,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=20000,FOOD_BUCKET=240;
 let FOOD_TARGET=perfProfile().food,BOT_TARGET=perfProfile().bots,VIRUS_TARGET=perfProfile().viruses,POWER_TARGET=perfProfile().powers;
 const game={running:false,food:[],foodGrid:new Map(),bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0,combo:0,comboUntil:0,pearlChain:0,pearlChainUntil:0,bountyId:null,fxBursts:[],shake:0,event:{type:'calm',nextAt:Date.now()+12000,until:0,startedAt:0},rifts:[],shards:[]};
 function resize(){DPR=Math.min(perfProfile().dpr,window.devicePixelRatio||1);const rect=canvas.getBoundingClientRect();canvas.width=Math.max(800,Math.floor(rect.width*DPR));canvas.height=Math.max(520,Math.floor(rect.height*DPR));ctx.setTransform(DPR,0,0,DPR,0,0)}window.addEventListener('resize',resize);setTimeout(resize,0);
@@ -1151,14 +1206,14 @@ function onScreen(x,y,r=0){const s=worldToScreen(x,y);return s.x+r>-80&&s.x-r<cw
 function drawCell(c,isPlayer){
   const s=worldToScreen(c.x,c.y),r=c.r*game.cam.zoom;
   const sk=SKINS[c.skin]||SKINS[0];
-  if(c.trail&&c.trail.length){ctx.save();ctx.lineCap='round';for(let i=0;i<c.trail.length;i++){const tr=c.trail[i],ts=worldToScreen(tr.x,tr.y),alpha=(i+1)/c.trail.length*.16;ctx.globalAlpha=alpha;ctx.fillStyle=sk.color||'#27f5ff';ctx.shadowColor=sk.color||'#27f5ff';ctx.shadowBlur=18;ctx.beginPath();ctx.arc(ts.x,ts.y,Math.max(2,tr.r*game.cam.zoom*(.35+i/c.trail.length*.28)),0,TAU);ctx.fill()}ctx.restore()}
-  ctx.save();ctx.shadowColor=sk.color||'#00e5ff';ctx.shadowBlur=isPlayer?32:clamp(r*.22,5,18);if(isPlayer){ctx.strokeStyle=sk.color||'#00e5ff';ctx.globalAlpha=.35+.18*Math.sin(game.frame*.09);ctx.lineWidth=3;ctx.beginPath();ctx.arc(s.x,s.y,r+10+Math.sin(game.frame*.08)*4,0,TAU);ctx.stroke();ctx.globalAlpha=1}
+  if(c.trail&&c.trail.length){ctx.save();ctx.lineCap='round';for(let i=0;i<c.trail.length;i++){const tr=c.trail[i],ts=worldToScreen(tr.x,tr.y),alpha=(i+1)/c.trail.length*.1;ctx.globalAlpha=alpha;ctx.fillStyle=sk.color||'#3a9cff';ctx.beginPath();ctx.arc(ts.x,ts.y,Math.max(2,tr.r*game.cam.zoom*(.3+i/c.trail.length*.22)),0,TAU);ctx.fill()}ctx.restore()}
+  ctx.save();ctx.shadowBlur=0;if(isPlayer){ctx.strokeStyle='#3a9cff';ctx.globalAlpha=.8;ctx.lineWidth=2;ctx.setLineDash([8,7]);ctx.beginPath();ctx.arc(s.x,s.y,r+10,0,TAU);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1}
   ctx.beginPath();
   ctx.arc(s.x,s.y,r,0,TAU);
   const grad=ctx.createRadialGradient(s.x-r*.3,s.y-r*.4,r*.1,s.x,s.y,r);
-  grad.addColorStop(0,'#fff');
-  grad.addColorStop(.18,sk.color||'#ff3366');
-  grad.addColorStop(1,'#111');
+  grad.addColorStop(0,'#dce6ef');
+  grad.addColorStop(.2,sk.color||'#e43d4f');
+  grad.addColorStop(1,'#090b0e');
   ctx.fillStyle=grad;
   ctx.fill();
   ctx.save();
@@ -1183,8 +1238,8 @@ function drawCell(c,isPlayer){
     ctx.fillText(sk.icon||'●',s.x,s.y-r*.08);
   }
   ctx.restore();
-  ctx.lineWidth=isPlayer?4:2;
-  ctx.strokeStyle=isPlayer?'rgba(255,255,255,.78)':'rgba(0,0,0,.55)';
+  ctx.lineWidth=isPlayer?4:3;
+  ctx.strokeStyle=isPlayer?'#e8edf2':'#07090b';
   ctx.stroke();
   if(isPlayer&&game.player.powers.shield>0){ctx.beginPath();ctx.arc(s.x,s.y,r+7,0,TAU);ctx.strokeStyle='rgba(96,165,250,.8)';ctx.lineWidth=4;ctx.stroke()}
   if(!sk._img || !sk._img.complete){
@@ -1206,18 +1261,18 @@ function drawCell(c,isPlayer){
 
 function render(){
   ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,cw(),ch());if(game.comboUntil<Date.now())game.combo=0;game.shake=0;ctx.save();
-  const bg=ctx.createRadialGradient(cw()*.5,ch()*.45,20,cw()*.5,ch()*.45,Math.max(cw(),ch())*.72);
-  bg.addColorStop(0,'#151648');bg.addColorStop(.42,'#090d24');bg.addColorStop(1,'#02030a');ctx.fillStyle=bg;ctx.fillRect(0,0,cw(),ch());
-  for(let i=0;i<perfProfile().pearlStars;i++){const x=(i*137+game.frame*.16)%cw(),y=(i*83+Math.sin(game.frame*.01+i)*18+ch())%ch(),a=.12+(i%7)*.025;ctx.fillStyle='rgba('+(i%3? '0,229,255':'255,39,95')+','+a+')';ctx.fillRect(x,y,i%9===0?2:1,i%9===0?2:1)}
+  const bg=ctx.createLinearGradient(0,0,cw(),ch());
+  bg.addColorStop(0,'#101720');bg.addColorStop(.55,'#080d13');bg.addColorStop(1,'#05070a');ctx.fillStyle=bg;ctx.fillRect(0,0,cw(),ch());
+  for(let i=0;i<Math.floor(perfProfile().pearlStars*.55);i++){const x=(i*173+game.frame*.08)%cw(),y=(i*97+ch())%ch();ctx.fillStyle=i%5===0?'rgba(228,61,79,.16)':'rgba(58,156,255,.1)';ctx.fillRect(x,y,i%5===0?9:4,1)}
   ctx.save();ctx.translate(cw()/2,ch()/2);ctx.scale(game.cam.zoom,game.cam.zoom);ctx.translate(-game.cam.x,-game.cam.y);
   const gs=120,startX=Math.floor((game.cam.x-cw()/game.cam.zoom/2)/gs)*gs,endX=game.cam.x+cw()/game.cam.zoom/2+gs,startY=Math.floor((game.cam.y-ch()/game.cam.zoom/2)/gs)*gs,endY=game.cam.y+ch()/game.cam.zoom/2+gs;
-  for(let x=startX;x<endX;x+=gs){ctx.strokeStyle=x%600===0?'rgba(34,211,238,.10)':'rgba(255,255,255,.035)';ctx.lineWidth=(x%600===0?1.5:1)/game.cam.zoom;ctx.beginPath();ctx.moveTo(x,startY);ctx.lineTo(x,endY);ctx.stroke()}
-  for(let y=startY;y<endY;y+=gs){ctx.strokeStyle=y%600===0?'rgba(255,51,102,.09)':'rgba(255,255,255,.035)';ctx.lineWidth=(y%600===0?1.5:1)/game.cam.zoom;ctx.beginPath();ctx.moveTo(startX,y);ctx.lineTo(endX,y);ctx.stroke()}
-  ctx.shadowColor='#ff3366';ctx.shadowBlur=24/game.cam.zoom;ctx.strokeStyle='rgba(255,51,102,.82)';ctx.lineWidth=8/game.cam.zoom;ctx.strokeRect(0,0,WORLD,WORLD);ctx.shadowBlur=0;
+  for(let x=startX;x<endX;x+=gs){ctx.strokeStyle=x%600===0?'rgba(58,156,255,.16)':'rgba(255,255,255,.04)';ctx.lineWidth=(x%600===0?1.5:1)/game.cam.zoom;ctx.beginPath();ctx.moveTo(x,startY);ctx.lineTo(x,endY);ctx.stroke()}
+  for(let y=startY;y<endY;y+=gs){ctx.strokeStyle=y%600===0?'rgba(228,61,79,.13)':'rgba(255,255,255,.04)';ctx.lineWidth=(y%600===0?1.5:1)/game.cam.zoom;ctx.beginPath();ctx.moveTo(startX,y);ctx.lineTo(endX,y);ctx.stroke()}
+  ctx.strokeStyle='#e43d4f';ctx.lineWidth=7/game.cam.zoom;ctx.strokeRect(0,0,WORLD,WORLD);
   for(const rift of game.rifts){if(!onScreen(rift.x,rift.y,rift.r*2))continue;rift.phase+=.018;ctx.save();ctx.translate(rift.x,rift.y);ctx.rotate(rift.phase);for(let k=0;k<(perfProfile().tier==='eco'?2:4);k++){ctx.strokeStyle=k%2?rift.color:'rgba(255,255,255,.18)';ctx.globalAlpha=.42-k*.07;ctx.lineWidth=(5-k)/game.cam.zoom;ctx.beginPath();ctx.ellipse(0,0,rift.r+k*18,rift.r*.35+k*8,k*.45,0,TAU);ctx.stroke()}ctx.globalAlpha=1;ctx.shadowColor=rift.color;ctx.shadowBlur=perfProfile().tier==='eco'?0:32/game.cam.zoom;ctx.fillStyle='rgba(3,4,16,.8)';ctx.beginPath();ctx.arc(0,0,rift.r*.27,0,TAU);ctx.fill();ctx.restore()}
-  const viewRange=Math.max(cw(),ch())/game.cam.zoom*.72+80;for(const f of gameFoodNear(game.cam.x,game.cam.y,viewRange)){if(f.dead)continue;f.pulse+=.05;if(f.x<game.cam.x-cw()/game.cam.zoom/2-40||f.x>game.cam.x+cw()/game.cam.zoom/2+40||f.y<game.cam.y-ch()/game.cam.zoom/2-40||f.y>game.cam.y+ch()/game.cam.zoom/2+40)continue;ctx.shadowColor=f.color;ctx.shadowBlur=perfProfile().tier==='eco'?0:(f.rare?28:7)/game.cam.zoom;ctx.beginPath();if(f.rare){for(let k=0;k<8;k++){const a=f.pulse+k/8*TAU,rr=k%2?f.r*.4:f.r;ctx[k?'lineTo':'moveTo'](f.x+Math.cos(a)*rr,f.y+Math.sin(a)*rr)}ctx.closePath()}else ctx.arc(f.x,f.y,f.r,0,TAU);ctx.fillStyle=f.color;ctx.fill();if(f.rare){ctx.strokeStyle='#fff';ctx.lineWidth=2/game.cam.zoom;ctx.stroke()}}ctx.shadowBlur=0;
+  const viewRange=Math.max(cw(),ch())/game.cam.zoom*.72+80;for(const f of gameFoodNear(game.cam.x,game.cam.y,viewRange)){if(f.dead)continue;f.pulse+=.05;if(f.x<game.cam.x-cw()/game.cam.zoom/2-40||f.x>game.cam.x+cw()/game.cam.zoom/2+40||f.y<game.cam.y-ch()/game.cam.zoom/2-40||f.y>game.cam.y+ch()/game.cam.zoom/2+40)continue;ctx.beginPath();if(f.rare){for(let k=0;k<8;k++){const a=f.pulse*.25+k/8*TAU,rr=k%2?f.r*.45:f.r;ctx[k?'lineTo':'moveTo'](f.x+Math.cos(a)*rr,f.y+Math.sin(a)*rr)}ctx.closePath()}else ctx.arc(f.x,f.y,f.r,0,TAU);ctx.fillStyle=f.color;ctx.fill();ctx.strokeStyle='rgba(5,8,11,.75)';ctx.lineWidth=1.5/game.cam.zoom;ctx.stroke()}
   for(const e of game.ejected){if(!onScreen(e.x,e.y,e.r+20))continue;ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,TAU);ctx.fillStyle=e.color;ctx.fill()}
-  for(const v of game.viruses){if(!onScreen(v.x,v.y,v.r+40))continue;ctx.save();ctx.shadowColor='#22c55e';ctx.shadowBlur=perfProfile().tier==='eco'?0:18/game.cam.zoom;ctx.beginPath();for(let i=0;i<22;i++){const a=i/22*TAU,rr=v.r+(i%2?6:-4);ctx[i?'lineTo':'moveTo'](v.x+Math.cos(a)*rr,v.y+Math.sin(a)*rr)}ctx.closePath();ctx.fillStyle='rgba(34,197,94,.28)';ctx.fill();ctx.strokeStyle='#4ade80';ctx.lineWidth=3/game.cam.zoom;ctx.stroke();ctx.restore()}
+  for(const v of game.viruses){if(!onScreen(v.x,v.y,v.r+40))continue;ctx.save();ctx.beginPath();for(let i=0;i<18;i++){const a=i/18*TAU,rr=v.r+(i%2?7:-5);ctx[i?'lineTo':'moveTo'](v.x+Math.cos(a)*rr,v.y+Math.sin(a)*rr)}ctx.closePath();ctx.fillStyle='#16231d';ctx.fill();ctx.strokeStyle='#47b881';ctx.lineWidth=3/game.cam.zoom;ctx.stroke();ctx.beginPath();ctx.arc(v.x,v.y,v.r*.42,0,TAU);ctx.fillStyle='#080d0a';ctx.fill();ctx.restore()}
   for(const p of game.powers){if(!onScreen(p.x,p.y,p.r+55))continue;p.pulse+=.08;const rr=p.r+Math.sin(p.pulse)*4;ctx.save();ctx.shadowColor=p.color;ctx.shadowBlur=perfProfile().tier==='eco'?0:24;ctx.beginPath();ctx.arc(p.x,p.y,rr,0,TAU);ctx.fillStyle='rgba(255,255,255,.10)';ctx.fill();ctx.lineWidth=4/game.cam.zoom;ctx.strokeStyle=p.color;ctx.stroke();ctx.font='24px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.emoji,p.x,p.y);ctx.font='900 12px system-ui';ctx.fillStyle='#fff';ctx.fillText(p.type.toUpperCase(),p.x,p.y+38);ctx.restore()}
   ctx.restore();const cells=allCells().sort((a,b)=>a.r-b.r);for(const c of cells)if(onScreen(c.x,c.y,c.r*game.cam.zoom+40))drawCell(c,c.owner==='player');
   for(const burst of game.fxBursts){const s=worldToScreen(burst.x,burst.y),r=(1-burst.life)*170;ctx.globalAlpha=burst.life;ctx.strokeStyle=burst.color;ctx.shadowColor=burst.color;ctx.shadowBlur=28;ctx.lineWidth=5;ctx.beginPath();ctx.arc(s.x,s.y,r,0,TAU);ctx.stroke();burst.life-=.035}ctx.globalAlpha=1;ctx.shadowBlur=0;game.fxBursts=game.fxBursts.filter(b=>b.life>0);ctx.restore();
@@ -1642,7 +1697,7 @@ document.querySelectorAll('.casinoGame .log,.casinoTable .log,.casinoTable .poke
 });
 
 const canvas=q('snakeCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true}),map=q('snakeMap'),mctx=map.getContext('2d');
-const WORLD={w:12000,h:8000},TAU=Math.PI*2;
+const WORLD={w:20000,h:14000},TAU=Math.PI*2;
 let running=false,raf=0,last=0,boosting=false,mouse={x:0,y:0},camera={x:WORLD.w/2,y:WORLD.h/2},snakeFrame=0;
 let player=null,snakes=[],food=[],particles=[],gates=[],shockwaves=[],snakeFoodGrid=new Map(),snakeBodyGrid=new Map(),snakeBest=Number(localStorage.getItem('v10SnakeBest')||0),snakeWorld={type:'calm',nextAt:performance.now()+9000,until:0,startedAt:0},snakeNotice='',snakeNoticeUntil=0;
 const botNames=['Tom Prime','Pearl Disciple','Thomas Crown','Form Hunter','Archive Keeper','Grand Dealer','Polo Form','Mirror Form','Wide Lens','Cyber Pearl','Legend Echo','Pearl Icon'];
@@ -1661,7 +1716,7 @@ const SNAKE_FOOD_BUCKET=180,SNAKE_BODY_BUCKET=100;
 function snakeGridKey(x,y,size){return Math.floor(x/size)+'|'+Math.floor(y/size)}
 function rebuildSnakeFoodGrid(){snakeFoodGrid.clear();for(const f of food){if(f.dead)continue;const key=snakeGridKey(f.x,f.y,SNAKE_FOOD_BUCKET),bucket=snakeFoodGrid.get(key);if(bucket)bucket.push(f);else snakeFoodGrid.set(key,[f])}}
 function snakeFoodNear(x,y,range){const out=[],x0=Math.floor((x-range)/SNAKE_FOOD_BUCKET),x1=Math.floor((x+range)/SNAKE_FOOD_BUCKET),y0=Math.floor((y-range)/SNAKE_FOOD_BUCKET),y1=Math.floor((y+range)/SNAKE_FOOD_BUCKET);for(let gx=x0;gx<=x1;gx++)for(let gy=y0;gy<=y1;gy++){const bucket=snakeFoodGrid.get(gx+'|'+gy);if(bucket)out.push(...bucket)}return out}
-function maintainSnakeFood(){food=food.filter(f=>!f.dead).slice(0,snakePerf().snakeFood+220);while(food.length<snakePerf().snakeFood)food.push(makeFood());rebuildSnakeFoodGrid()}
+function maintainSnakeFood(){food=food.filter(f=>!f.dead).sort((a,b)=>(b.dropUntil||0)-(a.dropUntil||0)).slice(0,snakePerf().snakeFood+320);while(food.length<snakePerf().snakeFood)food.push(makeFood());rebuildSnakeFoodGrid()}
 function rebuildSnakeBodyGrid(){snakeBodyGrid.clear();const step=snakePerf().bodyStep;for(const owner of snakes){if(!owner.alive)continue;for(let i=5;i<owner.segments.length;i+=step){const p=owner.segments[i],key=snakeGridKey(p.x,p.y,SNAKE_BODY_BUCKET),entry={owner,index:i,p};const bucket=snakeBodyGrid.get(key);if(bucket)bucket.push(entry);else snakeBodyGrid.set(key,[entry])}}}
 function makeFood(x=rnd(40,WORLD.w-40),y=rnd(40,WORLD.h-40),value){
   if(value==null){const roll=Math.random();value=roll>.988?8:roll>.94?3:1}
@@ -1686,7 +1741,9 @@ function resetSnake(){
 function snakeLeader(){return [...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score)[0]||null}
 function killSnake(snake,killer){
   if(!snake.alive)return;const crownDown=snakeWorld.type==='bountyrush'&&snake===snakeLeader();snake.alive=false;
-  for(let i=3;i<snake.segments.length;i+=2){const s=snake.segments[i];food.push(makeFood(s.x+rnd(-5,5),s.y+rnd(-5,5),2))}
+  const dropStep=Math.max(1,Math.ceil(snake.segments.length/150));
+  for(let i=2;i<snake.segments.length;i+=dropStep){const s=snake.segments[i],pearl=makeFood(s.x+rnd(-7,7),s.y+rnd(-7,7),i%11===0?3:2);pearl.dropUntil=performance.now()+10000;pearl.r+=1.5;food.push(pearl)}
+  if(snake.segments.length<18){const h=snake.segments[0];for(let i=0;i<10;i++){const pearl=makeFood(h.x+rnd(-35,35),h.y+rnd(-35,35),2);pearl.dropUntil=performance.now()+10000;food.push(pearl)}}
   if(killer){killer.kills++;killer.score+=100*Math.max(1,killer.combo||1)+(crownDown?250:0);killer.targetLength+=24+(crownDown?20:0);killer.thickness+=1.2;killer.energy=Math.min(100,killer.energy+(crownDown?100:45));killer.combo=Math.min(25,(killer.combo||1)+3);killer.comboUntil=performance.now()+5000;killer.peakCombo=Math.max(killer.peakCombo||1,killer.combo);if(killer.isPlayer){if(window.pearlV20)window.pearlV20.snakeKO(crownDown);showSnakeEvent(crownDown?'THOMAS CROWN CLAIMED +250':killer.combo>=10?'LEGEND ASCENSION':'COIL KO');snakeShake=!window.pearlV20||window.pearlV20.shakeEnabled()?(crownDown?24:18):0}}
   shockwaves.push({x:snake.segments[0].x,y:snake.segments[0].y,r:10,life:1,color:snake.color});for(let i=0;i<(snakePerf().tier==='eco'?14:snakePerf().tier==='balanced'?26:42);i++)particles.push({x:snake.segments[0].x,y:snake.segments[0].y,vx:rnd(-6,6),vy:rnd(-6,6),life:rnd(.6,1.3),color:snake.color,size:rnd(2,7)});
   if(snake===player){snakeBest=Math.max(snakeBest,Math.floor(player.score));if(window.pearlV20)window.pearlV20.snakeEnd(snakeBest);localStorage.setItem('v10SnakeBest',snakeBest);running=false;q('snakeMessage').textContent='Run ended at '+Math.floor(player.score)+' points. Personal best: '+snakeBest+'.';q('snakeStart').textContent='Ride again';q('snakeOverlay').classList.remove('hidden')}
@@ -1788,7 +1845,7 @@ function collisions(){
     for(let x=gx-1;x<=gx+1&&!hit;x++)for(let y=gy-1;y<=gy+1&&!hit;y++){
       const bucket=snakeBodyGrid.get(x+'|'+y);if(!bucket)continue;
       for(const entry of bucket){
-        if(entry.owner===snake&&entry.index<18)continue;
+        if(entry.owner===snake)continue;
         const d=Math.hypot(h.x-entry.p.x,h.y-entry.p.y),hitDistance=(snake.thickness+entry.owner.thickness)*.62;
         if(entry.owner!==snake)closestRivalGap=Math.min(closestRivalGap,d-hitDistance);
         if(d<hitDistance){hit=entry.owner;break}
@@ -1802,11 +1859,11 @@ function collisions(){
 }
 function respawnBots(){for(let i=0;i<snakes.length;i++){const s=snakes[i];if(s!==player&&!s.alive&&Math.random()<.008)snakes[i]=makeSnake(s.name,colors[Math.floor(rnd(0,colors.length))])}}
 function updateParticles(dt){for(const wave of shockwaves){wave.r+=220*dt;wave.life-=dt*1.1}shockwaves=shockwaves.filter(w=>w.life>0);for(const p of particles){p.x+=p.vx;p.y+=p.vy;p.vx*=.955;p.vy*=.955;p.life-=dt*.9}particles=particles.filter(p=>p.life>0).slice(-snakePerf().particleCap)}
-function drawGrid(w,h,ox,oy){ctx.strokeStyle='rgba(56,189,248,.075)';ctx.lineWidth=1;const size=55;for(let x=(-ox%size);x<w;x+=size){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=(-oy%size);y<h;y+=size){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}}
+function drawGrid(w,h,ox,oy){ctx.lineWidth=1;const size=70;for(let x=(-ox%size);x<w;x+=size){ctx.strokeStyle=Math.round((x+ox)/size)%5===0?'rgba(58,156,255,.14)':'rgba(255,255,255,.035)';ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=(-oy%size);y<h;y+=size){ctx.strokeStyle=Math.round((y+oy)/size)%5===0?'rgba(228,61,79,.11)':'rgba(255,255,255,.035)';ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}}
 function drawSnake(snake,isCrown=false){
-  if(!snake.alive)return;const vw=canvas.clientWidth,vh=canvas.clientHeight,visible=snake.segments.some((p,i)=>i%20===0&&Math.abs(p.x-camera.x)<vw*.7+100&&Math.abs(p.y-camera.y)<vh*.7+100);if(!visible)return;ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowColor=snake.color;ctx.shadowBlur=snakePerf().tier==='eco'?0:snake.isPlayer?32:15;
+  if(!snake.alive)return;const vw=canvas.clientWidth,vh=canvas.clientHeight,visible=snake.segments.some((p,i)=>i%20===0&&Math.abs(p.x-camera.x)<vw*.7+100&&Math.abs(p.y-camera.y)<vh*.7+100);if(!visible)return;ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.shadowBlur=0;
   const drawStep=snakePerf().tier==='eco'?2:1;ctx.beginPath();let moved=false;for(let i=snake.segments.length-1;i>=0;i-=drawStep){const s=snake.segments[i],x=s.x-camera.x+vw/2,y=s.y-camera.y+vh/2;if(!moved){ctx.moveTo(x,y);moved=true}else ctx.lineTo(x,y)}
-  const bodyWidth=snake.thickness*2;ctx.strokeStyle=snake.color;ctx.lineWidth=bodyWidth+8;ctx.globalAlpha=.24;ctx.stroke();ctx.globalAlpha=1;ctx.lineWidth=bodyWidth;ctx.stroke();ctx.shadowBlur=0;ctx.strokeStyle='rgba(255,255,255,.62)';ctx.lineWidth=Math.max(2.2,bodyWidth*.17);ctx.stroke();
+  const bodyWidth=snake.thickness*2;ctx.strokeStyle='#05070a';ctx.lineWidth=bodyWidth+7;ctx.stroke();ctx.strokeStyle=snake.color;ctx.lineWidth=bodyWidth;ctx.stroke();ctx.strokeStyle='rgba(255,255,255,.48)';ctx.lineWidth=Math.max(1.8,bodyWidth*.11);ctx.stroke();
   const h=snake.segments[0],hx=h.x-camera.x+canvas.clientWidth/2,hy=h.y-camera.y+canvas.clientHeight/2,skin=snakeSkin(snake.skinId),skinImg=snakeSkinImages.get(snake.skinId);
   if(snake.isPlayer&&performance.now()<(snake.invulnerableUntil||0)){ctx.strokeStyle='#fff';ctx.shadowColor='#27f5ff';ctx.shadowBlur=28;ctx.globalAlpha=.55+.25*Math.sin(performance.now()*.012);ctx.lineWidth=3;ctx.beginPath();ctx.arc(hx,hy,21+Math.sin(performance.now()*.008)*3,0,TAU);ctx.stroke();ctx.globalAlpha=1}
   const headR=snake.thickness+3;ctx.save();ctx.beginPath();ctx.arc(hx,hy,headR,0,TAU);ctx.clip();if(skinImg&&skinImg.complete&&skinImg.naturalWidth)ctx.drawImage(skinImg,hx-headR,hy-headR,headR*2,headR*2);else{ctx.fillStyle=skin.color||snake.color;ctx.fillRect(hx-headR,hy-headR,headR*2,headR*2);ctx.fillStyle='#fff';ctx.font='900 10px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(skin.icon||'●',hx,hy)}ctx.restore();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(hx,hy,headR,0,TAU);ctx.stroke();ctx.fillStyle='#fff';for(const side of [-1,1]){const a=snake.angle+side*.6;ctx.beginPath();ctx.arc(hx+Math.cos(a)*headR*.58,hy+Math.sin(a)*headR*.58,Math.max(2,headR*.16),0,TAU);ctx.fill()}
@@ -1816,18 +1873,18 @@ function drawSnake(snake,isCrown=false){
 }
 function renderSnake(){
   const w=canvas.clientWidth,h=canvas.clientHeight;ctx.clearRect(0,0,w,h);snakeShake=0;ctx.save();
-  const neb=ctx.createRadialGradient(w*.5,h*.45,20,w*.5,h*.5,Math.max(w,h)*.75);neb.addColorStop(0,player&&player.combo>=10?'#3a082d':'#071b32');neb.addColorStop(.48,'#080921');neb.addColorStop(1,'#010207');ctx.fillStyle=neb;ctx.fillRect(-25,-25,w+50,h+50);
-  for(let i=0;i<snakePerf().snakeStars;i++){const x=(i*149+performance.now()*.018*(i%3+1))%w,y=(i*97+Math.sin(performance.now()*.0007+i)*24+h)%h;ctx.fillStyle=i%4?'rgba(0,229,255,.18)':'rgba(255,39,95,.2)';ctx.fillRect(x,y,i%13===0?2:1,i%13===0?2:1)}drawGrid(w,h,camera.x,camera.y);
-  for(const gate of gates){gate.phase+=.025;const gx=gate.x-camera.x+w/2,gy=gate.y-camera.y+h/2;if(gx<-100||gy<-100||gx>w+100||gy>h+100)continue;const color=gate.type==='speed'?'#27f5ff':gate.type==='growth'?'#c6ff1a':'#ff247f';ctx.save();ctx.translate(gx,gy);ctx.rotate(gate.phase);ctx.strokeStyle=color;ctx.shadowColor=color;ctx.shadowBlur=24;ctx.globalAlpha=gate.cooldown>0?.28:.86;ctx.lineWidth=4;for(let k=0;k<3;k++){ctx.beginPath();ctx.arc(0,0,gate.r-k*9,-1.2+k*.3,1.2+k*.3);ctx.stroke();ctx.beginPath();ctx.arc(0,0,gate.r-k*9,Math.PI-1.2+k*.3,Math.PI+1.2+k*.3);ctx.stroke()}ctx.restore()}
-  ctx.save();ctx.strokeStyle='rgba(251,63,115,.5)';ctx.shadowColor='#fb3f73';ctx.shadowBlur=18;ctx.lineWidth=5;ctx.strokeRect(-camera.x+w/2,-camera.y+h/2,WORLD.w,WORLD.h);ctx.restore();
-  for(const f of snakeFoodNear(camera.x,camera.y,Math.max(w,h)*.75+80)){if(f.dead)continue;const x=f.x-camera.x+w/2,y=f.y-camera.y+h/2;if(x<-25||y<-25||x>w+25||y>h+25)continue;f.pulse+=.06;f.spin+=.025;ctx.shadowColor=f.color;ctx.shadowBlur=snakePerf().tier==='eco'?0:f.value>=8?28:f.value>=3?18:10;ctx.fillStyle=f.color;const rr=f.r+Math.sin(f.pulse)*1.1;ctx.beginPath();if(f.value>=3){for(let k=0;k<10;k++){const a=f.spin+k/10*TAU,r2=k%2?rr*.48:rr;ctx[k?'lineTo':'moveTo'](x+Math.cos(a)*r2,y+Math.sin(a)*r2)}ctx.closePath()}else ctx.arc(x,y,rr,0,TAU);ctx.fill();if(f.value>=8){ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke()}}ctx.shadowBlur=0;
+  const neb=ctx.createLinearGradient(0,0,w,h);neb.addColorStop(0,player&&player.combo>=10?'#211019':'#101923');neb.addColorStop(.52,'#080d13');neb.addColorStop(1,'#040609');ctx.fillStyle=neb;ctx.fillRect(-25,-25,w+50,h+50);
+  for(let i=0;i<Math.floor(snakePerf().snakeStars*.45);i++){const x=(i*149+performance.now()*.008)%w,y=(i*97+h)%h;ctx.fillStyle=i%6===0?'rgba(228,61,79,.15)':'rgba(58,156,255,.09)';ctx.fillRect(x,y,i%6===0?8:4,1)}drawGrid(w,h,camera.x,camera.y);
+  for(const gate of gates){gate.phase+=.012;const gx=gate.x-camera.x+w/2,gy=gate.y-camera.y+h/2;if(gx<-100||gy<-100||gx>w+100||gy>h+100)continue;const color=gate.type==='speed'?'#3a9cff':gate.type==='growth'?'#47b881':'#e43d4f';ctx.save();ctx.translate(gx,gy);ctx.rotate(gate.phase);ctx.strokeStyle=color;ctx.globalAlpha=gate.cooldown>0?.25:.9;ctx.lineWidth=4;ctx.strokeRect(-gate.r*.72,-gate.r*.72,gate.r*1.44,gate.r*1.44);ctx.lineWidth=2;ctx.strokeRect(-gate.r*.48,-gate.r*.48,gate.r*.96,gate.r*.96);ctx.restore()}
+  ctx.save();ctx.strokeStyle='#e43d4f';ctx.lineWidth=5;ctx.strokeRect(-camera.x+w/2,-camera.y+h/2,WORLD.w,WORLD.h);ctx.restore();
+  for(const f of snakeFoodNear(camera.x,camera.y,Math.max(w,h)*.75+80)){if(f.dead)continue;const x=f.x-camera.x+w/2,y=f.y-camera.y+h/2;if(x<-25||y<-25||x>w+25||y>h+25)continue;f.pulse+=.04;f.spin+=.012;ctx.fillStyle=f.color;const rr=f.r+Math.sin(f.pulse)*.55;ctx.beginPath();if(f.value>=3){for(let k=0;k<8;k++){const a=f.spin+k/8*TAU,r2=k%2?rr*.52:rr;ctx[k?'lineTo':'moveTo'](x+Math.cos(a)*r2,y+Math.sin(a)*r2)}ctx.closePath()}else ctx.rect(x-rr,y-rr,rr*2,rr*2);ctx.fill();ctx.strokeStyle='#05070a';ctx.lineWidth=1.5;ctx.stroke()}
   for(const wave of shockwaves){const x=wave.x-camera.x+w/2,y=wave.y-camera.y+h/2;ctx.globalAlpha=wave.life;ctx.strokeStyle=wave.color;ctx.shadowColor=wave.color;ctx.shadowBlur=30;ctx.lineWidth=5;ctx.beginPath();ctx.arc(x,y,wave.r,0,TAU);ctx.stroke()}ctx.globalAlpha=1;ctx.shadowBlur=0;const crownLeader=snakeWorld.type==='bountyrush'?snakeLeader():null;[...snakes].sort((a,b)=>a.segments.length-b.segments.length).forEach(s=>drawSnake(s,s===crownLeader));
   for(const p of particles){const x=p.x-camera.x+w/2,y=p.y-camera.y+h/2;ctx.globalAlpha=Math.min(1,p.life);ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=12;const z=p.size||4;ctx.fillRect(x-z/2,y-z/2,z,z)}ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();
   if(snakeFrame%snakePerf().mapEvery===0)drawMap();if(snakeFrame%2===0)updateSnakeHud()
 }
 function drawMap(){
-  mctx.clearRect(0,0,map.width,map.height);mctx.fillStyle='rgba(2,5,12,.94)';mctx.fillRect(0,0,map.width,map.height);
-  mctx.strokeStyle='rgba(39,245,255,.08)';mctx.lineWidth=.5;for(let i=1;i<5;i++){mctx.beginPath();mctx.moveTo(i/5*map.width,0);mctx.lineTo(i/5*map.width,map.height);mctx.stroke()}for(let i=1;i<4;i++){mctx.beginPath();mctx.moveTo(0,i/4*map.height);mctx.lineTo(map.width,i/4*map.height);mctx.stroke()}
+  mctx.clearRect(0,0,map.width,map.height);mctx.fillStyle='#080d13';mctx.fillRect(0,0,map.width,map.height);
+  mctx.strokeStyle='rgba(58,156,255,.14)';mctx.lineWidth=.5;for(let i=1;i<5;i++){mctx.beginPath();mctx.moveTo(i/5*map.width,0);mctx.lineTo(i/5*map.width,map.height);mctx.stroke()}for(let i=1;i<4;i++){mctx.beginPath();mctx.moveTo(0,i/4*map.height);mctx.lineTo(map.width,i/4*map.height);mctx.stroke()}
   const crownLeader=snakeWorld.type==='bountyrush'?snakeLeader():null;for(const s of [...snakes].sort((a,b)=>a.targetLength-b.targetLength)){if(!s.alive||s.segments.length<2)continue;mctx.beginPath();for(let i=s.segments.length-1;i>=0;i-=Math.max(1,Math.floor(s.segments.length/35))){const p=s.segments[i],x=p.x/WORLD.w*map.width,y=p.y/WORLD.h*map.height;i>=s.segments.length-1?mctx.moveTo(x,y):mctx.lineTo(x,y)}mctx.strokeStyle=s===crownLeader?'#fbbf24':s.color;mctx.globalAlpha=s===player?1:.72;mctx.lineWidth=s===player?2.8:clamp(s.thickness*.09,.65,2);mctx.stroke();const h=s.segments[0];mctx.fillStyle=s===crownLeader?'#fbbf24':s.color;mctx.beginPath();mctx.arc(h.x/WORLD.w*map.width,h.y/WORLD.h*map.height,s===player?3:s===crownLeader?2.8:1.8,0,TAU);mctx.fill()}mctx.globalAlpha=1;mctx.strokeStyle='rgba(255,255,255,.34)';mctx.lineWidth=1;mctx.strokeRect(.5,.5,map.width-1,map.height-1)
 }
 function updateSnakeHud(){if(!player)return;const ranked=[...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score),rank=ranked.indexOf(player)+1,active=performance.now()<player.comboUntil,crown=snakeWorld.type==='bountyrush'?ranked[0]:null;if(!active)player.combo=1;q('snakeScore').textContent=Math.floor(player.score);q('snakeLength').textContent=Math.floor(player.targetLength);q('snakeKills').textContent=player.kills;q('snakeWidth').textContent=(player.thickness/8.5).toFixed(1)+'x';q('snakeRank').textContent=rank>0?'#'+rank:'-';q('snakeBoostFill').style.width=player.energy+'%';q('snakeComboValue').textContent='x'+player.combo;q('snakeCombo').className='snakeCombo '+(player.combo>=10?'fever ':'')+(active?'hot':'');q('snakeCanvas').closest('.snakeShell').classList.toggle('boosting',boosting&&player.energy>1);q('snakeCanvas').closest('.snakeShell').classList.toggle('fever',player.combo>=10);q('snakeLeaderboard').innerHTML=ranked.slice(0,7).map((s,i)=>'<div style="display:flex;justify-content:space-between;color:'+(s===crown?'#fbbf24':s===player?'#67e8f9':'#fff')+';font-weight:'+(s===crown?'950':'700')+'"><span>'+(i+1)+'. '+s.name+'</span><b>'+Math.floor(s.score)+'</b></div>').join('')}
