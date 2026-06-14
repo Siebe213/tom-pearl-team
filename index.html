@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tom Pearl V20.2.1 - Tom-Only Cinema</title>
+<title>Tom Pearl V20.3 - Apex Swarm</title>
 <style>
 :root{
   --bg:#040407;--panel:rgba(255,255,255,.045);--panel2:rgba(255,255,255,.075);--line:rgba(255,255,255,.10);
@@ -285,22 +285,93 @@ body:after{content:"THOMAS PATRICK PEARL  •  THE LEGEND PROTOCOL  •  TOM PEA
 .cinemaMarquee:before{content:"ARCHIVE CINEMA  /  TOM PEARL  /  ARCHIVE CINEMA  /  TOM PEARL";position:absolute;left:-5%;right:-5%;top:12px;color:rgba(255,212,71,.15);font-size:clamp(2.4rem,7vw,6rem);font-weight:1000;white-space:nowrap;letter-spacing:-.06em;transform:rotate(-2deg)}
 .cinemaMarquee>*{position:relative;z-index:1}.cinemaMarquee h2{font-size:clamp(2.3rem,6vw,5.6rem);line-height:.82;margin:48px 0 12px}.cinemaMarquee h2 span{color:transparent;-webkit-text-stroke:1px var(--legend-gold)}
 .cinemaGrid{display:grid;grid-template-columns:1.45fr .55fr;gap:16px}.cinemaScreen{position:relative;min-height:440px;overflow:hidden;border:1px solid rgba(255,212,71,.32);border-radius:24px;background:#030204;box-shadow:inset 0 0 0 8px #0d0810,0 25px 70px rgba(0,0,0,.56)}
-.cinemaScreen video{width:100%;height:440px;display:block;object-fit:contain;background:#000}.cinemaScreen.empty video{display:none}.cinemaFallback{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}.cinemaScreen:not(.empty) .cinemaFallback{display:none}
+.cinemaScreen video,.cinemaScreen canvas{width:100%;height:440px;display:block;object-fit:contain;background:#000}.cinemaScreen canvas{display:none}.cinemaScreen.empty video,.cinemaScreen.empty canvas{display:none}.cinemaFallback{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}.cinemaScreen:not(.empty) .cinemaFallback{display:none}
 .cinemaReel{position:absolute;inset:-10%;display:flex;gap:2.5%;align-items:center;justify-content:center;transform:rotate(-4deg);animation:legendReel 18s ease-in-out infinite alternate}.cinemaReel img{width:22%;height:78%;object-fit:cover;border-radius:28px;border:2px solid rgba(255,255,255,.18);box-shadow:0 18px 50px #000;filter:saturate(1.2) contrast(1.08)}.cinemaReel img:nth-child(even){transform:translateY(9%)}@keyframes legendReel{to{transform:rotate(4deg) scale(1.1) translateX(-3%)}}
 .cinemaTitleCard{position:absolute;left:24px;right:24px;bottom:24px;z-index:3;padding:16px 18px;border-left:4px solid var(--legend-gold);background:linear-gradient(90deg,rgba(5,2,7,.92),rgba(5,2,7,.18));text-shadow:0 2px 16px #000}.cinemaTitleCard b{display:block;font-size:clamp(1.8rem,4vw,3.7rem);line-height:.86}.cinemaTitleCard span{font-size:10px;color:var(--legend-gold);letter-spacing:.18em}
 .cinemaPlaylist{display:grid;gap:12px}.cinemaClip{position:relative;min-height:132px;padding:14px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(80,8,32,.35),rgba(3,9,23,.88));overflow:hidden}.cinemaClip.active{border-color:rgba(255,212,71,.55);box-shadow:0 0 28px rgba(255,212,71,.1)}.cinemaClip b{display:block;margin-bottom:4px}.cinemaClip input{font-size:11px;margin:10px 0 0;padding:8px}.cinemaClip button{margin-top:9px;width:100%}
 .gameShell,.snakeShell{background-image:radial-gradient(circle at 50% 105%,rgba(255,49,95,.09),transparent 38%),linear-gradient(#02040a,#05020a)}.gameShell .arenaStatus,.snakeWorldHud{box-shadow:0 12px 35px rgba(0,0,0,.48),0 0 25px rgba(39,245,255,.08)}.gameShell:hover,.snakeShell:hover{border-color:rgba(255,212,71,.45)}
 .casinoStage{min-height:190px;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 100%,rgba(255,212,71,.2),transparent 48%),linear-gradient(135deg,#270510,#06030a 50%,#081223)}.casinoStage:after{content:"GRAND PEARL • NIGHT FLOOR • GRAND PEARL";position:absolute;bottom:14px;color:#ffe895;font-size:10px;font-weight:1000;letter-spacing:.28em}.casinoTable,.casinoGame{transition:transform .2s,border-color .2s,box-shadow .2s}.casinoTable:hover,.casinoGame:hover{border-color:rgba(255,212,71,.38);box-shadow:0 24px 70px rgba(0,0,0,.52),0 0 35px rgba(255,49,95,.1)}.casinoGame.casinoPlaying .display{animation:none!important}
 .noScreenShake .gameShell,.noScreenShake .snakeShell,.noScreenShake .casinoGame .display{transform:none!important}.quality-balanced .cinemaReel{animation-duration:30s}.quality-eco .cinemaReel{animation:none;transform:none}.quality-eco .cinemaReel img:nth-child(n+4){display:none}
+.musicDock{position:fixed;left:14px;bottom:32px;z-index:60;width:min(360px,calc(100vw - 28px));padding:11px;border:1px solid rgba(255,212,71,.3);border-radius:16px;background:rgba(8,3,12,.9);box-shadow:0 16px 50px rgba(0,0,0,.55);backdrop-filter:blur(16px)}.musicDockHead{display:flex;align-items:center;gap:9px}.musicPulse{width:10px;height:10px;border-radius:50%;background:#ff315f;box-shadow:0 0 15px #ff315f}.musicDock.playing .musicPulse{animation:musicPulse .65s ease-in-out infinite alternate}@keyframes musicPulse{to{transform:scale(1.5);background:#ffd447;box-shadow:0 0 20px #ffd447}}.musicNow{min-width:0;flex:1}.musicNow b,.musicNow span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.musicNow span{font-size:9px;color:#ffb1c4;letter-spacing:.12em}.musicControls{display:flex;gap:6px}.musicControls button{min-height:34px;padding:6px 9px}.musicProgress{height:4px;margin-top:9px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}.musicProgress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff315f,#ffd447)}.musicSetup{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.musicTrack{padding:10px;border:1px solid var(--line);border-radius:13px;background:rgba(0,0,0,.22)}.musicTrack b{display:block;font-size:11px}.musicTrack input{font-size:9px;padding:6px;margin:7px 0 0;min-height:34px}.musicTrack.ready{border-color:rgba(52,211,153,.45)}
 @media(max-width:980px){.v20Hero.legendHero,.legendManifesto{grid-template-columns:1fr}.legendPortraits{min-height:390px}.legendTicker{grid-template-columns:1fr 1fr}}
 @media(max-width:800px){.cinemaGrid{grid-template-columns:1fr}.cinemaScreen,.cinemaScreen video{min-height:320px;height:320px}.cinemaPlaylist{grid-template-columns:1fr 1fr}.cinemaClip:last-child{grid-column:1/-1}}
-@media(max-width:600px){.legendHero h1{font-size:4.25rem}.legendPortraits{min-height:330px}.legendPortrait.main{inset:18px 45px 20px}.legendPortrait.a{width:95px;height:95px}.legendPortrait.b{width:90px;height:115px}.legendPortrait.c{width:105px;height:90px}.legendSeal{width:82px;height:82px;font-size:8px}.legendChapters{grid-template-columns:1fr}.legendTicker{grid-template-columns:1fr}.legendFullName{letter-spacing:.13em}.agePlate{display:none}}
+@media(max-width:600px){.legendHero h1{font-size:4.25rem}.legendPortraits{min-height:330px}.legendPortrait.main{inset:18px 45px 20px}.legendPortrait.a{width:95px;height:95px}.legendPortrait.b{width:90px;height:115px}.legendPortrait.c{width:105px;height:90px}.legendSeal{width:82px;height:82px;font-size:8px}.legendChapters{grid-template-columns:1fr}.legendTicker{grid-template-columns:1fr}.legendFullName{letter-spacing:.13em}.agePlate{display:none}.musicDock{bottom:84px}.musicSetup{grid-template-columns:1fr}}
+
+/* V20.3 editorial redesign: restrained, tactile and intentionally low-glow */
+:root{
+  --bg:#11110f;--panel:#191917;--panel2:#22211e;--line:#37342f;
+  --text:#eee9df;--muted:#aaa59b;--pink:#9f3f45;--purple:#6f4d67;
+  --cyan:#75979a;--green:#66866e;--gold:#b89a61;--red:#a84b4b;
+  --legend-gold:#b89a61;--legend-cream:#eee9df;--legend-red:#9f3f45;
+  --shadow:0 14px 34px rgba(0,0,0,.24);--r:12px
+}
+html,body{background:#11110f;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+body,body.adultOn{background:#11110f!important;animation:none!important}
+body:before{background:linear-gradient(90deg,transparent 0 49.8%,rgba(255,255,255,.018) 50%,transparent 50.2%)!important;background-size:96px 100%!important;filter:none!important;opacity:.5}
+body:after{content:"TOM PEARL ARCADE  /  V20.3"!important;height:24px!important;background:#171714!important;border-color:#34312c!important;color:#8f887d!important;font-weight:650!important;letter-spacing:.12em!important;mix-blend-mode:normal!important;opacity:1!important}
+body *{text-shadow:none!important}
+.wrap{max-width:1320px;padding-top:34px}
+.nav{top:0;width:100%;max-width:none;margin:0;border:0;border-bottom:1px solid #34312c;border-radius:0;padding:10px 18px;background:rgba(17,17,15,.96)!important;box-shadow:none!important;backdrop-filter:blur(12px)}
+.nav:after,.nav button:before,.nav button:after,.btn:after{display:none!important}
+.navBrand{padding-right:18px}.navMark{width:34px;height:34px;border-radius:6px;background:#9f3f45!important;color:#f5eee2;box-shadow:none;font-family:Georgia,serif}
+.navBrand b{color:#eee9df;font-family:Georgia,serif;font-size:14px;font-weight:600}.navBrand small{color:#8f887d;letter-spacing:.08em}
+.nav button{min-height:38px;border-radius:6px;padding:8px 11px;color:#aaa59b;font-size:12px;font-weight:650;letter-spacing:0;text-transform:none}
+.nav button:hover{transform:none;background:#211f1c;color:#f1ece3}.nav button.active{background:#eee9df!important;color:#171714!important;box-shadow:none!important;animation:none!important}
+.navUtility{color:#cbb98f!important;border-color:#4b4438!important}
+h1,h2,h3,.legendQuote blockquote,.casinoStage:before,.cinemaMarquee h2{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.025em}
+h1{color:#eee9df;background:none;-webkit-background-clip:initial;background-clip:initial}
+h2{font-size:clamp(1.65rem,2.7vw,2.35rem)}h3{font-size:1.18rem}.muted{color:#aaa59b}
+.v20Kicker,.v10Eyebrow,.legendFullName,.tomStamp{color:#b89a61!important;font-weight:650!important;letter-spacing:.1em!important}
+.card,.casinoGame,.casinoTable,.mission,.mediaSlot,.casinoCommandPanel,.achievement,.legendChapter,.musicTrack,.cinemaClip{
+  background:#191917!important;border:1px solid #37342f!important;border-radius:12px!important;
+  box-shadow:var(--shadow)!important;transform:none!important;transition:border-color .16s ease,background .16s ease!important
+}
+.card:before,.casinoGame:before,.mission:before,.mediaSlot:before,.casinoTable:after,.casinoGame:after{display:none!important}
+.card:hover,.casinoGame:hover,.casinoTable:hover,.mission:hover,.mediaSlot:hover{transform:none!important;border-color:#585248!important;box-shadow:var(--shadow)!important}
+.btn{border:1px solid #45413a;background:#23221f;color:#eee9df;border-radius:7px;padding:10px 14px;font-weight:700;box-shadow:none!important}
+.btn:hover:not(:disabled){transform:none;background:#2c2a26;border-color:#666056}.btn.primary{border-color:#9f3f45;background:#9f3f45!important;color:#fff8ed;box-shadow:none!important}
+.btn.green{border-color:#66866e;background:#66866e!important}.btn.danger{border-color:#a84b4b;background:#7d3737!important}
+input,select{border-color:#403d37;background:#121210;color:#eee9df;border-radius:7px}input:focus,select:focus{border-color:#b89a61;box-shadow:0 0 0 3px rgba(184,154,97,.12)}
+.pill,.display,.powerChip,.hud .pill,.leader,.minimap,.arenaStatus,.snakeWorldHud,.spectatorDock{background:rgba(17,17,15,.9)!important;border-color:#45413a!important;box-shadow:none!important;backdrop-filter:blur(6px)}
+.progressBar,.musicProgress,.casinoPulseLine{background:#2b2925!important}.progressBar div,.musicProgress i,.casinoPulseLine i,.snakeBoostFill{background:#9f3f45!important;box-shadow:none!important;animation:none!important}
+.coinbar,.perfDock,.v20Progress,.musicDock{background:#191917!important;border-color:#45413a!important;border-radius:9px!important;color:#d4c8ad!important;box-shadow:0 8px 24px rgba(0,0,0,.28)!important;backdrop-filter:blur(10px)}
+.musicPulse,.arenaLiveDot,.afterDarkStrip i{box-shadow:none!important;animation:none!important}.musicPulse{background:#9f3f45}.musicDock.playing .musicPulse{background:#b89a61}
+.v20Hero.legendHero,.adultOn .legendHero{min-height:560px;background:#171715!important;border-color:#37342f!important}
+.legendHero h1{font-size:clamp(3.7rem,8vw,7.5rem);line-height:.82}.legendHero h1 .tomLine,.legendHero h1 .pearlLine{color:#eee9df!important;-webkit-text-stroke:0!important}
+.legendHero h1 .pearlLine{color:#b89a61!important}.legendStatement{font-size:1rem;line-height:1.65;max-width:600px}
+.legendPortraits{min-height:470px}.legendPortrait{border:1px solid #4a463f;background:#22201c;box-shadow:0 14px 34px rgba(0,0,0,.32);transform:none!important}
+.legendPortrait.main{inset:20px 78px 20px 78px;border-radius:12px;border-color:#6b604e}.legendPortrait.a{left:8px;top:28px;border-radius:8px}.legendPortrait.b{right:8px;top:72px;border-radius:8px}.legendPortrait.c{right:18px;bottom:20px;border-radius:8px}.legendPortrait img{filter:saturate(.82) contrast(1.02)}
+.legendSeal{display:none}.legendTicker{border-color:#37342f;background:#37342f;border-radius:10px}.legendTicker div{background:#191917}.legendTicker b{color:#b89a61;letter-spacing:.04em}
+.legendQuote{background:#312522!important}.legendChapter b{color:#b89a61}
+.quickCard,.metric,.casinoStat,.patchItem,.featureItem,.abilityPanel,.tomLoreNotice,.afterDarkStrip{background:#1d1c19!important;border-color:#37342f!important;border-radius:9px!important;box-shadow:none!important}
+.agePlate{top:66px;border-color:#4d4539;background:#191917;color:#bfb5a5;border-radius:7px;backdrop-filter:none}.agePlate b{border-radius:4px;background:#7d3737}
+.gameShell,.snakeShell,.adultOn .gameShell,.adultOn .snakeShell{border:1px solid #44413b!important;border-radius:14px;background:#070806!important;background-image:none!important;box-shadow:0 18px 42px rgba(0,0,0,.36)!important;animation:none!important}
+.gameShell:before,.gameShell:after,.snakeShell:before,.snakeShell:after{display:none!important}
+.gameShell:hover,.snakeShell:hover,.gameShell.bountyRush,.snakeShell.bountyRush,.snakeShell.pearlStorm{border-color:#625b50!important;box-shadow:0 18px 42px rgba(0,0,0,.36)!important;animation:none!important}
+.hud .pill:after{display:none}.killItem{background:#191917;border-left-color:#9f3f45;animation:none}.arenaLiveDot{background:#66866e}.arenaLiveDot.idle{background:#b89a61}
+.casinoStage{min-height:150px;background:#261e1b!important;border-color:#4a4237!important;border-radius:12px!important}
+.casinoStage:before{color:#eee9df;font-size:clamp(2.4rem,6vw,5.2rem);letter-spacing:-.035em}.casinoStage:after{color:#9f8e70;letter-spacing:.12em}
+.casinoStageLights{display:none}.casinoFloorNav{top:70px;border-radius:9px;background:#171715;border-color:#37342f;backdrop-filter:blur(8px)}
+.casinoFloorNav button.active{background:#9f3f45!important;border-color:#9f3f45;box-shadow:none}.casinoTable.redTable,.machineGrid .casinoGame{background:#191917!important}
+.playingCard{box-shadow:0 4px 10px rgba(0,0,0,.2)!important}.rouletteWrap canvas{filter:saturate(.75)}.casinoParticle{box-shadow:none}
+.cinemaMarquee{background:#211c19;border-color:#4a4237;border-radius:12px;box-shadow:var(--shadow)}.cinemaMarquee:before{display:none}.cinemaMarquee h2{margin:10px 0 12px}.cinemaMarquee h2 span{color:#b89a61;-webkit-text-stroke:0}
+.cinemaScreen{border-color:#48433b;border-radius:10px;box-shadow:inset 0 0 0 6px #11110f,0 14px 30px rgba(0,0,0,.28)}
+.cinemaReel{animation:none;transform:none}.cinemaReel img{border-radius:8px;filter:saturate(.8);box-shadow:0 10px 24px #000}.cinemaTitleCard{border-color:#b89a61;background:rgba(17,17,15,.9)}
+.creatorCanvas,.placeholderArt,.neonPoster,.v10Hero{background:#211f1c!important;box-shadow:none!important}.neonPoster:before,.v10Hero:after{display:none!important}
+.skin,.wheelPreviewItem,.skinThumb{box-shadow:none!important}.skin:hover{transform:none}.skin.selected{outline:2px solid #9f3f45;background:#28201f}.wheelWrap canvas{animation:none;filter:saturate(.7);box-shadow:0 10px 28px rgba(0,0,0,.3)}
+.afterDarkStrip{font-weight:650;letter-spacing:.02em}.afterDarkStrip span{color:#c8b6a7}.floorMarquee,.legendFullName{text-transform:none}
+@media(max-width:700px){
+  .nav{padding:7px 8px}.nav button{padding:7px 9px}.wrap{padding-left:12px;padding-right:12px}
+  .legendHero h1{font-size:3.8rem}.v20Hero.legendHero{padding:25px 18px}.legendPortraits{min-height:330px}
+  .legendPortrait.main{inset:15px 44px}.legendPortrait.a,.legendPortrait.b,.legendPortrait.c{display:none}
+  .musicDock{width:calc(100vw - 24px);left:12px}.card{padding:18px}
+}
 </style>
 </head>
 <body>
 <a class="skipLink" href="#mainContent">Skip to arcade</a>
 <nav class="nav" aria-label="Arcade navigation">
-  <div class="navBrand"><span class="navMark">TP</span><span><b>TOM PEARL V20.2.1</b><small>TOM-ONLY CINEMA</small></span></div>
+  <div class="navBrand"><span class="navMark">TP</span><span><b>TOM PEARL V20.3</b><small>APEX SWARM</small></span></div>
   <div class="navRail">
     <button data-tab="home" class="active">Command</button><button data-tab="game">Pearl.io</button><button data-tab="snake">Snake</button><button data-tab="casino">Casino</button><button data-tab="shop">Locker</button><button data-tab="missions">Missions</button><button data-tab="media">Studio</button><button data-tab="lore">Codex</button>
   </div>
@@ -309,12 +380,14 @@ body:after{content:"THOMAS PATRICK PEARL  •  THE LEGEND PROTOCOL  •  TOM PEA
 <div class="coinbar">💰 <span id="coinCount">0</span> Pearl Coins</div>
 <div class="perfDock" id="perfDock" data-tier="high"><i class="perfDot"></i><b id="qualityBadge">AUTO · ULTRA</b><span>ADAPTIVE ENGINE</span><span class="fps" id="fpsMeter">60 FPS</span></div>
 <div class="agePlate"><b>18+</b> AFTER DARK TRIBUTE</div>
+<div class="musicDock" id="musicDock"><div class="musicDockHead"><i class="musicPulse"></i><div class="musicNow"><span>REPEAT-ALL LEGEND RADIO</span><b id="musicNow">Add the three requested tracks in Studio</b></div><div class="musicControls"><button class="btn" id="musicPrev" aria-label="Previous track">◀</button><button class="btn primary" id="musicPlay" aria-label="Play or pause music">PLAY</button><button class="btn" id="musicNext" aria-label="Next track">▶</button></div></div><div class="musicProgress"><i id="musicProgress"></i></div><audio id="legendAudio" preload="metadata"></audio></div>
 <div class="v20Progress"><span class="levelBadge" id="levelBadge">LV 1</span><div class="xpTrack"><div class="xpFill" id="xpFill"></div></div><span class="xpText" id="xpText">0 / 250 XP</span></div>
 <div class="toastStack" id="toastStack" aria-live="polite"></div>
 <div class="settingsPanel" id="settingsPanel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
   <div class="card settingsCard">
     <div class="row" style="justify-content:space-between"><div><span class="v20Kicker">SYSTEM CONTROL</span><h2 id="settingsTitle">Arcade Settings</h2></div><button class="btn" id="settingsClose">Close</button></div>
     <div class="settingRow"><div><b>Sound feedback</b><div class="small muted">Generated locally.</div></div><button class="btn switch" id="soundToggle">OFF</button></div>
+    <div class="settingRow"><div><b>Legend radio</b><div class="small muted">Play your three-track playlist on repeat.</div></div><button class="btn switch" id="musicToggle">OFF</button></div>
     <div class="settingRow"><div><b>Reduced motion</b><div class="small muted">Removes decorative movement.</div></div><button class="btn switch" id="motionToggle">OFF</button></div>
     <div class="settingRow"><div><b>High contrast</b><div class="small muted">Sharper borders and text.</div></div><button class="btn switch" id="contrastToggle">OFF</button></div>
     <div class="settingRow"><div><b>Visual quality</b><div class="small muted">Auto protects slower laptops.</div></div><button class="btn" id="settingsQuality">AUTO</button></div>
@@ -324,7 +397,7 @@ body:after{content:"THOMAS PATRICK PEARL  •  THE LEGEND PROTOCOL  •  TOM PEA
 <main class="wrap" id="mainContent">
 <section id="home" class="tab active">
   <div class="card v20Hero legendHero">
-    <div class="legendHeroCopy"><span class="v20Kicker">V20.2.1 TOM-ONLY CINEMA</span><span class="legendFullName">Thomas Patrick Pearl</span><h1><span class="tomLine">TOM.</span><span class="pearlLine">PEARL.</span><span class="tomLine">LEGEND.</span></h1><p class="muted legendStatement">The entire arcade is now built as a fictional, community-inspired tribute to Tom Pearl, also known as Thomas Patrick Pearl. Every arena, rank, skin, mission, cinema screen and casino floor carries the Pearl identity.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Tom's Arena</button><button class="btn" data-tab-jump="snake">Ride the Pearl Serpent</button><button class="btn" id="dailyBtn">Claim Legend Drop</button></div></div>
+    <div class="legendHeroCopy"><span class="v20Kicker">V20.3 APEX SWARM</span><span class="legendFullName">Thomas Patrick Pearl</span><h1><span class="tomLine">TOM.</span><span class="pearlLine">PEARL.</span><span class="tomLine">LEGEND.</span></h1><p class="muted legendStatement">The entire arcade is now built as a fictional, community-inspired tribute to Tom Pearl, also known as Thomas Patrick Pearl. Every arena, rank, skin, mission, cinema screen and casino floor carries the Pearl identity.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Tom's Arena</button><button class="btn" data-tab-jump="snake">Ride the Pearl Serpent</button><button class="btn" id="dailyBtn">Claim Legend Drop</button></div></div>
     <div class="legendPortraits" aria-label="Tom Pearl skin portrait wall"><div class="legendPortrait main"><img id="legendPortraitMain" alt="Tom Pearl arcade portrait"></div><div class="legendPortrait a"><img id="legendPortraitA" alt=""></div><div class="legendPortrait b"><img id="legendPortraitB" alt=""></div><div class="legendPortrait c"><img id="legendPortraitC" alt=""></div><div class="legendSeal">THOMAS<br>PATRICK<br>PEARL</div></div>
   </div>
   <div class="legendTicker"><div><b>THE NAME</b><span>Thomas Patrick Pearl</span></div><div><b>THE ARENA</b><span>Pearl.io Dominion</span></div><div><b>THE SERPENT</b><span>Tom's Endless Coil</span></div><div><b>THE HOUSE</b><span>Grand Pearl Casino</span></div></div>
@@ -342,9 +415,8 @@ body:after{content:"THOMAS PATRICK PEARL  •  THE LEGEND PROTOCOL  •  TOM PEA
       <button class="btn primary" id="spawnBtn">Spawn / Restart</button>
       <button class="btn" id="splitBtn">Split <span class="kbd">Space</span></button>
       <button class="btn" id="ejectBtn">Eject <span class="kbd">W</span></button>
-      <button class="btn" id="mergeBtn">Force Merge <span class="kbd">Q</span></button>
     </div>
-    <p class="muted small" style="margin:0">Controls: mouse moves, Space split, W eject mass, Q pulls cells together after merge timer. Scroll to zoom.</p>
+    <p class="muted small" style="margin:0">Controls: mouse moves, Space splits and W ejects mass. Every split automatically pulls together and remerges after 20 seconds.</p>
   </div>
   <div class="gameShell">
     <canvas id="gameCanvas"></canvas>
@@ -505,13 +577,14 @@ body:after{content:"THOMAS PATRICK PEARL  •  THE LEGEND PROTOCOL  •  TOM PEA
     <p class="muted">Load up to three Tom Pearl clips from your device and play them inside a full cinematic archive. Clips stay in this browser session and are never uploaded by the site.</p>
   </div>
   <div class="cinemaGrid">
-    <div class="cinemaScreen empty" id="cinemaScreen"><video id="tomCinemaVideo" controls playsinline></video><div class="cinemaFallback"><div class="cinemaReel" id="cinemaReel"></div><div class="cinemaTitleCard"><span>THOMAS PATRICK PEARL PRESENTS</span><b>THE LEGEND<br>FORM ARCHIVE</b></div></div></div>
+    <div class="cinemaScreen empty" id="cinemaScreen"><video id="tomCinemaVideo" controls playsinline></video><canvas id="tomCinemaCanvas" width="640" height="360"></canvas><div class="cinemaFallback"><div class="cinemaReel" id="cinemaReel"></div><div class="cinemaTitleCard"><span>THOMAS PATRICK PEARL PRESENTS</span><b>THE LEGEND<br>FORM ARCHIVE</b></div></div></div>
     <div class="cinemaPlaylist">
       <div class="cinemaClip active" data-video-slot="0"><b>Chapter I: The Arrival</b><span class="small muted">Built-in Tom-only film ready. Optional: replace it with your own clip.</span><input type="file" accept="video/mp4,video/webm,video/ogg,video/quicktime"><button class="btn" data-play-video="0">Render & play film</button></div>
       <div class="cinemaClip" data-video-slot="1"><b>Chapter II: The Forms</b><span class="small muted">Built-in Tom-only film ready. Optional: replace it with your own clip.</span><input type="file" accept="video/mp4,video/webm,video/ogg,video/quicktime"><button class="btn" data-play-video="1">Render & play film</button></div>
       <div class="cinemaClip" data-video-slot="2"><b>Chapter III: The Crown</b><span class="small muted">Built-in Tom-only film ready. Optional: replace it with your own clip.</span><input type="file" accept="video/mp4,video/webm,video/ogg,video/quicktime"><button class="btn" data-play-video="2">Render & play film</button></div>
     </div>
   </div>
+  <div class="card" style="margin-top:18px"><span class="v20Kicker">LEGEND RADIO</span><h2>Three-track repeat playlist</h2><p class="muted">Choose your exact copies of the requested songs. They remain local, play in order and repeat continuously while Music is enabled.</p><div class="musicSetup"><label class="musicTrack" data-music-slot="0"><b>1. Yara Yara</b><input type="file" accept="audio/*"></label><label class="musicTrack" data-music-slot="1"><b>2. Phonk Tiki</b><input type="file" accept="audio/*"></label><label class="musicTrack" data-music-slot="2"><b>3. Du bist gut genug</b><input type="file" accept="audio/*"></label></div></div>
   <div class="card" style="margin-top:18px">
     <span class="v20Kicker">TOM PEARL ARCHIVE STUDIO</span><h2>Curate the Legend Gallery</h2>
     <p class="muted">The embedded Tom Pearl forms power both games. These private local slots let you create your own tribute banner, profile, casino poster and vault cover.</p>
@@ -546,7 +619,7 @@ body:after{content:"THOMAS PATRICK PEARL  •  THE LEGEND PROTOCOL  •  TOM PEA
     <div class="card"><h3>Archive performance</h3><p class="muted">AUTO protects budget laptops by reducing portrait effects, particles and expensive shadows.</p></div>
   </div>
 </section>
-<p class="footerNote small muted">Tom Pearl V20.2.1 Tom-Only Cinema - a fictional arcade tribute to Thomas Patrick Pearl.</p>
+<p class="footerNote small muted">Tom Pearl V20.3 Apex Swarm - a fictional arcade tribute to Thomas Patrick Pearl.</p>
 </main>
 <script>
 
@@ -561,7 +634,7 @@ const TAU=Math.PI*2;
 const safeStore={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const defaultStats={runs:0,kills:0,best:0,food:0,casinoWins:0,casinoLosses:0,casinoPlays:0,snakeRuns:0,snakeFood:0,snakeKills:0,snakeBest:0,closeCalls:0};
 const profileDefault={xp:0,claimed:[],unlocked:[],daily:{day:'',pearlFood:0,snakeFood:0,kills:0,casinoPlays:0}};
-const settingsDefault={sound:false,reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches,contrast:false,shake:false};
+const settingsDefault={sound:false,music:false,reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches,contrast:false,shake:false};
 const state={coins:safeStore.get('v8coins',1600),skins:safeStore.get('v8skins',[0]),skin:safeStore.get('v8skin',0),adult:safeStore.get('v201adult',true),stats:Object.assign({},defaultStats,safeStore.get('v8stats',{})),profile:Object.assign({},profileDefault,safeStore.get('v20profile',{})),settings:Object.assign({},settingsDefault,safeStore.get('v20settings',{})),tab:'home'};
 state.profile.daily=Object.assign({},profileDefault.daily,state.profile.daily||{});
 function dayKey(){return new Date().toISOString().slice(0,10)}
@@ -594,9 +667,9 @@ function renderMissions(){
 function claimMission(id){const m=V20_MISSIONS.find(x=>x.id===id);if(!m||state.profile.claimed.includes(id)||(state.profile.daily[id]||0)<m.target)return;state.profile.claimed.push(id);state.coins+=m.coins;state.profile.xp+=m.xp;save();saveProfile();renderV20();toast(m.title+' claimed',true)}
 function renderV20(){const info=levelInfo(),titles=['Pearl Initiate','Tom Disciple','Crown Hunter','Pearl Icon','Thomas Protocol'];if($('levelBadge'))$('levelBadge').textContent='LV '+info.level;if($('xpFill'))$('xpFill').style.width=(info.inside/info.need*100)+'%';if($('xpText'))$('xpText').textContent=info.inside+' / '+info.need+' XP';if($('profileCore'))$('profileCore').textContent=info.level;if($('profileTitle'))$('profileTitle').textContent=titles[Math.min(titles.length-1,Math.floor((info.level-1)/3))];if($('profileSummary'))$('profileSummary').textContent=state.profile.xp+' total XP / '+state.profile.unlocked.length+' achievements';if($('homeRuns'))$('homeRuns').textContent=state.stats.runs+state.stats.snakeRuns;if($('homeKills'))$('homeKills').textContent=state.stats.kills+state.stats.snakeKills;if($('homeWins'))$('homeWins').textContent=state.stats.casinoWins;if($('homeSkins'))$('homeSkins').textContent=state.skins.length;renderMissions()}
 const PERF_PROFILES={
-  high:{tier:'high',label:'ULTRA',dpr:1.6,fps:50,food:3800,bots:42,viruses:32,powers:36,pearlStars:82,snakeFood:2600,snakeBots:34,snakeGates:24,snakeStars:100,particleCap:380,mapEvery:2,bodyStep:3},
-  balanced:{tier:'balanced',label:'BALANCED',dpr:1.25,fps:42,food:2700,bots:32,viruses:26,powers:30,pearlStars:52,snakeFood:1900,snakeBots:26,snakeGates:20,snakeStars:64,particleCap:220,mapEvery:4,bodyStep:4},
-  eco:{tier:'eco',label:'ECO',dpr:1,fps:32,food:1700,bots:22,viruses:20,powers:22,pearlStars:28,snakeFood:1250,snakeBots:18,snakeGates:16,snakeStars:34,particleCap:110,mapEvery:7,bodyStep:6}
+  high:{tier:'high',label:'ULTRA',dpr:1.6,fps:50,food:7000,bots:84,viruses:54,powers:58,pearlStars:82,snakeFood:5000,snakeBots:76,snakeGates:42,snakeStars:100,particleCap:380,mapEvery:2,bodyStep:3},
+  balanced:{tier:'balanced',label:'BALANCED',dpr:1.25,fps:42,food:5000,bots:62,viruses:42,powers:46,pearlStars:52,snakeFood:3700,snakeBots:56,snakeGates:34,snakeStars:64,particleCap:220,mapEvery:4,bodyStep:4},
+  eco:{tier:'eco',label:'ECO',dpr:1,fps:32,food:3100,bots:40,viruses:30,powers:32,pearlStars:28,snakeFood:2400,snakeBots:36,snakeGates:24,snakeStars:34,particleCap:110,mapEvery:7,bodyStep:6}
 };
 function detectedTier(){const cores=navigator.hardwareConcurrency||4,mem=navigator.deviceMemory||4;if(mem<=4||cores<=4)return'eco';if(mem<=8||cores<=8)return'balanced';return'high'}
 let perfPreference=safeStore.get('v113quality','auto'),perfTier=perfPreference==='auto'?detectedTier():perfPreference,perfListeners=[];
@@ -704,13 +777,13 @@ const SKIN_ABILITIES=[
 {name:'Beard Magnet',rarity:'Rare',good:'+18% magnet range',bad:'-4% eject gain',desc:'Excellent pellet control and farming.',mods:{magnetRange:1.18,ejectEatGain:.96}},
 {name:'Bird Feast',rarity:'Common',good:'+7% food growth',bad:'-3% speed when huge',desc:'Strong opening economy.',mods:{foodGain:1.07,hugeSpeed:.97}},
 {name:'Snack Vacuum',rarity:'Rare',good:'+18% loose-mass gain',bad:'-3% player-eat gain',desc:'Rewards clever feeding and virus plays.',mods:{ejectEatGain:1.18,playerEatGain:.97}},
-{name:'Classic Splitter',rarity:'Epic',good:'+10% split launch',bad:'+2s merge timer',desc:'Dangerous split attacks with a real downside.',mods:{splitLaunch:1.10,mergePenalty:2000}},
+{name:'Classic Splitter',rarity:'Epic',good:'+10% split launch',bad:'Fixed 20s auto-merge',desc:'Dangerous split attacks that automatically recover.',mods:{splitLaunch:1.10}},
 {name:'Outdoor Escape',rarity:'Rare',good:'+8% flee speed',bad:'Only active near danger',desc:'Survives aggressive hunters.',mods:{flee:1.08}},
 {name:'Polo Control',rarity:'Rare',good:'+9% acceleration',bad:'-2% top speed',desc:'Precise movement for dodging and trapping.',mods:{accel:1.09,speed:.98}},
 {name:'Blob Shell',rarity:'Epic',good:'18% less virus loss',bad:'-4% pickup range',desc:'A durable virus-survival build.',mods:{virusResist:.82,pickupRange:.96}},
 {name:'Mirror Start',rarity:'Common',good:'+5 starting mass',bad:'No late-game scaling',desc:'A safer and faster opening.',mods:{startMass:5}},
 {name:'Party Refund',rarity:'Rare',good:'+25% duplicate refund',bad:'No combat bonus',desc:'Best for completing the collection.',mods:{dupeRefund:1.25}},
-{name:'Wojak Merge',rarity:'Epic',good:'Small cells merge 4s faster',bad:'-4% split launch',desc:'Recovers quickly from virus explosions.',mods:{smallMergeBonus:4000,splitLaunch:.96}},
+{name:'Wojak Merge',rarity:'Epic',good:'Stronger merge pull',bad:'-4% split launch',desc:'Pulls scattered cells together after the universal 20-second timer.',mods:{mergePull:1.2,splitLaunch:.96}},
 {name:'Cyber Pickup',rarity:'Rare',good:'+18% power pickup range',bad:'-3% food growth',desc:'Controls high-value power spawns.',mods:{pickupRange:1.18,foodGain:.97}},
 {name:'Wide Vision',rarity:'Rare',good:'+22% minimap vision',bad:'No direct combat bonus',desc:'Superior awareness and route planning.',mods:{vision:1.22}},
 {name:'Doorway Farmer',rarity:'Rare',good:'+6% speed while safe',bad:'Bonus stops near enemies',desc:'Efficient farming with positional awareness.',mods:{aloneSpeed:1.06}}
@@ -730,10 +803,7 @@ function ownerMods(owner){
   return abilityModsForSkin(cells.length?cells[0].skin:0);
 }
 function mergeDelayForCell(c){
-  const m=cellMods(c);
-  let delay=MERGE_MS+(m.mergePenalty||0)-(m.mergeBonus||0);
-  if(c.r<25) delay-=(m.smallMergeBonus||0);
-  return clamp(delay,18000,36000);
+  return MERGE_MS;
 }
 function canMergeCell(c){
   return now()>=c.mergeAt;
@@ -748,18 +818,19 @@ function botMergeDesire(bot){
   return ready>=Math.max(1,Math.floor(cells.length*.55)) || (total>45 && scattered && ready>0);
 }
 
-function pullBotCellsForMerge(bot,dt){
-  if(!botMergeDesire(bot))return;
-  const cells=bot.cells.filter(c=>!c.dead);
+function pullOwnerCellsForMerge(owner){
+  const cells=ownerCells(owner).filter(c=>!c.dead);
   if(cells.length<=1)return;
+  if(!cells.some(canMergeCell))return;
   let cx=0,cy=0,m=0;
   for(const c of cells){const mm=mass(c);cx+=c.x*mm;cy+=c.y*mm;m+=mm}
   cx/=m||1;cy/=m||1;
   for(const c of cells){
     if(!canMergeCell(c))continue;
     const dx=cx-c.x,dy=cy-c.y,d=Math.hypot(dx,dy)||1;
-    c.vx+=dx/d*0.62;
-    c.vy+=dy/d*0.62;
+    const pull=.9*(cellMods(c).mergePull||1);
+    c.vx+=dx/d*pull;
+    c.vy+=dy/d*pull;
   }
 }
 
@@ -812,9 +883,9 @@ setCoins(state.coins);renderAdult();renderSkins();applySettings();renderV20();
 
 // ================= GAME =================
 const canvas=$('gameCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true});const mini=$('mini'),mctx=mini.getContext('2d');let DPR=1;
-const WORLD=5600,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=24000,FOOD_BUCKET=220;
+const WORLD=9200,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=20000,FOOD_BUCKET=240;
 let FOOD_TARGET=perfProfile().food,BOT_TARGET=perfProfile().bots,VIRUS_TARGET=perfProfile().viruses,POWER_TARGET=perfProfile().powers;
-const game={running:false,food:[],foodGrid:new Map(),bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,forceMerge:false,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0,combo:0,comboUntil:0,pearlChain:0,pearlChainUntil:0,bountyId:null,fxBursts:[],shake:0,event:{type:'calm',nextAt:Date.now()+12000,until:0,startedAt:0},rifts:[],shards:[]};
+const game={running:false,food:[],foodGrid:new Map(),bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0,combo:0,comboUntil:0,pearlChain:0,pearlChainUntil:0,bountyId:null,fxBursts:[],shake:0,event:{type:'calm',nextAt:Date.now()+12000,until:0,startedAt:0},rifts:[],shards:[]};
 function resize(){DPR=Math.min(perfProfile().dpr,window.devicePixelRatio||1);const rect=canvas.getBoundingClientRect();canvas.width=Math.max(800,Math.floor(rect.width*DPR));canvas.height=Math.max(520,Math.floor(rect.height*DPR));ctx.setTransform(DPR,0,0,DPR,0,0)}window.addEventListener('resize',resize);setTimeout(resize,0);
 function cw(){return canvas.width/DPR}function ch(){return canvas.height/DPR}
 function foodKey(x,y){return Math.floor(x/FOOD_BUCKET)+'|'+Math.floor(y/FOOD_BUCKET)}
@@ -935,9 +1006,9 @@ function addKillFeed(killer,victim){
   game.killFeed.unshift({text:'⚡ '+killer+' ERASED '+victim,until:Date.now()+6500});game.killFeed=game.killFeed.slice(0,6);
   if(killer===game.player.name){game.combo++;game.comboUntil=Date.now()+4500;arenaImpact(game.combo>2?'RAMPAGE x'+game.combo:'CELL ERASED','#ff275f')}
 }
-$('spawnBtn').addEventListener('click',spawnHuman);$('overlaySpawn').addEventListener('click',spawnHuman);$('spectateJoin').addEventListener('click',spawnHuman);$('spectatePrev').addEventListener('click',()=>cycleSpectator(-1));$('spectateNext').addEventListener('click',()=>cycleSpectator(1));$('splitBtn').addEventListener('click',()=>splitOwner('player'));$('ejectBtn').addEventListener('click',()=>ejectOwner('player'));$('mergeBtn').addEventListener('click',()=>{game.forceMerge=true;setTimeout(()=>game.forceMerge=false,1000)});
+$('spawnBtn').addEventListener('click',spawnHuman);$('overlaySpawn').addEventListener('click',spawnHuman);$('spectateJoin').addEventListener('click',spawnHuman);$('spectatePrev').addEventListener('click',()=>cycleSpectator(-1));$('spectateNext').addEventListener('click',()=>cycleSpectator(1));$('splitBtn').addEventListener('click',()=>splitOwner('player'));$('ejectBtn').addEventListener('click',()=>ejectOwner('player'));
 canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();game.mouse.x=e.clientX-r.left;game.mouse.y=e.clientY-r.top});canvas.addEventListener('touchmove',e=>{const t=e.touches[0],r=canvas.getBoundingClientRect();game.mouse.x=t.clientX-r.left;game.mouse.y=t.clientY-r.top;e.preventDefault()},{passive:false});canvas.addEventListener('wheel',e=>{e.preventDefault();game.cam.manual=clamp(game.cam.manual+(e.deltaY>0?-0.08:0.08),.68,1.55)},{passive:false});
-window.addEventListener('keydown',e=>{if(!game.running)return;if(e.code==='Space'){e.preventDefault();splitOwner('player')}if(e.code==='KeyW'){e.preventDefault();ejectOwner('player')}if(e.code==='KeyQ'){e.preventDefault();game.forceMerge=true;setTimeout(()=>game.forceMerge=false,900)}});
+window.addEventListener('keydown',e=>{if(!game.running)return;if(e.code==='Space'){e.preventDefault();splitOwner('player')}if(e.code==='KeyW'){e.preventDefault();ejectOwner('player')}});
 function ownerCells(owner){if(owner==='player')return game.player.cells;const b=game.bots.find(x=>x.id===owner);return b?b.cells:[]}
 function allCells(){let arr=[];game.player.cells.forEach(c=>arr.push(c));game.bots.forEach(b=>b.cells.forEach(c=>arr.push(c)));return arr.filter(c=>!c.dead)}
 function centerOf(cells){let sx=0,sy=0,sm=0;cells.forEach(c=>{const m=c.r*c.r;sx+=c.x*m;sy+=c.y*m;sm+=m});return sm?{x:sx/sm,y:sy/sm}:{x:WORLD/2,y:WORLD/2}}
@@ -973,7 +1044,7 @@ function botThink(b,t){
   if(t<b.nextThink)return;
   b.nextThink=t+rand(135,245)+(1-b.skill)*150;
   const cells=b.cells.filter(c=>!c.dead),main=[...cells].sort((a,z)=>z.r-a.r)[0];if(!main)return;
-  const center=centerOf(cells),visible=900+main.r*11+b.skill*440,others=allCells();
+  const center=centerOf(cells),visible=1500+main.r*14+b.skill*650,others=allCells();
   let threat=null,threatScore=-Infinity,prey=null,preyScore=-Infinity,bestPower=null,bestPowerScore=-Infinity;
   const threats=[];
   for(const other of others){
@@ -983,9 +1054,10 @@ function botThink(b,t){
       threats.push(other);const closing=((other.vx||0)*(center.x-other.x)+(other.vy||0)*(center.y-other.y))/(d||1);
       const score=(other.r/main.r)*2.6+(visible-d)/visible*1.7+(d<other.r*5.5?1.25:0)+Math.max(0,closing)*.08;
       if(score>threatScore){threatScore=score;threat=other}
-    }else if(main.r>other.r*1.14){
+    }else if(main.r>other.r*1.09){
       const dangerNearPrey=others.some(x=>x.owner!==b.id&&x.owner!==other.owner&&x.r>main.r*1.08&&dist(other.x,other.y,x.x,x.y)<420);
-      const score=(main.r/other.r)*1.45+(visible-d)/visible*1.4+(d<main.r*5?1.15:0)-((dangerNearPrey?1.8:0));
+      const playerPriority=other.owner==='player'?3.8:0;
+      const score=(main.r/other.r)*1.55+(visible-d)/visible*1.7+(d<main.r*6?1.35:0)+playerPriority-(dangerNearPrey?1.05:0);
       if(score>preyScore){preyScore=score;prey=other}
     }
   }
@@ -1000,15 +1072,15 @@ function botThink(b,t){
     let vx=0,vy=0;for(const danger of threats){const dx=center.x-danger.x,dy=center.y-danger.y,d=Math.hypot(dx,dy)||1,w=clamp((visible-d)/visible+.25,.2,1.4)*(danger.r/main.r);vx+=dx/d*w;vy+=dy/d*w}
     const preferred=Math.atan2(vy,vx);b.target=pearlSafeCourse(center,main,threats,preferred);b.aim=b.target;b.lockUntil=t+rand(430,720);return
   }
-  if(bestPower&&bestPowerScore>2.4){
+  if(bestPower&&bestPowerScore>3.4&&!prey){
     b.intent='power';b.target=bestPower;b.aim=bestPower;b.lockUntil=t+rand(420,700);return
   }
   b.intent='hunt';
-  if(prey&&preyScore>1.3){
+  if(prey&&preyScore>1.05){
     const d=dist(main.x,main.y,prey.x,prey.y),lead=clamp(d/Math.max(3,cellSpeed(main.r,b.powers)),8,34);
     b.target={x:clamp(prey.x+(prey.vx||0)*lead,45,WORLD-45),y:clamp(prey.y+(prey.vy||0)*lead,45,WORLD-45)};b.aim=b.target;b.lockUntil=t+rand(480,820);
     const splitSafe=!threats.some(x=>dist(x.x,x.y,prey.x,prey.y)<main.r*8);
-    if(splitSafe&&main.r>prey.r*(1.5+(1-b.skill)*.18)&&d<main.r*(4+b.skill*.75)&&d>main.r*.9&&b.splitCd<=0&&cells.length<MAX_BOT_CELLS/2){splitOwner(b.id);b.splitCd=7.5+rand(0,2.2)}
+    if(splitSafe&&main.r>prey.r*(1.42+(1-b.skill)*.14)&&d<main.r*(4.5+b.skill*.85)&&d>main.r*.8&&b.splitCd<=0&&cells.length<MAX_BOT_CELLS/2){splitOwner(b.id);b.splitCd=6.5+rand(0,1.8)}
     return
   }
   let targetFood=null,bestFood=-Infinity;
@@ -1018,7 +1090,7 @@ function botThink(b,t){
 }
 function moveBots(dt,t){
   for(const b of game.bots){
-    tickPowers(b,dt);b.splitCd=Math.max(0,b.splitCd-dt);b.ejectCd=Math.max(0,b.ejectCd-dt);botThink(b,t);pullBotCellsForMerge(b,dt);
+    tickPowers(b,dt);b.splitCd=Math.max(0,b.splitCd-dt);b.ejectCd=Math.max(0,b.ejectCd-dt);botThink(b,t);pullOwnerCellsForMerge(b.id);
     for(const c of b.cells){
       if(game.frame%5===0){c.trail.push({x:c.x,y:c.y,r:c.r,life:1});if(c.trail.length>7)c.trail.shift()}
       const target=b.target||b.aim||{x:c.x+300,y:c.y},tx=target.x||c.x,ty=target.y||c.y,d=dirToTarget(c,{x:tx,y:ty}),mods=cellMods(c);
@@ -1035,7 +1107,7 @@ function moveBots(dt,t){
 }
 function separateOwnerCells(owner,force){const cells=ownerCells(owner);if(cells.length<2)return;const t=now();for(let i=0;i<cells.length;i++){for(let j=i+1;j<cells.length;j++){const a=cells[i],b=cells[j];if(!a||!b||a.dead||b.dead)continue;const ready=(t>a.mergeAt&&t>b.mergeAt)||force;if(ready)continue;let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);if(d<.001){const ang=rand(0,TAU);dx=Math.cos(ang);dy=Math.sin(ang);d=1}const min=(a.r+b.r)*.92;if(d<min){const nx=dx/d,ny=dy/d,over=min-d,total=a.r+b.r||1;const aw=b.r/total,bw=a.r/total;a.x-=nx*over*.52*aw;a.y-=ny*over*.52*aw;b.x+=nx*over*.52*bw;b.y+=ny*over*.52*bw;const kick=clamp(over*.045,.08,1.75);a.vx-=nx*kick*aw;a.vy-=ny*kick*aw;b.vx+=nx*kick*bw;b.vy+=ny*kick*bw;bound(a);bound(b)}}}}
 function mergeCells(owner,force){const cells=ownerCells(owner);if(cells.length<2)return;const t=now();for(let i=0;i<cells.length;i++){for(let j=i+1;j<cells.length;j++){const a=cells[i],b=cells[j];if(!a||!b||a.dead||b.dead)continue;const ready=(t>a.mergeAt&&t>b.mergeAt)||force;if(!ready)continue;let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;const nx=dx/d,ny=dy/d,total=a.r+b.r||1;const pull=(force?1.35:.72)*clamp(d/260,.32,1.25);a.vx+=nx*pull*(b.r/total);a.vy+=ny*pull*(b.r/total);b.vx-=nx*pull*(a.r/total);b.vy-=ny*pull*(a.r/total);if(d<Math.max(a.r,b.r)*.92||d<(a.r+b.r)*.28){const big=a.r>=b.r?a:b,small=a.r>=b.r?b:a;big.r=Math.sqrt(big.r*big.r+small.r*small.r);small.dead=true}}}for(let i=cells.length-1;i>=0;i--)if(cells[i].dead)cells.splice(i,1)}
-function virusHit(owner,c,v){if(c.r<v.r*1.08)return;const powerOwner=owner==='player'?game.player:game.bots.find(b=>b.id===owner);if(powerOwner&&(powerOwner.powers.shield>0||powerOwner.powers.ghost>0))return;const cells=ownerCells(owner);const max=owner==='player'?MAX_PLAYER_CELLS:MAX_BOT_CELLS;const free=max-cells.length+1;if(free<=1){c.r*= (cellMods(c).virusResist||.68);v.x=rand(140,WORLD-140);v.y=rand(140,WORLD-140);return}const desired=c.r>72?10:(c.r>55?8:6);const pieces=Math.max(4,Math.min(desired,free));const oldR=c.r*(cellMods(c).virusResist||1),nr=Math.max(12,oldR/Math.sqrt(pieces));const base=Math.atan2(c.y-v.y,c.x-v.x);c.r=nr;c.mergeAt=now()+Math.max(30000,mergeDelayForCell(c));for(let i=1;i<pieces;i++){const spread=(i/(pieces-1))*TAU;const ang=base+spread+rand(-.18,.18);const n=newCell(owner,c.x+Math.cos(ang)*(nr+10),c.y+Math.sin(ang)*(nr+10),nr,c.skin,c.name);const speed=rand(12,22)*(owner==='player'?1.05:.95);n.vx=Math.cos(ang)*speed+c.vx*.25;n.vy=Math.sin(ang)*speed+c.vy*.25;n.mergeAt=now()+Math.max(30000,mergeDelayForCell(n));cells.push(n)}c.vx+=Math.cos(base)*13;c.vy+=Math.sin(base)*13;v.x=rand(140,WORLD-140);v.y=rand(140,WORLD-140)}
+function virusHit(owner,c,v){if(c.r<v.r*1.08)return;const powerOwner=owner==='player'?game.player:game.bots.find(b=>b.id===owner);if(powerOwner&&(powerOwner.powers.shield>0||powerOwner.powers.ghost>0))return;const cells=ownerCells(owner);const max=owner==='player'?MAX_PLAYER_CELLS:MAX_BOT_CELLS;const free=max-cells.length+1;if(free<=1){c.r*= (cellMods(c).virusResist||.68);v.x=rand(140,WORLD-140);v.y=rand(140,WORLD-140);return}const desired=c.r>72?10:(c.r>55?8:6);const pieces=Math.max(4,Math.min(desired,free));const oldR=c.r*(cellMods(c).virusResist||1),nr=Math.max(12,oldR/Math.sqrt(pieces));const base=Math.atan2(c.y-v.y,c.x-v.x);c.r=nr;c.mergeAt=now()+MERGE_MS;for(let i=1;i<pieces;i++){const spread=(i/(pieces-1))*TAU;const ang=base+spread+rand(-.18,.18);const n=newCell(owner,c.x+Math.cos(ang)*(nr+10),c.y+Math.sin(ang)*(nr+10),nr,c.skin,c.name);const speed=rand(12,22)*(owner==='player'?1.05:.95);n.vx=Math.cos(ang)*speed+c.vx*.25;n.vy=Math.sin(ang)*speed+c.vy*.25;n.mergeAt=now()+MERGE_MS;cells.push(n)}c.vx+=Math.cos(base)*13;c.vy+=Math.sin(base)*13;v.x=rand(140,WORLD-140);v.y=rand(140,WORLD-140)}
 function collisions(dt){const cells=allCells();if(game.frame%4===1)rebuildFoodGrid();
  // food
  for(const c of cells){const mag=(c.owner==='player'?game.player.powers.magnet:((game.bots.find(b=>b.id===c.owner)||{}).powers||{}).magnet)>0;for(const f of gameFoodNear(c.x,c.y,c.r+(mag?190:30))){if(f.dead)continue;const d=dist(c.x,c.y,f.x,f.y);if(mag&&d<c.r+170){f.x+=(c.x-f.x)/(d||1)*8;f.y+=(c.y-f.y)/(d||1)*8}if(d<c.r+f.r*.35){grow(c,f.r,c.owner==='player'?(f.rare?9:2):(f.rare?4:1.45));if(f.rare&&c.owner==='player'){addCoins(25);arenaImpact('ULTRA SHARD','#fff700')}f.dead=true;if(c.owner==='player'){const stamp=Date.now();game.pearlChain=stamp<game.pearlChainUntil?Math.min(99,game.pearlChain+1):1;game.pearlChainUntil=stamp+1650;state.stats.food++;trackDaily('pearlFood');if(game.pearlChain%12===0){game.player.powers.speed=Math.max(game.player.powers.speed||0,1.6);addCoins(5)}if(state.stats.food%50===0){addCoins(15);addXP(25,'Pearl harvest');arenaImpact('PEARL RUSH','#00e5ff')}}}}}
@@ -1046,7 +1118,7 @@ function collisions(dt){const cells=allCells();if(game.frame%4===1)rebuildFoodGr
  // viruses
  for(const v of game.viruses){for(const c of [...allCells()]){if(c.dead)continue;if(dist(c.x,c.y,v.x,v.y)<c.r+v.r*.65)virusHit(c.owner,c,v)}}
  // cell eating - largest first
- const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.09:1.13)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.18){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell',bountyDown=game.event.type==='bountyrush'&&b.owner===game.bountyId&&ownerCells(b.owner).every(x=>x.dead);addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;trackDaily('kills');addXP(40,'Pearl.io KO');addCoins(30);sfx('win');game.shake=state.settings.shake?14:0;game.fxBursts.push({x:b.x,y:b.y,life:1,color:'#ff275f'})}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}if(bountyDown){grow(a,18,2.2);if(a.owner==='player'){addCoins(150);addXP(60,'bounty claimed');game.player.powers.frenzy=Math.max(game.player.powers.frenzy||0,5);arenaImpact('BOUNTY CLAIMED','#fbbf24')}game.bountyId=null}}}}
+ const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.06:1.09)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.06){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell',bountyDown=game.event.type==='bountyrush'&&b.owner===game.bountyId&&ownerCells(b.owner).every(x=>x.dead);addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;trackDaily('kills');addXP(40,'Pearl.io KO');addCoins(30);sfx('win');game.shake=state.settings.shake?14:0;game.fxBursts.push({x:b.x,y:b.y,life:1,color:'#ff275f'})}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}if(bountyDown){grow(a,18,2.2);if(a.owner==='player'){addCoins(150);addXP(60,'bounty claimed');game.player.powers.frenzy=Math.max(game.player.powers.frenzy||0,5);arenaImpact('BOUNTY CLAIMED','#fbbf24')}game.bountyId=null}}}}
  cleanDead();}
 function cleanDead(){game.player.cells=game.player.cells.filter(c=>!c.dead);for(const b of game.bots)b.cells=b.cells.filter(c=>!c.dead);game.bots=game.bots.filter(b=>b.cells.length>0);game.bots.splice(BOT_TARGET);if(game.bots.length<BOT_TARGET){const start=game.bots.length;for(let i=start;i<BOT_TARGET;i++)game.bots.push(makeBot(i+Math.floor(rand(0,9999))))}game.food=game.food.filter(f=>!f.dead).slice(0,FOOD_TARGET);while(game.food.length<FOOD_TARGET)game.food.push(makeFood());game.powers=game.powers.filter(p=>!p.dead).slice(0,POWER_TARGET);while(game.powers.length<POWER_TARGET)game.powers.push(makePower());game.viruses=game.viruses.slice(0,VIRUS_TARGET);while(game.viruses.length<VIRUS_TARGET)game.viruses.push(makeVirus());game.ejected=game.ejected.filter(e=>!e.dead);}
 function updateCamera(){
@@ -1062,9 +1134,9 @@ function loop(t,id){
   const minFrame=1000/perfProfile().fps;if(t-game.last<minFrame*.82){requestAnimationFrame(nt=>loop(nt,id));return}
   let dt=Math.min(.05,(t-game.last)/1000||.016);game.last=t;game.frame++;
   if(game.humanPresent){tickPowers(game.player,dt);movePlayer(dt)}
-  moveBots(dt,t);if(game.humanPresent)separateOwnerCells('player',game.forceMerge);
+  moveBots(dt,t);if(game.humanPresent){pullOwnerCellsForMerge('player');separateOwnerCells('player',false)}
   for(const b of game.bots)separateOwnerCells(b.id,false);for(const b of game.bots)mergeCells(b.id,false);
-  if(game.humanPresent)mergeCells('player',game.forceMerge);
+  if(game.humanPresent)mergeCells('player',false);
   collisions(dt);updateClassicEvent(dt);if(game.frame%2===0)updateDangerRadar();updateCamera();render();if(game.frame%2===0)updateHud();
   const tm=totalMass(game.player.cells);if(tm>state.stats.best){state.stats.best=tm;save()}
   if(game.humanPresent&&!game.player.cells.length){
@@ -1382,6 +1454,46 @@ window.pearlV20={
 const $ = id => document.getElementById(id);
 const read = (k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
 const write = (k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){console.warn('Storage full or blocked', e)}};
+const cinemaClamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const cinemaTomNames=new Set(['Pearl Grin','Pearl Closeup','Snack Time','Classic Smile','Mirror Fit']),cinemaImages=new Map();
+function cinemaTomForms(){
+  return (window.pearlSkinBridge?window.pearlSkinBridge.list():[]).filter(s=>cinemaTomNames.has(s.name)).map(s=>{
+    if(!cinemaImages.has(s.id)){const image=new Image();image.src=s.img;cinemaImages.set(s.id,image)}
+    return Object.assign({},s,{_img:cinemaImages.get(s.id)})
+  })
+}
+
+const musicNames=['Yara Yara','Phonk Tiki','Du bist gut genug'],musicUrls=[null,null,null];
+let musicIndex=0,musicEnabled=!!read('v20settings',{}).music;
+const legendAudio=$('legendAudio'),musicDock=$('musicDock');
+function availableMusic(from=musicIndex,step=1){
+  for(let i=0;i<musicUrls.length;i++){const index=(from+i*step+musicUrls.length*4)%musicUrls.length;if(musicUrls[index])return index}
+  return -1
+}
+function loadMusic(index,autoplay=false){
+  const found=musicUrls[index]?index:availableMusic(index,1);if(found<0){$('musicNow').textContent='Add the three requested tracks in Studio';return}
+  musicIndex=found;legendAudio.src=musicUrls[found];$('musicNow').textContent=musicNames[found];
+  if(autoplay)legendAudio.play().catch(()=>{})
+}
+function setMusicPlaying(on){
+  if(on&&availableMusic()>=0){if(!legendAudio.src)loadMusic(musicIndex);legendAudio.play().catch(()=>{});musicDock.classList.add('playing');$('musicPlay').textContent='PAUSE'}
+  else{legendAudio.pause();musicDock.classList.remove('playing');$('musicPlay').textContent='PLAY'}
+}
+function renderMusicSetting(){$('musicToggle').textContent=musicEnabled?'ON':'OFF';$('musicToggle').classList.toggle('on',musicEnabled);if(!musicEnabled)setMusicPlaying(false)}
+function saveMusicSetting(){const settings=read('v20settings',{});settings.music=musicEnabled;write('v20settings',settings);renderMusicSetting()}
+function stepMusic(direction){const found=availableMusic(musicIndex+direction,direction);if(found>=0){loadMusic(found,true);musicEnabled=true;saveMusicSetting()}}
+document.querySelectorAll('.musicTrack input').forEach((input,index)=>input.addEventListener('change',()=>{
+  const file=input.files&&input.files[0];if(!file)return;
+  if(!file.type.startsWith('audio/')){input.closest('.musicTrack').classList.remove('ready');return}
+  if(musicUrls[index])URL.revokeObjectURL(musicUrls[index]);musicUrls[index]=URL.createObjectURL(file);input.closest('.musicTrack').classList.add('ready');
+  if(!legendAudio.src)loadMusic(index);musicEnabled=true;saveMusicSetting();setMusicPlaying(true)
+}));
+$('musicToggle').addEventListener('click',()=>{musicEnabled=!musicEnabled;saveMusicSetting();setMusicPlaying(musicEnabled)});
+$('musicPlay').addEventListener('click',()=>{musicEnabled=legendAudio.paused;saveMusicSetting();setMusicPlaying(musicEnabled)});
+$('musicPrev').addEventListener('click',()=>stepMusic(-1));$('musicNext').addEventListener('click',()=>stepMusic(1));
+legendAudio.addEventListener('ended',()=>stepMusic(1));legendAudio.addEventListener('play',()=>{musicDock.classList.add('playing');$('musicPlay').textContent='PAUSE'});legendAudio.addEventListener('pause',()=>{musicDock.classList.remove('playing');$('musicPlay').textContent='PLAY'});
+legendAudio.addEventListener('timeupdate',()=>{$('musicProgress').style.width=(legendAudio.duration?legendAudio.currentTime/legendAudio.duration*100:0)+'%'});
+renderMusicSetting();
 
 // Media board: local image preview slots. These are optional and do not affect the game engine.
 function renderMediaSlot(slotEl, data){
@@ -1426,10 +1538,21 @@ function drawCinemaImage(ctx,img,w,h,zoom,alpha){
   const scale=Math.max(w/img.naturalWidth,h/img.naturalHeight)*zoom,dw=img.naturalWidth*scale,dh=img.naturalHeight*scale;
   ctx.globalAlpha=alpha;ctx.drawImage(img,(w-dw)/2,(h-dh)/2,dw,dh);ctx.globalAlpha=1
 }
+function drawTomFilmFrame(ctx,index,p,w=640,h=360){
+  const forms=cinemaTomForms(),position=p*(forms.length-1),base=Math.floor(position),mix=position-base;
+  const a=forms[base%forms.length]?._img,b=forms[Math.min(forms.length-1,base+1)]?._img;
+  ctx.fillStyle='#030104';ctx.fillRect(0,0,w,h);
+  drawCinemaImage(ctx,a,w,h,1.03+p*.08,1-mix);drawCinemaImage(ctx,b,w,h,1.10-p*.04,mix);
+  const shade=ctx.createLinearGradient(0,0,0,h);shade.addColorStop(0,'rgba(10,2,12,.08)');shade.addColorStop(.62,'rgba(10,2,12,.1)');shade.addColorStop(1,'rgba(10,2,12,.94)');ctx.fillStyle=shade;ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle=index===1?'#27f5ff':'#ffd447';ctx.lineWidth=4;ctx.strokeRect(18,18,w-36,h-36);
+  ctx.fillStyle='#ffd447';ctx.font='900 13px Arial';ctx.fillText('THOMAS PATRICK PEARL / ARCHIVE FILM '+(index+1),34,48);
+  ctx.fillStyle='#fff4cc';ctx.font='1000 42px Arial';ctx.fillText(['THE ARRIVAL','THE FIVE FORMS','THE THOMAS CROWN'][index],34,h-58);
+  ctx.fillStyle='#ff9bb3';ctx.font='800 12px Arial';ctx.fillText('TOM-ONLY LEGEND PROTOCOL',36,h-32)
+}
 function renderBuiltInTomFilm(index){
   return new Promise((resolve,reject)=>{
     if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){reject(new Error('video rendering unsupported'));return}
-    const forms=tomArchiveSkins(),canvas=document.createElement('canvas'),ctx=canvas.getContext('2d'),w=640,h=360,duration=4600;
+    const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d'),w=640,h=360,duration=4600;
     canvas.width=w;canvas.height=h;
     const stream=canvas.captureStream(24),chunks=[];
     let recorder;
@@ -1437,22 +1560,21 @@ function renderBuiltInTomFilm(index){
     recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
     recorder.onerror=e=>reject(e.error||e);
     recorder.onstop=()=>{stream.getTracks().forEach(t=>t.stop());resolve(URL.createObjectURL(new Blob(chunks,{type:recorder.mimeType||'video/webm'})))};
-    const chapterTitles=['THE ARRIVAL','THE FIVE FORMS','THE THOMAS CROWN'],start=performance.now();
+    const start=performance.now();
     recorder.start(250);
     function frame(t){
-      const elapsed=t-start,p=clamp(elapsed/duration,0,1),position=p*(forms.length-1),base=Math.floor(position),mix=position-base;
-      const a=forms[base%forms.length]?._img,b=forms[Math.min(forms.length-1,base+1)]?._img;
-      ctx.fillStyle='#030104';ctx.fillRect(0,0,w,h);
-      drawCinemaImage(ctx,a,w,h,1.03+p*.08,1-mix);drawCinemaImage(ctx,b,w,h,1.10-p*.04,mix);
-      const shade=ctx.createLinearGradient(0,0,0,h);shade.addColorStop(0,'rgba(10,2,12,.08)');shade.addColorStop(.62,'rgba(10,2,12,.1)');shade.addColorStop(1,'rgba(10,2,12,.94)');ctx.fillStyle=shade;ctx.fillRect(0,0,w,h);
-      ctx.strokeStyle=index===1?'#27f5ff':'#ffd447';ctx.lineWidth=4;ctx.strokeRect(18,18,w-36,h-36);
-      ctx.fillStyle='#ffd447';ctx.font='900 13px Arial';ctx.fillText('THOMAS PATRICK PEARL / ARCHIVE FILM '+(index+1),34,48);
-      ctx.fillStyle='#fff4cc';ctx.font='1000 42px Arial';ctx.fillText(chapterTitles[index],34,h-58);
-      ctx.fillStyle='#ff9bb3';ctx.font='800 12px Arial';ctx.fillText('TOM-ONLY LEGEND PROTOCOL',36,h-32);
+      const elapsed=t-start,p=cinemaClamp(elapsed/duration,0,1);drawTomFilmFrame(ctx,index,p,w,h);
       if(elapsed<duration)requestAnimationFrame(frame);else recorder.stop()
     }
     requestAnimationFrame(frame)
   })
+}
+let cinemaCanvasRun=0;
+function playTomCanvasFilm(index){
+  const canvas=$('tomCinemaCanvas'),video=$('tomCinemaVideo'),screen=$('cinemaScreen'),ctx=canvas.getContext('2d'),run=++cinemaCanvasRun,start=performance.now(),duration=4600;
+  video.pause();video.style.display='none';canvas.style.display='block';screen.classList.remove('empty');
+  function frame(t){if(run!==cinemaCanvasRun)return;const p=((t-start)%duration)/duration;drawTomFilmFrame(ctx,index,p,canvas.width,canvas.height);requestAnimationFrame(frame)}
+  requestAnimationFrame(frame)
 }
 async function playCinemaSlot(index){
   const video=$('tomCinemaVideo'),screen=$('cinemaScreen'),url=cinemaUrls[index];
@@ -1462,16 +1584,16 @@ async function playCinemaSlot(index){
     const clip=document.querySelector('[data-video-slot="'+index+'"]'),label=clip.querySelector('.muted'),btn=clip.querySelector('button');
     label.textContent='Rendering the built-in Tom-only film...';btn.disabled=true;
     try{nextUrl=await renderBuiltInTomFilm(index);cinemaUrls[index]=nextUrl;label.textContent='Built-in Tom-only film rendered and ready.'}
-    catch(e){label.textContent='This browser cannot render the built-in film. Add your own Tom clip.';toast('Built-in video rendering is unavailable.');btn.disabled=false;return}
+    catch(e){label.textContent='Playing the built-in Tom-only canvas film.';btn.disabled=false;btn.textContent='Replay film';playTomCanvasFilm(index);return}
     btn.disabled=false;btn.textContent='Replay film'
   }
-  screen.classList.remove('empty');video.src=nextUrl;video.play().catch(()=>{});toast('Tom-only archive chapter '+(index+1)+' playing',true)
+  cinemaCanvasRun++;$('tomCinemaCanvas').style.display='none';video.style.display='block';screen.classList.remove('empty');video.src=nextUrl;video.play().catch(()=>{})
 }
 document.querySelectorAll('.cinemaClip input[type=file]').forEach((input,index)=>{
   input.addEventListener('change',()=>{
     const file=input.files&&input.files[0];if(!file)return;
-    if(!file.type.startsWith('video/')){toast('Choose a video file.');input.value='';return}
-    if(file.size>250*1024*1024){toast('Keep archive clips below 250 MB.');input.value='';return}
+    if(!file.type.startsWith('video/')){input.closest('.cinemaClip').querySelector('.muted').textContent='Choose a video file.';input.value='';return}
+    if(file.size>250*1024*1024){input.closest('.cinemaClip').querySelector('.muted').textContent='Keep archive clips below 250 MB.';input.value='';return}
     if(cinemaUrls[index])URL.revokeObjectURL(cinemaUrls[index]);
     cinemaUrls[index]=URL.createObjectURL(file);cinemaCustom[index]=true;
     const clip=input.closest('.cinemaClip'),label=clip.querySelector('.muted');label.textContent=file.name+' - '+Math.max(1,Math.round(file.size/1024/1024))+' MB';
@@ -1479,7 +1601,8 @@ document.querySelectorAll('.cinemaClip input[type=file]').forEach((input,index)=
   })
 });
 document.querySelectorAll('[data-play-video]').forEach(btn=>btn.addEventListener('click',()=>playCinemaSlot(Number(btn.dataset.playVideo))));
-window.addEventListener('beforeunload',()=>cinemaUrls.forEach(url=>{if(url)URL.revokeObjectURL(url)}));
+window.addEventListener('beforeunload',()=>{cinemaUrls.forEach(url=>{if(url)URL.revokeObjectURL(url)});musicUrls.forEach(url=>{if(url)URL.revokeObjectURL(url)})});
+document.querySelectorAll('[data-tab],[data-tab-jump]').forEach(btn=>btn.addEventListener('click',()=>{const target=btn.dataset.tab||btn.dataset.tabJump;if(target!=='media')cinemaCanvasRun++}));
 
 // The main engine owns the adaptive quality button.
 
@@ -1519,7 +1642,7 @@ document.querySelectorAll('.casinoGame .log,.casinoTable .log,.casinoTable .poke
 });
 
 const canvas=q('snakeCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true}),map=q('snakeMap'),mctx=map.getContext('2d');
-const WORLD={w:7000,h:4800},TAU=Math.PI*2;
+const WORLD={w:12000,h:8000},TAU=Math.PI*2;
 let running=false,raf=0,last=0,boosting=false,mouse={x:0,y:0},camera={x:WORLD.w/2,y:WORLD.h/2},snakeFrame=0;
 let player=null,snakes=[],food=[],particles=[],gates=[],shockwaves=[],snakeFoodGrid=new Map(),snakeBodyGrid=new Map(),snakeBest=Number(localStorage.getItem('v10SnakeBest')||0),snakeWorld={type:'calm',nextAt:performance.now()+9000,until:0,startedAt:0},snakeNotice='',snakeNoticeUntil=0;
 const botNames=['Tom Prime','Pearl Disciple','Thomas Crown','Form Hunter','Archive Keeper','Grand Dealer','Polo Form','Mirror Form','Wide Lens','Cyber Pearl','Legend Echo','Pearl Icon'];
@@ -1604,11 +1727,14 @@ function steer(snake,dt){
   }else{
     snake.think-=dt;
     if(snake.think<=0){
-      snake.think=rnd(.13,.28)+(1-snake.skill)*.14;let danger=null,dangerD=Infinity,prey=null,preyD=Infinity;
+      snake.think=rnd(.13,.28)+(1-snake.skill)*.14;let danger=null,dangerD=Infinity,prey=null,preyD=Infinity,preyScore=-Infinity;
       for(const other of snakes){
         if(other===snake||!other.alive)continue;const oh=other.segments[0],d=Math.hypot(oh.x-head.x,oh.y-head.y);
         if(other.targetLength>snake.targetLength*1.14&&d<620&&d<dangerD){danger=oh;dangerD=d}
-        if(snake.targetLength>other.targetLength*(1.14+(1-snake.aggression)*.16)&&d<980&&d<preyD){prey=other;preyD=d}
+        if(snake.targetLength>other.targetLength*(1.08+(1-snake.aggression)*.12)&&d<1800){
+          const score=(other.isPlayer?1100:0)+(snake.targetLength/Math.max(1,other.targetLength))*180-d*.55;
+          if(score>preyScore){prey=other;preyD=d;preyScore=score}
+        }
         for(let i=10;i<other.segments.length;i+=Math.max(5,Math.floor(other.segments.length/18))){
           const s=other.segments[i],bd=Math.hypot(s.x-head.x,s.y-head.y);
           if(bd<130+snake.thickness+other.thickness&&bd<dangerD){danger=s;dangerD=bd}
@@ -1622,9 +1748,9 @@ function steer(snake,dt){
         if(snake.energy<68||snakeWorld.type==='gatefrenzy')for(const gate of gates){if(gate.cooldown>0)continue;const d=Math.hypot(gate.x-head.x,gate.y-head.y);if(d>1200)continue;const value=gate.type==='speed'?(110-snake.energy)*.05:gate.type==='growth'?2.8:2.2,score=value-d/330;if(score>bestGateScore){bestGateScore=score;bestGate=gate}}
         if(bestGate&&bestGateScore>-.5){
           snake.mode='power';snake.target=bestGate;const preferred=Math.atan2(bestGate.y-head.y,bestGate.x-head.x),safe=snakeSafestAngle(snake,preferred);snake.targetAngle=safe.angle;snake.botBoost=false
-        }else if(prey&&snake.aggression>.72){
-          snake.mode='hunt';const ph=prey.segments[0],lead=clamp(preyD*.42,110,360),side=Math.sign(Math.sin(prey.angle-Math.atan2(ph.y-head.y,ph.x-head.x)))||1;
-          snake.target={x:ph.x+Math.cos(prey.angle)*lead+Math.cos(prey.angle+Math.PI/2)*side*45,y:ph.y+Math.sin(prey.angle)*lead+Math.sin(prey.angle+Math.PI/2)*side*45};
+        }else if(prey&&(prey.isPlayer||snake.aggression>.58)){
+          snake.mode='hunt';const ph=prey.segments[0],lead=clamp(preyD*.48,150,520),side=Math.sign(Math.sin(prey.angle-Math.atan2(ph.y-head.y,ph.x-head.x)))||1;
+          snake.target={x:ph.x+Math.cos(prey.angle)*lead+Math.cos(prey.angle+Math.PI/2)*side*70,y:ph.y+Math.sin(prey.angle)*lead+Math.sin(prey.angle+Math.PI/2)*side*70};
           const preferred=Math.atan2(snake.target.y-head.y,snake.target.x-head.x),safe=snakeSafestAngle(snake,preferred);snake.targetAngle=safe.angle;snake.botBoost=preyD>170&&preyD<650&&snake.energy>30&&safe.risk<240
         }else{
           snake.mode='power';snake.botBoost=false;let best=null,bestScore=-Infinity;
@@ -1663,7 +1789,7 @@ function collisions(){
       const bucket=snakeBodyGrid.get(x+'|'+y);if(!bucket)continue;
       for(const entry of bucket){
         if(entry.owner===snake&&entry.index<18)continue;
-        const d=Math.hypot(h.x-entry.p.x,h.y-entry.p.y),hitDistance=(snake.thickness+entry.owner.thickness)*.54;
+        const d=Math.hypot(h.x-entry.p.x,h.y-entry.p.y),hitDistance=(snake.thickness+entry.owner.thickness)*.62;
         if(entry.owner!==snake)closestRivalGap=Math.min(closestRivalGap,d-hitDistance);
         if(d<hitDistance){hit=entry.owner;break}
       }
