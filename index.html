@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pearl.io V20 - Infinity Arcade</title>
+<title>Tom Pearl V20.1 - Legend Protocol</title>
 <style>
 :root{
   --bg:#040407;--panel:rgba(255,255,255,.045);--panel2:rgba(255,255,255,.075);--line:rgba(255,255,255,.10);
@@ -266,12 +266,27 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}.reducedMotion *,.reducedMotion *:before,.reducedMotion *:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 @media(max-width:980px){.navBrand{display:none}.v20Hero,.commandGrid,.creatorPreview{grid-template-columns:1fr}.portalStack{min-height:330px}.codexGrid .card,.codexGrid .wide{grid-column:span 6}}
 @media(max-width:700px){.nav{position:sticky;top:4px}.navRail{width:100%}.navSpacer{display:none}.v20Progress{top:auto;bottom:10px;z-index:40}.coinbar,.perfDock{bottom:58px}.wrap{padding-top:15px;padding-bottom:90px}.v20Hero{min-height:auto;padding:30px 20px}.v20Hero h1{font-size:4.5rem}.quickPlay,.metricRow{grid-template-columns:1fr 1fr}.quickCard:last-child{grid-column:1/-1}.profilePanel{grid-template-columns:1fr}.codexGrid .card,.codexGrid .wide{grid-column:1/-1}.toastStack{top:80px}}
+
+/* V20.1 TOM PEARL LEGEND PROTOCOL */
+:root{--legend-gold:#ffd447;--legend-cream:#fff4cc;--legend-red:#ff315f}
+body:after{content:"THOMAS PATRICK PEARL  •  THE LEGEND PROTOCOL  •  TOM PEARL";position:fixed;left:0;right:0;bottom:0;z-index:18;height:22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#18050d,#4b1022,#18050d);border-top:1px solid rgba(255,212,71,.35);color:var(--legend-gold);font-size:9px;font-weight:1000;letter-spacing:.2em;pointer-events:none}
+.navMark{background:radial-gradient(circle at 32% 28%,#fff6c8 0 12%,var(--legend-gold) 13% 38%,#9c1837 39% 70%,#260711 71%);color:#fff;text-shadow:0 2px 8px #000}.navBrand b{color:var(--legend-cream)}.navBrand small{color:var(--legend-gold)}.nav:after{content:"LEGEND"}
+.v20Hero.legendHero{grid-template-columns:.9fr 1.1fr;overflow:hidden;background:radial-gradient(circle at 72% 46%,rgba(255,212,71,.18),transparent 28%),radial-gradient(circle at 15% 75%,rgba(255,49,95,.2),transparent 31%),linear-gradient(135deg,#09060b,#240710 58%,#11152b)}.legendHero h1{font-size:clamp(4.1rem,9vw,8.6rem)}.legendHero h1 .tomLine{display:block;color:var(--legend-cream);-webkit-text-stroke:0}.legendHero h1 .pearlLine{display:block;color:transparent;-webkit-text-stroke:2px var(--legend-gold);text-shadow:0 0 40px rgba(255,212,71,.2)}.legendHeroCopy{position:relative;z-index:2}.legendFullName{display:block;margin-top:10px;color:#f9c8d4;font-size:12px;font-weight:950;letter-spacing:.24em;text-transform:uppercase}.legendStatement{max-width:680px;font-size:1.05rem;line-height:1.7}
+.legendPortraits{position:relative;min-height:440px;perspective:900px}.legendPortrait{position:absolute;overflow:hidden;border:2px solid rgba(255,255,255,.18);background:#13070d;box-shadow:0 25px 70px rgba(0,0,0,.55),0 0 35px rgba(255,49,95,.12)}.legendPortrait img{width:100%;height:100%;object-fit:cover;filter:saturate(1.08) contrast(1.04)}.legendPortrait.main{inset:12px 90px 25px 70px;border-radius:44px;transform:rotateY(-7deg);border-color:rgba(255,212,71,.58)}.legendPortrait.a{width:145px;height:145px;left:0;top:0;border-radius:35px;transform:rotate(-8deg)}.legendPortrait.b{width:130px;height:165px;right:0;top:42px;border-radius:32px;transform:rotate(8deg)}.legendPortrait.c{width:155px;height:125px;right:8px;bottom:0;border-radius:30px;transform:rotate(-5deg)}.legendSeal{position:absolute;left:14px;bottom:25px;z-index:4;width:112px;height:112px;display:grid;place-items:center;text-align:center;border-radius:50%;border:2px solid var(--legend-gold);background:radial-gradient(circle,#6b142b,#250711 68%);box-shadow:0 0 35px rgba(255,212,71,.25);color:var(--legend-cream);font-size:11px;font-weight:1000;letter-spacing:.1em;transform:rotate(-8deg)}.legendSeal:before,.legendSeal:after{content:"★";position:absolute;color:var(--legend-gold)}.legendSeal:before{top:9px}.legendSeal:after{bottom:9px}
+.legendTicker{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-bottom:22px;border:1px solid rgba(255,212,71,.22);border-radius:18px;overflow:hidden;background:rgba(255,212,71,.2)}.legendTicker div{padding:15px;background:#0d0910}.legendTicker b{display:block;color:var(--legend-gold);font-size:11px;letter-spacing:.12em}.legendTicker span{font-size:13px;color:#e9dfe4}
+.legendManifesto{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px;align-items:stretch}.legendQuote{display:flex;flex-direction:column;justify-content:space-between;min-height:290px;background:linear-gradient(145deg,#4b1022,#16060d)!important;border-color:rgba(255,212,71,.3)!important}.legendQuote blockquote{margin:18px 0;font-size:clamp(1.7rem,4vw,3.4rem);line-height:.96;font-weight:1000;letter-spacing:-.04em}.legendQuote small{color:#f4b8c8}.legendChapters{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.legendChapter{padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(0,0,0,.22)}.legendChapter b{color:var(--legend-gold)}.legendChapter span{display:block;margin-top:5px;color:#9dadc2;font-size:12px}
+.tomStamp{display:inline-flex;padding:5px 8px;border:1px solid rgba(255,212,71,.28);border-radius:8px;color:var(--legend-gold);font-size:10px;font-weight:950;letter-spacing:.12em}.tomLoreNotice{border-color:rgba(255,212,71,.34)!important;background:linear-gradient(135deg,rgba(255,212,71,.09),rgba(255,49,95,.06))!important}.codexPortraitRail{display:flex;gap:10px;overflow:hidden;margin-top:14px}.codexPortraitRail img{width:84px;height:84px;object-fit:cover;border-radius:18px;border:1px solid rgba(255,255,255,.18)}
+.quality-eco .legendPortrait.a,.quality-eco .legendPortrait.b,.quality-eco .legendPortrait.c{display:none}.quality-eco .legendPortrait.main{inset:25px;border-radius:30px;transform:none}.quality-eco .legendSeal{display:none}
+.adultOn{--bg:#020104;--pink:#ff174f;--purple:#971cff;--red:#ff163f}.adultOn:before{background:radial-gradient(circle at 18% 15%,rgba(151,28,255,.32),transparent 30%),radial-gradient(circle at 82% 18%,rgba(255,23,79,.28),transparent 34%),radial-gradient(circle at 50% 95%,rgba(255,212,71,.13),transparent 40%)}.adultOn .card{background:linear-gradient(180deg,rgba(80,8,32,.18),rgba(255,255,255,.025)),radial-gradient(circle at top left,rgba(255,23,79,.14),transparent 35%),rgba(8,3,12,.84)}.adultOn .gameShell,.adultOn .snakeShell{border-color:rgba(255,23,79,.55);box-shadow:0 30px 110px rgba(0,0,0,.8),0 0 65px rgba(255,23,79,.22),0 0 120px rgba(151,28,255,.14)}.adultOn .casinoStage{filter:saturate(1.3) contrast(1.08)}.adultOn .legendHero{background:radial-gradient(circle at 72% 46%,rgba(255,212,71,.2),transparent 28%),radial-gradient(circle at 12% 75%,rgba(255,0,64,.3),transparent 34%),linear-gradient(135deg,#050205,#310513 60%,#13041f)}.adultOn .legendPortrait img{filter:saturate(1.16) contrast(1.1)}.adultOn .nav{box-shadow:0 12px 40px rgba(0,0,0,.6),0 0 35px rgba(255,23,79,.08)}
+.agePlate{position:fixed;right:14px;top:76px;z-index:31;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(255,49,95,.38);border-radius:999px;background:rgba(26,3,12,.88);color:#ffc2d0;font-size:9px;font-weight:1000;letter-spacing:.12em;backdrop-filter:blur(12px)}.agePlate b{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#ff174f;color:#fff;font-size:10px}.afterDarkStrip{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin:-8px 0 22px;padding:11px 15px;border:1px solid rgba(255,23,79,.28);border-radius:14px;background:linear-gradient(90deg,rgba(255,23,79,.08),rgba(151,28,255,.08));font-size:11px;font-weight:900;letter-spacing:.08em}.afterDarkStrip span{color:#ff9bb3}.afterDarkStrip i{width:5px;height:5px;border-radius:50%;background:var(--legend-gold);box-shadow:0 0 10px var(--legend-gold)}
+@media(max-width:980px){.v20Hero.legendHero,.legendManifesto{grid-template-columns:1fr}.legendPortraits{min-height:390px}.legendTicker{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.legendHero h1{font-size:4.25rem}.legendPortraits{min-height:330px}.legendPortrait.main{inset:18px 45px 20px}.legendPortrait.a{width:95px;height:95px}.legendPortrait.b{width:90px;height:115px}.legendPortrait.c{width:105px;height:90px}.legendSeal{width:82px;height:82px;font-size:8px}.legendChapters{grid-template-columns:1fr}.legendTicker{grid-template-columns:1fr}.legendFullName{letter-spacing:.13em}.agePlate{display:none}}
 </style>
 </head>
 <body>
 <a class="skipLink" href="#mainContent">Skip to arcade</a>
 <nav class="nav" aria-label="Arcade navigation">
-  <div class="navBrand"><span class="navMark">P</span><span><b>PEARL V20</b><small>INFINITY ARCADE</small></span></div>
+  <div class="navBrand"><span class="navMark">TP</span><span><b>TOM PEARL V20.1</b><small>LEGEND PROTOCOL</small></span></div>
   <div class="navRail">
     <button data-tab="home" class="active">Command</button><button data-tab="game">Pearl.io</button><button data-tab="snake">Snake</button><button data-tab="casino">Casino</button><button data-tab="shop">Locker</button><button data-tab="missions">Missions</button><button data-tab="media">Studio</button><button data-tab="lore">Codex</button>
   </div>
@@ -279,6 +294,7 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
 </nav>
 <div class="coinbar">💰 <span id="coinCount">0</span> Pearl Coins</div>
 <div class="perfDock" id="perfDock" data-tier="high"><i class="perfDot"></i><b id="qualityBadge">AUTO · ULTRA</b><span>ADAPTIVE ENGINE</span><span class="fps" id="fpsMeter">60 FPS</span></div>
+<div class="agePlate"><b>18+</b> AFTER DARK TRIBUTE</div>
 <div class="v20Progress"><span class="levelBadge" id="levelBadge">LV 1</span><div class="xpTrack"><div class="xpFill" id="xpFill"></div></div><span class="xpText" id="xpText">0 / 250 XP</span></div>
 <div class="toastStack" id="toastStack" aria-live="polite"></div>
 <div class="settingsPanel" id="settingsPanel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
@@ -289,20 +305,22 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
     <div class="settingRow"><div><b>High contrast</b><div class="small muted">Sharper borders and text.</div></div><button class="btn switch" id="contrastToggle">OFF</button></div>
     <div class="settingRow"><div><b>Screen shake</b><div class="small muted">Impact feedback in arenas.</div></div><button class="btn switch on" id="shakeToggle">ON</button></div>
     <div class="settingRow"><div><b>Visual quality</b><div class="small muted">Auto protects slower laptops.</div></div><button class="btn" id="settingsQuality">AUTO</button></div>
-    <div class="settingRow"><div><b>Arcade mood</b><div class="small muted" id="moodDisplay">Neon meme archive mode</div></div><button class="btn danger" id="adultToggle">Adult arcade mode: OFF</button></div>
+    <div class="settingRow"><div><b>Arcade mood</b><div class="small muted" id="moodDisplay">Thomas After Dark - maximum visual intensity</div></div><button class="btn danger" id="adultToggle">18+ Legend mode: ON</button></div>
   </div>
 </div>
 <main class="wrap" id="mainContent">
 <section id="home" class="tab active">
-  <div class="card v20Hero">
-    <div><span class="v20Kicker">V20 INFINITY ARCADE</span><h1>PLAY.<br><span>EVOLVE.</span><br>DOMINATE.</h1><p class="muted">One profile across two giant living arenas, a two-floor casino, unlockable photo skins, daily missions, achievements and adaptive performance.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Pearl.io</button><button class="btn" data-tab-jump="snake">Ride Snake</button><button class="btn" id="dailyBtn">Daily Drop</button></div></div>
-    <div class="portalStack" aria-hidden="true"><div class="portal one"><span>5600 x 5600 CELL WAR</span><b>PEARL.IO</b></div><div class="portal two"><span>GIANT PREDATOR WORLD</span><b>PEARL SNAKE</b></div><div class="portal three"><span>TWO FLOORS / SHARED WALLET</span><b>CASINO ROYALE</b></div></div>
+  <div class="card v20Hero legendHero">
+    <div class="legendHeroCopy"><span class="v20Kicker">V20.1 LEGEND PROTOCOL</span><span class="legendFullName">Thomas Patrick Pearl</span><h1><span class="tomLine">TOM.</span><span class="pearlLine">PEARL.</span><span class="tomLine">LEGEND.</span></h1><p class="muted legendStatement">The entire arcade is now built as a fictional, community-inspired tribute to Tom Pearl, also known as Thomas Patrick Pearl. Every arena, rank, skin, mission and casino floor carries the Pearl identity.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Tom's Arena</button><button class="btn" data-tab-jump="snake">Ride the Pearl Serpent</button><button class="btn" id="dailyBtn">Claim Legend Drop</button></div></div>
+    <div class="legendPortraits" aria-label="Tom Pearl skin portrait wall"><div class="legendPortrait main"><img id="legendPortraitMain" alt="Tom Pearl arcade portrait"></div><div class="legendPortrait a"><img id="legendPortraitA" alt=""></div><div class="legendPortrait b"><img id="legendPortraitB" alt=""></div><div class="legendPortrait c"><img id="legendPortraitC" alt=""></div><div class="legendSeal">THOMAS<br>PATRICK<br>PEARL</div></div>
   </div>
+  <div class="legendTicker"><div><b>THE NAME</b><span>Thomas Patrick Pearl</span></div><div><b>THE ARENA</b><span>Pearl.io Dominion</span></div><div><b>THE SERPENT</b><span>Tom's Endless Coil</span></div><div><b>THE HOUSE</b><span>Grand Pearl Casino</span></div></div>
+  <div class="afterDarkStrip"><span>18+ AFTER DARK</span><i></i> HIGH-STAKES CASINO <i></i> PREDATOR ARENAS <i></i> MATURE FICTIONAL LORE <i></i> NO REAL-MONEY GAMBLING</div>
   <div class="commandGrid">
-    <div class="card"><span class="v20Kicker">ARCADE COMMAND CENTER</span><h2>Your next run starts here</h2><div class="quickPlay"><button class="quickCard" data-tab-jump="game"><b>Pearl.io</b><span>Hunt, split and steal bounties.</span><strong>ENTER ARENA</strong></button><button class="quickCard" data-tab-jump="snake"><b>Pearl Snake</b><span>Grow thick, cut rivals, claim crowns.</span><strong>START RUN</strong></button><button class="quickCard" data-tab-jump="casino"><b>Casino</b><span>Cards, roulette and machines.</span><strong>OPEN FLOOR</strong></button></div><div class="row"><button class="btn" data-tab-jump="missions">View live missions</button><button class="btn" id="fxToggle">Quality: AUTO</button><button class="btn" id="fullArenaBtn">Fullscreen arena</button></div></div>
-    <div class="card"><div class="profilePanel"><div class="profileCore" id="profileCore">1</div><div><span class="small muted">PLAYER PROFILE</span><h2 id="profileTitle">Rookie Pearl</h2><p class="muted small" id="profileSummary">Build XP in every game.</p></div></div><div class="metricRow"><div class="metric"><b id="homeRuns">0</b><span>runs</span></div><div class="metric"><b id="homeKills">0</b><span>KOs</span></div><div class="metric"><b id="homeWins">0</b><span>wins</span></div><div class="metric"><b id="homeSkins">1</b><span>skins</span></div></div><div id="homeMissionPreview" style="margin-top:16px"></div></div>
+    <div class="card"><span class="v20Kicker">PEARL COMMAND CENTER</span><h2>Choose your chapter in the legend</h2><div class="quickPlay"><button class="quickCard" data-tab-jump="game"><b>Pearl Dominion</b><span>Grow from nothing and claim the Thomas Crown.</span><strong>ENTER THE DOMAIN</strong></button><button class="quickCard" data-tab-jump="snake"><b>Endless Coil</b><span>Wear a Tom skin, grow thick and erase rivals.</span><strong>AWAKEN THE COIL</strong></button><button class="quickCard" data-tab-jump="casino"><b>Grand Pearl</b><span>Tom-themed cards, roulette and legend rewards.</span><strong>ENTER THE HOUSE</strong></button></div><div class="row"><button class="btn" data-tab-jump="missions">Legend contracts</button><button class="btn" id="fxToggle">Quality: AUTO</button><button class="btn" id="fullArenaBtn">Fullscreen domain</button></div></div>
+    <div class="card"><div class="profilePanel"><div class="profileCore" id="profileCore">1</div><div><span class="small muted">LEGEND RANK</span><h2 id="profileTitle">Pearl Initiate</h2><p class="muted small" id="profileSummary">Earn legend XP in every chapter.</p></div></div><div class="metricRow"><div class="metric"><b id="homeRuns">0</b><span>chapters</span></div><div class="metric"><b id="homeKills">0</b><span>claims</span></div><div class="metric"><b id="homeWins">0</b><span>house wins</span></div><div class="metric"><b id="homeSkins">1</b><span>Tom forms</span></div></div><div id="homeMissionPreview" style="margin-top:16px"></div></div>
   </div>
-  <div class="grid"><div class="card"><span class="v20Kicker">LIVE WORLDS</span><h3>Simple AI, sharper choices</h3><p class="muted">Rivals only hunt, run or chase power, but predict danger and choose safer routes.</p></div><div class="card"><span class="v20Kicker">TRUE PROGRESSION</span><h3>Everything now counts</h3><p class="muted">Food, KOs, runs, gates and casino plays feed XP, missions and achievements.</p></div><div class="card"><span class="v20Kicker">LAPTOP READY</span><h3>Adaptive visual engine</h3><p class="muted">The site automatically lowers heavy effects when performance stays low.</p></div></div>
+  <div class="legendManifesto"><div class="card legendQuote"><span class="tomStamp">FICTIONAL ARCADE TRANSMISSION</span><blockquote>ONE NAME.<br>FIFTEEN FORMS.<br>ENDLESS PEARLS.</blockquote><small>This tribute uses stylized game lore, not biographical claims or real quotations.</small></div><div class="card"><span class="v20Kicker">THE LEGEND PROTOCOL</span><h2>Tom is no longer just a skin</h2><div class="legendChapters"><div class="legendChapter"><b>I. THE RISE</b><span>Every run begins tiny. Growth turns an unknown pearl into a map-dominating legend.</span></div><div class="legendChapter"><b>II. THE FORMS</b><span>Every embedded photo skin is a different arcade form of Tom Pearl.</span></div><div class="legendChapter"><b>III. THE CROWN</b><span>Bounty leaders and crown snakes become the targets of the Thomas Protocol.</span></div><div class="legendChapter"><b>IV. THE HOUSE</b><span>Casino victories build the Grand Pearl streak and fund the next transformation.</span></div></div></div></div>
 </section>
 <section id="game" class="tab">
   <div class="card" style="padding:14px 16px">
@@ -317,7 +335,7 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
   </div>
   <div class="gameShell">
     <canvas id="gameCanvas"></canvas>
-    <div class="arenaStatus"><span id="arenaLiveDot" class="arenaLiveDot"></span><span id="arenaStatusText">Arena waiting for a player</span></div><div class="arenaEventHud"><b id="classicEventName">DIMENSION STABLE</b><span id="classicEventDetail">Next world event charging</span><div class="eventProgress"><i id="classicEventProgress"></i></div></div><div id="dangerRadar" class="dangerRadar">SECTOR CLEAR</div>
+    <div class="arenaStatus"><span id="arenaLiveDot" class="arenaLiveDot"></span><span id="arenaStatusText">Dominion waiting for a player</span></div><div class="arenaEventHud"><b id="classicEventName">LEGEND ONLINE</b><span id="classicEventDetail">Next Legend event charging</span><div class="eventProgress"><i id="classicEventProgress"></i></div></div><div id="dangerRadar" class="dangerRadar">SECTOR CLEAR</div>
     <div class="gameTop">
       <div class="hud" id="hud"></div>
       <div class="leader"><h4>Leaderboard</h4><div id="leaderboard"></div></div>
@@ -325,23 +343,23 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
     <div class="gameBottom"><canvas id="mini" class="minimap" width="160" height="160"></canvas><div id="powerBar" class="powerbar"></div></div>
     <div class="arenaOverdrive"><span>ARENA OVERDRIVE</span><b id="arenaImpact">READY</b></div><div id="killFeed" class="killFeed"></div>
     <div id="spectatorDock" class="spectatorDock"><span class="small muted">SPECTATING</span><button class="btn" id="spectatePrev">Previous</button><b id="spectateName">Arena leader</b><button class="btn" id="spectateNext">Next</button><button class="btn primary" id="spectateJoin">Join arena</button></div>
-    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><h2>Pearl.io V20 Arena</h2><p class="muted">Start small, eat food, hunt smaller cells, dodge viruses and steal the bounty crown.</p><div class="speedBalanceNote">V20: real XP, live missions, predictive rivals and adaptive performance.</div><button class="btn primary" id="overlaySpawn">Spawn now</button></div></div>
+    <div id="spawnOverlay" class="centerOverlay"><div class="spawnBox card"><span class="tomStamp">THOMAS PROTOCOL</span><h2>Tom Pearl Dominion</h2><p class="muted">Begin as a tiny pearl. Consume the field, unlock your chosen Tom form and take the Thomas Crown from the arena leader.</p><div class="speedBalanceNote">Legend rule: every rival can hunt, run or seek power. Every victory builds your Pearl legacy.</div><button class="btn primary" id="overlaySpawn">Begin the rise</button></div></div>
   </div>
 </section>
 <section id="snake" class="tab">
   <div class="snakeIntro">
     <div class="card">
-      <div class="v10Eyebrow">V20 predator world</div>
-      <h2>Pearl Snake</h2>
-      <p class="muted">A full neon snake arena with tactical bots, boost energy, roaming pearls, live ranking and a world that keeps moving around you.</p>
+      <div class="v10Eyebrow">Thomas Patrick Pearl presents</div>
+      <h2>Tom's Endless Coil</h2>
+      <p class="muted">Every serpent wears a Tom Pearl form. Begin small, become longer and visibly thicker, then cut through the field to become the Crowned Pearl.</p>
       <div class="snakeRules">
-        <div class="snakeRule"><b>Hunt</b><br><span class="muted small">Cut across rival paths and collect the pearls they drop.</span></div>
-        <div class="snakeRule"><b>Grow</b><br><span class="muted small">Every pearl extends your body and raises your score.</span></div>
-        <div class="snakeRule"><b>Boost</b><br><span class="muted small">Hold mouse or Space for speed, but watch your energy.</span></div>
+        <div class="snakeRule"><b>Claim</b><br><span class="muted small">Cut across rival paths and collect the forms they release.</span></div>
+        <div class="snakeRule"><b>Ascend</b><br><span class="muted small">Every pearl builds length, width and Legend Score.</span></div>
+        <div class="snakeRule"><b>Surge</b><br><span class="muted small">Hold mouse or Space to trigger Pearl Velocity.</span></div>
       </div>
     </div>
     <div class="card" style="background:radial-gradient(circle at 80% 20%,rgba(56,189,248,.2),transparent 32%),linear-gradient(145deg,rgba(15,23,42,.9),rgba(45,8,54,.82))">
-      <h3>Snake loadout</h3>
+      <h3>Choose a Tom form</h3>
       <label>Nickname</label><input id="snakeName" maxlength="18" value="PearlRider">
       <label>Pearl.io skin</label><select id="snakeSkin"></select><div id="snakeSkinPreview" class="snakeSkinPreview"></div><label>Trail color</label><select id="snakeColor"><option value="#22d3ee">Cyan Pulse</option><option value="#fb3f73">Pearl Rose</option><option value="#a78bfa">Void Violet</option><option value="#34d399">Toxic Mint</option><option value="#fbbf24">Casino Gold</option></select>
       <div class="snakeGateLegend"><span style="color:#67e8f9">CYAN: speed gate</span><span style="color:#c6ff1a">LIME: growth gate</span><span style="color:#ff8aab">PINK: score gate</span></div><p class="compactHint small">Controls: move with mouse or touch. Hold click, touch or Space to boost. Cross energy gates, chain pearls and survive every rival trail.</p>
@@ -350,23 +368,23 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
   <div class="snakeShell">
     <canvas id="snakeCanvas"></canvas>
     <div class="snakeHud"><div class="snakeStats"><span>Score <b id="snakeScore">0</b></span><span>Length <b id="snakeLength">45</b></span><span>KOs <b id="snakeKills">0</b></span><span>Width <b id="snakeWidth">1.0x</b></span><span>Rank <b id="snakeRank">-</b></span></div><div class="snakeLeaders"><strong>Top Snakes</strong><div id="snakeLeaderboard"></div></div></div>
-    <div class="snakeWorldHud"><b id="snakeWorldEvent">WORLD ONLINE</b><span id="snakeWorldDetail">Pearl storm charging</span><div class="eventProgress"><i id="snakeWorldProgress"></i></div></div><div id="snakeCombo" class="snakeCombo"><span>PEARL CHAIN</span><b id="snakeComboValue">x1</b></div><div id="snakeEvent" class="snakeEvent">OVERDRIVE</div><div class="snakeBoost"><span class="small">BOOST ENERGY</span><div class="snakeBoostBar"><div id="snakeBoostFill" class="snakeBoostFill"></div></div></div>
+    <div class="snakeWorldHud"><b id="snakeWorldEvent">LEGEND ONLINE</b><span id="snakeWorldDetail">Pearl Ascension charging</span><div class="eventProgress"><i id="snakeWorldProgress"></i></div></div><div id="snakeCombo" class="snakeCombo"><span>LEGEND CHAIN</span><b id="snakeComboValue">x1</b></div><div id="snakeEvent" class="snakeEvent">THOMAS OVERDRIVE</div><div class="snakeBoost"><span class="small">SURGE ENERGY</span><div class="snakeBoostBar"><div id="snakeBoostFill" class="snakeBoostFill"></div></div></div>
     <canvas id="snakeMap" class="snakeMap" width="150" height="100"></canvas>
-    <div id="snakeOverlay" class="snakeOverlay"><div class="card snakeStart"><span class="snakeBadge">V20 INFINITY ARENA</span><h2>PEARL<br>SNAKE</h2><p id="snakeMessage" class="muted">Begin tiny, grow longer and thicker, then claim the crown.</p><button class="btn primary" id="snakeStart">Enter the arena</button></div></div>
+    <div id="snakeOverlay" class="snakeOverlay"><div class="card snakeStart"><span class="snakeBadge">THOMAS PATRICK PEARL</span><h2>ENDLESS<br>COIL</h2><p id="snakeMessage" class="muted">Select a Tom form, begin tiny and become the Crowned Pearl.</p><button class="btn primary" id="snakeStart">Awaken the coil</button></div></div>
   </div>
 </section>
 
 <section id="casino" class="tab">
   <div class="casinoStage"><div class="casinoStageLights"></div></div>
   <div class="casinoHero">
-    <div class="card"><div class="v10Eyebrow">V20 two-floor casino</div><h2>Pearl Casino Royale</h2><p class="muted">Real card visuals, roulette, dice, machines, streak rewards and a shared jackpot. All currency stays inside the game.</p></div>
+    <div class="card"><div class="v10Eyebrow">Thomas Patrick Pearl's fictional arcade house</div><h2>The Grand Pearl Casino</h2><p class="muted">Two cinematic floors of cards, roulette, dice and machines, all themed around Tom forms and one growing Legend Jackpot. All currency stays inside the game.</p></div>
     <div class="casinoStat"><span class="muted small">Jackpot</span><b id="casinoJackpot">1000</b></div>
     <div class="casinoStat"><span class="muted small">Win streak</span><b id="casinoStreak">0</b></div>
     <div class="casinoStat"><span class="muted small">Best streak</span><b id="casinoBestStreak">0</b></div>
   </div>
 
   <div class="casinoCommand">
-    <div class="casinoCommandPanel"><div class="v10Eyebrow">Casino control</div><h3>One living casino</h3><p class="muted small">Every table now feeds the same streak, jackpot and live result board. Cards keep their suits and low-end mode trims only expensive effects.</p><div class="casinoPulseLine"><i></i></div></div>
+    <div class="casinoCommandPanel"><div class="v10Eyebrow">Grand Pearl control</div><h3>Build the Legend Streak</h3><p class="muted small">Every table feeds the same Tom Pearl streak, jackpot, XP profile and live result board.</p><div class="casinoPulseLine"><i></i></div></div>
     <div class="casinoCommandPanel"><div class="v10Eyebrow">Recent results</div><div id="casinoLiveFeed" class="casinoLiveFeed"><div class="casinoFeedEmpty">Your next result appears here.</div></div></div>
   </div>
 
@@ -379,8 +397,8 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
         </div>
       </div>
       <div>
-        <h3>🖼️ Tom Pearl Skin Wheel</h3>
-        <p class="muted">All pasted images are now custom Pearl.io skins. Spin the wheel to unlock them for use in the arena. New unlocks are auto-selected; duplicates refund coins.</p>
+        <h3>Tom Pearl Form Vault</h3>
+        <p class="muted">Each embedded portrait is a different arcade form of Tom Pearl. Spin the vault to unlock that form for both Pearl Dominion and Endless Coil.</p>
         <div class="display" id="wheelResultDisplay">Ready to spin for a custom skin</div>
         <div class="log" id="wheelLog">Custom wheel spin cost: 250 coins</div>
         <div class="wheelPreviewStrip" id="wheelPreviewStrip"></div>
@@ -470,10 +488,10 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
 
 <section id="media" class="tab">
   <div class="card">
-    <span class="v20Kicker">CREATOR STUDIO</span><h2>Build your arcade identity</h2>
-    <p class="muted">Create local banners and profile art without uploading anything. Your embedded Pearl skins work in both arenas.</p>
+    <span class="v20Kicker">TOM PEARL ARCHIVE STUDIO</span><h2>Curate the Legend Gallery</h2>
+    <p class="muted">The embedded Tom Pearl forms power both games. These private local slots let you create your own tribute banner, profile, casino poster and vault cover.</p>
   </div>
-  <div class="creatorPreview"><div class="creatorCanvas"><div><span class="v20Kicker">LIVE PREVIEW</span><b>PEARL<br>V20</b><p class="muted">Private local creator slots.</p></div></div><div class="card" style="margin:0"><h3>Studio rules</h3><p class="muted">Use compressed JPG, PNG or WebP files. Images stay in this browser and can be removed at any time.</p><div class="featureList"><div class="featureItem"><div class="featureIcon">1</div><div><b>Pick a slot</b><br><span class="muted">Banner, profile, casino or skin pack.</span></div></div><div class="featureItem"><div class="featureIcon">2</div><div><b>Preview instantly</b><br><span class="muted">No account or upload required.</span></div></div><div class="featureItem"><div class="featureIcon">3</div><div><b>Keep it fast</b><br><span class="muted">Small images protect performance.</span></div></div></div></div></div>
+  <div class="creatorPreview"><div class="creatorCanvas"><div><span class="v20Kicker">LEGEND COVER</span><b>TOM<br>PEARL</b><p class="muted">Thomas Patrick Pearl / Legend Protocol</p></div></div><div class="card" style="margin:0"><h3>Respect the archive</h3><p class="muted">This is a stylized tribute space. Local additions stay on your device; use images you are allowed to use and keep the fiction clearly separate from real biography.</p><div class="featureList"><div class="featureItem"><div class="featureIcon">1</div><div><b>Choose a chapter</b><br><span class="muted">Banner, portrait, casino or form vault.</span></div></div><div class="featureItem"><div class="featureIcon">2</div><div><b>Preview privately</b><br><span class="muted">Nothing is uploaded by this page.</span></div></div><div class="featureItem"><div class="featureIcon">3</div><div><b>Preserve speed</b><br><span class="muted">Compressed images keep the legend smooth.</span></div></div></div></div></div>
   <div class="mediaGrid" id="mediaGrid">
     <div class="mediaSlot" data-slot="banner"><h3>Banner / Homepage</h3><div class="placeholderArt">Drop in your main banner image</div><div class="assetName">assets/banner.png</div><input type="file" accept="image/*"></div>
     <div class="mediaSlot" data-slot="profile"><h3>Profile / Lore Icon</h3><div class="placeholderArt">Tom Pearl image slot</div><div class="assetName">assets/tom-profile.png</div><input type="file" accept="image/*"></div>
@@ -483,27 +501,27 @@ button,input,select{min-height:44px}.btn:focus-visible,.nav button:focus-visible
 </section>
 <section id="missions" class="tab">
   <div class="card">
-    <span class="v20Kicker">LIVE PROGRESSION</span><h2>Mission Control</h2>
-    <p class="muted">Real objectives powered by your activity across Pearl.io, Pearl Snake and the casino.</p>
+    <span class="v20Kicker">THE LEGEND CONTRACTS</span><h2>Prove your Pearl status</h2>
+    <p class="muted">Real objectives powered by your activity across Tom Pearl Dominion, Endless Coil and the Grand Pearl Casino.</p>
   </div>
   <div class="missionGrid" id="missionGrid"></div>
   <div class="card">
-    <h3>Achievement Vault</h3><div class="achievementGrid" id="achievementGrid"></div>
+    <h3>Thomas Patrick Pearl Hall of Forms</h3><div class="achievementGrid" id="achievementGrid"></div>
   </div>
 </section>
 
 <section id="lore" class="tab">
-  <div class="card"><span class="v20Kicker">PLAYER CODEX</span><h2>Master the Infinity Arcade</h2><p class="muted">Patch notes, strategy and system rules in one useful place.</p></div>
+  <div class="card tomLoreNotice"><span class="v20Kicker">THE TOM PEARL CODEX</span><h2>Thomas Patrick Pearl: Legend Protocol</h2><p class="muted">A fictional, community-inspired arcade tribute. The stories and transmissions below are game lore, not claims about the real person and not real quotations.</p><div class="codexPortraitRail" id="codexPortraitRail"></div></div>
   <div class="codexGrid">
-    <div class="card wide"><h3>V20 release file</h3><div class="patchItem"><b>PROFILE</b><span>Shared XP, levels, daily missions and achievements react to real play.</span></div><div class="patchItem"><b>ARENAS</b><span>Simple hunt/run/power AI with predictive danger routing.</span></div><div class="patchItem"><b>CASINO</b><span>Two visual floors, live results, cards, roulette, dice and machines.</span></div><div class="patchItem"><b>ACCESS</b><span>Motion, contrast, sound, shake and adaptive laptop controls.</span></div></div>
-    <div class="card"><h3>Pearl.io tactics</h3><p class="muted">Farm early, keep an escape angle and split only when you have room to recover.</p></div>
-    <div class="card"><h3>Snake tactics</h3><p class="muted">Boost to intercept. Gates restore momentum and close calls build score.</p></div>
-    <div class="card"><h3>Bot language</h3><p class="muted"><b>Hunt</b> cuts routes. <b>Run</b> samples safe angles. <b>Power</b> seeks resources.</p></div>
-    <div class="card"><h3>World events</h3><p class="muted">Bounty Rush, Pearl Storm and Gate Frenzy change the best strategy.</p></div>
-    <div class="card"><h3>Performance</h3><p class="muted">AUTO steps heavy effects down if frame rate remains low.</p></div>
+    <div class="card wide"><h3>The four arcade chapters</h3><div class="patchItem"><b>ORIGIN</b><span>Every legend run begins at minimum size. Nothing is granted; every pearl is earned.</span></div><div class="patchItem"><b>FORMS</b><span>Fifteen portrait forms carry different abilities into both living arenas.</span></div><div class="patchItem"><b>CROWN</b><span>The Thomas Crown marks the strongest target and rewards fearless interception.</span></div><div class="patchItem"><b>HOUSE</b><span>The Grand Pearl Casino converts nerve, streaks and luck into new forms.</span></div></div>
+    <div class="card"><h3>Pearl Dominion doctrine</h3><p class="muted">Farm quietly, keep an escape angle, then split through the leader when the Thomas Crown becomes reachable.</p></div>
+    <div class="card"><h3>Endless Coil doctrine</h3><p class="muted">Do not chase tails. Predict their line, cross the route and let your Tom form lead the collision.</p></div>
+    <div class="card"><h3>The three rival instincts</h3><p class="muted"><b>Claim</b> hunts weaker targets. <b>Retreat</b> samples safe angles. <b>Ascend</b> seeks pearls, gates and power.</p></div>
+    <div class="card"><h3>Legend events</h3><p class="muted">Thomas Crown, Pearl Ascension and Form Frenzy temporarily rewrite the best strategy.</p></div>
+    <div class="card"><h3>Archive performance</h3><p class="muted">AUTO protects budget laptops by reducing portrait effects, particles and expensive shadows.</p></div>
   </div>
 </section>
-<p class="footerNote small muted">Pearl.io V20 Infinity Arcade - two predator worlds, real progression, creator tools and Casino Royale.</p>
+<p class="footerNote small muted">Tom Pearl V20.1 Legend Protocol - a fictional arcade tribute to Thomas Patrick Pearl.</p>
 </main>
 <script>
 
@@ -519,23 +537,23 @@ const safeStore={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:J
 const defaultStats={runs:0,kills:0,best:0,food:0,casinoWins:0,casinoLosses:0,casinoPlays:0,snakeRuns:0,snakeFood:0,snakeKills:0,snakeBest:0,closeCalls:0};
 const profileDefault={xp:0,claimed:[],unlocked:[],daily:{day:'',pearlFood:0,snakeFood:0,kills:0,casinoPlays:0}};
 const settingsDefault={sound:false,reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches,contrast:false,shake:true};
-const state={coins:safeStore.get('v8coins',1600),skins:safeStore.get('v8skins',[0]),skin:safeStore.get('v8skin',0),adult:safeStore.get('v8adult',false),stats:Object.assign({},defaultStats,safeStore.get('v8stats',{})),profile:Object.assign({},profileDefault,safeStore.get('v20profile',{})),settings:Object.assign({},settingsDefault,safeStore.get('v20settings',{})),tab:'home'};
+const state={coins:safeStore.get('v8coins',1600),skins:safeStore.get('v8skins',[0]),skin:safeStore.get('v8skin',0),adult:safeStore.get('v201adult',true),stats:Object.assign({},defaultStats,safeStore.get('v8stats',{})),profile:Object.assign({},profileDefault,safeStore.get('v20profile',{})),settings:Object.assign({},settingsDefault,safeStore.get('v20settings',{})),tab:'home'};
 state.profile.daily=Object.assign({},profileDefault.daily,state.profile.daily||{});
 function dayKey(){return new Date().toISOString().slice(0,10)}
 function ensureDaily(){if(state.profile.daily.day!==dayKey()){state.profile.daily={day:dayKey(),pearlFood:0,snakeFood:0,kills:0,casinoPlays:0};state.profile.claimed=[]}}
 ensureDaily();
 const V20_MISSIONS=[
-  {id:'pearlFood',title:'Pearl Harvest',desc:'Eat 80 pieces of food in Pearl.io.',target:80,coins:180,xp:120},
-  {id:'snakeFood',title:'Snake Feast',desc:'Collect 60 pearls in Pearl Snake.',target:60,coins:220,xp:140},
-  {id:'casinoPlays',title:'Floor Tour',desc:'Play 5 casino rounds.',target:5,coins:160,xp:100}
+  {id:'pearlFood',title:'Feed the Legend',desc:'Consume 80 shards in Tom Pearl Dominion.',target:80,coins:180,xp:120},
+  {id:'snakeFood',title:'Endless Coil Ascension',desc:'Collect 60 pearls in Tom\'s Endless Coil.',target:60,coins:220,xp:140},
+  {id:'casinoPlays',title:'Grand Pearl Night',desc:'Play 5 rounds inside the Grand Pearl Casino.',target:5,coins:160,xp:100}
 ];
 const V20_ACHIEVEMENTS=[
-  {id:'firstRun',title:'First Contact',desc:'Start any arena run.',test:()=>state.stats.runs+state.stats.snakeRuns>=1},
-  {id:'hunter',title:'Predator',desc:'Score 10 total KOs.',test:()=>state.stats.kills+state.stats.snakeKills>=10},
-  {id:'massive',title:'Heavyweight',desc:'Reach 250 best Pearl.io mass.',test:()=>state.stats.best>=250},
-  {id:'longSnake',title:'Thick Legend',desc:'Reach a Snake score of 1000.',test:()=>state.stats.snakeBest>=1000},
-  {id:'casino',title:'House Challenger',desc:'Win 10 casino games.',test:()=>state.stats.casinoWins>=10},
-  {id:'collector',title:'Skin Vault',desc:'Unlock 5 skins.',test:()=>state.skins.length>=5}
+  {id:'firstRun',title:'Enter the Legend',desc:'Start any Tom Pearl arena run.',test:()=>state.stats.runs+state.stats.snakeRuns>=1},
+  {id:'hunter',title:'Thomas Crown Hunter',desc:'Score 10 total KOs.',test:()=>state.stats.kills+state.stats.snakeKills>=10},
+  {id:'massive',title:'Pearl Colossus',desc:'Reach 250 best Dominion mass.',test:()=>state.stats.best>=250},
+  {id:'longSnake',title:'Endless Form',desc:'Reach an Endless Coil score of 1000.',test:()=>state.stats.snakeBest>=1000},
+  {id:'casino',title:'Grand Pearl Regular',desc:'Win 10 casino games.',test:()=>state.stats.casinoWins>=10},
+  {id:'collector',title:'Fifteen Faces',desc:'Unlock 5 Tom Pearl forms.',test:()=>state.skins.length>=5}
 ];
 function levelInfo(){const level=Math.floor(Math.sqrt(state.profile.xp/250))+1,start=(level-1)*(level-1)*250,next=level*level*250;return{level,start,next,inside:state.profile.xp-start,need:next-start}}
 function toast(text,good=false){const stack=$('toastStack');if(!stack)return;const el=document.createElement('div');el.className='toast'+(good?' good':'');el.textContent=text;stack.appendChild(el);setTimeout(()=>el.remove(),2600)}
@@ -549,7 +567,7 @@ function renderMissions(){
   const next=V20_MISSIONS.find(m=>!state.profile.claimed.includes(m.id));const preview=$('homeMissionPreview');if(preview)preview.innerHTML=next?'<b>Next mission: '+next.title+'</b><div class="progressBar"><div style="width:'+Math.min(100,(state.profile.daily[next.id]||0)/next.target*100)+'%"></div></div><span class="small muted">'+Math.min(next.target,state.profile.daily[next.id]||0)+' / '+next.target+'</span>':'<b>All daily missions claimed.</b>'
 }
 function claimMission(id){const m=V20_MISSIONS.find(x=>x.id===id);if(!m||state.profile.claimed.includes(id)||(state.profile.daily[id]||0)<m.target)return;state.profile.claimed.push(id);state.coins+=m.coins;state.profile.xp+=m.xp;save();saveProfile();renderV20();toast(m.title+' claimed',true)}
-function renderV20(){const info=levelInfo(),titles=['Rookie Pearl','Arena Scout','Neon Hunter','Void Predator','Infinity Crown'];if($('levelBadge'))$('levelBadge').textContent='LV '+info.level;if($('xpFill'))$('xpFill').style.width=(info.inside/info.need*100)+'%';if($('xpText'))$('xpText').textContent=info.inside+' / '+info.need+' XP';if($('profileCore'))$('profileCore').textContent=info.level;if($('profileTitle'))$('profileTitle').textContent=titles[Math.min(titles.length-1,Math.floor((info.level-1)/3))];if($('profileSummary'))$('profileSummary').textContent=state.profile.xp+' total XP / '+state.profile.unlocked.length+' achievements';if($('homeRuns'))$('homeRuns').textContent=state.stats.runs+state.stats.snakeRuns;if($('homeKills'))$('homeKills').textContent=state.stats.kills+state.stats.snakeKills;if($('homeWins'))$('homeWins').textContent=state.stats.casinoWins;if($('homeSkins'))$('homeSkins').textContent=state.skins.length;renderMissions()}
+function renderV20(){const info=levelInfo(),titles=['Pearl Initiate','Tom Disciple','Crown Hunter','Pearl Icon','Thomas Protocol'];if($('levelBadge'))$('levelBadge').textContent='LV '+info.level;if($('xpFill'))$('xpFill').style.width=(info.inside/info.need*100)+'%';if($('xpText'))$('xpText').textContent=info.inside+' / '+info.need+' XP';if($('profileCore'))$('profileCore').textContent=info.level;if($('profileTitle'))$('profileTitle').textContent=titles[Math.min(titles.length-1,Math.floor((info.level-1)/3))];if($('profileSummary'))$('profileSummary').textContent=state.profile.xp+' total XP / '+state.profile.unlocked.length+' achievements';if($('homeRuns'))$('homeRuns').textContent=state.stats.runs+state.stats.snakeRuns;if($('homeKills'))$('homeKills').textContent=state.stats.kills+state.stats.snakeKills;if($('homeWins'))$('homeWins').textContent=state.stats.casinoWins;if($('homeSkins'))$('homeSkins').textContent=state.skins.length;renderMissions()}
 const PERF_PROFILES={
   high:{tier:'high',label:'ULTRA',dpr:1.6,fps:50,food:3800,bots:42,viruses:32,powers:36,pearlStars:82,snakeFood:2600,snakeBots:34,snakeGates:24,snakeStars:100,particleCap:380,mapEvery:2,bodyStep:3},
   balanced:{tier:'balanced',label:'BALANCED',dpr:1.25,fps:42,food:2700,bots:32,viruses:26,powers:30,pearlStars:52,snakeFood:1900,snakeBots:26,snakeGates:20,snakeStars:64,particleCap:220,mapEvery:4,bodyStep:4},
@@ -586,15 +604,15 @@ function monitorPerformance(t){
   requestAnimationFrame(monitorPerformance)
 }
 $('fxToggle').addEventListener('click',cycleQuality);renderPerfUi();requestAnimationFrame(monitorPerformance);
-function save(){safeStore.set('v8coins',state.coins);safeStore.set('v8skins',state.skins);safeStore.set('v8skin',state.skin);safeStore.set('v8adult',state.adult);safeStore.set('v8stats',state.stats);saveProfile()}
+function save(){safeStore.set('v8coins',state.coins);safeStore.set('v8skins',state.skins);safeStore.set('v8skin',state.skin);safeStore.set('v201adult',state.adult);safeStore.set('v8stats',state.stats);saveProfile()}
 function setCoins(n){state.coins=Math.max(0,Math.floor(n));$('coinCount').textContent=state.coins;save();renderStats()}
 function addCoins(n){setCoins(state.coins+n)} window.pearlAddCoins=addCoins;
 function spend(n){if(state.coins<n){flash('Need '+n+' coins');return false}addCoins(-n);return true}
 function flash(msg){const el=$('moodDisplay');if(el){const old=el.textContent;el.textContent=msg;setTimeout(()=>{if(el.textContent===msg)el.textContent=old},1200)}}
-function setTab(id){const leavingGame=state.tab==='game'&&id!=='game';document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.id===id));document.querySelectorAll('.nav button[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));state.tab=id;if(leavingGame&&typeof leaveArenaToSpectate==='function')leaveArenaToSpectate();if(id==='game'&&typeof enterArenaView==='function')enterArenaView();if(id==='shop')renderSkins();if(id==='missions')renderMissions();window.scrollTo({top:0,behavior:state.settings.reducedMotion?'auto':'smooth'})}
+function setTab(id){const leavingGame=state.tab==='game'&&id!=='game';document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.id===id));document.querySelectorAll('.nav button[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));state.tab=id;if(leavingGame&&typeof leaveArenaToSpectate==='function')leaveArenaToSpectate();if(id==='game'&&typeof enterArenaView==='function')enterArenaView();if(id==='shop')renderSkins();if(id==='missions')renderMissions();requestAnimationFrame(()=>{window.dispatchEvent(new Event('resize'));if(id==='snake'&&window.pearlResizeSnake)window.pearlResizeSnake()});window.scrollTo({top:0,behavior:state.settings.reducedMotion?'auto':'smooth'})}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));document.querySelectorAll('[data-tab-jump]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tabJump)));
 $('adultToggle').addEventListener('click',()=>{state.adult=!state.adult;save();renderAdult()});
-function renderAdult(){document.body.classList.toggle('adultOn',state.adult);$('adultToggle').textContent='Adult arcade mode: '+(state.adult?'ON':'OFF');$('moodDisplay').textContent=state.adult?'18+ grimy neon chaos mode':'Neon meme archive mode'}
+function renderAdult(){document.body.classList.toggle('adultOn',state.adult);$('adultToggle').textContent='18+ Legend mode: '+(state.adult?'ON':'OFF');$('moodDisplay').textContent=state.adult?'Thomas After Dark - maximum visual intensity':'Legend Protocol - reduced intensity'}
 $('dailyBtn').addEventListener('click',()=>{const day=dayKey();if(safeStore.get('v20daily','')===day){toast('Daily drop already claimed');return}safeStore.set('v20daily',day);addCoins(500);addXP(100,'daily drop');toast('+500 coins and +100 XP',true)});
 let audioCtx=null;
 function sfx(kind='tap'){if(!state.settings.sound)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain(),tones={tap:240,coin:520,win:760,loss:130,level:980};o.frequency.value=tones[kind]||240;o.type=kind==='loss'?'sawtooth':'sine';g.gain.setValueAtTime(.05,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.13);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.14)}catch(e){}}
@@ -637,6 +655,19 @@ state.skins=[...new Set(state.skins.filter(i=>i>=0&&i<SKINS.length))];
 if(!state.skins.length)state.skins=[0];
 if(!state.skins.includes(state.skin))state.skin=state.skins[0];
 save();
+
+function renderLegendIdentity(){
+  const portraits=SKINS.filter(s=>s.img);
+  if(!portraits.length)return;
+  const picks=[0,3,7,12].map(i=>portraits[i%portraits.length]);
+  const ids=['legendPortraitMain','legendPortraitA','legendPortraitB','legendPortraitC'];
+  ids.forEach((id,i)=>{const img=$(id);if(!img)return;img.src=picks[i].img;img.alt='Tom Pearl form: '+picks[i].name;img.dataset.skinName=picks[i].name});
+  const main=$('legendPortraitMain');
+  ids.slice(1).forEach(id=>{const img=$(id);if(!img||!main)return;img.addEventListener('click',()=>{const src=main.src,alt=main.alt,name=main.dataset.skinName;main.src=img.src;main.alt=img.alt;main.dataset.skinName=img.dataset.skinName;img.src=src;img.alt=alt;img.dataset.skinName=name})});
+  const rail=$('codexPortraitRail');
+  if(rail)rail.innerHTML=portraits.slice(0,10).map(s=>'<img src="'+s.img+'" alt="Tom Pearl form: '+s.name+'" title="'+s.name+'">').join('');
+}
+renderLegendIdentity();
 
 const SKIN_ABILITIES=[
 {name:'Grin Rush',rarity:'Rare',good:'+6% chase speed',bad:'-3% quiet farming',desc:'Closes gaps when prey is nearby.',mods:{chase:1.06,foodGain:.97}},
@@ -779,7 +810,7 @@ function makePower(){
   for(const item of POWERS){sum+=item[3];if(roll<=sum){p=item;break}}
   return{x:rand(100,WORLD-100),y:rand(100,WORLD-100),type:p[0],emoji:p[1],color:p[2],r:p[0]==='nova'?27:23,pulse:rand(0,TAU),dead:false}
 }
-const BOT_NAMES='TomChop LoreSeeker ArchiveBot DeepCrawler PearlEater NeonRat VoidBlob MassBandit CasinoGremlin VirusSurfer SplitLord FoodGoblin PinkMenace ChromePearl ToxicFan'.split(' ');
+const BOT_NAMES='TomPrime PearlDisciple ArchiveKeeper CrownClaimant FormHunter GrandDealer ThomasProtocol NeonPortrait BeardForm PoloForm MirrorForm DoorwayForm CyberPearl WideLens PearlIcon'.split(' ');
 function makeBot(i){
   const skin=Math.floor(rand(0,SKINS.length)),x=rand(200,WORLD-200),y=rand(200,WORLD-200);
   const styles=['farmer','hunter','survivor','opportunist'],style=styles[i%styles.length];
@@ -818,13 +849,13 @@ function pearlBounty(){
 }
 function updateClassicEvent(dt){
   const t=Date.now(),ev=game.event;
-  if(ev.type==='calm'&&t>=ev.nextAt){const types=['pearlstorm','overdrive','riftwave','bountyrush'];ev.type=types[Math.floor(rand(0,types.length))];ev.startedAt=t;ev.until=t+12000;if(ev.type==='bountyrush')pearlBounty();arenaImpact(ev.type==='pearlstorm'?'PEARL STORM':ev.type==='overdrive'?'SPEED OVERDRIVE':ev.type==='riftwave'?'RIFT WAVE':'BOUNTY RUSH',ev.type==='pearlstorm'||ev.type==='bountyrush'?'#fff700':ev.type==='overdrive'?'#27f5ff':'#ff247f');if(ev.type==='pearlstorm')for(let i=0;i<260;i++)game.food.push(makeFood())}
+  if(ev.type==='calm'&&t>=ev.nextAt){const types=['pearlstorm','overdrive','riftwave','bountyrush'];ev.type=types[Math.floor(rand(0,types.length))];ev.startedAt=t;ev.until=t+12000;if(ev.type==='bountyrush')pearlBounty();arenaImpact(ev.type==='pearlstorm'?'PEARL ASCENSION':ev.type==='overdrive'?'THOMAS OVERDRIVE':ev.type==='riftwave'?'ARCHIVE RIFT':'THOMAS CROWN',ev.type==='pearlstorm'||ev.type==='bountyrush'?'#fff700':ev.type==='overdrive'?'#27f5ff':'#ff247f');if(ev.type==='pearlstorm')for(let i=0;i<260;i++)game.food.push(makeFood())}
   if(ev.type!=='calm'&&t>=ev.until){ev.type='calm';ev.nextAt=t+rand(13000,19000);game.bountyId=null}
   const bounty=ev.type==='bountyrush'?pearlBounty():null;
   document.querySelector('.gameShell').classList.toggle('ultraStorm',ev.type!=='calm');
   document.querySelector('.gameShell').classList.toggle('bountyRush',ev.type==='bountyrush');
-  const names={calm:'DIMENSION STABLE',pearlstorm:'PEARL STORM',overdrive:'SPEED OVERDRIVE',riftwave:'RIFT WAVE',bountyrush:'BOUNTY RUSH'};
-  const details={calm:'Next world event charging',pearlstorm:'Rare shards are flooding the map',overdrive:'Every cell moves at impossible speed',riftwave:'Rifts are pulling mass across sectors',bountyrush:bounty?'Crowned target: '+bounty.name:'New target incoming'};
+  const names={calm:'LEGEND ONLINE',pearlstorm:'PEARL ASCENSION',overdrive:'THOMAS OVERDRIVE',riftwave:'ARCHIVE RIFT',bountyrush:'THOMAS CROWN'};
+  const details={calm:'Next Legend event charging',pearlstorm:'Rare shards are flooding the Dominion',overdrive:'Every form moves at impossible speed',riftwave:'Archive rifts are pulling mass across sectors',bountyrush:bounty?'Crowned target: '+bounty.name:'New crown target incoming'};
   $('classicEventName').textContent=names[ev.type];$('classicEventDetail').textContent=details[ev.type];
   const pct=ev.type==='calm'?clamp(100-(ev.nextAt-t)/180,0,100):clamp((ev.until-t)/120,0,100);$('classicEventProgress').style.width=pct+'%';
   if(ev.type==='overdrive'){for(const c of allCells()){c.x+=c.vx*.2;c.y+=c.vy*.2;bound(c)}}
@@ -1400,7 +1431,7 @@ const canvas=q('snakeCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchron
 const WORLD={w:7000,h:4800},TAU=Math.PI*2;
 let running=false,raf=0,last=0,boosting=false,mouse={x:0,y:0},camera={x:WORLD.w/2,y:WORLD.h/2},snakeFrame=0;
 let player=null,snakes=[],food=[],particles=[],gates=[],shockwaves=[],snakeFoodGrid=new Map(),snakeBodyGrid=new Map(),snakeBest=Number(localStorage.getItem('v10SnakeBest')||0),snakeWorld={type:'calm',nextAt:performance.now()+9000,until:0,startedAt:0},snakeNotice='',snakeNoticeUntil=0;
-const botNames=['Neon Nova','Pearl Hunter','Voidline','Casino King','Cyber Coil','Blue Static','Rose Viper','Night Drive','Mint Rush','Glow Unit','Orbit','Afterimage'];
+const botNames=['Tom Prime','Pearl Disciple','Thomas Crown','Form Hunter','Archive Keeper','Grand Dealer','Polo Form','Mirror Form','Wide Lens','Cyber Pearl','Legend Echo','Pearl Icon'];
 const colors=['#22d3ee','#fb3f73','#a78bfa','#34d399','#fbbf24','#60a5fa','#f472b6'];
 const skinBridge=window.pearlSkinBridge,sharedSkins=skinBridge?skinBridge.list():[{id:0,name:'Core',color:'#22d3ee',icon:'●',img:'',unlocked:true}];
 const snakeSkinImages=new Map();for(const skin of sharedSkins)if(skin.img){const im=new Image();im.src=skin.img;snakeSkinImages.set(skin.id,im)}
@@ -1411,6 +1442,7 @@ q('snakeSkin').addEventListener('change',renderSnakeSkinPreview);refreshSnakeSki
 const rnd=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 function snakePerf(){return window.pearlPerformance.profile()}
 function resizeSnake(){const r=canvas.getBoundingClientRect(),d=Math.min(snakePerf().dpr,devicePixelRatio||1);canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));ctx.setTransform(d,0,0,d,0,0)}
+window.pearlResizeSnake=resizeSnake;
 const SNAKE_FOOD_BUCKET=180,SNAKE_BODY_BUCKET=100;
 function snakeGridKey(x,y,size){return Math.floor(x/size)+'|'+Math.floor(y/size)}
 function rebuildSnakeFoodGrid(){snakeFoodGrid.clear();for(const f of food){if(f.dead)continue;const key=snakeGridKey(f.x,f.y,SNAKE_FOOD_BUCKET),bucket=snakeFoodGrid.get(key);if(bucket)bucket.push(f);else snakeFoodGrid.set(key,[f])}}
@@ -1441,7 +1473,7 @@ function snakeLeader(){return [...snakes].filter(s=>s.alive).sort((a,b)=>b.score
 function killSnake(snake,killer){
   if(!snake.alive)return;const crownDown=snakeWorld.type==='bountyrush'&&snake===snakeLeader();snake.alive=false;
   for(let i=3;i<snake.segments.length;i+=2){const s=snake.segments[i];food.push(makeFood(s.x+rnd(-5,5),s.y+rnd(-5,5),2))}
-  if(killer){killer.kills++;killer.score+=100*Math.max(1,killer.combo||1)+(crownDown?250:0);killer.targetLength+=24+(crownDown?20:0);killer.thickness+=1.2;killer.energy=Math.min(100,killer.energy+(crownDown?100:45));killer.combo=Math.min(25,(killer.combo||1)+3);killer.comboUntil=performance.now()+5000;killer.peakCombo=Math.max(killer.peakCombo||1,killer.combo);if(killer.isPlayer){if(window.pearlV20)window.pearlV20.snakeKO(crownDown);showSnakeEvent(crownDown?'CROWN CLAIMED +250':killer.combo>=10?'ANNIHILATION':'SNAKE KO');snakeShake=!window.pearlV20||window.pearlV20.shakeEnabled()?(crownDown?24:18):0}}
+  if(killer){killer.kills++;killer.score+=100*Math.max(1,killer.combo||1)+(crownDown?250:0);killer.targetLength+=24+(crownDown?20:0);killer.thickness+=1.2;killer.energy=Math.min(100,killer.energy+(crownDown?100:45));killer.combo=Math.min(25,(killer.combo||1)+3);killer.comboUntil=performance.now()+5000;killer.peakCombo=Math.max(killer.peakCombo||1,killer.combo);if(killer.isPlayer){if(window.pearlV20)window.pearlV20.snakeKO(crownDown);showSnakeEvent(crownDown?'THOMAS CROWN CLAIMED +250':killer.combo>=10?'LEGEND ASCENSION':'COIL KO');snakeShake=!window.pearlV20||window.pearlV20.shakeEnabled()?(crownDown?24:18):0}}
   shockwaves.push({x:snake.segments[0].x,y:snake.segments[0].y,r:10,life:1,color:snake.color});for(let i=0;i<(snakePerf().tier==='eco'?14:snakePerf().tier==='balanced'?26:42);i++)particles.push({x:snake.segments[0].x,y:snake.segments[0].y,vx:rnd(-6,6),vy:rnd(-6,6),life:rnd(.6,1.3),color:snake.color,size:rnd(2,7)});
   if(snake===player){snakeBest=Math.max(snakeBest,Math.floor(player.score));if(window.pearlV20)window.pearlV20.snakeEnd(snakeBest);localStorage.setItem('v10SnakeBest',snakeBest);running=false;q('snakeMessage').textContent='Run ended at '+Math.floor(player.score)+' points. Personal best: '+snakeBest+'.';q('snakeStart').textContent='Ride again';q('snakeOverlay').classList.remove('hidden')}
   else setTimeout(()=>{if(running){const n=makeSnake(snake.name,colors[Math.floor(rnd(0,colors.length))],false);snakes[snakes.indexOf(snake)]=n}},1200);
@@ -1449,9 +1481,9 @@ function killSnake(snake,killer){
 let snakeShake=0,arenaPulse=0;
 function showSnakeEvent(text){snakeNotice=text;snakeNoticeUntil=performance.now()+1700;q('snakeWorldDetail').textContent=text}
 function updateSnakeWorld(t){
-  if(snakeWorld.type==='calm'&&t>=snakeWorld.nextAt){const roll=Math.random();snakeWorld.type=roll<.38?'pearlstorm':roll<.72?'gatefrenzy':'bountyrush';snakeWorld.startedAt=t;snakeWorld.until=t+11000;showSnakeEvent(snakeWorld.type==='pearlstorm'?'PEARL STORM':snakeWorld.type==='gatefrenzy'?'GATE FRENZY':'CROWN HUNT');if(snakeWorld.type==='pearlstorm')for(let i=0;i<180;i++)food.push(makeFood(rnd(WORLD.w*.28,WORLD.w*.72),rnd(WORLD.h*.25,WORLD.h*.75),Math.random()>.8?3:1))}
+  if(snakeWorld.type==='calm'&&t>=snakeWorld.nextAt){const roll=Math.random();snakeWorld.type=roll<.38?'pearlstorm':roll<.72?'gatefrenzy':'bountyrush';snakeWorld.startedAt=t;snakeWorld.until=t+11000;showSnakeEvent(snakeWorld.type==='pearlstorm'?'PEARL ASCENSION':snakeWorld.type==='gatefrenzy'?'FORM FRENZY':'THOMAS CROWN');if(snakeWorld.type==='pearlstorm')for(let i=0;i<180;i++)food.push(makeFood(rnd(WORLD.w*.28,WORLD.w*.72),rnd(WORLD.h*.25,WORLD.h*.75),Math.random()>.8?3:1))}
   if(snakeWorld.type!=='calm'&&t>=snakeWorld.until){snakeWorld.type='calm';snakeWorld.nextAt=t+rnd(12000,18000)}
-  const leader=snakeLeader(),names={calm:'WORLD ONLINE',pearlstorm:'PEARL STORM',gatefrenzy:'GATE FRENZY',bountyrush:'CROWN HUNT'},detail={calm:'Next arena event charging',pearlstorm:'Central sector is overflowing',gatefrenzy:'All gates are supercharged',bountyrush:leader?'Crown target: '+leader.name:'Crown target incoming'};
+  const leader=snakeLeader(),names={calm:'LEGEND ONLINE',pearlstorm:'PEARL ASCENSION',gatefrenzy:'FORM FRENZY',bountyrush:'THOMAS CROWN'},detail={calm:'Next Legend event charging',pearlstorm:'The central archive is overflowing',gatefrenzy:'All form gates are supercharged',bountyrush:leader?'Thomas Crown target: '+leader.name:'Crown target incoming'};
   q('snakeWorldEvent').textContent=names[snakeWorld.type];q('snakeWorldDetail').textContent=t<snakeNoticeUntil?snakeNotice:detail[snakeWorld.type];q('snakeCanvas').closest('.snakeShell').classList.toggle('pearlStorm',snakeWorld.type==='pearlstorm'||snakeWorld.type==='gatefrenzy');q('snakeCanvas').closest('.snakeShell').classList.toggle('bountyRush',snakeWorld.type==='bountyrush');
   q('snakeWorldProgress').style.width=(snakeWorld.type==='calm'?clamp(100-(snakeWorld.nextAt-t)/180,0,100):clamp((snakeWorld.until-t)/110,0,100))+'%';
 }
