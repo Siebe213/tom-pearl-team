@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tom Pearl V20.4 - Night Circuit</title>
+<title>Tom Pearl V21 - Arena OS</title>
 <style>
 :root{
   --bg:#040407;--panel:rgba(255,255,255,.045);--panel2:rgba(255,255,255,.075);--line:rgba(255,255,255,.10);
@@ -421,12 +421,31 @@ input,select{border-radius:4px;background:#090c10;border-color:#303944}
 .skin.selected{outline:2px solid #3a9cff;background:#152231}.skin,.wheelPreviewItem,.skinThumb{border-radius:5px}
 .agePlate{border-radius:4px;background:#11161c;border-color:#303944}.agePlate b{background:#e43d4f}
 @media(max-width:700px){.legendHero h1{font-size:4rem}.legendHeroCopy:before{font-size:5rem}.card{padding:17px}}
+
+/* V21 ARENA OS - interface and game presentation overhaul */
+:root{--os-blue:#4ca3ff;--os-red:#ed4055;--os-ink:#070a0e;--os-panel:#0e141b;--os-line:#283440}
+body:after{content:"TOM PEARL / ARENA OS / V21"!important}
+.nav{min-height:60px;padding:8px 16px;box-shadow:0 10px 35px rgba(0,0,0,.28)!important}.navMark{transform:none;border-radius:7px}.navBrand small{font-family:ui-monospace,Consolas,monospace;letter-spacing:.13em}.navRail{gap:2px}.nav button{padding:9px 13px;border:1px solid transparent}.nav button.active{box-shadow:inset 0 -2px 0 rgba(255,255,255,.35)!important}.nav button:focus-visible{outline:2px solid var(--os-blue);outline-offset:1px}
+.agePlate{display:none!important}.v20Progress{position:relative;left:auto;top:auto;transform:none;z-index:10;width:min(680px,calc(100% - 28px));margin:12px auto -10px;padding:7px 10px;border-radius:7px;background:#0c1117!important}.levelBadge{border-radius:5px;background:var(--os-red);color:#fff}.xpTrack{height:5px}.xpFill{background:linear-gradient(90deg,var(--os-red),#f18b45,var(--os-blue))}
+.wrap{padding-top:24px}.coinbar{right:14px;bottom:14px;padding:9px 13px;border-radius:7px!important;font-size:13px;opacity:.88}.perfDock{left:50%;bottom:14px;transform:translateX(-50%);padding:7px 10px;border-radius:7px!important;opacity:.62;transition:opacity .18s}.perfDock:hover{opacity:1}.perfDock span:not(.fps){display:none}.perfDock .fps{min-width:auto}
+.musicDock{left:14px;bottom:14px;width:48px;height:48px;padding:7px;overflow:hidden;border-radius:8px!important;transition:width .22s ease,opacity .18s;opacity:.72}.musicDock:hover,.musicDock:focus-within{width:min(350px,calc(100vw - 28px));opacity:1}.musicDockHead{height:32px;min-width:334px}.musicDock:not(:hover):not(:focus-within) .musicNow,.musicDock:not(:hover):not(:focus-within) .musicControls,.musicDock:not(:hover):not(:focus-within) .musicProgress,.musicDock:not(:hover):not(:focus-within) .musicPulse{visibility:hidden}.musicDock:not(:hover):not(:focus-within):after{content:"♪";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:19px;font-weight:900}.musicPulse{flex:0 0 10px}
+body:has(#game.active) .musicDock,body:has(#snake.active) .musicDock,body:has(#game.active) .perfDock,body:has(#snake.active) .perfDock{opacity:.12}body:has(#game.active) .musicDock:hover,body:has(#snake.active) .musicDock:hover,body:has(#game.active) .perfDock:hover,body:has(#snake.active) .perfDock:hover{opacity:1}
+.v20Hero.legendHero{min-height:520px;padding:42px;grid-template-columns:.82fr 1.18fr}.legendHeroCopy:before{content:"21";font-size:7rem;opacity:.7}.legendStatement{max-width:560px}.legendPortraits{min-height:420px}.legendPortrait.main{inset:12px 62px 12px 62px}.legendPortrait.a{left:0;top:20px}.legendPortrait.b{right:0;top:48px}.legendPortrait.c{right:6px;bottom:8px}.legendTicker{margin-top:16px}
+#game>.card:first-child{margin-bottom:14px;padding:15px 17px}#game>.card:first-child .row{display:grid;grid-template-columns:minmax(170px,.9fr) 1.25fr 1fr 1fr}#game>.card:first-child label{font-size:11px;color:#8e9aa7}#game>.card:first-child input{margin:4px 0 0}#game>.card:first-child p{grid-column:1/-1;margin:3px 0 0}
+.gameShell,.snakeShell{border-radius:12px!important;box-shadow:0 24px 75px rgba(0,0,0,.48)!important}.gameShell{min-height:clamp(610px,76vh,840px)}#gameCanvas{height:clamp(610px,76vh,840px);min-height:610px}.gameTop{top:16px;left:16px;right:16px}.hud{gap:6px}.hud .pill{padding:8px 10px;border-radius:6px!important;font-family:ui-monospace,Consolas,monospace;font-weight:700}.leader{border-radius:7px!important}.gameBottom{left:16px;right:16px;bottom:16px}.minimap{border-radius:7px!important}
+.centerOverlay{align-items:center;justify-content:flex-start;padding:24px;background:linear-gradient(90deg,rgba(2,5,8,.44),rgba(2,5,8,.04) 68%);backdrop-filter:none}.spawnBox{width:min(430px,100%);text-align:left;margin:0;padding:22px!important}.spawnBox h2{font-size:2rem}.spawnBox .speedBalanceNote{padding:9px 10px;margin:12px 0}.spawnBox .btn{width:100%}
+.snakeIntro{grid-template-columns:1fr 1fr;align-items:start;margin-bottom:14px}.snakeIntro>.card{margin-bottom:0;min-height:0!important}.snakeIntro>.card:first-child{position:relative;overflow:hidden;padding:25px;isolation:isolate}.snakeIntro>.card:first-child:after{content:"";position:absolute;display:block!important;z-index:-1;width:330px;height:330px;right:-105px;bottom:-155px;border:1px solid rgba(76,163,255,.24);border-radius:50%;box-shadow:0 0 0 45px rgba(76,163,255,.035),0 0 0 90px rgba(237,64,85,.025);background:radial-gradient(circle,rgba(76,163,255,.08),transparent 62%)!important}.snakeRules{margin-top:14px}.snakeRule{border-radius:7px;padding:11px}.snakeIntro>.card:last-child{padding:20px}.snakeSkinPreview{margin:2px 0 10px}.snakeGateLegend{margin-top:4px}
+.snakeShell{min-height:clamp(620px,77vh,850px)}#snakeCanvas{height:clamp(620px,77vh,850px);min-height:620px}.snakeOverlay{align-items:center;justify-content:flex-start;padding:24px;background:linear-gradient(90deg,rgba(2,5,8,.44),rgba(2,5,8,.04) 68%);backdrop-filter:none}.snakeStart{width:min(390px,100%);text-align:left!important;margin:0!important;padding:22px!important}.snakeStart h2{font-size:2.8rem!important;line-height:.78}.snakeStart .btn{width:100%}.snakeHud{top:16px;left:16px}.snakeStats{border-radius:7px!important}.snakeWorldHud{top:16px}.snakeLeaders{border-radius:7px!important}.snakeMap{right:16px;bottom:16px;border-radius:7px}.snakeBoost{left:16px;bottom:16px}
+.casinoStage{min-height:130px;margin-bottom:14px}.casinoStage:before{font-size:clamp(2.7rem,6vw,5.1rem)}.casinoHero{grid-template-columns:1.65fr repeat(3,.55fr);gap:10px}.casinoHero>.card{margin-bottom:0}.casinoStat{min-height:150px;border-radius:8px!important}.casinoCommand{margin-top:14px}.casinoCommandPanel{min-height:110px}.casinoFloorNav{top:64px;padding:7px}.casinoFloorNav button{min-height:38px}.casinoTable{border-radius:10px!important}
+@media(max-width:900px){.snakeIntro{grid-template-columns:1fr}.casinoHero{grid-template-columns:1fr 1fr}.casinoHero>.card{grid-column:1/-1}#game>.card:first-child .row{grid-template-columns:1fr 1fr}.gameShell,#gameCanvas,.snakeShell,#snakeCanvas{min-height:580px;height:580px}}
+@media(max-width:620px){.nav{padding:6px 8px;flex-wrap:nowrap}.navRail{width:auto;flex:1;padding-bottom:2px}.navRail button{flex:0 0 auto}.navUtility{flex:0 0 auto;padding:8px 9px!important}.nav button{padding:8px 10px}.v20Progress{margin-top:8px}.wrap{padding:14px 9px 86px}.v20Hero.legendHero{grid-template-columns:1fr;padding:25px 18px}.legendHeroCopy .row{display:grid;grid-template-columns:1fr 1fr}.legendHeroCopy .row>*{min-width:0}.legendHeroCopy .row>*:last-child{grid-column:1/-1}.legendPortraits{min-height:300px}.coinbar{bottom:10px;padding:7px 9px;font-size:11px}.perfDock{display:none}.musicDock{bottom:10px}#game>.card:first-child .row{display:grid;grid-template-columns:repeat(3,1fr)}#game>.card:first-child .row label{grid-column:1/-1}#game>.card:first-child .row .btn{padding:8px 5px}.centerOverlay,.snakeOverlay{padding:10px}#game .arenaStatus,#game .arenaEventHud,#game .killFeed,#game .dangerRadar{display:none!important}.spawnBox,.snakeStart{padding:17px!important}.gameShell,#gameCanvas,.snakeShell,#snakeCanvas{min-height:540px;height:540px}.casinoHero{grid-template-columns:1fr 1fr}.casinoStat{min-height:100px}}
+@media(max-width:620px){body:has(#game.active) .coinbar,body:has(#snake.active) .coinbar,body:has(#game.active) .musicDock,body:has(#snake.active) .musicDock{display:none!important}}
 </style>
 </head>
 <body>
 <a class="skipLink" href="#mainContent">Skip to arcade</a>
 <nav class="nav" aria-label="Arcade navigation">
-  <div class="navBrand"><span class="navMark">TP</span><span><b>TOM PEARL V20.4</b><small>NIGHT CIRCUIT</small></span></div>
+  <div class="navBrand"><span class="navMark">TP</span><span><b>TOM PEARL V21</b><small>ARENA OS</small></span></div>
   <div class="navRail">
     <button data-tab="home" class="active">Command</button><button data-tab="game">Pearl.io</button><button data-tab="snake">Snake</button><button data-tab="casino">Casino</button><button data-tab="shop">Locker</button><button data-tab="missions">Missions</button><button data-tab="media">Studio</button><button data-tab="lore">Codex</button>
   </div>
@@ -452,7 +471,7 @@ input,select{border-radius:4px;background:#090c10;border-color:#303944}
 <main class="wrap" id="mainContent">
 <section id="home" class="tab active">
   <div class="card v20Hero legendHero">
-    <div class="legendHeroCopy"><span class="v20Kicker">V20.4 NIGHT CIRCUIT</span><span class="legendFullName">Thomas Patrick Pearl</span><h1><span class="tomLine">TOM.</span><span class="pearlLine">PEARL.</span><span class="tomLine">LEGEND.</span></h1><p class="muted legendStatement">A darker competitive arcade built around speed, territory and the Tom Pearl legend. Cleaner screens, harder edges and two completely restyled arenas.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Tom's Arena</button><button class="btn" data-tab-jump="snake">Ride the Pearl Serpent</button><button class="btn" id="dailyBtn">Claim Legend Drop</button></div></div>
+    <div class="legendHeroCopy"><span class="v20Kicker">V21 ARENA OS</span><span class="legendFullName">Thomas Patrick Pearl</span><h1><span class="tomLine">TOM.</span><span class="pearlLine">PEARL.</span><span class="tomLine">LEGEND.</span></h1><p class="muted legendStatement">One arcade, two predator arenas and a full casino floor. V21 puts the games first with cleaner controls, larger play space and a sharper competitive interface.</p><div class="row" style="margin-top:22px"><button class="btn primary" data-tab-jump="game">Enter Tom's Arena</button><button class="btn" data-tab-jump="snake">Ride the Pearl Serpent</button><button class="btn" id="dailyBtn">Claim Legend Drop</button></div></div>
     <div class="legendPortraits" aria-label="Tom Pearl skin portrait wall"><div class="legendPortrait main"><img id="legendPortraitMain" alt="Tom Pearl arcade portrait"></div><div class="legendPortrait a"><img id="legendPortraitA" alt=""></div><div class="legendPortrait b"><img id="legendPortraitB" alt=""></div><div class="legendPortrait c"><img id="legendPortraitC" alt=""></div><div class="legendSeal">THOMAS<br>PATRICK<br>PEARL</div></div>
   </div>
   <div class="legendTicker"><div><b>THE NAME</b><span>Thomas Patrick Pearl</span></div><div><b>THE ARENA</b><span>Pearl.io Dominion</span></div><div><b>THE SERPENT</b><span>Tom's Endless Coil</span></div><div><b>THE HOUSE</b><span>Grand Pearl Casino</span></div></div>
@@ -674,7 +693,7 @@ input,select{border-radius:4px;background:#090c10;border-color:#303944}
     <div class="card"><h3>Archive performance</h3><p class="muted">AUTO protects budget laptops by reducing portrait effects, particles and expensive shadows.</p></div>
   </div>
 </section>
-<p class="footerNote small muted">Tom Pearl V20.4 Night Circuit - a fictional arcade tribute to Thomas Patrick Pearl.</p>
+<p class="footerNote small muted">Tom Pearl V21 Arena OS - a fictional arcade tribute to Thomas Patrick Pearl.</p>
 </main>
 <script>
 
@@ -732,7 +751,7 @@ if(!PERF_PROFILES[perfTier])perfTier='balanced';
 function perfProfile(){return PERF_PROFILES[perfTier]}
 function renderPerfUi(fps){
   document.body.classList.toggle('quality-balanced',perfTier==='balanced');document.body.classList.toggle('quality-eco',perfTier==='eco');document.body.classList.toggle('lowFx',perfTier==='eco');
-  const dock=$('perfDock'),badge=$('qualityBadge'),meter=$('fpsMeter'),btn=$('fxToggle');if(dock)dock.dataset.tier=perfTier;if(badge)badge.textContent=(perfPreference==='auto'?'AUTO · ':'')+perfProfile().label;if(meter&&fps)meter.textContent=Math.round(fps)+' FPS';if(btn)btn.textContent='Quality: '+(perfPreference==='auto'?'AUTO':perfProfile().label)
+  const dock=$('perfDock'),badge=$('qualityBadge'),meter=$('fpsMeter'),btn=$('fxToggle');if(dock)dock.dataset.tier=perfTier;if(badge)badge.textContent=(perfPreference==='auto'?'AUTO · ':'')+perfProfile().label;if(meter&&fps)meter.textContent=Math.min(perfProfile().fps,Math.round(fps))+' FPS';if(btn)btn.textContent='Quality: '+(perfPreference==='auto'?'AUTO':perfProfile().label)
 }
 function setPerfTier(tier,autoDrop=false){if(!PERF_PROFILES[tier]||tier===perfTier)return;perfTier=tier;renderPerfUi();perfListeners.forEach(fn=>fn(perfProfile(),autoDrop))}
 function cycleQuality(){const order=['auto','high','balanced','eco'],next=order[(order.indexOf(perfPreference)+1)%order.length];perfPreference=next;safeStore.set('v113quality',next);setPerfTier(next==='auto'?detectedTier():next);renderPerfUi()}
