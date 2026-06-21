@@ -959,7 +959,7 @@ setCoins(state.coins);renderAdult();renderSkins();applySettings();renderV20();
 const canvas=$('gameCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true});const mini=$('mini'),mctx=mini.getContext('2d');let DPR=1;
 const WORLD=18000,MAX_PLAYER_CELLS=16,MAX_BOT_CELLS=12,MERGE_MS=20000,FOOD_BUCKET=240;
 let FOOD_TARGET=perfProfile().food,BOT_TARGET=perfProfile().bots,VIRUS_TARGET=perfProfile().viruses,POWER_TARGET=perfProfile().powers;
-const game={running:false,food:[],foodGrid:new Map(),bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0,combo:0,comboUntil:0,pearlChain:0,pearlChainUntil:0,bountyId:null,fxBursts:[],shake:0,event:{type:'calm',nextAt:Date.now()+12000,until:0,startedAt:0},rifts:[],shards:[]};
+const game={running:false,networkGuest:false,food:[],foodGrid:new Map(),bots:[],viruses:[],powers:[],ejected:[],particles:[],player:{name:'PearlConsumer',cells:[],powers:{}},mouse:{x:0,y:0,wx:0,wy:0},cam:{x:WORLD/2,y:WORLD/2,zoom:1,manual:1},last:0,spawnShield:0,frame:0,loopId:0,humanPresent:false,spectating:false,spectateIndex:0,idleDeadline:0,startedAt:0,killFeed:[],lastArenaSave:0,combo:0,comboUntil:0,pearlChain:0,pearlChainUntil:0,bountyId:null,fxBursts:[],shake:0,event:{type:'calm',nextAt:Date.now()+12000,until:0,startedAt:0},rifts:[],shards:[]};
 function resize(){DPR=Math.min(perfProfile().dpr,window.devicePixelRatio||1);const rect=canvas.getBoundingClientRect();canvas.width=Math.max(800,Math.floor(rect.width*DPR));canvas.height=Math.max(520,Math.floor(rect.height*DPR));ctx.setTransform(DPR,0,0,DPR,0,0)}window.addEventListener('resize',resize);setTimeout(resize,0);
 function cw(){return canvas.width/DPR}function ch(){return canvas.height/DPR}
 function foodKey(x,y){return Math.floor(x/FOOD_BUCKET)+'|'+Math.floor(y/FOOD_BUCKET)}
@@ -967,7 +967,7 @@ function rebuildFoodGrid(){game.foodGrid.clear();for(const f of game.food){if(f.
 function gameFoodNear(x,y,range){const out=[],x0=Math.floor((x-range)/FOOD_BUCKET),x1=Math.floor((x+range)/FOOD_BUCKET),y0=Math.floor((y-range)/FOOD_BUCKET),y1=Math.floor((y+range)/FOOD_BUCKET);for(let gx=x0;gx<=x1;gx++)for(let gy=y0;gy<=y1;gy++){const bucket=game.foodGrid.get(gx+'|'+gy);if(bucket)out.push(...bucket)}return out}
 function applyPearlPerf(){
   const p=perfProfile();FOOD_TARGET=p.food;BOT_TARGET=p.bots;VIRUS_TARGET=p.viruses;POWER_TARGET=p.powers;
-  if(game.running){game.bots.splice(BOT_TARGET);game.food.splice(FOOD_TARGET);game.viruses.splice(VIRUS_TARGET);game.powers.splice(POWER_TARGET);cleanDead();rebuildFoodGrid()}resize()
+  if(game.running){const remote=game.bots.filter(b=>b.remote),ai=game.bots.filter(b=>!b.remote).slice(0,BOT_TARGET);game.bots=[...remote,...ai];game.food.splice(FOOD_TARGET);game.viruses.splice(VIRUS_TARGET);game.powers.splice(POWER_TARGET);cleanDead();rebuildFoodGrid()}resize()
 }
 window.pearlPerformance.subscribe(applyPearlPerf);
 function newCell(owner,x,y,r,skin,name){return{id:Math.random().toString(36).slice(2),owner,x,y,r,vx:0,vy:0,skin,name,mergeAt:now()+MERGE_MS,dead:false,trail:[]}}
@@ -1080,9 +1080,10 @@ function addKillFeed(killer,victim){
   game.killFeed.unshift({text:'⚡ '+killer+' ERASED '+victim,until:Date.now()+6500});game.killFeed=game.killFeed.slice(0,6);
   if(killer===game.player.name){game.combo++;game.comboUntil=Date.now()+4500;arenaImpact(game.combo>2?'RAMPAGE x'+game.combo:'CELL ERASED','#ff275f')}
 }
-$('spawnBtn').addEventListener('click',spawnHuman);$('overlaySpawn').addEventListener('click',spawnHuman);$('spectateJoin').addEventListener('click',spawnHuman);$('spectatePrev').addEventListener('click',()=>cycleSpectator(-1));$('spectateNext').addEventListener('click',()=>cycleSpectator(1));$('splitBtn').addEventListener('click',()=>splitOwner('player'));$('ejectBtn').addEventListener('click',()=>ejectOwner('player'));
+function requirePearlOnline(){if(window.pearlMultiplayerActive?.('pearl'))return true;window.pearlOpenMultiplayer?.('pearl');return false}
+$('spawnBtn').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('overlaySpawn').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('spectateJoin').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('spectatePrev').addEventListener('click',()=>cycleSpectator(-1));$('spectateNext').addEventListener('click',()=>cycleSpectator(1));$('splitBtn').addEventListener('click',()=>{if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('split');else if(requirePearlOnline())splitOwner('player')});$('ejectBtn').addEventListener('click',()=>{if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('eject');else if(requirePearlOnline())ejectOwner('player')});
 canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();game.mouse.x=e.clientX-r.left;game.mouse.y=e.clientY-r.top});canvas.addEventListener('touchmove',e=>{const t=e.touches[0],r=canvas.getBoundingClientRect();game.mouse.x=t.clientX-r.left;game.mouse.y=t.clientY-r.top;e.preventDefault()},{passive:false});canvas.addEventListener('wheel',e=>{e.preventDefault();game.cam.manual=clamp(game.cam.manual+(e.deltaY>0?-0.08:0.08),.68,1.55)},{passive:false});
-window.addEventListener('keydown',e=>{if(!game.running)return;if(e.code==='Space'){e.preventDefault();splitOwner('player')}if(e.code==='KeyW'){e.preventDefault();ejectOwner('player')}});
+window.addEventListener('keydown',e=>{if(!game.running)return;if(e.code==='Space'){e.preventDefault();if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('split');else splitOwner('player')}if(e.code==='KeyW'){e.preventDefault();if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('eject');else ejectOwner('player')}});
 function ownerCells(owner){if(owner==='player')return game.player.cells;const b=game.bots.find(x=>x.id===owner);return b?b.cells:[]}
 function allCells(){let arr=[];game.player.cells.forEach(c=>arr.push(c));game.bots.forEach(b=>b.cells.forEach(c=>arr.push(c)));return arr.filter(c=>!c.dead)}
 function centerOf(cells){let sx=0,sy=0,sm=0;cells.forEach(c=>{const m=c.r*c.r;sx+=c.x*m;sy+=c.y*m;sm+=m});return sm?{x:sx/sm,y:sy/sm}:{x:WORLD/2,y:WORLD/2}}
@@ -1164,7 +1165,7 @@ function botThink(b,t){
 }
 function moveBots(dt,t){
   for(const b of game.bots){
-    tickPowers(b,dt);b.splitCd=Math.max(0,b.splitCd-dt);b.ejectCd=Math.max(0,b.ejectCd-dt);botThink(b,t);pullOwnerCellsForMerge(b.id);
+    tickPowers(b,dt);b.splitCd=Math.max(0,b.splitCd-dt);b.ejectCd=Math.max(0,b.ejectCd-dt);if(b.remote){b.intent='hunt';b.target=b.aim}else botThink(b,t);pullOwnerCellsForMerge(b.id);
     for(const c of b.cells){
       if(game.frame%5===0){c.trail.push({x:c.x,y:c.y,r:c.r,life:1});if(c.trail.length>7)c.trail.shift()}
       const target=b.target||b.aim||{x:c.x+300,y:c.y},tx=target.x||c.x,ty=target.y||c.y,d=dirToTarget(c,{x:tx,y:ty}),mods=cellMods(c);
@@ -1194,7 +1195,7 @@ function collisions(dt){const cells=allCells();if(game.frame%4===1)rebuildFoodGr
  // cell eating - largest first
  const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.06:1.09)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.06){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell',bountyDown=game.event.type==='bountyrush'&&b.owner===game.bountyId&&ownerCells(b.owner).every(x=>x.dead);addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;trackDaily('kills');addXP(40,'Pearl.io KO');addCoins(30);sfx('win');game.shake=state.settings.shake?14:0;game.fxBursts.push({x:b.x,y:b.y,life:1,color:'#ff275f'})}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}if(bountyDown){grow(a,18,2.2);if(a.owner==='player'){addCoins(150);addXP(60,'bounty claimed');game.player.powers.frenzy=Math.max(game.player.powers.frenzy||0,5);arenaImpact('BOUNTY CLAIMED','#fbbf24')}game.bountyId=null}}}}
  cleanDead();}
-function cleanDead(){game.player.cells=game.player.cells.filter(c=>!c.dead);for(const b of game.bots)b.cells=b.cells.filter(c=>!c.dead);game.bots=game.bots.filter(b=>b.cells.length>0);game.bots.splice(BOT_TARGET);if(game.bots.length<BOT_TARGET){const start=game.bots.length;for(let i=start;i<BOT_TARGET;i++)game.bots.push(makeBot(i+Math.floor(rand(0,9999))))}game.food=game.food.filter(f=>!f.dead).slice(0,FOOD_TARGET);while(game.food.length<FOOD_TARGET)game.food.push(makeFood());game.powers=game.powers.filter(p=>!p.dead).slice(0,POWER_TARGET);while(game.powers.length<POWER_TARGET)game.powers.push(makePower());game.viruses=game.viruses.slice(0,VIRUS_TARGET);while(game.viruses.length<VIRUS_TARGET)game.viruses.push(makeVirus());game.ejected=game.ejected.filter(e=>!e.dead);}
+function cleanDead(){game.player.cells=game.player.cells.filter(c=>!c.dead);for(const b of game.bots){b.cells=b.cells.filter(c=>!c.dead);if(b.remote&&!b.cells.length){b.remoteRespawnAt=b.remoteRespawnAt||Date.now()+2200;if(Date.now()>=b.remoteRespawnAt){const x=rand(500,WORLD-500),y=rand(500,WORLD-500);b.cells=[newCell(b.id,x,y,20,b.skin,b.name)];b.aim={x,y};b.remoteRespawnAt=0}}}game.bots=game.bots.filter(b=>b.remote||b.cells.length>0);const remote=game.bots.filter(b=>b.remote),ai=game.bots.filter(b=>!b.remote).slice(0,BOT_TARGET);game.bots=[...remote,...ai];if(!game.networkGuest&&ai.length<BOT_TARGET){for(let i=ai.length;i<BOT_TARGET;i++)game.bots.push(makeBot(i+Math.floor(rand(0,9999))))}game.food=game.food.filter(f=>!f.dead).slice(0,FOOD_TARGET);while(!game.networkGuest&&game.food.length<FOOD_TARGET)game.food.push(makeFood());game.powers=game.powers.filter(p=>!p.dead).slice(0,POWER_TARGET);while(!game.networkGuest&&game.powers.length<POWER_TARGET)game.powers.push(makePower());game.viruses=game.viruses.slice(0,VIRUS_TARGET);while(!game.networkGuest&&game.viruses.length<VIRUS_TARGET)game.viruses.push(makeVirus());game.ejected=game.ejected.filter(e=>!e.dead);}
 function updateCamera(){
   let cells=game.player.cells;
   if(!game.humanPresent&&game.spectating){const bots=spectatorBots();if(bots.length){game.spectateIndex=clamp(game.spectateIndex,0,bots.length-1);cells=bots[game.spectateIndex].cells;$('spectateName').textContent=bots[game.spectateIndex].name+' · '+Math.floor(totalMass(cells))+' mass'}}
@@ -1207,6 +1208,7 @@ function loop(t,id){
   if(!game.humanPresent&&game.idleDeadline&&Date.now()>=game.idleDeadline){endArenaForInactivity();return}
   const minFrame=1000/perfProfile().fps;if(t-game.last<minFrame*.82){requestAnimationFrame(nt=>loop(nt,id));return}
   let dt=Math.min(.05,(t-game.last)/1000||.016);game.last=t;game.frame++;
+  if(game.networkGuest){updateCamera();render();if(game.frame%2===0)updateHud();requestAnimationFrame(nt=>loop(nt,id));return}
   if(game.humanPresent){tickPowers(game.player,dt);movePlayer(dt)}
   moveBots(dt,t);if(game.humanPresent){pullOwnerCellsForMerge('player');separateOwnerCells('player',false)}
   for(const b of game.bots)separateOwnerCells(b.id,false);for(const b of game.bots)mergeCells(b.id,false);
@@ -1508,6 +1510,36 @@ window.pearlSkinBridge={
   unlocked(){return state.skins.slice()},
   selected(){return state.skin}
 };
+window.pearlMultiplayerBridge=window.pearlMultiplayerBridge||{};
+(()=>{
+  let networkId='',pendingSplit=false,pendingEject=false;
+  const packCell=c=>[c.id,c.x,c.y,c.r,c.vx||0,c.vy||0,c.skin,c.name,c.mergeAt||0];
+  const unpackCell=(a,owner,old)=>({id:a[0],owner,x:old?old.x*.28+a[1]*.72:a[1],y:old?old.y*.28+a[2]*.72:a[2],r:a[3],vx:a[4],vy:a[5],skin:a[6],name:a[7],mergeAt:a[8],dead:false,trail:old?.trail||[]});
+  const packActor=(b,id=b.id)=>({id,name:b.name,skin:b.skin,powers:b.powers||{},cells:b.cells.map(packCell),remote:!!b.remote});
+  function actorCells(actor,owner,oldCells=[]){const byId=new Map(oldCells.map(c=>[c.id,c]));return actor.cells.map(c=>unpackCell(c,owner,byId.get(c[0])))}
+  function remoteActor(info){const id='net:'+info.id,x=rand(700,WORLD-700),y=rand(700,WORLD-700),skin=Math.floor(rand(0,SKINS.length));return{id,name:info.name||'Online Pearl',skin,cells:[newCell(id,x,y,20,skin,info.name||'Online Pearl')],powers:{shield:5},intent:'hunt',target:{x,y},aim:{x,y},lockUntil:0,nextThink:Infinity,splitCd:0,ejectCd:0,style:'hunter',skill:1,bravery:1,greed:1,wander:0,lastThreat:null,kills:0,remote:true}}
+  window.pearlMultiplayerBridge.pearl={
+    setIdentity(id){networkId=id},
+    startHost(){game.networkGuest=false;if(!game.running)initialiseArena();spawnHuman();$('spawnOverlay').style.display='none'},
+    startGuest(snapshot){if(!game.running)initialiseArena();game.networkGuest=true;game.humanPresent=true;game.spectating=false;$('spawnOverlay').style.display='none';if(snapshot)this.applySnapshot(snapshot)},
+    addRemote(info){if(!info||info.game!=='pearl'||game.bots.some(b=>b.id==='net:'+info.id))return;game.bots.push(remoteActor(info))},
+    removeRemote(id){game.bots=game.bots.filter(b=>b.id!=='net:'+id)},
+    remoteInput(id,input){const b=game.bots.find(x=>x.id==='net:'+id);if(!b||!input)return;b.aim={x:clamp(Number(input.x)||WORLD/2,20,WORLD-20),y:clamp(Number(input.y)||WORLD/2,20,WORLD-20)};b.target=b.aim;if(input.split)splitOwner(b.id);if(input.eject)ejectOwner(b.id)},
+    action(type){if(type==='split')pendingSplit=true;if(type==='eject')pendingEject=true},
+    input(){const value={x:game.mouse.wx,y:game.mouse.wy,split:pendingSplit,eject:pendingEject};pendingSplit=pendingEject=false;return value},
+    snapshot(){if(game.networkGuest||!game.running)return null;return{v:1,g:'pearl',host:packActor(game.player,networkId||'host'),bots:game.bots.map(b=>packActor(b)),food:game.food.filter(f=>!f.dead).map(f=>[f.x,f.y,f.r,f.color,!!f.rare,f.pulse||0]),viruses:game.viruses.map(v=>[v.x,v.y,v.r]),powers:game.powers.filter(p=>!p.dead).map(p=>[p.x,p.y,p.type,p.emoji,p.color,p.r,p.pulse||0]),ejected:game.ejected.filter(e=>!e.dead).map(e=>[e.x,e.y,e.r,e.vx,e.vy,e.color,e.life]),event:game.event,rifts:game.rifts}},
+    applySnapshot(s){
+      if(!s||s.g!=='pearl')return;const ownId='net:'+networkId,own=s.bots.find(b=>b.id===ownId),oldPlayer=game.player.cells;
+      if(own){game.player={name:own.name,skin:own.skin,powers:own.powers||{},cells:actorCells(own,'player',oldPlayer)}}
+      const previous=new Map(game.bots.map(b=>[b.id,b]));const incoming=[];
+      const hostOld=previous.get('online-host');incoming.push({id:'online-host',name:s.host.name,skin:s.host.skin,powers:s.host.powers||{},cells:actorCells(s.host,'online-host',hostOld?.cells),remote:true,aim:{x:0,y:0}});
+      for(const b of s.bots){if(b.id===ownId)continue;const old=previous.get(b.id);incoming.push({id:b.id,name:b.name,skin:b.skin,powers:b.powers||{},cells:actorCells(b,b.id,old?.cells),remote:!!b.remote,aim:{x:0,y:0}})}
+      game.bots=incoming;game.food=s.food.map(f=>({x:f[0],y:f[1],r:f[2],color:f[3],rare:f[4],pulse:f[5],dead:false}));game.viruses=s.viruses.map(v=>({x:v[0],y:v[1],r:v[2]}));game.powers=s.powers.map(p=>({x:p[0],y:p[1],type:p[2],emoji:p[3],color:p[4],r:p[5],pulse:p[6],dead:false}));game.ejected=s.ejected.map(e=>({x:e[0],y:e[1],r:e[2],vx:e[3],vy:e[4],color:e[5],life:e[6],dead:false}));game.event=s.event||game.event;game.rifts=s.rifts||game.rifts;rebuildFoodGrid()
+    },
+    promote(snapshot){if(snapshot)this.applySnapshot(snapshot);game.networkGuest=false;game.humanPresent=true;for(const b of game.bots)b.remote=String(b.id).startsWith('net:')},
+    disconnect(){game.networkGuest=false;game.running=false;game.loopId++;game.humanPresent=false;$('spawnOverlay').style.display='flex';$('spawnOverlay').querySelector('h2').textContent='Online arena required';$('spawnOverlay').querySelector('p').textContent='Create or join a multiplayer room to enter the Dominion.'}
+  };
+})();
 window.pearlV20={
   snakeRun(){state.stats.snakeRuns++;save();addXP(20,'Snake run')},
   snakeFood(){state.stats.snakeFood++;trackDaily('snakeFood')},
@@ -1766,7 +1798,7 @@ function killSnake(snake,killer){
   if(killer){killer.kills++;killer.score+=100*Math.max(1,killer.combo||1)+(crownDown?250:0);killer.targetLength+=24+(crownDown?20:0);killer.thickness+=1.2;killer.energy=Math.min(100,killer.energy+(crownDown?100:45));killer.combo=Math.min(25,(killer.combo||1)+3);killer.comboUntil=performance.now()+5000;killer.peakCombo=Math.max(killer.peakCombo||1,killer.combo);if(killer.isPlayer){if(window.pearlV20)window.pearlV20.snakeKO(crownDown);showSnakeEvent(crownDown?'THOMAS CROWN CLAIMED +250':killer.combo>=10?'LEGEND ASCENSION':'COIL KO');snakeShake=!window.pearlV20||window.pearlV20.shakeEnabled()?(crownDown?24:18):0}}
   shockwaves.push({x:snake.segments[0].x,y:snake.segments[0].y,r:10,life:1,color:snake.color});for(let i=0;i<(snakePerf().tier==='eco'?14:snakePerf().tier==='balanced'?26:42);i++)particles.push({x:snake.segments[0].x,y:snake.segments[0].y,vx:rnd(-6,6),vy:rnd(-6,6),life:rnd(.6,1.3),color:snake.color,size:rnd(2,7)});
   if(snake===player){snakeBest=Math.max(snakeBest,Math.floor(player.score));if(window.pearlV20)window.pearlV20.snakeEnd(snakeBest);localStorage.setItem('v10SnakeBest',snakeBest);running=false;q('snakeMessage').textContent='Run ended at '+Math.floor(player.score)+' points. Personal best: '+snakeBest+'.';q('snakeStart').textContent='Ride again';q('snakeOverlay').classList.remove('hidden')}
-  else setTimeout(()=>{if(running){const n=makeSnake(snake.name,colors[Math.floor(rnd(0,colors.length))],false);snakes[snakes.indexOf(snake)]=n}},1200);
+  else setTimeout(()=>{if(running){const n=makeSnake(snake.name,colors[Math.floor(rnd(0,colors.length))],false,snake.skinId);if(snake.remote){n.remote=true;n.networkId=snake.networkId;n.skill=1}snakes[snakes.indexOf(snake)]=n}},1200);
 }
 let snakeShake=0,arenaPulse=0;
 function showSnakeEvent(text){snakeNotice=text;snakeNoticeUntil=performance.now()+1700;q('snakeWorldDetail').textContent=text}
@@ -1800,7 +1832,7 @@ function steer(snake,dt){
   if(snake.isPlayer){
     const rect=canvas.getBoundingClientRect(),tx=camera.x+(mouse.x-rect.width/2),ty=camera.y+(mouse.y-rect.height/2);
     snake.targetAngle=Math.atan2(ty-head.y,tx-head.x);
-  }else{
+  }else if(!snake.remote){
     snake.think-=dt;
     if(snake.think<=0){
       snake.think=rnd(.13,.28)+(1-snake.skill)*.14;let danger=null,dangerD=Infinity,prey=null,preyD=Infinity,preyScore=-Infinity;
@@ -1876,7 +1908,7 @@ function collisions(){
     }
   }
 }
-function respawnBots(){for(let i=0;i<snakes.length;i++){const s=snakes[i];if(s!==player&&!s.alive&&Math.random()<.008)snakes[i]=makeSnake(s.name,colors[Math.floor(rnd(0,colors.length))])}}
+function respawnBots(){for(let i=0;i<snakes.length;i++){const s=snakes[i];if(s!==player&&!s.remote&&!s.alive&&Math.random()<.008)snakes[i]=makeSnake(s.name,colors[Math.floor(rnd(0,colors.length))])}}
 function updateParticles(dt){for(const wave of shockwaves){wave.r+=220*dt;wave.life-=dt*1.1}shockwaves=shockwaves.filter(w=>w.life>0);for(const p of particles){p.x+=p.vx;p.y+=p.vy;p.vx*=.955;p.vy*=.955;p.life-=dt*.9}particles=particles.filter(p=>p.life>0).slice(-snakePerf().particleCap)}
 function drawGrid(w,h,ox,oy){ctx.lineWidth=1;const size=70;for(let x=(-ox%size);x<w;x+=size){ctx.strokeStyle=Math.round((x+ox)/size)%5===0?'rgba(58,156,255,.14)':'rgba(255,255,255,.035)';ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=(-oy%size);y<h;y+=size){ctx.strokeStyle=Math.round((y+oy)/size)%5===0?'rgba(228,61,79,.11)':'rgba(255,255,255,.035)';ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}}
 function drawSnake(snake,isCrown=false){
@@ -1907,15 +1939,36 @@ function drawMap(){
   const crownLeader=snakeWorld.type==='bountyrush'?snakeLeader():null;for(const s of [...snakes].sort((a,b)=>a.targetLength-b.targetLength)){if(!s.alive||s.segments.length<2)continue;mctx.beginPath();for(let i=s.segments.length-1;i>=0;i-=Math.max(1,Math.floor(s.segments.length/35))){const p=s.segments[i],x=p.x/WORLD.w*map.width,y=p.y/WORLD.h*map.height;i>=s.segments.length-1?mctx.moveTo(x,y):mctx.lineTo(x,y)}mctx.strokeStyle=s===crownLeader?'#fbbf24':s.color;mctx.globalAlpha=s===player?1:.72;mctx.lineWidth=s===player?2.8:clamp(s.thickness*.09,.65,2);mctx.stroke();const h=s.segments[0];mctx.fillStyle=s===crownLeader?'#fbbf24':s.color;mctx.beginPath();mctx.arc(h.x/WORLD.w*map.width,h.y/WORLD.h*map.height,s===player?3:s===crownLeader?2.8:1.8,0,TAU);mctx.fill()}mctx.globalAlpha=1;mctx.strokeStyle='rgba(255,255,255,.34)';mctx.lineWidth=1;mctx.strokeRect(.5,.5,map.width-1,map.height-1)
 }
 function updateSnakeHud(){if(!player)return;const ranked=[...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score),rank=ranked.indexOf(player)+1,active=performance.now()<player.comboUntil,crown=snakeWorld.type==='bountyrush'?ranked[0]:null;if(!active)player.combo=1;q('snakeScore').textContent=Math.floor(player.score);q('snakeLength').textContent=Math.floor(player.targetLength);q('snakeKills').textContent=player.kills;q('snakeWidth').textContent=(player.thickness/8.5).toFixed(1)+'x';q('snakeRank').textContent=rank>0?'#'+rank:'-';q('snakeBoostFill').style.width=player.energy+'%';q('snakeComboValue').textContent='x'+player.combo;q('snakeCombo').className='snakeCombo '+(player.combo>=10?'fever ':'')+(active?'hot':'');q('snakeCanvas').closest('.snakeShell').classList.toggle('boosting',boosting&&player.energy>1);q('snakeCanvas').closest('.snakeShell').classList.toggle('fever',player.combo>=10);q('snakeLeaderboard').innerHTML=ranked.slice(0,7).map((s,i)=>'<div style="display:flex;justify-content:space-between;color:'+(s===crown?'#fbbf24':s===player?'#67e8f9':'#fff')+';font-weight:'+(s===crown?'950':'700')+'"><span>'+(i+1)+'. '+s.name+'</span><b>'+Math.floor(s.score)+'</b></div>').join('')}
-function snakeLoop(t){if(!running)return;const minFrame=1000/snakePerf().fps;if(t-last<minFrame*.82){raf=requestAnimationFrame(snakeLoop);return}const dt=Math.min(.04,(t-last)/1000||.016);snakeFrame++;arenaPulse+=dt;updateSnakeWorld(t);last=t;if(snakeFrame%5===1)maintainSnakeFood();for(const s of snakes)updateSnake(s,dt);collisions();respawnBots();updateParticles(dt);if(player&&player.alive){const h=player.segments[0];camera.x+=(h.x-camera.x)*.09;camera.y+=(h.y-camera.y)*.09}renderSnake();raf=requestAnimationFrame(snakeLoop)}
-q('snakeStart').addEventListener('click',resetSnake);
+function snakeLoop(t){if(!running)return;const minFrame=1000/snakePerf().fps;if(t-last<minFrame*.82){raf=requestAnimationFrame(snakeLoop);return}const dt=Math.min(.04,(t-last)/1000||.016);snakeFrame++;arenaPulse+=dt;last=t;if(window.pearlSnakeNetworkGuest){if(player&&player.alive){const h=player.segments[0];camera.x+=(h.x-camera.x)*.12;camera.y+=(h.y-camera.y)*.12}renderSnake();raf=requestAnimationFrame(snakeLoop);return}updateSnakeWorld(t);if(snakeFrame%5===1)maintainSnakeFood();for(const s of snakes)updateSnake(s,dt);collisions();respawnBots();updateParticles(dt);if(player&&player.alive){const h=player.segments[0];camera.x+=(h.x-camera.x)*.09;camera.y+=(h.y-camera.y)*.09}renderSnake();raf=requestAnimationFrame(snakeLoop)}
+q('snakeStart').addEventListener('click',()=>{if(window.pearlMultiplayerActive?.('snake'))resetSnake();else window.pearlOpenMultiplayer?.('snake')});
 canvas.addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
 canvas.addEventListener('pointerdown',e=>{boosting=true;canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointerup',()=>boosting=false);canvas.addEventListener('pointercancel',()=>boosting=false);
 window.addEventListener('keydown',e=>{if(e.code==='Space'&&document.getElementById('snake').classList.contains('active')){e.preventDefault();boosting=true}});window.addEventListener('keyup',e=>{if(e.code==='Space')boosting=false});
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab!=='snake'&&running){running=false;cancelAnimationFrame(raf);q('snakeOverlay').classList.remove('hidden');q('snakeMessage').textContent='Arena paused. Start a fresh run when you return.'}}));
+window.pearlMultiplayerBridge=window.pearlMultiplayerBridge||{};
+(()=>{
+  let networkId='';
+  const snakeId=(s,i)=>s===player?(networkId||'host'):s.remote?'net:'+s.networkId:'ai:'+i;
+  const packSnake=(s,i)=>{const step=Math.max(1,Math.ceil(s.segments.length/520));return{id:snakeId(s,i),name:s.name,color:s.color,skinId:s.skinId,segments:s.segments.filter((_,n)=>n%step===0).map(p=>[p.x,p.y]),angle:s.angle,targetAngle:s.targetAngle,speed:s.speed,targetLength:s.targetLength,thickness:s.thickness,score:s.score,kills:s.kills,alive:s.alive,energy:s.energy,combo:s.combo,comboUntil:s.comboUntil,remote:!!s.remote,networkId:s.networkId||''}};
+  function unpackSnake(data,old){const previous=old?.segments||[];return{id:data.id,name:data.name,color:data.color,skinId:data.skinId,segments:data.segments.map((p,i)=>({x:previous[i]?previous[i].x*.25+p[0]*.75:p[0],y:previous[i]?previous[i].y*.25+p[1]*.75:p[1]})),angle:data.angle,targetAngle:data.targetAngle,speed:data.speed,targetLength:data.targetLength,thickness:data.thickness,score:data.score,kills:data.kills,alive:data.alive,energy:data.energy,combo:data.combo,comboUntil:data.comboUntil,peakCombo:data.combo||1,botBoost:false,mode:'online',skill:1,aggression:1,closeCallAt:0,remote:!!data.remote,networkId:data.networkId||''}}
+  window.pearlMultiplayerBridge.snake={
+    setIdentity(id){networkId=id},
+    startHost(){window.pearlSnakeNetworkGuest=false;resetSnake()},
+    startGuest(snapshot){resetSnake();window.pearlSnakeNetworkGuest=true;if(snapshot)this.applySnapshot(snapshot)},
+    addRemote(info){if(!info||info.game!=='snake'||snakes.some(s=>s.remote&&s.networkId===info.id))return;const n=makeSnake(info.name||'Online Coil',colors[Math.floor(rnd(0,colors.length))],false);n.remote=true;n.networkId=info.id;n.skill=1;snakes.splice(Math.max(0,snakes.indexOf(player)),0,n)},
+    removeRemote(id){snakes=snakes.filter(s=>!(s.remote&&s.networkId===id))},
+    remoteInput(id,input){const s=snakes.find(x=>x.remote&&x.networkId===id);if(!s||!input)return;s.targetAngle=Number.isFinite(input.angle)?input.angle:s.targetAngle;s.botBoost=!!input.boost},
+    input(){if(!player?.segments?.length)return null;const h=player.segments[0],rect=canvas.getBoundingClientRect(),tx=camera.x+(mouse.x-rect.width/2),ty=camera.y+(mouse.y-rect.height/2);return{angle:Math.atan2(ty-h.y,tx-h.x),boost:!!boosting}},
+    snapshot(){if(window.pearlSnakeNetworkGuest||!running)return null;return{v:1,g:'snake',snakes:snakes.map(packSnake),food:food.filter(f=>!f.dead).map(f=>[f.x,f.y,f.r,f.value,f.color,f.pulse||0,f.spin||0]),gates:gates.map(g=>[g.x,g.y,g.r,g.type,g.phase,g.cooldown]),world:snakeWorld}},
+    applySnapshot(data){if(!data||data.g!=='snake')return;const ownId='net:'+networkId,oldById=new Map(snakes.map((s,i)=>[snakeId(s,i),s]));const next=data.snakes.map(s=>unpackSnake(s,oldById.get(s.id)));const own=next.find(s=>s.id===ownId);if(own){own.isPlayer=true;own.remote=false;player=own}for(const s of next)if(s!==own)s.isPlayer=false;snakes=next;food=data.food.map(f=>({x:f[0],y:f[1],r:f[2],value:f[3],color:f[4],pulse:f[5],spin:f[6],dead:false}));gates=data.gates.map(g=>({x:g[0],y:g[1],r:g[2],type:g[3],phase:g[4],cooldown:g[5]}));snakeWorld=data.world||snakeWorld;rebuildSnakeFoodGrid();rebuildSnakeBodyGrid()},
+    promote(snapshot){if(snapshot)this.applySnapshot(snapshot);window.pearlSnakeNetworkGuest=false;if(player){player.isPlayer=true;player.remote=false}},
+    disconnect(){window.pearlSnakeNetworkGuest=false;running=false;cancelAnimationFrame(raf);q('snakeOverlay').classList.remove('hidden');q('snakeMessage').textContent='Create or join an online room to awaken the coil.'}
+  };
+})();
 new ResizeObserver(resizeSnake).observe(canvas);resizeSnake();
 window.pearlPerformance.subscribe(()=>resizeSnake());
 })();
 </script>
+<script src="multiplayer.js"></script>
 </body>
 </html>
