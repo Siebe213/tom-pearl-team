@@ -106,26 +106,33 @@
     return panel;
   }
 
-  const pearlTarget = document.querySelector('#game .gamePanel');
+  const pearlTarget = document.querySelector('#game > .card');
   const snakeTarget = document.querySelector('#snake .snakeIntro');
   if (pearlTarget) pearlTarget.before(makePanel('pearl'));
   if (snakeTarget) snakeTarget.before(makePanel('snake'));
   window.pearlMultiplayerActive = game => state.game === game && state.socket?.readyState === WebSocket.OPEN && !!state.id;
   window.pearlQuickPlay = game => {
     if (window.pearlMultiplayerActive(game)) return true;
+    if (state.game === game && state.socket && (state.socket.readyState === WebSocket.CONNECTING || state.socket.readyState === WebSocket.OPEN)) {
+      updateStatus('Connecting to the public arena...'); return false;
+    }
     const panel = game === 'snake' ? document.querySelector('#snake .mp-panel') : document.querySelector('#game .mp-panel');
-    panel?.querySelector('.mp-quick')?.click(); return false;
+    if (!panel) { updateStatus('Multiplayer interface is still loading', 'error'); return false; }
+    const room = 'PUBLIC-1'; panel.querySelector('.mp-code').value = room; panel.querySelector('.mp-room').textContent = room;
+    const name = game === 'pearl' ? (document.getElementById('playerName')?.value || 'PearlConsumer') : (document.getElementById('snakeName')?.value || 'PearlRider');
+    connect(game, room, name, panel); return false;
   };
   window.pearlOpenMultiplayer = game => {
     const target = game === 'snake' ? document.querySelector('#snake .mp-panel') : document.querySelector('#game .mp-panel');
     target?.scrollIntoView({ behavior: 'smooth', block: 'center' }); target?.classList.add('setup');
     updateStatus('Create or join an online room before playing', 'error');
   };
-  document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('[data-tab],[data-tab-jump]').forEach(button => button.addEventListener('click', () => {
+    const destination = button.dataset.tab || button.dataset.tabJump;
     const requiredTab = state.game === 'snake' ? 'snake' : 'game';
-    if (state.socket && button.dataset.tab !== requiredTab) disconnect();
-    if (button.dataset.tab === 'game') setTimeout(() => window.pearlQuickPlay('pearl'), 0);
-    if (button.dataset.tab === 'snake') setTimeout(() => window.pearlQuickPlay('snake'), 0);
+    if (state.socket && destination !== requiredTab) disconnect();
+    if (destination === 'game') setTimeout(() => window.pearlQuickPlay('pearl'), 0);
+    if (destination === 'snake') setTimeout(() => window.pearlQuickPlay('snake'), 0);
   }));
   window.addEventListener('beforeunload', () => disconnect(true));
 })();
