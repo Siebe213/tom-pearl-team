@@ -1,0 +1,14 @@
+name = "tom-pearl-multiplayer"
+main = "src/index.js"
+compatibility_date = "2026-06-21"
+
+[[durable_objects.bindings]]
+name = "ARENAS"
+class_name = "ArenaRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ArenaRoom"]
+
+[observability]
+enabled = true
