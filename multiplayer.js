@@ -53,7 +53,8 @@
   function connect(game, room, name, panel) {
     disconnect(true);
     const serverInput = panel.querySelector('.mp-server input');
-    const server = cleanServer(serverInput.value || localStorage.getItem(KEY));
+    const localDev = ['localhost', '127.0.0.1'].includes(location.hostname);
+    const server = cleanServer(localDev ? (serverInput.value || localStorage.getItem(KEY) || DEFAULT_SERVER) : DEFAULT_SERVER);
     if (!server || server.includes('<account>')) {
       panel.classList.add('setup');
       updateStatus('Add the free Worker address first', 'error');
@@ -67,8 +68,8 @@
     catch (_) { updateStatus('Invalid server address', 'error'); return; }
     state.socket = ws;
     ws.onopen = () => send({ type: 'hello', game, name });
-    ws.onerror = () => updateStatus('Could not reach the multiplayer server', 'error');
-    ws.onclose = () => { if (state.socket === ws) disconnect(); };
+    ws.onerror = () => updateStatus('Could not reach the multiplayer server - retry in a moment', 'error');
+    ws.onclose = event => { if (state.socket === ws) { disconnect(true); updateStatus('Connection closed' + (event.code ? ' (' + event.code + ')' : '') + ' - click Quick Play to retry', 'error'); } };
     ws.onmessage = event => {
       let msg; try { msg = JSON.parse(event.data); } catch (_) { return; }
       const api = bridge(game); if (!api) return;
@@ -90,12 +91,13 @@
   function makePanel(game) {
     const panel = document.createElement('div'); panel.className = 'mp-panel';
     const saved = localStorage.getItem(KEY) || (location.hostname.endsWith('.workers.dev') ? location.origin : DEFAULT_SERVER);
-    panel.innerHTML = `<div class="mp-top"><b>MULTIPLAYER</b><span class="mp-status">Offline - full local bots active</span></div>
-      <div class="mp-actions"><button class="btn primary mp-create">Create free room</button><input class="mp-code" maxlength="16" placeholder="ROOM CODE"><button class="btn mp-join">Join room</button><button class="btn mp-leave" hidden>Leave</button><span class="mp-count">0/24 online</span></div>
+    panel.innerHTML = `<div class="mp-top"><b>MULTIPLAYER</b><span class="mp-status">Ready for Quick Play</span></div>
+      <div class="mp-actions"><button class="btn primary mp-quick">Quick Play</button><button class="btn mp-create">Private room</button><input class="mp-code" maxlength="16" placeholder="ROOM CODE"><button class="btn mp-join">Join room</button><button class="btn mp-leave" hidden>Leave</button><span class="mp-count">0/24 online</span></div>
       <div class="mp-roomline" style="margin-top:9px"><span class="mp-note">Room:</span><span class="mp-room">------</span><button class="btn mp-setup">Server setup</button></div>
       <div class="mp-server"><input value="${saved}" placeholder="wss://your-worker.workers.dev"><button class="btn mp-save">Save server</button></div>
       <div class="mp-note">Both arenas are multiplayer-only. Graphics, food density and bot intelligence stay at full quality.</div>`;
     const name = () => game === 'pearl' ? (document.getElementById('playerName')?.value || 'PearlConsumer') : (document.getElementById('snakeName')?.value || 'PearlRider');
+    panel.querySelector('.mp-quick').onclick = () => { const room = 'PUBLIC-1'; panel.querySelector('.mp-code').value = room; panel.querySelector('.mp-room').textContent = room; connect(game, room, name(), panel); };
     panel.querySelector('.mp-create').onclick = () => { const room = code(); panel.querySelector('.mp-code').value = room; panel.querySelector('.mp-room').textContent = room; connect(game, room, name(), panel); };
     panel.querySelector('.mp-join').onclick = () => { const room = panel.querySelector('.mp-code').value.trim().toUpperCase(); if (room.length < 3) return updateStatus('Enter a room code', 'error'); panel.querySelector('.mp-room').textContent = room; connect(game, room, name(), panel); };
     panel.querySelector('.mp-leave').onclick = () => disconnect();
@@ -109,15 +111,21 @@
   if (pearlTarget) pearlTarget.before(makePanel('pearl'));
   if (snakeTarget) snakeTarget.before(makePanel('snake'));
   window.pearlMultiplayerActive = game => state.game === game && state.socket?.readyState === WebSocket.OPEN && !!state.id;
+  window.pearlQuickPlay = game => {
+    if (window.pearlMultiplayerActive(game)) return true;
+    const panel = game === 'snake' ? document.querySelector('#snake .mp-panel') : document.querySelector('#game .mp-panel');
+    panel?.querySelector('.mp-quick')?.click(); return false;
+  };
   window.pearlOpenMultiplayer = game => {
     const target = game === 'snake' ? document.querySelector('#snake .mp-panel') : document.querySelector('#game .mp-panel');
     target?.scrollIntoView({ behavior: 'smooth', block: 'center' }); target?.classList.add('setup');
     updateStatus('Create or join an online room before playing', 'error');
   };
   document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => {
-    if (!state.socket) return;
     const requiredTab = state.game === 'snake' ? 'snake' : 'game';
-    if (button.dataset.tab !== requiredTab) disconnect();
+    if (state.socket && button.dataset.tab !== requiredTab) disconnect();
+    if (button.dataset.tab === 'game') setTimeout(() => window.pearlQuickPlay('pearl'), 0);
+    if (button.dataset.tab === 'snake') setTimeout(() => window.pearlQuickPlay('snake'), 0);
   }));
   window.addEventListener('beforeunload', () => disconnect(true));
 })();
