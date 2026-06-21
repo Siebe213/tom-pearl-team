@@ -30,7 +30,7 @@ export default {
     if (url.pathname === "/health") return json({ ok: true, service: "tom-pearl-multiplayer" });
     const match = url.pathname.match(/^\/room\/([^/]+)$/);
     if (!match) {
-      const upstream = new URL(url.pathname + url.search, SITE_ORIGIN);
+      const upstream = new URL(SITE_ORIGIN + url.pathname + url.search);
       return fetch(new Request(upstream, request));
     }
     const room = decodeURIComponent(match[1]).toUpperCase();
