@@ -2,7 +2,7 @@
   'use strict';
   const KEY = 'pearlMultiplayerServer';
   const DEFAULT_SERVER = 'https://tom-pearl-multiplayer.siebevandv.workers.dev';
-  const state = { socket: null, game: null, room: '', id: '', host: false, snapshotTimer: 0, inputTimer: 0, panel: null };
+  const state = { socket: null, game: null, room: '', id: '', host: false, snapshotTimer: 0, inputTimer: 0, panel: null, players: new Map() };
   const bridge = game => window.pearlMultiplayerBridge && window.pearlMultiplayerBridge[game];
   const cleanServer = value => String(value || '').trim().replace(/\/$/, '').replace(/^http:/, 'ws:').replace(/^https:/, 'wss:');
   const code = () => Array.from({ length: 6 }, () => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 32)]).join('');
@@ -12,16 +12,19 @@
     .mp-panel{margin:14px 0;padding:14px;border:1px solid rgba(255,255,255,.13);border-radius:14px;background:#0b1118;color:#eef5ff;box-shadow:0 12px 34px rgba(0,0,0,.22)}
     .mp-top,.mp-actions,.mp-roomline{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.mp-top{justify-content:space-between;margin-bottom:10px}.mp-top b{letter-spacing:.08em}.mp-status{font-size:12px;color:#9fb0c2}.mp-status.online{color:#62dca4}.mp-status.error{color:#ff778b}
     .mp-panel input{width:auto;min-width:120px;flex:1;background:#080c11;border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:9px;padding:10px}.mp-server{display:none;margin-top:10px}.mp-panel.setup .mp-server{display:flex}.mp-room{font:900 17px ui-monospace,monospace;letter-spacing:.16em;color:#ffd166}.mp-note{font-size:12px;color:#91a2b4;margin-top:9px}.mp-panel .btn{padding:9px 13px}.mp-count{font-size:12px;color:#91a2b4}
+    .mp-announcement{position:fixed;left:50%;top:22%;z-index:9999;transform:translate(-50%,-18px);opacity:0;pointer-events:none;text-align:center;font:1000 clamp(24px,5vw,62px)/.9 system-ui;color:#fff;text-shadow:0 5px 30px #000;transition:.22s}.mp-announcement.show{transform:translate(-50%,0);opacity:1}.mp-announcement span{display:block;margin-top:10px;font-size:.28em;letter-spacing:.25em;color:#62dca4}.mp-announcement.leave span{color:#ff778b}.mp-live-leave{position:fixed;right:14px;bottom:14px;z-index:9998;display:none;background:#35151b!important;border-color:#8a3342!important}.mp-live-leave.show{display:block}
   `;
   document.head.appendChild(css);
+  const announcement=document.createElement('div');announcement.className='mp-announcement';document.body.appendChild(announcement);const liveLeave=document.createElement('button');liveLeave.className='btn mp-live-leave';liveLeave.textContent='LEAVE GAME';document.body.appendChild(liveLeave);
+  let announceTimer=0;function announce(name,leaving=false){clearTimeout(announceTimer);announcement.className='mp-announcement'+(leaving?' leave':'');announcement.innerHTML='<b>'+String(name||'PLAYER').replace(/[<>&]/g,'')+'</b><span>'+(leaving?'LEFT THE GAME':'JOINED THE GAME')+'</span>';void announcement.offsetWidth;announcement.classList.add('show');announceTimer=setTimeout(()=>announcement.classList.remove('show'),2400)}
 
   function disconnect(silent = false) {
     clearInterval(state.snapshotTimer); clearInterval(state.inputTimer);
     state.snapshotTimer = state.inputTimer = 0;
     if (state.socket) { try { state.socket.close(1000, 'Leaving room'); } catch (_) {} }
     bridge(state.game)?.disconnect?.();
-    state.socket = null; state.id = ''; state.host = false;
-    if (!silent) updateStatus('Offline - singleplayer stays available');
+    state.socket = null; state.id = ''; state.host = false;state.players.clear();liveLeave.classList.remove('show');
+    if (!silent) updateStatus('Offline - choose Quick Play to reconnect');
   }
 
   function updateStatus(text, kind = '') {
@@ -29,6 +32,7 @@
   }
 
   function updateRoster(players = []) {
+    state.players=new Map(players.map(player=>[player.id,player]));
     document.querySelectorAll('.mp-count').forEach(el => el.textContent = players.length + '/24 online');
   }
 
@@ -76,9 +80,9 @@
       if (msg.type === 'welcome') {
         state.id = msg.id; state.host = !!msg.host; api.setIdentity?.(state.id);
         if (state.host) api.startHost?.(); else api.startGuest?.(msg.snapshot);
-        updateRoster(msg.players); updateStatus((state.host ? 'Hosting' : 'Joined') + ' room ' + state.room, 'online'); startLoops();
-      } else if (msg.type === 'joined' && state.host) api.addRemote?.(msg.player);
-      else if (msg.type === 'left') api.removeRemote?.(msg.id);
+        updateRoster(msg.players);liveLeave.classList.add('show');updateStatus((state.host ? 'Hosting' : 'Joined') + ' room ' + state.room, 'online'); startLoops();
+      } else if (msg.type === 'joined'){state.players.set(msg.player.id,msg.player);announce(msg.player.name,false);if(state.host)api.addRemote?.(msg.player)}
+      else if (msg.type === 'left'){const leaving=state.players.get(msg.id);if(leaving)announce(leaving.name,true);state.players.delete(msg.id);api.removeRemote?.(msg.id)}
       else if (msg.type === 'input' && state.host) api.remoteInput?.(msg.id, msg.input);
       else if (msg.type === 'snapshot' && !state.host) api.applySnapshot?.(msg.snapshot);
       else if (msg.type === 'roster') updateRoster(msg.players);
@@ -92,7 +96,7 @@
     const panel = document.createElement('div'); panel.className = 'mp-panel';
     const saved = localStorage.getItem(KEY) || (location.hostname.endsWith('.workers.dev') ? location.origin : DEFAULT_SERVER);
     panel.innerHTML = `<div class="mp-top"><b>MULTIPLAYER</b><span class="mp-status">Ready for Quick Play</span></div>
-      <div class="mp-actions"><button class="btn primary mp-quick">Quick Play</button><button class="btn mp-create">Private room</button><input class="mp-code" maxlength="16" placeholder="ROOM CODE"><button class="btn mp-join">Join room</button><button class="btn mp-leave" hidden>Leave</button><span class="mp-count">0/24 online</span></div>
+      <div class="mp-actions"><button class="btn primary mp-quick">Quick Play</button><button class="btn mp-create">Private room</button><input class="mp-code" maxlength="16" placeholder="ROOM CODE"><button class="btn mp-join">Join room</button><button class="btn mp-leave">Leave</button><span class="mp-count">0/24 online</span></div>
       <div class="mp-roomline" style="margin-top:9px"><span class="mp-note">Room:</span><span class="mp-room">------</span><button class="btn mp-setup">Server setup</button></div>
       <div class="mp-server"><input value="${saved}" placeholder="wss://your-worker.workers.dev"><button class="btn mp-save">Save server</button></div>
       <div class="mp-note">Both arenas are multiplayer-only. Graphics, food density and bot intelligence stay at full quality.</div>`;
@@ -110,6 +114,7 @@
   const snakeTarget = document.querySelector('#snake .snakeIntro');
   if (pearlTarget) pearlTarget.before(makePanel('pearl'));
   if (snakeTarget) snakeTarget.before(makePanel('snake'));
+  liveLeave.onclick=()=>disconnect();
   window.pearlMultiplayerActive = game => state.game === game && state.socket?.readyState === WebSocket.OPEN && !!state.id;
   window.pearlQuickPlay = game => {
     if (window.pearlMultiplayerActive(game)) return true;

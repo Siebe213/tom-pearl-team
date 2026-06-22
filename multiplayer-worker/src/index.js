@@ -31,7 +31,10 @@ export default {
     const match = url.pathname.match(/^\/room\/([^/]+)$/);
     if (!match) {
       const upstream = new URL(SITE_ORIGIN + url.pathname + url.search);
-      return fetch(new Request(upstream, request));
+      const response = await fetch(new Request(upstream, request));
+      const headers = new Headers(response.headers);
+      headers.set("cache-control", /\.(png|jpg|jpeg|webp|gif)$/i.test(url.pathname) ? "public, max-age=86400" : "no-store");
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
     }
     const room = decodeURIComponent(match[1]).toUpperCase();
     if (!ROOM_RE.test(room)) return json({ ok: false, error: "Invalid room code" }, 400);

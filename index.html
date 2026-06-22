@@ -131,7 +131,7 @@ body{background:
 .snakeBoostBar{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:6px}.snakeBoostFill{height:100%;width:100%;background:linear-gradient(90deg,#22d3ee,#8b5cf6,#fb3f73);box-shadow:0 0 14px #38bdf8}
 .snakeMap{position:absolute;right:14px;bottom:14px;width:150px;height:100px;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(2,5,12,.72)}
 .snakeOverlay{position:absolute;inset:0;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at center,rgba(17,24,39,.42),rgba(1,3,8,.82));backdrop-filter:blur(5px);z-index:6}
-.snakeOverlay.hidden{display:none}.snakeStart{width:min(520px,94%);text-align:center;background:linear-gradient(145deg,rgba(13,18,38,.94),rgba(35,8,43,.9))}
+.snakeOverlay.hidden{display:none}.snakeStart{width:min(520px,94%);text-align:center;background:linear-gradient(145deg,rgba(13,18,38,.94),rgba(35,8,43,.9))}.snakeDashButton{position:absolute;left:16px;bottom:72px;z-index:6;padding:8px 12px!important}
 .snakeStart h2{font-size:clamp(2.4rem,7vw,5rem);line-height:.82}.snakeBadge{display:inline-flex;padding:6px 10px;border-radius:999px;border:1px solid rgba(56,189,248,.35);color:#a5f3fc;font-size:11px;font-weight:950;letter-spacing:.14em}
 @media(max-width:900px){.v10Hero,.snakeIntro{grid-template-columns:1fr}.v10Showcase{min-height:270px}.snakeRules{grid-template-columns:1fr}.snakeLeaders{display:none}.snakeMap{width:115px;height:78px}#snakeCanvas{min-height:520px}}
 @media(max-width:620px){.nav{top:4px;margin-top:4px}.nav:after{display:none}.snakeBoost{width:calc(100% - 158px)}.v10OrbitChip{display:none}}
@@ -489,6 +489,7 @@ body:has(#game.active) .musicDock,body:has(#snake.active) .musicDock,body:has(#g
       <button class="btn primary" id="spawnBtn">Spawn / Restart</button>
       <button class="btn" id="splitBtn">Split <span class="kbd">Space</span></button>
       <button class="btn" id="ejectBtn">Eject <span class="kbd">W</span></button>
+      <button class="btn" id="dashBtn">Dash <span class="kbd">Shift</span></button>
     </div>
     <p class="muted small" style="margin:0">Controls: mouse moves, Space splits and W ejects mass. Every split automatically pulls together and remerges after 20 seconds.</p>
   </div>
@@ -527,8 +528,9 @@ body:has(#game.active) .musicDock,body:has(#snake.active) .musicDock,body:has(#g
   <div class="snakeShell">
     <canvas id="snakeCanvas"></canvas>
     <div class="snakeHud"><div class="snakeStats"><span>Score <b id="snakeScore">0</b></span><span>Length <b id="snakeLength">45</b></span><span>KOs <b id="snakeKills">0</b></span><span>Width <b id="snakeWidth">1.0x</b></span><span>Rank <b id="snakeRank">-</b></span></div><div class="snakeLeaders"><strong>Top Snakes</strong><div id="snakeLeaderboard"></div></div></div>
-    <div class="snakeWorldHud"><b id="snakeWorldEvent">LEGEND ONLINE</b><span id="snakeWorldDetail">Pearl Ascension charging</span><div class="eventProgress"><i id="snakeWorldProgress"></i></div></div><div id="snakeCombo" class="snakeCombo"><span>LEGEND CHAIN</span><b id="snakeComboValue">x1</b></div><div id="snakeEvent" class="snakeEvent">THOMAS OVERDRIVE</div><div class="snakeBoost"><span class="small">SURGE ENERGY</span><div class="snakeBoostBar"><div id="snakeBoostFill" class="snakeBoostFill"></div></div></div>
+    <div class="snakeWorldHud"><b id="snakeWorldEvent">LEGEND ONLINE</b><span id="snakeWorldDetail">Pearl Ascension charging</span><div class="eventProgress"><i id="snakeWorldProgress"></i></div></div><div id="snakeCombo" class="snakeCombo"><span>LEGEND CHAIN</span><b id="snakeComboValue">x1</b></div><div id="snakeEvent" class="snakeEvent">THOMAS OVERDRIVE</div><div class="snakeBoost"><span class="small">SURGE ENERGY</span><div class="snakeBoostBar"><div id="snakeBoostFill" class="snakeBoostFill"></div></div></div><button class="btn snakeDashButton" id="snakeDashBtn">DASH · SHIFT</button>
     <canvas id="snakeMap" class="snakeMap" width="150" height="100"></canvas>
+    <div id="snakeSpectatorDock" class="spectatorDock"><span class="small muted">SPECTATING</span><button class="btn" id="snakeSpectatePrev">Previous</button><b id="snakeSpectateName">Arena leader</b><button class="btn" id="snakeSpectateNext">Next</button><button class="btn primary" id="snakeRespawn">Respawn</button></div>
     <div id="snakeOverlay" class="snakeOverlay"><div class="card snakeStart"><span class="snakeBadge">THOMAS PATRICK PEARL</span><h2>ENDLESS<br>COIL</h2><p id="snakeMessage" class="muted">Select a Tom form, begin tiny and become the Crowned Pearl.</p><button class="btn primary" id="snakeStart">Awaken the coil</button></div></div>
   </div>
 </section>
@@ -993,7 +995,7 @@ function makeBot(i){
     target:null,lockUntil:0,nextThink:0,splitCd:rand(0,3),ejectCd:rand(2,7),style,skill,
     bravery:clamp(rand(.55,1.25)+(style==='hunter'?.18:style==='survivor'?-.18:0),.35,1.45),
     greed:clamp(rand(.65,1.3)+(style==='farmer'?.2:0),.45,1.5),wander:rand(0,TAU),
-    aim:{x,y},lastThreat:null,mistakeAt:0,threatMemory:0,preyMemory:0,feintAt:0,kills:0,dead:false}
+    aim:{x,y},lastThreat:null,mistakeAt:0,mistakeUntil:0,errorBias:0,nerve:rand(.65,1.25),curiosity:rand(.55,1.35),threatMemory:0,preyMemory:0,feintAt:0,commitUntil:0,dashCd:rand(0,2),kills:0,dead:false}
 }
 function initialiseArena(){
   resize();game.food=[];game.bots=[];game.viruses=[];game.powers=[];game.ejected=[];game.particles=[];game.killFeed=[];game.pearlChain=0;game.pearlChainUntil=0;game.bountyId=null;game.rifts=Array.from({length:5},()=>({x:rand(500,WORLD-500),y:rand(500,WORLD-500),r:rand(90,155),phase:rand(0,TAU),color:Math.random()>.5?'#27f5ff':'#ff247f'}));game.event={type:'calm',nextAt:Date.now()+9000,until:0,startedAt:0};
@@ -1007,11 +1009,11 @@ function initialiseArena(){
 function spawnHuman(){
   if(!game.running)initialiseArena();
   game.player.name=($('playerName').value||'PearlConsumer').slice(0,18);const sm=selectedMods();
-  game.player.powers={shield:6+(sm.spawnShield||0),speed:2,magnet:0,growth:0};
+  game.player.powers={shield:6+(sm.spawnShield||0),speed:2,magnet:0,growth:0};game.player.dashCd=0;
   const leaders=[...game.bots].sort((a,b)=>totalMass(b.cells)-totalMass(a.cells)),avoid=leaders.slice(0,5).flatMap(b=>b.cells);
   let x=WORLD/2,y=WORLD/2,best=-1;
   for(let i=0;i<16;i++){const tx=rand(600,WORLD-600),ty=rand(600,WORLD-600),clear=avoid.length?Math.min(...avoid.map(c=>dist(tx,ty,c.x,c.y))):9999;if(clear>best){best=clear;x=tx;y=ty}}
-  game.player.cells=[newCell('player',x,y,20+(sm.startMass||0)*.25,state.skin,game.player.name)];
+  game.player.cells=[newCell('player',x,y,20+(sm.startMass||0)*.25,state.skin,game.player.name)];game.player.dashCd=0;
   game.cam.x=x;game.cam.y=y;game.mouse.wx=x;game.mouse.wy=y;game.spawnShield=6+(sm.spawnShield||0);
   game.humanPresent=true;game.spectating=false;game.idleDeadline=0;game.last=now();state.stats.runs++;save();addXP(20,'Pearl.io run');
   $('spawnOverlay').style.display='none';$('spectatorDock').classList.remove('show');updateArenaStatus()
@@ -1066,8 +1068,9 @@ function updateArenaStatus(){
   text.textContent='AI-ONLY · resets in '+Math.floor(left/60)+':'+String(left%60).padStart(2,'0')+' unless a player joins'
 }
 function spectatorBots(){return [...game.bots].filter(b=>b.cells.length).sort((a,b)=>totalMass(b.cells)-totalMass(a.cells))}
-function updateSpectatorTarget(){
+function updateSpectatorTarget(preferredId){
   const bots=spectatorBots();if(!bots.length)return;game.spectateIndex=(game.spectateIndex+bots.length)%bots.length;
+  if(preferredId){const preferred=bots.findIndex(b=>b.id===preferredId);if(preferred>=0)game.spectateIndex=preferred}
   const b=bots[game.spectateIndex],cen=centerOf(b.cells);game.cam.x=cen.x;game.cam.y=cen.y;$('spectateName').textContent=b.name+' · '+Math.floor(totalMass(b.cells))+' mass'
 }
 function cycleSpectator(dir){game.spectateIndex+=dir;updateSpectatorTarget()}
@@ -1081,14 +1084,15 @@ function addKillFeed(killer,victim){
   if(killer===game.player.name){game.combo++;game.comboUntil=Date.now()+4500;arenaImpact(game.combo>2?'RAMPAGE x'+game.combo:'CELL ERASED','#ff275f')}
 }
 function requirePearlOnline(){if(window.pearlMultiplayerActive?.('pearl'))return true;window.pearlQuickPlay?.('pearl');return false}
-$('spawnBtn').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('overlaySpawn').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('spectateJoin').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('spectatePrev').addEventListener('click',()=>cycleSpectator(-1));$('spectateNext').addEventListener('click',()=>cycleSpectator(1));$('splitBtn').addEventListener('click',()=>{if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('split');else if(requirePearlOnline())splitOwner('player')});$('ejectBtn').addEventListener('click',()=>{if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('eject');else if(requirePearlOnline())ejectOwner('player')});
+$('spawnBtn').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('overlaySpawn').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('spectateJoin').addEventListener('click',()=>{if(requirePearlOnline())spawnHuman()});$('spectatePrev').addEventListener('click',()=>cycleSpectator(-1));$('spectateNext').addEventListener('click',()=>cycleSpectator(1));$('splitBtn').addEventListener('click',()=>{if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('split');else if(requirePearlOnline())splitOwner('player')});$('ejectBtn').addEventListener('click',()=>{if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('eject');else if(requirePearlOnline())ejectOwner('player')});$('dashBtn').addEventListener('click',()=>{if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('dash');else if(requirePearlOnline())dashOwner('player')});
 canvas.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();game.mouse.x=e.clientX-r.left;game.mouse.y=e.clientY-r.top});canvas.addEventListener('touchmove',e=>{const t=e.touches[0],r=canvas.getBoundingClientRect();game.mouse.x=t.clientX-r.left;game.mouse.y=t.clientY-r.top;e.preventDefault()},{passive:false});canvas.addEventListener('wheel',e=>{e.preventDefault();game.cam.manual=clamp(game.cam.manual+(e.deltaY>0?-0.08:0.08),.68,1.55)},{passive:false});
-window.addEventListener('keydown',e=>{if(!game.running)return;if(e.code==='Space'){e.preventDefault();if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('split');else splitOwner('player')}if(e.code==='KeyW'){e.preventDefault();if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('eject');else ejectOwner('player')}});
+window.addEventListener('keydown',e=>{if(!game.running)return;if(e.code==='Space'){e.preventDefault();if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('split');else splitOwner('player')}if(e.code==='KeyW'){e.preventDefault();if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('eject');else ejectOwner('player')}if((e.code==='ShiftLeft'||e.code==='ShiftRight')&&!e.repeat){e.preventDefault();if(game.networkGuest)window.pearlMultiplayerBridge?.pearl?.action('dash');else dashOwner('player')}});
 function ownerCells(owner){if(owner==='player')return game.player.cells;const b=game.bots.find(x=>x.id===owner);return b?b.cells:[]}
 function allCells(){let arr=[];game.player.cells.forEach(c=>arr.push(c));game.bots.forEach(b=>b.cells.forEach(c=>arr.push(c)));return arr.filter(c=>!c.dead)}
 function centerOf(cells){let sx=0,sy=0,sm=0;cells.forEach(c=>{const m=c.r*c.r;sx+=c.x*m;sy+=c.y*m;sm+=m});return sm?{x:sx/sm,y:sy/sm}:{x:WORLD/2,y:WORLD/2}}
 function dirToTarget(from,target){let dx=target.x-from.x,dy=target.y-from.y,d=Math.hypot(dx,dy)||1;return{dx:dx/d,dy:dy/d,d}}
-function cellSpeed(r,powers){let s=clamp(10.4-Math.pow(Math.max(1,r),.68)*.18,3,10.25);if(powers&&powers.speed>0)s*=1.38;if(powers&&powers.frenzy>0)s*=1.18;return s}
+function cellSpeed(r,powers){let s=clamp(10.5-Math.pow(Math.max(1,r),.62)*.14,4.4,10.35);if(powers&&powers.speed>0)s*=1.38;if(powers&&powers.frenzy>0)s*=1.18;return s}
+function dashOwner(owner){const actor=owner==='player'?game.player:game.bots.find(b=>b.id===owner);if(!actor||actor.dashCd>0)return false;const cells=ownerCells(owner),target=owner==='player'?{x:game.mouse.wx,y:game.mouse.wy}:(actor.aim||actor.target);if(!cells.length||!target)return false;for(const c of cells){const d=dirToTarget(c,target),force=clamp(34-c.r*.018,24,34),massCost=Math.max(45,c.r*c.r*.018);c.r=Math.max(16,Math.sqrt(Math.max(256,c.r*c.r-massCost)));c.vx+=d.dx*force;c.vy+=d.dy*force;c.dashUntil=now()+260}actor.dashCd=3.1;return true}
 function splitOwner(owner){const cells=ownerCells(owner);const max=owner==='player'?MAX_PLAYER_CELLS:MAX_BOT_CELLS;if(cells.length>=max)return;const target=owner==='player'?{x:game.mouse.wx,y:game.mouse.wy}:((game.bots.find(b=>b.id===owner)||{}).aim||null);let made=[];for(const c of [...cells]){if(c.r<36||cells.length+made.length>=max)continue;let aim=target||{x:c.x+c.vx*20+rand(-80,80),y:c.y+c.vy*20+rand(-80,80)};const d=dirToTarget(c,aim);const nr=c.r/Math.SQRT2;c.r=nr;const n=newCell(owner,c.x+d.dx*(c.r+8),c.y+d.dy*(c.r+8),nr,c.skin,c.name);const m=cellMods(c);const launch=22*(m.splitLaunch||1);n.vx=d.dx*launch;n.vy=d.dy*launch;c.mergeAt=now()+mergeDelayForCell(c);n.mergeAt=now()+mergeDelayForCell(n);made.push(n);}
  cells.push(...made)}
 function ejectOwner(owner){const cells=ownerCells(owner);const bot=owner==='player'?null:game.bots.find(b=>b.id===owner);const target=owner==='player'?{x:game.mouse.wx,y:game.mouse.wy}:(bot&&bot.aim);for(const c of cells){if(c.r<30)continue;const aim=target||{x:c.x+c.vx*30,y:c.y+c.vy*30};const d=dirToTarget(c,aim);c.r=Math.sqrt(Math.max(100,c.r*c.r-72));const sk=SKINS[c.skin]||SKINS[0];game.ejected.push({x:c.x+d.dx*(c.r+12),y:c.y+d.dy*(c.r+12),r:8,vx:d.dx*16,vy:d.dy*16,color:sk.color||'#fff',life:5,dead:false});}}
@@ -1102,7 +1106,7 @@ function applyPower(owner,type){
   p.powers[type]=Math.max(p.powers[type]||0,duration+bonus)
 }
 function tickPowers(obj,dt){for(const k of Object.keys(obj.powers||{})){obj.powers[k]-=dt;if(obj.powers[k]<=0)delete obj.powers[k]}}
-function movePlayer(dt){const cells=game.player.cells;const powers=game.player.powers;for(const c of cells){if(game.frame%3===0){c.trail.push({x:c.x,y:c.y,r:c.r,life:1});if(c.trail.length>12)c.trail.shift()}const d=dirToTarget(c,{x:game.mouse.wx,y:game.mouse.wy});if(d.d>4){const sp=cellSpeed(c.r,powers);c.vx+=(d.dx*sp-c.vx)*.23;c.vy+=(d.dy*sp-c.vy)*.23}c.vx*=.94;c.vy*=.94;c.x+=c.vx;c.y+=c.vy;bound(c)}}
+function movePlayer(dt){const cells=game.player.cells;const powers=game.player.powers;for(const c of cells){if(game.frame%3===0){c.trail.push({x:c.x,y:c.y,r:c.r,life:1});if(c.trail.length>12)c.trail.shift()}const d=dirToTarget(c,{x:game.mouse.wx,y:game.mouse.wy}),dashing=now()<(c.dashUntil||0);if(d.d>4){const sp=cellSpeed(c.r,powers);c.vx+=(d.dx*sp-c.vx)*(dashing?.055:.23);c.vy+=(d.dy*sp-c.vy)*(dashing?.055:.23)}const drag=dashing?.985:.94;c.vx*=drag;c.vy*=drag;c.x+=c.vx;c.y+=c.vy;bound(c)}}
 function bound(c){c.x=clamp(c.x,c.r,WORLD-c.r);c.y=clamp(c.y,c.r,WORLD-c.r)}
 function pearlSafeCourse(center,main,threats,preferred){
   const offsets=[0,-.38,.38,-.75,.75,-1.12,1.12,-1.55,1.55,Math.PI],step=clamp(620+main.r*5,650,1050);let best=null,bestScore=-Infinity;
@@ -1115,29 +1119,45 @@ function pearlSafeCourse(center,main,threats,preferred){
   }
   return best||{x:center.x+Math.cos(preferred)*step,y:center.y+Math.sin(preferred)*step}
 }
+function pearlSetBotAim(b,target,t,mode){
+  const cells=b.cells.filter(c=>!c.dead),center=cells.length?centerOf(cells):target,main=[...cells].sort((a,z)=>z.r-a.r)[0];let aim={x:target.x,y:target.y};
+  if(t>=b.mistakeAt&&Math.random()<.025+(1-b.skill)*.15){
+    b.mistakeAt=t+rand(2600,6800);b.mistakeUntil=t+rand(220,620);const roll=Math.random(),base=Math.atan2(target.y-center.y,target.x-center.x),error=mode==='run'?rand(.08,.25):rand(.18,.62)*(Math.random()<.5?-1:1);b.errorBias=error;
+    if(roll<.3&&main)aim={x:center.x+(main.vx||0)*rand(18,34),y:center.y+(main.vy||0)*rand(18,34)};
+    else if(roll<.72){const reach=clamp(dist(center.x,center.y,target.x,target.y),180,900);aim={x:center.x+Math.cos(base+error)*reach,y:center.y+Math.sin(base+error)*reach}}
+    else if(mode!=='run'){const f=game.food[Math.floor(rand(0,game.food.length))];if(f&&!f.dead)aim=f}
+  }else if(t<b.mistakeUntil&&b.errorBias&&mode!=='run'){
+    const base=Math.atan2(target.y-center.y,target.x-center.x),reach=clamp(dist(center.x,center.y,target.x,target.y),160,850);aim={x:center.x+Math.cos(base+b.errorBias*.55)*reach,y:center.y+Math.sin(base+b.errorBias*.55)*reach}
+  }
+  aim={x:clamp(Number(aim.x)||center.x,45,WORLD-45),y:clamp(Number(aim.y)||center.y,45,WORLD-45)};b.intent=mode;b.target=aim;b.aim=aim;return aim
+}
+function pearlBotSenses(b,center,target,range){const d=dist(center.x,center.y,target.x,target.y);if(d<480)return true;if(d>range)return false;const main=[...b.cells].sort((a,z)=>z.r-a.r)[0],move=Math.hypot(main?.vx||0,main?.vy||0)>.35?Math.atan2(main.vy,main.vx):Math.atan2((b.aim?.y||center.y)-center.y,(b.aim?.x||center.x)-center.x),toward=Math.atan2(target.y-center.y,target.x-center.x),fov=1.42+(1-b.skill)*.22;return Math.abs(Math.atan2(Math.sin(toward-move),Math.cos(toward-move)))<fov}
 function botThink(b,t){
+  if(t<(b.commitUntil||0)&&b.target){b.nextThink=t+180;return}
   if(t<b.nextThink)return;
   b.nextThink=t+rand(135,245)+(1-b.skill)*150;
   const cells=b.cells.filter(c=>!c.dead),main=[...cells].sort((a,z)=>z.r-a.r)[0];if(!main)return;
-  const center=centerOf(cells),visible=1500+main.r*14+b.skill*650,others=allCells();
+  const center=centerOf(cells),visible=clamp(1050+main.r*5.5+b.skill*520,1150,2550),others=allCells();
   let threat=null,threatScore=-Infinity,prey=null,preyScore=-Infinity,bestPower=null,bestPowerScore=-Infinity;
   const threats=[];
   for(const other of others){
     if(other.owner===b.id||other.dead)continue;
-    const d=dist(center.x,center.y,other.x,other.y);if(d>visible)continue;
+    const d=dist(center.x,center.y,other.x,other.y);if(!pearlBotSenses(b,center,other,visible))continue;
     if(other.r>main.r*1.09){
       threats.push(other);const closing=((other.vx||0)*(center.x-other.x)+(other.vy||0)*(center.y-other.y))/(d||1);
       const score=(other.r/main.r)*2.6+(visible-d)/visible*1.7+(d<other.r*5.5?1.25:0)+Math.max(0,closing)*.08;
       if(score>threatScore){threatScore=score;threat=other}
     }else if(main.r>other.r*1.09){
       const dangerNearPrey=others.some(x=>x.owner!==b.id&&x.owner!==other.owner&&x.r>main.r*1.08&&dist(other.x,other.y,x.x,x.y)<420);
-      const playerPriority=other.owner==='player'?3.8:0;
+      const playerPriority=other.owner==='player'?.35+b.bravery*.55:0;
       const score=(main.r/other.r)*1.55+(visible-d)/visible*1.7+(d<main.r*6?1.35:0)+playerPriority-(dangerNearPrey?1.05:0);
       if(score>preyScore){preyScore=score;prey=other}
     }
   }
+  if(threat){b.lastThreat={x:threat.x,y:threat.y,r:threat.r,vx:threat.vx||0,vy:threat.vy||0,dead:false};b.threatMemory=t+rand(650,1250)}else if(b.lastThreat&&t<b.threatMemory){threat=b.lastThreat;threatScore=2.15;threats.push(threat)}else b.lastThreat=null;
+  if(prey){b.lastSeenPrey={x:prey.x,y:prey.y,r:prey.r,vx:prey.vx||0,vy:prey.vy||0,owner:'memory',dead:false};b.preyMemory=t+rand(700,1450)}else if(b.lastSeenPrey&&t<b.preyMemory){prey=b.lastSeenPrey;preyScore=1.12}else b.lastSeenPrey=null;
   for(const p of game.powers){
-    if(p.dead)continue;const d=dist(center.x,center.y,p.x,p.y);if(d>1050+b.skill*320)continue;
+    if(p.dead)continue;const d=dist(center.x,center.y,p.x,p.y);if(!pearlBotSenses(b,center,p,Math.min(visible,1050+b.skill*320)))continue;
     const value={nova:8.5,ghost:7,frenzy:6.5,shield:6,growth:5.2,speed:5,magnet:3.8,coin:2.2}[p.type]||1;
     const score=value-d/260+(threat&&['shield','ghost','speed'].includes(p.type)?2.7:0);
     if(score>bestPowerScore){bestPowerScore=score;bestPower=p}
@@ -1145,34 +1165,35 @@ function botThink(b,t){
   if(threat&&threatScore>2.05){
     b.intent='run';b.lastThreat=threat;
     let vx=0,vy=0;for(const danger of threats){const dx=center.x-danger.x,dy=center.y-danger.y,d=Math.hypot(dx,dy)||1,w=clamp((visible-d)/visible+.25,.2,1.4)*(danger.r/main.r);vx+=dx/d*w;vy+=dy/d*w}
-    const preferred=Math.atan2(vy,vx);b.target=pearlSafeCourse(center,main,threats,preferred);b.aim=b.target;b.lockUntil=t+rand(430,720);return
+    const preferred=Math.atan2(vy,vx);pearlSetBotAim(b,pearlSafeCourse(center,main,threats,preferred),t,'run');b.lockUntil=t+rand(430,720);return
   }
   if(bestPower&&bestPowerScore>3.4&&!prey){
-    b.intent='power';b.target=bestPower;b.aim=bestPower;b.lockUntil=t+rand(420,700);return
+    pearlSetBotAim(b,bestPower,t,'power');b.lockUntil=t+rand(420,700);return
   }
   b.intent='hunt';
   if(prey&&preyScore>1.05){
     const d=dist(main.x,main.y,prey.x,prey.y),lead=clamp(d/Math.max(3,cellSpeed(main.r,b.powers)),8,34);
-    b.target={x:clamp(prey.x+(prey.vx||0)*lead,45,WORLD-45),y:clamp(prey.y+(prey.vy||0)*lead,45,WORLD-45)};b.aim=b.target;b.lockUntil=t+rand(480,820);
+    pearlSetBotAim(b,{x:clamp(prey.x+(prey.vx||0)*lead,45,WORLD-45),y:clamp(prey.y+(prey.vy||0)*lead,45,WORLD-45)},t,'hunt');b.lockUntil=t+rand(480,820);
     const splitSafe=!threats.some(x=>dist(x.x,x.y,prey.x,prey.y)<main.r*8);
-    if(splitSafe&&main.r>prey.r*(1.42+(1-b.skill)*.14)&&d<main.r*(4.5+b.skill*.85)&&d>main.r*.8&&b.splitCd<=0&&cells.length<MAX_BOT_CELLS/2){splitOwner(b.id);b.splitCd=6.5+rand(0,1.8)}
+    if(splitSafe&&main.r>prey.r*(1.62+(1-b.skill)*.18)&&d<main.r*(4.35+b.skill*.72)&&d>main.r*.9&&b.splitCd<=0&&cells.length<MAX_BOT_CELLS/2){splitOwner(b.id);b.splitCd=6.5+rand(0,1.8);b.commitUntil=t+rand(1050,1650)}
+    if(d>220&&d<720&&b.dashCd<=0&&b.nerve>.78&&Math.random()<.18)dashOwner(b.id)
     return
   }
   let targetFood=null,bestFood=-Infinity;
   for(let i=0;i<48;i++){const f=game.food[Math.floor(rand(0,game.food.length))];if(!f||f.dead)continue;const d=dist(center.x,center.y,f.x,f.y);let cluster=0;for(const near of gameFoodNear(f.x,f.y,135)){if(!near.dead)cluster+=near.rare?3:.18}const score=(f.rare?7:1)+cluster*b.greed-d/720;if(score>bestFood){bestFood=score;targetFood=f}}
-  if(targetFood){b.target=targetFood;b.aim=targetFood}else{b.wander+=rand(-.55,.55);b.target={x:clamp(center.x+Math.cos(b.wander)*760,100,WORLD-100),y:clamp(center.y+Math.sin(b.wander)*760,100,WORLD-100)}}
+  if(targetFood)pearlSetBotAim(b,targetFood,t,'power');else{b.wander+=rand(-.55,.55);pearlSetBotAim(b,{x:clamp(center.x+Math.cos(b.wander)*760,100,WORLD-100),y:clamp(center.y+Math.sin(b.wander)*760,100,WORLD-100)},t,'power')}
   b.lockUntil=t+rand(500,850)
 }
 function moveBots(dt,t){
   for(const b of game.bots){
-    tickPowers(b,dt);b.splitCd=Math.max(0,b.splitCd-dt);b.ejectCd=Math.max(0,b.ejectCd-dt);if(b.remote){b.intent='hunt';b.target=b.aim}else botThink(b,t);pullOwnerCellsForMerge(b.id);
+    tickPowers(b,dt);b.splitCd=Math.max(0,b.splitCd-dt);b.ejectCd=Math.max(0,b.ejectCd-dt);b.dashCd=Math.max(0,(b.dashCd||0)-dt);if(b.remote){b.intent='hunt';b.target=b.aim}else botThink(b,t);pullOwnerCellsForMerge(b.id);
     for(const c of b.cells){
       if(game.frame%5===0){c.trail.push({x:c.x,y:c.y,r:c.r,life:1});if(c.trail.length>7)c.trail.shift()}
       const target=b.target||b.aim||{x:c.x+300,y:c.y},tx=target.x||c.x,ty=target.y||c.y,d=dirToTarget(c,{x:tx,y:ty}),mods=cellMods(c);
       let steerX=d.dx,steerY=d.dy,avoidX=0,avoidY=0;
       const margin=180+c.r*2;if(c.x<margin)avoidX+=(margin-c.x)/margin;if(c.x>WORLD-margin)avoidX-=(c.x-(WORLD-margin))/margin;if(c.y<margin)avoidY+=(margin-c.y)/margin;if(c.y>WORLD-margin)avoidY-=(c.y-(WORLD-margin))/margin;
       if(c.r>36)for(const v of game.viruses){const vd=dist(c.x,c.y,v.x,v.y);if(vd<175+c.r){avoidX+=(c.x-v.x)/(vd||1)*1.8;avoidY+=(c.y-v.y)/(vd||1)*1.8}}
-      if(b.intent!=='run'&&b.lastThreat&&!b.lastThreat.dead){const td=dist(c.x,c.y,b.lastThreat.x,b.lastThreat.y);if(td<360+c.r*4){avoidX+=(c.x-b.lastThreat.x)/(td||1)*1.4;avoidY+=(c.y-b.lastThreat.y)/(td||1)*1.4}}
+      if(b.intent!=='run'&&b.lastThreat&&!b.lastThreat.dead&&now()<b.threatMemory){const td=dist(c.x,c.y,b.lastThreat.x,b.lastThreat.y);if(td<360+c.r*4){avoidX+=(c.x-b.lastThreat.x)/(td||1)*1.4;avoidY+=(c.y-b.lastThreat.y)/(td||1)*1.4}}
       steerX+=avoidX;steerY+=avoidY;const steerLen=Math.hypot(steerX,steerY)||1;steerX/=steerLen;steerY/=steerLen;
       let style=b.intent==='run'?(mods.flee||1)*1.12:b.intent==='hunt'?(mods.chase||1):1.04;if(totalMass(b.cells)>500)style*=mods.hugeSpeed||1;
       const sp=cellSpeed(c.r,b.powers)*(mods.speed||1)*style*(.96+b.skill*.06),accel=.12+b.skill*.085;
@@ -1193,7 +1214,7 @@ function collisions(dt){const cells=allCells();if(game.frame%4===1)rebuildFoodGr
  // viruses
  for(const v of game.viruses){for(const c of [...allCells()]){if(c.dead)continue;if(dist(c.x,c.y,v.x,v.y)<c.r+v.r*.65)virusHit(c.owner,c,v)}}
  // cell eating - largest first
- const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.06:1.09)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.06){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;const killer=a.name||'Unknown',victim=b.name||'cell',bountyDown=game.event.type==='bountyrush'&&b.owner===game.bountyId&&ownerCells(b.owner).every(x=>x.dead);addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;trackDaily('kills');addXP(40,'Pearl.io KO');addCoins(30);sfx('win');game.shake=state.settings.shake?14:0;game.fxBursts.push({x:b.x,y:b.y,life:1,color:'#ff275f'})}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}if(bountyDown){grow(a,18,2.2);if(a.owner==='player'){addCoins(150);addXP(60,'bounty claimed');game.player.powers.frenzy=Math.max(game.player.powers.frenzy||0,5);arenaImpact('BOUNTY CLAIMED','#fbbf24')}game.bountyId=null}}}}
+  const live=allCells().sort((a,b)=>b.r-a.r);for(let i=0;i<live.length;i++){const a=live[i];if(a.dead)continue;for(let j=live.length-1;j>i;j--){const b=live[j];if(b.dead||a.owner===b.owner)continue;if(a.r>b.r*(a.owner==='player'&&game.player.powers.frenzy>0?1.06:1.09)&&dist(a.x,a.y,b.x,b.y)<a.r-b.r*.06){const bo=b.owner==='player'?game.player:game.bots.find(x=>x.id===b.owner);if(bo&&(bo.powers.shield>0||bo.powers.ghost>0))continue;const ao=a.owner==='player'?game.player:game.bots.find(x=>x.id===a.owner);grow(a,b.r,.62*(ao&&ao.powers.frenzy>0?1.1:1));b.dead=true;if(b.owner==='player')game.lastKillerId=a.owner;const killer=a.name||'Unknown',victim=b.name||'cell',bountyDown=game.event.type==='bountyrush'&&b.owner===game.bountyId&&ownerCells(b.owner).every(x=>x.dead);addKillFeed(killer,victim);if(a.owner==='player'){state.stats.kills++;trackDaily('kills');addXP(40,'Pearl.io KO');addCoins(30);sfx('win');game.shake=state.settings.shake?14:0;game.fxBursts.push({x:b.x,y:b.y,life:1,color:'#ff275f'})}else{const kb=game.bots.find(x=>x.id===a.owner);if(kb)kb.kills=(kb.kills||0)+1}if(bountyDown){grow(a,18,2.2);if(a.owner==='player'){addCoins(150);addXP(60,'bounty claimed');game.player.powers.frenzy=Math.max(game.player.powers.frenzy||0,5);arenaImpact('BOUNTY CLAIMED','#fbbf24')}game.bountyId=null}}}}
  cleanDead();}
 function cleanDead(){game.player.cells=game.player.cells.filter(c=>!c.dead);for(const b of game.bots){b.cells=b.cells.filter(c=>!c.dead);if(b.remote&&!b.cells.length){b.remoteRespawnAt=b.remoteRespawnAt||Date.now()+2200;if(Date.now()>=b.remoteRespawnAt){const x=rand(500,WORLD-500),y=rand(500,WORLD-500);b.cells=[newCell(b.id,x,y,20,b.skin,b.name)];b.aim={x,y};b.remoteRespawnAt=0}}}game.bots=game.bots.filter(b=>b.remote||b.cells.length>0);const remote=game.bots.filter(b=>b.remote),ai=game.bots.filter(b=>!b.remote).slice(0,BOT_TARGET);game.bots=[...remote,...ai];if(!game.networkGuest&&ai.length<BOT_TARGET){for(let i=ai.length;i<BOT_TARGET;i++)game.bots.push(makeBot(i+Math.floor(rand(0,9999))))}game.food=game.food.filter(f=>!f.dead).slice(0,FOOD_TARGET);while(!game.networkGuest&&game.food.length<FOOD_TARGET)game.food.push(makeFood());game.powers=game.powers.filter(p=>!p.dead).slice(0,POWER_TARGET);while(!game.networkGuest&&game.powers.length<POWER_TARGET)game.powers.push(makePower());game.viruses=game.viruses.slice(0,VIRUS_TARGET);while(!game.networkGuest&&game.viruses.length<VIRUS_TARGET)game.viruses.push(makeVirus());game.ejected=game.ejected.filter(e=>!e.dead);}
 function updateCamera(){
@@ -1209,7 +1230,7 @@ function loop(t,id){
   const minFrame=1000/perfProfile().fps;if(t-game.last<minFrame*.82){requestAnimationFrame(nt=>loop(nt,id));return}
   let dt=Math.min(.05,(t-game.last)/1000||.016);game.last=t;game.frame++;
   if(game.networkGuest){updateCamera();render();if(game.frame%2===0)updateHud();requestAnimationFrame(nt=>loop(nt,id));return}
-  if(game.humanPresent){tickPowers(game.player,dt);movePlayer(dt)}
+  if(game.humanPresent){tickPowers(game.player,dt);game.player.dashCd=Math.max(0,(game.player.dashCd||0)-dt);movePlayer(dt)}
   moveBots(dt,t);if(game.humanPresent){pullOwnerCellsForMerge('player');separateOwnerCells('player',false)}
   for(const b of game.bots)separateOwnerCells(b.id,false);for(const b of game.bots)mergeCells(b.id,false);
   if(game.humanPresent)mergeCells('player',false);
@@ -1217,7 +1238,7 @@ function loop(t,id){
   const tm=totalMass(game.player.cells);if(tm>state.stats.best){state.stats.best=tm;save()}
   if(game.humanPresent&&!game.player.cells.length){
     game.humanPresent=false;game.spectating=true;beginIdleCountdown();$('spectatorDock').classList.add('show');
-    $('spawnOverlay').style.display='none';updateSpectatorTarget();save()
+    $('spawnOverlay').style.display='none';updateSpectatorTarget(game.lastKillerId);game.lastKillerId=null;save()
   }
   requestAnimationFrame(nt=>loop(nt,id))
 }
@@ -1309,6 +1330,7 @@ function updateHud(){
     '<span class="pill">MASS '+Math.floor(tm)+'</span><span class="pill">CELLS '+cells.length+'</span><span class="pill">CHAIN x'+game.pearlChain+'</span><span class="pill">MERGE '+(merge>0?merge+'s':'READY')+'</span><span class="pill">ARENA '+Math.floor(arenaAge/60)+':'+String(arenaAge%60).padStart(2,'0')+'</span>':
     '<span class="pill">SPECTATOR MODE</span><span class="pill">AI RIVALS '+game.bots.length+'</span><span class="pill">ARENA '+Math.floor(arenaAge/60)+':'+String(arenaAge%60).padStart(2,'0')+'</span>';
   $('powerBar').innerHTML=game.humanPresent?Object.keys(game.player.powers).map(k=>'<span class="powerChip">'+k.toUpperCase()+' '+game.player.powers[k].toFixed(1)+'s</span>').join(''):'';
+  if($('dashBtn')){$('dashBtn').disabled=(game.player.dashCd||0)>0;$('dashBtn').firstChild.textContent=(game.player.dashCd||0)>0?'Dash '+game.player.dashCd.toFixed(1)+'s ':'Dash '}
   const rows=[...(game.humanPresent?[{name:game.player.name,m:tm,me:true,mode:'player'}]:[]),...game.bots.map(b=>({name:b.name,m:totalMass(b.cells),mode:b.intent,kills:b.kills||0,bounty:b.id===game.bountyId}))].sort((a,b)=>b.m-a.m).slice(0,10);
   $('leaderboard').innerHTML=rows.map((r,i)=>'<div style="'+(r.me?'color:#ff8aaa;font-weight:950':r.bounty?'color:#fbbf24;font-weight:950':'')+'">'+(i+1)+'. '+r.name+' <span class="muted">'+Math.floor(r.m)+'</span> '+(r.mode?'<span class="muted">'+r.mode+'</span>':'')+(r.kills?' <span style="color:#fb7185">x'+r.kills+'</span>':'')+'</div>').join('');
   updateArenaStatus()
@@ -1512,11 +1534,12 @@ window.pearlSkinBridge={
 };
 window.pearlMultiplayerBridge=window.pearlMultiplayerBridge||{};
 (()=>{
-  let networkId='',pendingSplit=false,pendingEject=false,lastFullSnapshot=0;
+  let networkId='',pendingSplit=false,pendingEject=false,pendingDash=false,lastFullSnapshot=0;
   const packCell=c=>[c.id,c.x,c.y,c.r,c.vx||0,c.vy||0,c.skin,c.name,c.mergeAt||0];
   const unpackCell=(a,owner,old)=>({id:a[0],owner,x:old?old.x*.28+a[1]*.72:a[1],y:old?old.y*.28+a[2]*.72:a[2],r:a[3],vx:a[4],vy:a[5],skin:a[6],name:a[7],mergeAt:a[8],dead:false,trail:old?.trail||[]});
-  const packActor=(b,id=b.id)=>({id,name:b.name,skin:b.skin,powers:b.powers||{},cells:b.cells.map(packCell),remote:!!b.remote});
+  const packActor=(b,id=b.id)=>({id,name:b.name,skin:b.skin,powers:b.powers||{},dashCd:b.dashCd||0,cells:b.cells.map(packCell),remote:!!b.remote,ai:b.id?{intent:b.intent,nextThink:b.nextThink,splitCd:b.splitCd,ejectCd:b.ejectCd,dashCd:b.dashCd,commitUntil:b.commitUntil,style:b.style,skill:b.skill,bravery:b.bravery,greed:b.greed,wander:b.wander,aim:b.aim,lockUntil:b.lockUntil,nerve:b.nerve,curiosity:b.curiosity,mistakeAt:b.mistakeAt,mistakeUntil:b.mistakeUntil,errorBias:b.errorBias,kills:b.kills}:null});
   function actorCells(actor,owner,oldCells=[]){const byId=new Map(oldCells.map(c=>[c.id,c]));return actor.cells.map(c=>unpackCell(c,owner,byId.get(c[0])))}
+  function unpackBotActor(actor,id,old,remote=actor.remote){const ai=actor.ai||{},aim=ai.aim||old?.aim||{x:WORLD/2,y:WORLD/2};return{id,name:actor.name,skin:actor.skin,powers:actor.powers||{},cells:actorCells(actor,id,old?.cells),remote:!!remote,intent:ai.intent||'power',target:aim,aim,nextThink:Number(ai.nextThink)||0,splitCd:Number(ai.splitCd)||0,ejectCd:Number(ai.ejectCd)||0,dashCd:Number(ai.dashCd)||0,commitUntil:Number(ai.commitUntil)||0,style:ai.style||'opportunist',skill:Number(ai.skill)||.78,bravery:Number(ai.bravery)||.9,greed:Number(ai.greed)||.9,wander:Number(ai.wander)||0,lockUntil:Number(ai.lockUntil)||0,nerve:Number(ai.nerve)||.9,curiosity:Number(ai.curiosity)||.9,mistakeAt:Number(ai.mistakeAt)||0,mistakeUntil:Number(ai.mistakeUntil)||0,errorBias:Number(ai.errorBias)||0,lastThreat:null,kills:Number(ai.kills)||0}}
   function remoteActor(info){const id='net:'+info.id,x=rand(700,WORLD-700),y=rand(700,WORLD-700),skin=Math.floor(rand(0,SKINS.length));return{id,name:info.name||'Online Pearl',skin,cells:[newCell(id,x,y,20,skin,info.name||'Online Pearl')],powers:{shield:5},intent:'hunt',target:{x,y},aim:{x,y},lockUntil:0,nextThink:Infinity,splitCd:0,ejectCd:0,style:'hunter',skill:1,bravery:1,greed:1,wander:0,lastThreat:null,kills:0,remote:true}}
   window.pearlMultiplayerBridge.pearl={
     setIdentity(id){networkId=id},
@@ -1524,19 +1547,19 @@ window.pearlMultiplayerBridge=window.pearlMultiplayerBridge||{};
     startGuest(snapshot){if(!game.running)initialiseArena();game.networkGuest=true;game.humanPresent=true;game.spectating=false;$('spawnOverlay').style.display='none';if(snapshot)this.applySnapshot(snapshot)},
     addRemote(info){if(!info||info.game!=='pearl'||game.bots.some(b=>b.id==='net:'+info.id))return;game.bots.push(remoteActor(info))},
     removeRemote(id){game.bots=game.bots.filter(b=>b.id!=='net:'+id)},
-    remoteInput(id,input){const b=game.bots.find(x=>x.id==='net:'+id);if(!b||!input)return;b.aim={x:clamp(Number(input.x)||WORLD/2,20,WORLD-20),y:clamp(Number(input.y)||WORLD/2,20,WORLD-20)};b.target=b.aim;if(input.split)splitOwner(b.id);if(input.eject)ejectOwner(b.id)},
-    action(type){if(type==='split')pendingSplit=true;if(type==='eject')pendingEject=true},
-    input(){const value={x:game.mouse.wx,y:game.mouse.wy,split:pendingSplit,eject:pendingEject};pendingSplit=pendingEject=false;return value},
+    remoteInput(id,input){const b=game.bots.find(x=>x.id==='net:'+id);if(!b||!input)return;b.aim={x:clamp(Number(input.x)||WORLD/2,20,WORLD-20),y:clamp(Number(input.y)||WORLD/2,20,WORLD-20)};b.target=b.aim;if(input.split)splitOwner(b.id);if(input.eject)ejectOwner(b.id);if(input.dash)dashOwner(b.id)},
+    action(type){if(type==='split')pendingSplit=true;if(type==='eject')pendingEject=true;if(type==='dash')pendingDash=true},
+    input(){const value={x:game.mouse.wx,y:game.mouse.wy,split:pendingSplit,eject:pendingEject,dash:pendingDash};pendingSplit=pendingEject=pendingDash=false;return value},
     snapshot(){if(game.networkGuest||!game.running)return null;const full=Date.now()-lastFullSnapshot>1500;if(full)lastFullSnapshot=Date.now();const snap={v:1,g:'pearl',full,host:packActor(game.player,networkId||'host'),bots:game.bots.map(b=>packActor(b)),ejected:game.ejected.filter(e=>!e.dead).map(e=>[e.x,e.y,e.r,e.vx,e.vy,e.color,e.life]),event:game.event};if(full){snap.food=game.food.filter(f=>!f.dead).map(f=>[f.x,f.y,f.r,f.color,!!f.rare,f.pulse||0]);snap.viruses=game.viruses.map(v=>[v.x,v.y,v.r]);snap.powers=game.powers.filter(p=>!p.dead).map(p=>[p.x,p.y,p.type,p.emoji,p.color,p.r,p.pulse||0]);snap.rifts=game.rifts}return snap},
     applySnapshot(s){
       if(!s||s.g!=='pearl')return;const ownId='net:'+networkId,own=s.bots.find(b=>b.id===ownId),oldPlayer=game.player.cells;
-      if(own){game.player={name:own.name,skin:own.skin,powers:own.powers||{},cells:actorCells(own,'player',oldPlayer)}}
+      if(own){game.player={name:own.name,skin:own.skin,powers:own.powers||{},dashCd:Number(own.dashCd)||0,cells:actorCells(own,'player',oldPlayer)}}
       const previous=new Map(game.bots.map(b=>[b.id,b]));const incoming=[];
-      const hostOld=previous.get('online-host');incoming.push({id:'online-host',name:s.host.name,skin:s.host.skin,powers:s.host.powers||{},cells:actorCells(s.host,'online-host',hostOld?.cells),remote:true,aim:{x:0,y:0}});
-      for(const b of s.bots){if(b.id===ownId)continue;const old=previous.get(b.id);incoming.push({id:b.id,name:b.name,skin:b.skin,powers:b.powers||{},cells:actorCells(b,b.id,old?.cells),remote:!!b.remote,aim:{x:0,y:0}})}
+      const hostOld=previous.get('online-host');incoming.push(unpackBotActor(s.host,'online-host',hostOld,true));
+      for(const b of s.bots){if(b.id===ownId)continue;const old=previous.get(b.id);incoming.push(unpackBotActor(b,b.id,old,!!b.remote))}
       game.bots=incoming;if(s.food)game.food=s.food.map(f=>({x:f[0],y:f[1],r:f[2],color:f[3],rare:f[4],pulse:f[5],dead:false}));if(s.viruses)game.viruses=s.viruses.map(v=>({x:v[0],y:v[1],r:v[2]}));if(s.powers)game.powers=s.powers.map(p=>({x:p[0],y:p[1],type:p[2],emoji:p[3],color:p[4],r:p[5],pulse:p[6],dead:false}));game.ejected=(s.ejected||[]).map(e=>({x:e[0],y:e[1],r:e[2],vx:e[3],vy:e[4],color:e[5],life:e[6],dead:false}));game.event=s.event||game.event;if(s.rifts)game.rifts=s.rifts;rebuildFoodGrid()
     },
-    promote(snapshot){if(snapshot)this.applySnapshot(snapshot);game.networkGuest=false;game.humanPresent=true;for(const b of game.bots)b.remote=String(b.id).startsWith('net:')},
+    promote(snapshot){if(snapshot)this.applySnapshot(snapshot);game.networkGuest=false;game.humanPresent=true;game.bots=game.bots.filter(b=>b.id!=='online-host');for(const b of game.bots)b.remote=String(b.id).startsWith('net:')},
     disconnect(){game.networkGuest=false;game.running=false;game.loopId++;game.humanPresent=false;$('spawnOverlay').style.display='flex';$('spawnOverlay').querySelector('h2').textContent='Online arena required';$('spawnOverlay').querySelector('p').textContent='Create or join a multiplayer room to enter the Dominion.'}
   };
 })();
@@ -1749,7 +1772,7 @@ document.querySelectorAll('.casinoGame .log,.casinoTable .log,.casinoTable .poke
 
 const canvas=q('snakeCanvas'),ctx=canvas.getContext('2d',{alpha:false,desynchronized:true}),map=q('snakeMap'),mctx=map.getContext('2d');
 const WORLD={w:20000,h:14000},TAU=Math.PI*2;
-let running=false,raf=0,last=0,boosting=false,mouse={x:0,y:0},camera={x:WORLD.w/2,y:WORLD.h/2},snakeFrame=0;
+let running=false,raf=0,last=0,boosting=false,mouse={x:0,y:0},camera={x:WORLD.w/2,y:WORLD.h/2},snakeFrame=0,snakeSpectating=false,snakeSpectateIndex=0;
 let player=null,snakes=[],food=[],particles=[],gates=[],shockwaves=[],snakeFoodGrid=new Map(),snakeBodyGrid=new Map(),snakeBest=Number(localStorage.getItem('v10SnakeBest')||0),snakeWorld={type:'calm',nextAt:performance.now()+9000,until:0,startedAt:0},snakeNotice='',snakeNoticeUntil=0;
 const botNames=['Tom Prime','Pearl Disciple','Thomas Crown','Form Hunter','Archive Keeper','Grand Dealer','Polo Form','Mirror Form','Wide Lens','Cyber Pearl','Legend Echo','Pearl Icon'];
 const colors=['#22d3ee','#fb3f73','#a78bfa','#34d399','#fbbf24','#60a5fa','#f472b6'];
@@ -1779,17 +1802,24 @@ function makeSnake(name,color,isPlayer=false,skinId){
   const x=rnd(400,WORLD.w-400),y=rnd(350,WORLD.h-350),angle=rnd(0,TAU),segments=[],spawnLength=isPlayer?18:botSpawnLength();
   for(let i=0;i<spawnLength;i++)segments.push({x:x-Math.cos(angle)*i*8,y:y-Math.sin(angle)*i*8});
   if(skinId==null){const pool=sharedSkins;skinId=pool[Math.floor(rnd(0,pool.length))].id}
-  return{name,color,isPlayer,skinId,segments,angle,targetAngle:angle,speed:2.45+rnd(0,.45),targetLength:spawnLength,thickness:snakeThickness(spawnLength),score:spawnLength*2,kills:0,alive:true,energy:100,think:0,target:null,combo:1,comboUntil:0,peakCombo:1,botBoost:false,mode:'power',skill:isPlayer?1:rnd(.58,.98),aggression:rnd(.65,1.2),closeCallAt:0};
+  return{name,color,isPlayer,skinId,segments,angle,targetAngle:angle,speed:2.45+rnd(0,.45),targetLength:spawnLength,thickness:snakeThickness(spawnLength),score:spawnLength*2,kills:0,alive:true,energy:100,think:0,target:null,combo:1,comboUntil:0,peakCombo:1,botBoost:false,dashUntil:0,dashCooldownUntil:0,mode:'power',skill:isPlayer?1:rnd(.58,.98),aggression:rnd(.65,1.2),nerve:rnd(.65,1.25),curiosity:rnd(.55,1.35),mistakeCooldown:0,mistakeUntil:0,errorBias:0,lastSeenPrey:null,memoryUntil:0,closeCallAt:0};
 }
+function triggerSnakeDash(snake){const t=performance.now();if(!snake||!snake.alive||t<(snake.dashCooldownUntil||0)||snake.energy<18)return false;snake.energy=Math.max(0,snake.energy-18);snake.targetLength=Math.max(18,snake.targetLength-Math.max(2,Math.floor(snake.targetLength*.012)));snake.dashUntil=t+300;snake.dashCooldownUntil=t+2700;pearlBurst(snake.segments[0].x,snake.segments[0].y,snake.color,14);return true}
 function resetSnake(){
   resizeSnake();const perf=snakePerf();food=Array.from({length:perf.snakeFood},()=>makeFood());particles=[];snakes=[];shockwaves=[];gates=Array.from({length:perf.snakeGates},(_,i)=>({x:rnd(170,WORLD.w-170),y:rnd(150,WORLD.h-150),r:rnd(38,58),type:['speed','growth','score'][i%3],phase:rnd(0,TAU),cooldown:0}));snakeWorld={type:'calm',nextAt:performance.now()+8000,until:0,startedAt:0};snakeNotice='';snakeNoticeUntil=0;snakeFrame=0;rebuildSnakeFoodGrid();
   player=makeSnake((q('snakeName').value||'PearlRider').slice(0,18),q('snakeColor').value,true,Number(q('snakeSkin').value));player.targetLength=18;player.segments=player.segments.slice(0,18);player.speed=2.85;player.invulnerableUntil=performance.now()+4500;
   const spawnDx=WORLD.w/2-player.segments[0].x,spawnDy=WORLD.h/2-player.segments[0].y;
   for(const segment of player.segments){segment.x+=spawnDx;segment.y+=spawnDy}
   for(let i=0;i<perf.snakeBots;i++)snakes.push(makeSnake(botNames[i%botNames.length]+' '+(i+1),colors[i%colors.length],false));
-  snakes.push(player);rebuildSnakeBodyGrid();camera.x=WORLD.w/2;camera.y=WORLD.h/2;mouse.x=canvas.clientWidth/2+180;mouse.y=canvas.clientHeight/2;running=true;last=performance.now();if(window.pearlV20)window.pearlV20.snakeRun();q('snakeOverlay').classList.add('hidden');cancelAnimationFrame(raf);raf=requestAnimationFrame(snakeLoop);
+  snakes.push(player);rebuildSnakeBodyGrid();camera.x=WORLD.w/2;camera.y=WORLD.h/2;mouse.x=canvas.clientWidth/2+180;mouse.y=canvas.clientHeight/2;snakeSpectating=false;snakeSpectateIndex=0;q('snakeSpectatorDock').classList.remove('show');running=true;last=performance.now();if(window.pearlV20)window.pearlV20.snakeRun();q('snakeOverlay').classList.add('hidden');cancelAnimationFrame(raf);raf=requestAnimationFrame(snakeLoop);
 }
 function snakeLeader(){return [...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score)[0]||null}
+function snakeSpectatorTargets(){return snakes.filter(s=>s!==player&&s.alive).sort((a,b)=>b.score-a.score)}
+function updateSnakeSpectatorTarget(){const targets=snakeSpectatorTargets();if(!targets.length)return null;snakeSpectateIndex=(snakeSpectateIndex+targets.length)%targets.length;const target=targets[snakeSpectateIndex],h=target.segments[0];q('snakeSpectateName').textContent=target.name+' · '+Math.floor(target.score);camera.x=h.x;camera.y=h.y;return target}
+function cycleSnakeSpectator(dir){snakeSpectateIndex+=dir;updateSnakeSpectatorTarget()}
+function respawnSnakePlayer(){
+  if(window.pearlSnakeNetworkGuest)return;const oldIndex=Math.max(0,snakes.indexOf(player)),next=makeSnake((q('snakeName').value||'PearlRider').slice(0,18),q('snakeColor').value,true,Number(q('snakeSkin').value));next.targetLength=18;next.segments=next.segments.slice(0,18);next.speed=2.85;next.invulnerableUntil=performance.now()+4500;const dx=WORLD.w/2-next.segments[0].x,dy=WORLD.h/2-next.segments[0].y;for(const segment of next.segments){segment.x+=dx;segment.y+=dy}snakes[oldIndex]=next;player=next;snakeSpectating=false;q('snakeSpectatorDock').classList.remove('show');q('snakeOverlay').classList.add('hidden');camera.x=WORLD.w/2;camera.y=WORLD.h/2;if(window.pearlV20)window.pearlV20.snakeRun()
+}
 function killSnake(snake,killer){
   if(!snake.alive)return;const crownDown=snakeWorld.type==='bountyrush'&&snake===snakeLeader();snake.alive=false;
   const dropStep=Math.max(1,Math.ceil(snake.segments.length/150));
@@ -1797,7 +1827,7 @@ function killSnake(snake,killer){
   if(snake.segments.length<18){const h=snake.segments[0];for(let i=0;i<10;i++){const pearl=makeFood(h.x+rnd(-35,35),h.y+rnd(-35,35),2);pearl.dropUntil=performance.now()+10000;food.push(pearl)}}
   if(killer){killer.kills++;killer.score+=100*Math.max(1,killer.combo||1)+(crownDown?250:0);killer.targetLength+=24+(crownDown?20:0);killer.thickness+=1.2;killer.energy=Math.min(100,killer.energy+(crownDown?100:45));killer.combo=Math.min(25,(killer.combo||1)+3);killer.comboUntil=performance.now()+5000;killer.peakCombo=Math.max(killer.peakCombo||1,killer.combo);if(killer.isPlayer){if(window.pearlV20)window.pearlV20.snakeKO(crownDown);showSnakeEvent(crownDown?'THOMAS CROWN CLAIMED +250':killer.combo>=10?'LEGEND ASCENSION':'COIL KO');snakeShake=!window.pearlV20||window.pearlV20.shakeEnabled()?(crownDown?24:18):0}}
   shockwaves.push({x:snake.segments[0].x,y:snake.segments[0].y,r:10,life:1,color:snake.color});for(let i=0;i<(snakePerf().tier==='eco'?14:snakePerf().tier==='balanced'?26:42);i++)particles.push({x:snake.segments[0].x,y:snake.segments[0].y,vx:rnd(-6,6),vy:rnd(-6,6),life:rnd(.6,1.3),color:snake.color,size:rnd(2,7)});
-  if(snake===player){snakeBest=Math.max(snakeBest,Math.floor(player.score));if(window.pearlV20)window.pearlV20.snakeEnd(snakeBest);localStorage.setItem('v10SnakeBest',snakeBest);running=false;q('snakeMessage').textContent='Run ended at '+Math.floor(player.score)+' points. Personal best: '+snakeBest+'.';q('snakeStart').textContent='Ride again';q('snakeOverlay').classList.remove('hidden')}
+  if(snake===player){snakeBest=Math.max(snakeBest,Math.floor(player.score));if(window.pearlV20)window.pearlV20.snakeEnd(snakeBest);localStorage.setItem('v10SnakeBest',snakeBest);snakeSpectating=true;const targets=snakeSpectatorTargets(),killerIndex=killer?targets.indexOf(killer):-1;snakeSpectateIndex=killerIndex>=0?killerIndex:0;q('snakeSpectatorDock').classList.add('show');q('snakeOverlay').classList.add('hidden');updateSnakeSpectatorTarget()}
   else setTimeout(()=>{if(running){const n=makeSnake(snake.name,colors[Math.floor(rnd(0,colors.length))],false,snake.skinId);if(snake.remote){n.remote=true;n.networkId=snake.networkId;n.skill=1}snakes[snakes.indexOf(snake)]=n}},1200);
 }
 let snakeShake=0,arenaPulse=0;
@@ -1827,6 +1857,13 @@ function snakeSafestAngle(snake,preferred){
   for(const offset of offsets){const angle=preferred+offset,score=snakeCourseRisk(snake,angle)+Math.abs(offset)*26;if(score<bestScore){bestScore=score;best=angle}}
   return{angle:best,risk:bestScore}
 }
+function snakeBotCourse(snake,preferred){
+  const safe=snakeSafestAngle(snake,preferred),t=performance.now();
+  if(t>=snake.mistakeCooldown&&Math.random()<.025+(1-snake.skill)*.14){snake.mistakeCooldown=t+rnd(2600,6500);snake.mistakeUntil=t+rnd(220,680);const roll=Math.random();snake.errorBias=roll<.3?0:(Math.random()<.5?-1:1)*rnd(.18,.62);if(roll<.3)return{angle:snake.angle,risk:safe.risk+160};if(roll<.72)return{angle:preferred+snake.errorBias,risk:safe.risk+110};return{angle:safe.angle+snake.errorBias*.45,risk:safe.risk+55}}
+  if(t<snake.mistakeUntil)return{angle:safe.angle+(snake.errorBias||0)*.35,risk:safe.risk+35};return safe
+}
+function snakeVisionRange(snake){return clamp(900+snake.skill*560+Math.sqrt(Math.max(1,snake.targetLength))*8,1000,1850)}
+function snakeCanSense(snake,head,target,range){const d=Math.hypot(target.x-head.x,target.y-head.y);if(d<300)return true;if(d>range)return false;const toward=Math.atan2(target.y-head.y,target.x-head.x),fov=1.38+(1-snake.skill)*.2;return Math.abs(angleDelta(snake.angle,toward))<fov}
 function steer(snake,dt){
   const head=snake.segments[0];
   if(snake.isPlayer){
@@ -1835,12 +1872,12 @@ function steer(snake,dt){
   }else if(!snake.remote){
     snake.think-=dt;
     if(snake.think<=0){
-      snake.think=rnd(.13,.28)+(1-snake.skill)*.14;let danger=null,dangerD=Infinity,prey=null,preyD=Infinity,preyScore=-Infinity;
+      snake.think=rnd(.13,.28)+(1-snake.skill)*.14;let danger=null,dangerD=Infinity,prey=null,preyD=Infinity,preyScore=-Infinity;const vision=snakeVisionRange(snake);
       for(const other of snakes){
         if(other===snake||!other.alive)continue;const oh=other.segments[0],d=Math.hypot(oh.x-head.x,oh.y-head.y);
-        if(other.targetLength>snake.targetLength*1.14&&d<620&&d<dangerD){danger=oh;dangerD=d}
-        if(snake.targetLength>other.targetLength*(1.08+(1-snake.aggression)*.12)&&d<1800){
-          const score=(other.isPlayer?1100:0)+(snake.targetLength/Math.max(1,other.targetLength))*180-d*.55;
+        const seen=snakeCanSense(snake,head,oh,vision);if(other.targetLength>snake.targetLength*1.14&&d<720&&d<dangerD&&(seen||d<340)){danger=oh;dangerD=d}
+        if(seen&&snake.targetLength>other.targetLength*(1.08+(1-snake.aggression)*.12)){
+          const score=(other.isPlayer?90:0)+(snake.targetLength/Math.max(1,other.targetLength))*180-d*.55;
           if(score>preyScore){prey=other;preyD=d;preyScore=score}
         }
         for(let i=10;i<other.segments.length;i+=Math.max(5,Math.floor(other.segments.length/18))){
@@ -1848,22 +1885,23 @@ function steer(snake,dt){
           if(bd<130+snake.thickness+other.thickness&&bd<dangerD){danger=s;dangerD=bd}
         }
       }
+      if(prey){const ph=prey.segments[0];snake.lastSeenPrey={x:ph.x,y:ph.y,angle:prey.angle,targetLength:prey.targetLength,isPlayer:false,segments:[{x:ph.x,y:ph.y}]};snake.memoryUntil=performance.now()+rnd(650,1400)}else if(snake.lastSeenPrey&&performance.now()<snake.memoryUntil){prey=snake.lastSeenPrey;preyD=Math.hypot(prey.segments[0].x-head.x,prey.segments[0].y-head.y);preyScore=1}else snake.lastSeenPrey=null;
       const forwardRisk=snakeCourseRisk(snake,snake.angle);
       if(danger||forwardRisk>420){
-        snake.mode='run';const preferred=danger?Math.atan2(head.y-danger.y,head.x-danger.x):snake.angle+(Math.random()<.5?-1:1)*.9,safe=snakeSafestAngle(snake,preferred);snake.targetAngle=safe.angle;snake.target={x:head.x+Math.cos(safe.angle)*500,y:head.y+Math.sin(safe.angle)*500};snake.botBoost=snake.energy>16
+        snake.mode='run';const preferred=danger?Math.atan2(head.y-danger.y,head.x-danger.x):snake.angle+(Math.random()<.5?-1:1)*.9,safe=snakeBotCourse(snake,preferred);snake.targetAngle=safe.angle;snake.target={x:head.x+Math.cos(safe.angle)*500,y:head.y+Math.sin(safe.angle)*500};snake.botBoost=snake.energy>16&&snake.nerve>.72;if(dangerD<330&&snake.nerve>.8&&Math.random()<.2)triggerSnakeDash(snake)
       }else{
         let bestGate=null,bestGateScore=-Infinity;
-        if(snake.energy<68||snakeWorld.type==='gatefrenzy')for(const gate of gates){if(gate.cooldown>0)continue;const d=Math.hypot(gate.x-head.x,gate.y-head.y);if(d>1200)continue;const value=gate.type==='speed'?(110-snake.energy)*.05:gate.type==='growth'?2.8:2.2,score=value-d/330;if(score>bestGateScore){bestGateScore=score;bestGate=gate}}
+        if(snake.energy<68||snakeWorld.type==='gatefrenzy')for(const gate of gates){if(gate.cooldown>0)continue;const d=Math.hypot(gate.x-head.x,gate.y-head.y);if(!snakeCanSense(snake,head,gate,Math.min(vision,1200)))continue;const value=gate.type==='speed'?(110-snake.energy)*.05:gate.type==='growth'?2.8:2.2,score=value-d/330;if(score>bestGateScore){bestGateScore=score;bestGate=gate}}
         if(bestGate&&bestGateScore>-.5){
-          snake.mode='power';snake.target=bestGate;const preferred=Math.atan2(bestGate.y-head.y,bestGate.x-head.x),safe=snakeSafestAngle(snake,preferred);snake.targetAngle=safe.angle;snake.botBoost=false
+          snake.mode='power';snake.target=bestGate;const preferred=Math.atan2(bestGate.y-head.y,bestGate.x-head.x),safe=snakeBotCourse(snake,preferred);snake.targetAngle=safe.angle;snake.botBoost=false
         }else if(prey&&(prey.isPlayer||snake.aggression>.58)){
           snake.mode='hunt';const ph=prey.segments[0],lead=clamp(preyD*.48,150,520),side=Math.sign(Math.sin(prey.angle-Math.atan2(ph.y-head.y,ph.x-head.x)))||1;
           snake.target={x:ph.x+Math.cos(prey.angle)*lead+Math.cos(prey.angle+Math.PI/2)*side*70,y:ph.y+Math.sin(prey.angle)*lead+Math.sin(prey.angle+Math.PI/2)*side*70};
-          const preferred=Math.atan2(snake.target.y-head.y,snake.target.x-head.x),safe=snakeSafestAngle(snake,preferred);snake.targetAngle=safe.angle;snake.botBoost=preyD>170&&preyD<650&&snake.energy>30&&safe.risk<240
+          const preferred=Math.atan2(snake.target.y-head.y,snake.target.x-head.x),safe=snakeBotCourse(snake,preferred);snake.targetAngle=safe.angle;snake.botBoost=preyD>170&&preyD<650&&snake.energy>30&&safe.risk<240&&snake.nerve>.68;if(preyD>260&&preyD<720&&safe.risk<180&&snake.nerve>.88&&Math.random()<.12)triggerSnakeDash(snake)
         }else{
           snake.mode='power';snake.botBoost=false;let best=null,bestScore=-Infinity;
-          for(let i=0;i<45;i++){const f=food[Math.floor(rnd(0,food.length))];if(!f||f.dead)continue;const d=Math.hypot(f.x-head.x,f.y-head.y);let cluster=0;for(const near of snakeFoodNear(f.x,f.y,125))if(!near.dead)cluster+=near.value>=8?5:near.value>=3?2:.12;const score=f.value*5+cluster-d/420;if(score>bestScore){bestScore=score;best=f}}
-          snake.target=best||{x:rnd(120,WORLD.w-120),y:rnd(120,WORLD.h-120)};const preferred=Math.atan2(snake.target.y-head.y,snake.target.x-head.x),safe=snakeSafestAngle(snake,preferred);snake.targetAngle=safe.angle
+          for(let i=0;i<45;i++){const f=food[Math.floor(rnd(0,food.length))];if(!f||f.dead)continue;const d=Math.hypot(f.x-head.x,f.y-head.y);if(!snakeCanSense(snake,head,f,vision))continue;let cluster=0;for(const near of snakeFoodNear(f.x,f.y,125))if(!near.dead)cluster+=near.value>=8?5:near.value>=3?2:.12;const score=f.value*5+cluster-d/420;if(score>bestScore){bestScore=score;best=f}}
+          snake.target=best||{x:rnd(120,WORLD.w-120),y:rnd(120,WORLD.h-120)};const preferred=Math.atan2(snake.target.y-head.y,snake.target.x-head.x),safe=snakeBotCourse(snake,preferred);snake.targetAngle=safe.angle
         }
       }
     }
@@ -1874,7 +1912,7 @@ function steer(snake,dt){
 function updateSnake(snake,dt){
   if(!snake.alive)return;steer(snake,dt);const head=snake.segments[0],usingBoost=(snake.isPlayer?boosting:snake.botBoost)&&snake.energy>1;snake.thickness+=(snakeThickness(snake.targetLength)-snake.thickness)*.035;
   if(usingBoost){if(Math.random()<.38)particles.push({x:head.x-Math.cos(snake.angle)*12,y:head.y-Math.sin(snake.angle)*12,vx:-Math.cos(snake.angle)*rnd(1,4)+rnd(-1,1),vy:-Math.sin(snake.angle)*rnd(1,4)+rnd(-1,1),life:rnd(.25,.55),color:snake.color,size:rnd(2,5)});snake.energy=Math.max(0,snake.energy-24*dt);snake.score=Math.max(0,snake.score-.8*dt)}else snake.energy=Math.min(100,snake.energy+17*dt);
-  const speed=(snake.speed+(usingBoost?2.75:0))*dt*60,nx=head.x+Math.cos(snake.angle)*speed,ny=head.y+Math.sin(snake.angle)*speed;
+  const speed=(snake.speed+(usingBoost?2.75:0)+(performance.now()<(snake.dashUntil||0)?5.8:0))*dt*60,nx=head.x+Math.cos(snake.angle)*speed,ny=head.y+Math.sin(snake.angle)*speed;
   snake.segments.unshift({x:nx,y:ny});const spacing=7.5;
   for(let i=1;i<snake.segments.length;i++){const a=snake.segments[i-1],b=snake.segments[i],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy)||1;if(d>spacing){b.x=a.x-dx/d*spacing;b.y=a.y-dy/d*spacing}}
   while(snake.segments.length>snake.targetLength)snake.segments.pop();
@@ -1938,37 +1976,41 @@ function drawMap(){
   mctx.strokeStyle='rgba(58,156,255,.14)';mctx.lineWidth=.5;for(let i=1;i<5;i++){mctx.beginPath();mctx.moveTo(i/5*map.width,0);mctx.lineTo(i/5*map.width,map.height);mctx.stroke()}for(let i=1;i<4;i++){mctx.beginPath();mctx.moveTo(0,i/4*map.height);mctx.lineTo(map.width,i/4*map.height);mctx.stroke()}
   const crownLeader=snakeWorld.type==='bountyrush'?snakeLeader():null;for(const s of [...snakes].sort((a,b)=>a.targetLength-b.targetLength)){if(!s.alive||s.segments.length<2)continue;mctx.beginPath();for(let i=s.segments.length-1;i>=0;i-=Math.max(1,Math.floor(s.segments.length/35))){const p=s.segments[i],x=p.x/WORLD.w*map.width,y=p.y/WORLD.h*map.height;i>=s.segments.length-1?mctx.moveTo(x,y):mctx.lineTo(x,y)}mctx.strokeStyle=s===crownLeader?'#fbbf24':s.color;mctx.globalAlpha=s===player?1:.72;mctx.lineWidth=s===player?2.8:clamp(s.thickness*.09,.65,2);mctx.stroke();const h=s.segments[0];mctx.fillStyle=s===crownLeader?'#fbbf24':s.color;mctx.beginPath();mctx.arc(h.x/WORLD.w*map.width,h.y/WORLD.h*map.height,s===player?3:s===crownLeader?2.8:1.8,0,TAU);mctx.fill()}mctx.globalAlpha=1;mctx.strokeStyle='rgba(255,255,255,.34)';mctx.lineWidth=1;mctx.strokeRect(.5,.5,map.width-1,map.height-1)
 }
-function updateSnakeHud(){if(!player)return;const ranked=[...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score),rank=ranked.indexOf(player)+1,active=performance.now()<player.comboUntil,crown=snakeWorld.type==='bountyrush'?ranked[0]:null;if(!active)player.combo=1;q('snakeScore').textContent=Math.floor(player.score);q('snakeLength').textContent=Math.floor(player.targetLength);q('snakeKills').textContent=player.kills;q('snakeWidth').textContent=(player.thickness/8.5).toFixed(1)+'x';q('snakeRank').textContent=rank>0?'#'+rank:'-';q('snakeBoostFill').style.width=player.energy+'%';q('snakeComboValue').textContent='x'+player.combo;q('snakeCombo').className='snakeCombo '+(player.combo>=10?'fever ':'')+(active?'hot':'');q('snakeCanvas').closest('.snakeShell').classList.toggle('boosting',boosting&&player.energy>1);q('snakeCanvas').closest('.snakeShell').classList.toggle('fever',player.combo>=10);q('snakeLeaderboard').innerHTML=ranked.slice(0,7).map((s,i)=>'<div style="display:flex;justify-content:space-between;color:'+(s===crown?'#fbbf24':s===player?'#67e8f9':'#fff')+';font-weight:'+(s===crown?'950':'700')+'"><span>'+(i+1)+'. '+s.name+'</span><b>'+Math.floor(s.score)+'</b></div>').join('')}
-function snakeLoop(t){if(!running)return;const minFrame=1000/snakePerf().fps;if(t-last<minFrame*.82){raf=requestAnimationFrame(snakeLoop);return}const dt=Math.min(.04,(t-last)/1000||.016);snakeFrame++;arenaPulse+=dt;last=t;if(window.pearlSnakeNetworkGuest){if(player&&player.alive){const h=player.segments[0];camera.x+=(h.x-camera.x)*.12;camera.y+=(h.y-camera.y)*.12}renderSnake();raf=requestAnimationFrame(snakeLoop);return}updateSnakeWorld(t);if(snakeFrame%5===1)maintainSnakeFood();for(const s of snakes)updateSnake(s,dt);collisions();respawnBots();updateParticles(dt);if(player&&player.alive){const h=player.segments[0];camera.x+=(h.x-camera.x)*.09;camera.y+=(h.y-camera.y)*.09}renderSnake();raf=requestAnimationFrame(snakeLoop)}
+function updateSnakeHud(){if(!player)return;const ranked=[...snakes].filter(s=>s.alive).sort((a,b)=>b.score-a.score),rank=ranked.indexOf(player)+1,active=performance.now()<player.comboUntil,crown=snakeWorld.type==='bountyrush'?ranked[0]:null;if(!active)player.combo=1;q('snakeScore').textContent=Math.floor(player.score);q('snakeLength').textContent=Math.floor(player.targetLength);q('snakeKills').textContent=player.kills;q('snakeWidth').textContent=(player.thickness/8.5).toFixed(1)+'x';q('snakeRank').textContent=rank>0?'#'+rank:'-';q('snakeBoostFill').style.width=player.energy+'%';q('snakeComboValue').textContent='x'+player.combo;q('snakeCombo').className='snakeCombo '+(player.combo>=10?'fever ':'')+(active?'hot':'');q('snakeCanvas').closest('.snakeShell').classList.toggle('boosting',boosting&&player.energy>1);q('snakeCanvas').closest('.snakeShell').classList.toggle('fever',player.combo>=10);q('snakeLeaderboard').innerHTML=ranked.slice(0,7).map((s,i)=>'<div style="display:flex;justify-content:space-between;color:'+(s===crown?'#fbbf24':s===player?'#67e8f9':'#fff')+';font-weight:'+(s===crown?'950':'700')+'"><span>'+(i+1)+'. '+s.name+'</span><b>'+Math.floor(s.score)+'</b></div>').join('');const dashLeft=Math.max(0,((player.dashCooldownUntil||0)-performance.now())/1000);q('snakeDashBtn').disabled=dashLeft>0||!player.alive;q('snakeDashBtn').textContent=dashLeft>0?'DASH '+dashLeft.toFixed(1)+'s':'DASH · SHIFT'}
+function snakeCameraTarget(){if(player&&player.alive)return player;if(snakeSpectating){const targets=snakeSpectatorTargets();return targets.length?targets[(snakeSpectateIndex+targets.length)%targets.length]:null}return null}
+function snakeLoop(t){if(!running)return;const minFrame=1000/snakePerf().fps;if(t-last<minFrame*.82){raf=requestAnimationFrame(snakeLoop);return}const dt=Math.min(.04,(t-last)/1000||.016);snakeFrame++;arenaPulse+=dt;last=t;if(window.pearlSnakeNetworkGuest){const focus=snakeCameraTarget();if(focus&&focus.alive){const h=focus.segments[0];camera.x+=(h.x-camera.x)*.12;camera.y+=(h.y-camera.y)*.12}renderSnake();raf=requestAnimationFrame(snakeLoop);return}updateSnakeWorld(t);if(snakeFrame%5===1)maintainSnakeFood();for(const s of snakes)updateSnake(s,dt);collisions();respawnBots();updateParticles(dt);const focus=snakeCameraTarget();if(focus&&focus.alive){const h=focus.segments[0];camera.x+=(h.x-camera.x)*.09;camera.y+=(h.y-camera.y)*.09;if(snakeSpectating&&snakeFrame%30===0)q('snakeSpectateName').textContent=focus.name+' · '+Math.floor(focus.score)}renderSnake();raf=requestAnimationFrame(snakeLoop)}
 q('snakeStart').addEventListener('click',()=>{if(window.pearlMultiplayerActive?.('snake'))resetSnake();else window.pearlQuickPlay?.('snake')});
+q('snakeDashBtn').addEventListener('click',()=>{if(window.pearlSnakeNetworkGuest)window.pearlMultiplayerBridge?.snake?.action('dash');else triggerSnakeDash(player)});
+q('snakeSpectatePrev').addEventListener('click',()=>cycleSnakeSpectator(-1));q('snakeSpectateNext').addEventListener('click',()=>cycleSnakeSpectator(1));q('snakeRespawn').addEventListener('click',respawnSnakePlayer);
 canvas.addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});
 canvas.addEventListener('pointerdown',e=>{boosting=true;canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointerup',()=>boosting=false);canvas.addEventListener('pointercancel',()=>boosting=false);
-window.addEventListener('keydown',e=>{if(e.code==='Space'&&document.getElementById('snake').classList.contains('active')){e.preventDefault();boosting=true}});window.addEventListener('keyup',e=>{if(e.code==='Space')boosting=false});
+window.addEventListener('keydown',e=>{if(e.code==='Space'&&document.getElementById('snake').classList.contains('active')){e.preventDefault();boosting=true}if((e.code==='ShiftLeft'||e.code==='ShiftRight')&&!e.repeat&&document.getElementById('snake').classList.contains('active')){e.preventDefault();if(window.pearlSnakeNetworkGuest)window.pearlMultiplayerBridge?.snake?.action('dash');else triggerSnakeDash(player)}});window.addEventListener('keyup',e=>{if(e.code==='Space')boosting=false});
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab!=='snake'&&running){running=false;cancelAnimationFrame(raf);q('snakeOverlay').classList.remove('hidden');q('snakeMessage').textContent='Arena paused. Start a fresh run when you return.'}}));
 window.pearlMultiplayerBridge=window.pearlMultiplayerBridge||{};
 (()=>{
-  let networkId='',lastFullSnapshot=0;
+  let networkId='',pendingDash=false,lastFullSnapshot=0;
   const snakeId=(s,i)=>s===player?(networkId||'host'):s.remote?'net:'+s.networkId:'ai:'+i;
-  const packSnake=(s,i)=>{const step=Math.max(1,Math.ceil(s.segments.length/520));return{id:snakeId(s,i),name:s.name,color:s.color,skinId:s.skinId,segments:s.segments.filter((_,n)=>n%step===0).map(p=>[p.x,p.y]),angle:s.angle,targetAngle:s.targetAngle,speed:s.speed,targetLength:s.targetLength,thickness:s.thickness,score:s.score,kills:s.kills,alive:s.alive,energy:s.energy,combo:s.combo,comboUntil:s.comboUntil,remote:!!s.remote,networkId:s.networkId||''}};
-  function unpackSnake(data,old){const previous=old?.segments||[];return{id:data.id,name:data.name,color:data.color,skinId:data.skinId,segments:data.segments.map((p,i)=>({x:previous[i]?previous[i].x*.25+p[0]*.75:p[0],y:previous[i]?previous[i].y*.25+p[1]*.75:p[1]})),angle:data.angle,targetAngle:data.targetAngle,speed:data.speed,targetLength:data.targetLength,thickness:data.thickness,score:data.score,kills:data.kills,alive:data.alive,energy:data.energy,combo:data.combo,comboUntil:data.comboUntil,peakCombo:data.combo||1,botBoost:false,mode:'online',skill:1,aggression:1,closeCallAt:0,remote:!!data.remote,networkId:data.networkId||''}}
+  const packSnake=(s,i)=>{const step=Math.max(1,Math.ceil(s.segments.length/520));return{id:snakeId(s,i),name:s.name,color:s.color,skinId:s.skinId,segments:s.segments.filter((_,n)=>n%step===0).map(p=>[p.x,p.y]),angle:s.angle,targetAngle:s.targetAngle,speed:s.speed,targetLength:s.targetLength,thickness:s.thickness,score:s.score,kills:s.kills,alive:s.alive,energy:s.energy,combo:s.combo,comboUntil:s.comboUntil,dashUntil:s.dashUntil,dashCooldownUntil:s.dashCooldownUntil,remote:!!s.remote,networkId:s.networkId||'',skill:s.skill,aggression:s.aggression,nerve:s.nerve,curiosity:s.curiosity,mistakeCooldown:s.mistakeCooldown,mistakeUntil:s.mistakeUntil,errorBias:s.errorBias}};
+  function unpackSnake(data,old){const previous=old?.segments||[];return{id:data.id,name:data.name,color:data.color,skinId:data.skinId,segments:data.segments.map((p,i)=>({x:previous[i]?previous[i].x*.25+p[0]*.75:p[0],y:previous[i]?previous[i].y*.25+p[1]*.75:p[1]})),angle:data.angle,targetAngle:data.targetAngle,speed:data.speed,targetLength:data.targetLength,thickness:data.thickness,score:data.score,kills:data.kills,alive:data.alive,energy:data.energy,combo:data.combo,comboUntil:data.comboUntil,dashUntil:Number(data.dashUntil)||0,dashCooldownUntil:Number(data.dashCooldownUntil)||0,peakCombo:data.combo||1,botBoost:false,mode:'online',skill:Number(data.skill)||.78,aggression:Number(data.aggression)||.9,nerve:Number(data.nerve)||.9,curiosity:Number(data.curiosity)||.9,mistakeCooldown:Number(data.mistakeCooldown)||0,mistakeUntil:Number(data.mistakeUntil)||0,errorBias:Number(data.errorBias)||0,closeCallAt:0,remote:!!data.remote,networkId:data.networkId||''}}
   window.pearlMultiplayerBridge.snake={
     setIdentity(id){networkId=id},
     startHost(){window.pearlSnakeNetworkGuest=false;resetSnake()},
     startGuest(snapshot){resetSnake();window.pearlSnakeNetworkGuest=true;if(snapshot)this.applySnapshot(snapshot)},
     addRemote(info){if(!info||info.game!=='snake'||snakes.some(s=>s.remote&&s.networkId===info.id))return;const n=makeSnake(info.name||'Online Coil',colors[Math.floor(rnd(0,colors.length))],false);n.remote=true;n.networkId=info.id;n.skill=1;snakes.splice(Math.max(0,snakes.indexOf(player)),0,n)},
     removeRemote(id){snakes=snakes.filter(s=>!(s.remote&&s.networkId===id))},
-    remoteInput(id,input){const s=snakes.find(x=>x.remote&&x.networkId===id);if(!s||!input)return;s.targetAngle=Number.isFinite(input.angle)?input.angle:s.targetAngle;s.botBoost=!!input.boost},
-    input(){if(!player?.segments?.length)return null;const h=player.segments[0],rect=canvas.getBoundingClientRect(),tx=camera.x+(mouse.x-rect.width/2),ty=camera.y+(mouse.y-rect.height/2);return{angle:Math.atan2(ty-h.y,tx-h.x),boost:!!boosting}},
+    remoteInput(id,input){const s=snakes.find(x=>x.remote&&x.networkId===id);if(!s||!input)return;s.targetAngle=Number.isFinite(input.angle)?input.angle:s.targetAngle;s.botBoost=!!input.boost;if(input.dash)triggerSnakeDash(s)},
+    action(type){if(type==='dash')pendingDash=true},
+    input(){if(!player?.segments?.length)return null;const h=player.segments[0],rect=canvas.getBoundingClientRect(),tx=camera.x+(mouse.x-rect.width/2),ty=camera.y+(mouse.y-rect.height/2),value={angle:Math.atan2(ty-h.y,tx-h.x),boost:!!boosting,dash:pendingDash};pendingDash=false;return value},
     snapshot(){if(window.pearlSnakeNetworkGuest||!running)return null;const full=Date.now()-lastFullSnapshot>1500;if(full)lastFullSnapshot=Date.now();const snap={v:1,g:'snake',full,snakes:snakes.map(packSnake),world:snakeWorld};if(full){snap.food=food.filter(f=>!f.dead).map(f=>[f.x,f.y,f.r,f.value,f.color,f.pulse||0,f.spin||0]);snap.gates=gates.map(g=>[g.x,g.y,g.r,g.type,g.phase,g.cooldown])}return snap},
-    applySnapshot(data){if(!data||data.g!=='snake')return;const ownId='net:'+networkId,oldById=new Map(snakes.map((s,i)=>[snakeId(s,i),s]));const next=data.snakes.map(s=>unpackSnake(s,oldById.get(s.id)));const own=next.find(s=>s.id===ownId);if(own){own.isPlayer=true;own.remote=false;player=own}for(const s of next)if(s!==own)s.isPlayer=false;snakes=next;if(data.food)food=data.food.map(f=>({x:f[0],y:f[1],r:f[2],value:f[3],color:f[4],pulse:f[5],spin:f[6],dead:false}));if(data.gates)gates=data.gates.map(g=>({x:g[0],y:g[1],r:g[2],type:g[3],phase:g[4],cooldown:g[5]}));snakeWorld=data.world||snakeWorld;rebuildSnakeFoodGrid();rebuildSnakeBodyGrid()},
+    applySnapshot(data){if(!data||data.g!=='snake')return;const ownId='net:'+networkId,oldById=new Map(snakes.map((s,i)=>[snakeId(s,i),s]));const next=data.snakes.map(s=>unpackSnake(s,oldById.get(s.id)));const own=next.find(s=>s.id===ownId);if(own){own.isPlayer=true;own.remote=false;player=own;if(!own.alive){snakeSpectating=true;q('snakeSpectatorDock').classList.add('show')}else if(snakeSpectating){snakeSpectating=false;q('snakeSpectatorDock').classList.remove('show')}}for(const s of next)if(s!==own)s.isPlayer=false;snakes=next;if(data.food)food=data.food.map(f=>({x:f[0],y:f[1],r:f[2],value:f[3],color:f[4],pulse:f[5],spin:f[6],dead:false}));if(data.gates)gates=data.gates.map(g=>({x:g[0],y:g[1],r:g[2],type:g[3],phase:g[4],cooldown:g[5]}));snakeWorld=data.world||snakeWorld;rebuildSnakeFoodGrid();rebuildSnakeBodyGrid()},
     promote(snapshot){if(snapshot)this.applySnapshot(snapshot);window.pearlSnakeNetworkGuest=false;if(player){player.isPlayer=true;player.remote=false}},
-    disconnect(){window.pearlSnakeNetworkGuest=false;running=false;cancelAnimationFrame(raf);q('snakeOverlay').classList.remove('hidden');q('snakeMessage').textContent='Create or join an online room to awaken the coil.'}
+    disconnect(){window.pearlSnakeNetworkGuest=false;snakeSpectating=false;q('snakeSpectatorDock').classList.remove('show');running=false;cancelAnimationFrame(raf);q('snakeOverlay').classList.remove('hidden');q('snakeMessage').textContent='Create or join an online room to awaken the coil.'}
   };
 })();
 new ResizeObserver(resizeSnake).observe(canvas);resizeSnake();
 window.pearlPerformance.subscribe(()=>resizeSnake());
 })();
 </script>
-<script src="multiplayer.js?v=quickplay5"></script>
+<script src="multiplayer.js?v=ai-dash1"></script>
 </body>
 </html>
