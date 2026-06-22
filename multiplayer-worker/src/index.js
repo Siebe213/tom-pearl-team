@@ -1,7 +1,53 @@
 const MAX_MESSAGE_BYTES = 2_000_000;
 const MAX_PLAYERS = 24;
-const ROOM_RE = /^[A-Z0-9-]{3,16}$/;
+const ROOM_RE = /^[A-Z0-9-]{3,32}$/;
+const GAMES = new Set(["pearl", "snake", "battle", "kart", "defense", "survivors"]);
 const SITE_ORIGIN = "https://siebe213.github.io/tom-pearl-team";
+const ALLOWED_ORIGINS = new Set([
+  "https://tom-pearl-multiplayer.siebevandv.workers.dev",
+  "https://siebe213.github.io",
+  "http://127.0.0.1:4173",
+  "http://localhost:4173"
+]);
+
+function cleanName(value) {
+  return String(value || "Player").replace(/[^a-z0-9 _-]/gi, "").slice(0, 18) || "Player";
+}
+
+function sanitizeSnapshot(snapshot, game) {
+  if (!snapshot || typeof snapshot !== "object" || snapshot.g !== game) return null;
+  if (game === "pearl") {
+    if (!snapshot.host || !Array.isArray(snapshot.bots) || snapshot.bots.length > 140) return null;
+    if (!Array.isArray(snapshot.host.cells) || snapshot.host.cells.length > 16) return null;
+    snapshot.host.name = cleanName(snapshot.host.name);
+    for (const bot of snapshot.bots) {
+      if (!bot || typeof bot !== "object" || !Array.isArray(bot.cells) || bot.cells.length > 16) return null;
+      bot.name = cleanName(bot.name);
+    }
+    if (snapshot.food && (!Array.isArray(snapshot.food) || snapshot.food.length > 9000)) return null;
+    if (snapshot.viruses && (!Array.isArray(snapshot.viruses) || snapshot.viruses.length > 100)) return null;
+    if (snapshot.powers && (!Array.isArray(snapshot.powers) || snapshot.powers.length > 100)) return null;
+  } else if (game === "snake") {
+    if (!Array.isArray(snapshot.snakes) || snapshot.snakes.length > 120) return null;
+    for (const snake of snapshot.snakes) {
+      if (!snake || typeof snake !== "object" || !Array.isArray(snake.segments) || snake.segments.length > 800) return null;
+      snake.name = cleanName(snake.name);
+    }
+    if (snapshot.food && (!Array.isArray(snapshot.food) || snapshot.food.length > 6500)) return null;
+    if (snapshot.gates && (!Array.isArray(snapshot.gates) || snapshot.gates.length > 80)) return null;
+  } else {
+    if (!Array.isArray(snapshot.actors) || snapshot.actors.length > 80) return null;
+    for (const actor of snapshot.actors) {
+      if (!actor || typeof actor !== "object") return null;
+      actor.name = cleanName(actor.name);
+    }
+    const limits = { bullets: 600, pickups: 500, enemies: 700, towers: 180, projectiles: 700 };
+    for (const [key, limit] of Object.entries(limits)) {
+      if (snapshot[key] && (!Array.isArray(snapshot[key]) || snapshot[key].length > limit)) return null;
+    }
+  }
+  return snapshot;
+}
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -34,10 +80,16 @@ export default {
       const response = await fetch(new Request(upstream, request));
       const headers = new Headers(response.headers);
       headers.set("cache-control", /\.(png|jpg|jpeg|webp|gif)$/i.test(url.pathname) ? "public, max-age=86400" : "no-store");
+      headers.set("x-content-type-options", "nosniff");
+      headers.set("referrer-policy", "strict-origin-when-cross-origin");
+      headers.set("permissions-policy", "camera=(), microphone=(), geolocation=()");
+      headers.set("content-security-policy", "frame-ancestors 'self'");
       return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
     }
     const room = decodeURIComponent(match[1]).toUpperCase();
     if (!ROOM_RE.test(room)) return json({ ok: false, error: "Invalid room code" }, 400);
+    const origin = request.headers.get("origin");
+    if (origin && !ALLOWED_ORIGINS.has(origin)) return json({ ok: false, error: "Origin not allowed" }, 403);
     const id = env.ARENAS.idFromName(room);
     return env.ARENAS.get(id).fetch(request);
   }
@@ -47,6 +99,7 @@ export class ArenaRoom {
   constructor(state) {
     this.state = state;
     this.latestSnapshot = null;
+    this.rates = new Map();
   }
 
   sockets() {
@@ -85,6 +138,20 @@ export class ArenaRoom {
     this.broadcast({ type: "roster", players: this.roster() });
   }
 
+  allowMessage(ws, type) {
+    const id = this.info(ws).id || "unknown", now = Date.now();
+    let rate = this.rates.get(id) || { windowAt: now, total: 0, lastInput: 0, lastSnapshot: 0 };
+    if (now - rate.windowAt > 10_000) rate = { windowAt: now, total: 0, lastInput: 0, lastSnapshot: 0 };
+    rate.total++;
+    if (rate.total > 500) return false;
+    if (type === "input" && now - rate.lastInput < 28) return false;
+    if (type === "snapshot" && now - rate.lastSnapshot < 70) return false;
+    if (type === "input") rate.lastInput = now;
+    if (type === "snapshot") rate.lastSnapshot = now;
+    this.rates.set(id, rate);
+    return true;
+  }
+
   async fetch(request) {
     if (request.headers.get("upgrade")?.toLowerCase() !== "websocket") {
       return json({ ok: true, players: this.sockets().length, capacity: MAX_PLAYERS });
@@ -105,13 +172,14 @@ export class ArenaRoom {
     let data;
     try { data = JSON.parse(message); } catch (_) { return; }
     const current = this.info(ws);
+    if (!this.allowMessage(ws, data.type)) return;
 
     if (data.type === "hello") {
       const host = !this.hostSocket();
       const next = {
         ...current,
-        name: String(data.name || "Player").replace(/[^a-z0-9 _-]/gi, "").slice(0, 18) || "Player",
-        game: data.game === "snake" ? "snake" : "pearl",
+        name: cleanName(data.name),
+        game: GAMES.has(data.game) ? data.game : "pearl",
         host,
         ready: true
       };
@@ -129,8 +197,10 @@ export class ArenaRoom {
       return;
     }
     if (data.type === "snapshot" && current.host) {
-      if (data.snapshot?.full) this.latestSnapshot = data.snapshot;
-      this.broadcast({ type: "snapshot", snapshot: data.snapshot }, ws);
+      const snapshot = sanitizeSnapshot(data.snapshot, current.game);
+      if (!snapshot) { ws.close(1008, "Invalid snapshot"); return; }
+      if (snapshot.full) this.latestSnapshot = snapshot;
+      this.broadcast({ type: "snapshot", snapshot }, ws);
       return;
     }
     if (data.type === "signal") {
@@ -142,6 +212,7 @@ export class ArenaRoom {
   async webSocketClose(ws) {
     const leaving = this.info(ws);
     const wasHost = !!leaving.host;
+    this.rates.delete(leaving.id);
     this.broadcast({ type: "left", id: leaving.id }, ws);
     if (wasHost) {
       const replacement = this.sockets().find(item => item !== ws);
@@ -158,3 +229,4 @@ export class ArenaRoom {
     try { ws.close(1011, "Socket error"); } catch (_) {}
   }
 }
+

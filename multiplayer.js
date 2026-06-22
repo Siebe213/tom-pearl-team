@@ -99,8 +99,8 @@
       <div class="mp-actions"><button class="btn primary mp-quick">Quick Play</button><button class="btn mp-create">Private room</button><input class="mp-code" maxlength="16" placeholder="ROOM CODE"><button class="btn mp-join">Join room</button><button class="btn mp-leave">Leave</button><span class="mp-count">0/24 online</span></div>
       <div class="mp-roomline" style="margin-top:9px"><span class="mp-note">Room:</span><span class="mp-room">------</span><button class="btn mp-setup">Server setup</button></div>
       <div class="mp-server"><input value="${saved}" placeholder="wss://your-worker.workers.dev"><button class="btn mp-save">Save server</button></div>
-      <div class="mp-note">Both arenas are multiplayer-only. Graphics, food density and bot intelligence stay at full quality.</div>`;
-    const name = () => game === 'pearl' ? (document.getElementById('playerName')?.value || 'PearlConsumer') : (document.getElementById('snakeName')?.value || 'PearlRider');
+      <div class="mp-note">Every arena stays bot-filled and multiplayer-only. The first player hosts the simulation; others join instantly.</div>`;
+    const name = () => game === 'pearl' ? (document.getElementById('playerName')?.value || 'PearlConsumer') : game === 'snake' ? (document.getElementById('snakeName')?.value || 'PearlRider') : ('Tom '+Math.floor(100+Math.random()*900));
     panel.querySelector('.mp-quick').onclick = () => { const room = 'PUBLIC-1'; panel.querySelector('.mp-code').value = room; panel.querySelector('.mp-room').textContent = room; connect(game, room, name(), panel); };
     panel.querySelector('.mp-create').onclick = () => { const room = code(); panel.querySelector('.mp-code').value = room; panel.querySelector('.mp-room').textContent = room; connect(game, room, name(), panel); };
     panel.querySelector('.mp-join').onclick = () => { const room = panel.querySelector('.mp-code').value.trim().toUpperCase(); if (room.length < 3) return updateStatus('Enter a room code', 'error'); panel.querySelector('.mp-room').textContent = room; connect(game, room, name(), panel); };
@@ -114,6 +114,10 @@
   const snakeTarget = document.querySelector('#snake .snakeIntro');
   if (pearlTarget) pearlTarget.before(makePanel('pearl'));
   if (snakeTarget) snakeTarget.before(makePanel('snake'));
+  for (const game of ['battle','kart','defense','survivors']) {
+    const target=document.querySelector('#'+game+' .expIntro');
+    if(target)target.before(makePanel(game));
+  }
   liveLeave.onclick=()=>disconnect();
   window.pearlMultiplayerActive = game => state.game === game && state.socket?.readyState === WebSocket.OPEN && !!state.id;
   window.pearlQuickPlay = game => {
@@ -121,23 +125,25 @@
     if (state.game === game && state.socket && (state.socket.readyState === WebSocket.CONNECTING || state.socket.readyState === WebSocket.OPEN)) {
       updateStatus('Connecting to the public arena...'); return false;
     }
-    const panel = game === 'snake' ? document.querySelector('#snake .mp-panel') : document.querySelector('#game .mp-panel');
+    const panel = document.querySelector('#'+(game==='pearl'?'game':game)+' .mp-panel');
     if (!panel) { updateStatus('Multiplayer interface is still loading', 'error'); return false; }
     const room = 'PUBLIC-1'; panel.querySelector('.mp-code').value = room; panel.querySelector('.mp-room').textContent = room;
-    const name = game === 'pearl' ? (document.getElementById('playerName')?.value || 'PearlConsumer') : (document.getElementById('snakeName')?.value || 'PearlRider');
+    const name = game === 'pearl' ? (document.getElementById('playerName')?.value || 'PearlConsumer') : game === 'snake' ? (document.getElementById('snakeName')?.value || 'PearlRider') : ('Tom '+Math.floor(100+Math.random()*900));
     connect(game, room, name, panel); return false;
   };
   window.pearlOpenMultiplayer = game => {
-    const target = game === 'snake' ? document.querySelector('#snake .mp-panel') : document.querySelector('#game .mp-panel');
+    const target = document.querySelector('#'+(game==='pearl'?'game':game)+' .mp-panel');
     target?.scrollIntoView({ behavior: 'smooth', block: 'center' }); target?.classList.add('setup');
     updateStatus('Create or join an online room before playing', 'error');
   };
   document.querySelectorAll('[data-tab],[data-tab-jump]').forEach(button => button.addEventListener('click', () => {
     const destination = button.dataset.tab || button.dataset.tabJump;
-    const requiredTab = state.game === 'snake' ? 'snake' : 'game';
+    const requiredTab = state.game === 'pearl' ? 'game' : state.game;
     if (state.socket && destination !== requiredTab) disconnect();
     if (destination === 'game') setTimeout(() => window.pearlQuickPlay('pearl'), 0);
     if (destination === 'snake') setTimeout(() => window.pearlQuickPlay('snake'), 0);
+    if (['battle','kart','defense','survivors'].includes(destination)) setTimeout(() => window.pearlQuickPlay(destination), 0);
   }));
   window.addEventListener('beforeunload', () => disconnect(true));
 })();
+
