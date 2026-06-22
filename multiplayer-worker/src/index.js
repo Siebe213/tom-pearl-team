@@ -1,4 +1,4 @@
-const MAX_MESSAGE_BYTES = 500_000;
+const MAX_MESSAGE_BYTES = 2_000_000;
 const MAX_PLAYERS = 24;
 const ROOM_RE = /^[A-Z0-9-]{3,16}$/;
 const SITE_ORIGIN = "https://siebe213.github.io/tom-pearl-team";
@@ -126,7 +126,7 @@ export class ArenaRoom {
       return;
     }
     if (data.type === "snapshot" && current.host) {
-      this.latestSnapshot = data.snapshot;
+      if (data.snapshot?.full) this.latestSnapshot = data.snapshot;
       this.broadcast({ type: "snapshot", snapshot: data.snapshot }, ws);
       return;
     }

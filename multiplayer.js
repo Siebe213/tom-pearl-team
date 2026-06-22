@@ -42,7 +42,7 @@
       if (!state.host) return;
       const snapshot = bridge(state.game)?.snapshot?.();
       if (snapshot) send({ type: 'snapshot', snapshot });
-    }, 66);
+    }, 100);
     state.inputTimer = setInterval(() => {
       if (state.host) return;
       const input = bridge(state.game)?.input?.();

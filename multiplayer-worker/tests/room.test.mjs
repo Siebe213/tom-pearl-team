@@ -32,8 +32,10 @@ assert.equal(host.messages.some(message => message.type === 'joined'), true);
 await room.webSocketMessage(guest, JSON.stringify({ type: 'input', input: { x: 10, y: 20 } }));
 assert.deepEqual(host.messages.at(-1), { type: 'input', id: 'guest-id', input: { x: 10, y: 20 } });
 
-await room.webSocketMessage(host, JSON.stringify({ type: 'snapshot', snapshot: { tick: 7 } }));
-assert.deepEqual(guest.messages.at(-1), { type: 'snapshot', snapshot: { tick: 7 } });
+await room.webSocketMessage(host, JSON.stringify({ type: 'snapshot', snapshot: { tick: 7, full: true } }));
+assert.deepEqual(guest.messages.at(-1), { type: 'snapshot', snapshot: { tick: 7, full: true } });
+await room.webSocketMessage(host, JSON.stringify({ type: 'snapshot', snapshot: { tick: 8, full: false } }));
+assert.deepEqual(room.latestSnapshot, { tick: 7, full: true });
 
 await room.webSocketClose(host);
 assert.equal(guest.deserializeAttachment().host, true);
