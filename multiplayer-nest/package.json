@@ -1,0 +1,13 @@
+{
+  "name": "tom-pearl-multiplayer-nest",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/room.test.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
