@@ -229,4 +229,3 @@ export class ArenaRoom {
     try { ws.close(1011, "Socket error"); } catch (_) {}
   }
 }
-

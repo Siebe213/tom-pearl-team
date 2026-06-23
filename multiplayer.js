@@ -42,16 +42,19 @@
 
   function startLoops() {
     clearInterval(state.snapshotTimer); clearInterval(state.inputTimer);
+    const snapshotMs = state.game === 'snake' ? 190 : state.game === 'pearl' ? 170 : 125;
+    let hiddenSkip = 0;
     state.snapshotTimer = setInterval(() => {
       if (!state.host) return;
+      if (document.hidden && (++hiddenSkip % 3)) return;
       const snapshot = bridge(state.game)?.snapshot?.();
       if (snapshot) send({ type: 'snapshot', snapshot });
-    }, 100);
+    }, snapshotMs);
     state.inputTimer = setInterval(() => {
       if (state.host) return;
       const input = bridge(state.game)?.input?.();
       if (input) send({ type: 'input', input });
-    }, 66);
+    }, 50);
   }
 
   function connect(game, room, name, panel) {
@@ -146,4 +149,3 @@
   }));
   window.addEventListener('beforeunload', () => disconnect(true));
 })();
-

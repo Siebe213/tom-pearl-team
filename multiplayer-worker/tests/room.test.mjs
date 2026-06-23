@@ -60,4 +60,3 @@ await expansionRoom.webSocketMessage(battleHost, JSON.stringify({ type: 'snapsho
 assert.equal(battleGuest.messages.at(-1).snapshot.actors[0].name, 'Tom');
 assert.equal(battleHost.closed, null);
 console.log('room relay, snapshots, input routing and host migration OK');
-
